@@ -15,7 +15,7 @@
     }
   ],
   "hosting": {
-    "public": "dist",
+    "public": "frontend",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -24,7 +24,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "/"
       }
     ]
   },
