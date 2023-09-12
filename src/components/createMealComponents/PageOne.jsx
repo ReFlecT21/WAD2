@@ -1,11 +1,11 @@
 import React from "react";
 import "./PageOne.css";
 
-const PageOne = ({ onButtonClick}) => {
+const PageOne = () => {     //{ onButtonClick }
 
   return (
     <>
-      <h1>This Is Page One</h1>
+      <h2>This Is Page One</h2>
     </>
   );
 };

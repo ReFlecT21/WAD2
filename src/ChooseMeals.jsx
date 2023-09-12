@@ -11,50 +11,74 @@ import PageThree from "./components/createMealComponents/PageThree";
 import PageFour from "./components/createMealComponents/PageFour";
 import StepProgressBar from './components/createMealComponents/StepProgressBar.jsx'
 
+
 export default function Choosemeals() {
   const [page, setPage] = useState('pageone')
 
-  const nextPage = (page) => {
-    setPage(page);
-  };
+  const page_mapping = {
+    pageone: <PageOne />,
+    // pageone: <PageOne onButtonClick={nextPage} />,
+    // pagetwo: <PageTwo onButtonClick={nextPage} />,
+    // pagethree: <PageThree onButtonClick={nextPage} />,
+    // pagefour: <PageFour />,
+  }
 
-  const nextPageNumber = (pageNumber) => {
-    switch (pageNumber) {
-      case "1":
-        setPage('pageone');
-        break;
-      case "2":
-        setPage('pagetwo');
-        break;
-      case "3":
-        setPage('pagethree');
-        break;
-      case "4":
-        alert("Ooops! Seems like you did not fill the form.");
-        break;
-      default:
-        setPage('1');
-    }
-  };
+  var currPage = page_mapping[page]
 
-  return (
+  return(
     <>
-      <div className="CreateMealPlan">
-        <Logo />
-        <StepProgressBar page={page} onPageNumberClick={nextPageNumber} />
-        {
-          {
-            pageone: <PageOne onButtonClick={nextPage} />,
-            pagetwo: <PageTwo onButtonClick={nextPage} />,
-            pagethree: <PageThree onButtonClick={nextPage} />,
-            pagefour: <PageFour />,
-          }[page]
-        }
-      </div>
-    </>
-  );
-}
+      <h1>This is Choose Meals</h1>
+      <StepProgressBar/>
+      <currPage />
 
-// export default Choosemeals
+      
+    </>
+  )
+}
+// export default function Choosemeals() {
+//   const [page, setPage] = useState('pageone')
+
+//   const nextPage = (page) => {
+//     setPage(page);
+//   };
+
+//   const nextPageNumber = (pageNumber) => {
+//     switch (pageNumber) {
+//       case "1":
+//         setPage('pageone');
+//         break;
+//       case "2":
+//         setPage('pagetwo');
+//         break;
+//       case "3":
+//         setPage('pagethree');
+//         break;
+//       case "4":
+//         alert("Ooops! Seems like you did not fill the form.");
+//         break;
+//       default:
+//         setPage('1');
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div className="CreateMealPlan">
+//         <Logo />
+//         <StepProgressBar page={page} onPageNumberClick={nextPageNumber} />
+//         {
+//           {
+//             pageone: <PageOne onButtonClick={nextPage} />,
+//             pagetwo: <PageTwo onButtonClick={nextPage} />,
+//             pagethree: <PageThree onButtonClick={nextPage} />,
+//             pagefour: <PageFour />,
+//           }[page]
+//         }
+//       </div>
+//     </>
+//   );
+// }
+
+// // export default Choosemeals
 
 
