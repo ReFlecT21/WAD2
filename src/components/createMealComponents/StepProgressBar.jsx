@@ -6,13 +6,13 @@ import { ProgressBar, Step } from "react-step-progress-bar";
 const StepProgressBar = ({ page, onPageNumberClick }) => {
   var stepPercentage = 0;
   
-  if (page === "pageone") {
+  if (page === 1) {
     stepPercentage = 16;
-  } else if (page === "pagetwo") {
+  } else if (page === 2) {
     stepPercentage = 49.5;
-  } else if (page === "pagethree") {
+  } else if (page === 3) {
     stepPercentage = 82.5;
-  } else if (page === "pagefour") {
+  } else if (page === 4) {
     stepPercentage = 100;
   } else {
     stepPercentage = 0;
@@ -25,7 +25,7 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("1")}
+            onClick={() => onPageNumberClick(1)}
           >
             {index + 1}
           </div>
@@ -35,7 +35,7 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("2")}
+            onClick={() => onPageNumberClick(2)}
           >
             {index + 1}
           </div>
@@ -45,7 +45,7 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("3")}
+            onClick={() => onPageNumberClick(3)}
           >
             {index + 1}
           </div>
@@ -55,7 +55,7 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
-            onClick={() => onPageNumberClick("4")}
+            onClick={() => onPageNumberClick(4)}
           >
             {index + 1}
           </div>
