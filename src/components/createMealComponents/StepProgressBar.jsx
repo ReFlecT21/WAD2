@@ -1,3 +1,4 @@
+import "./StepProgressBar.css"
 import React from "react";
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
@@ -20,14 +21,15 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
 
   return (
     <>
-    <ProgressBar percent={stepPercentage}>
+    <ProgressBar color="percentageBar" percent={stepPercentage}>
       <Step>
         {({ accomplished, index }) => (
           <div
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
             onClick={() => onPageNumberClick(1)}
           >
-            {index + 1}
+            {/* {index + 1} */}
+            Breakfast
           </div>
         )}
       </Step>
@@ -37,7 +39,8 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
             onClick={() => onPageNumberClick(2)}
           >
-            {index + 1}
+            {/* {index + 1} */}
+            Lunch
           </div>
         )}
       </Step>
@@ -47,7 +50,8 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
             onClick={() => onPageNumberClick(3)}
           >
-            {index + 1}
+            {/* {index + 1} */}
+            Dinner
           </div>
         )}
       </Step>
@@ -57,7 +61,8 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
             className={`indexedStep ${accomplished ? "accomplished" : null}`}
             onClick={() => onPageNumberClick(4)}
           >
-            {index + 1}
+            {/* {index + 1} */}
+            Finish
           </div>
         )}
       </Step>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./PageOne.css";
 
-import { Container, Row  } from 'react-bootstrap';
+import { Container, Row, Col  } from 'react-bootstrap';
 
 import StepProgressBar from './StepProgressBar';
 
@@ -9,9 +9,15 @@ const CreateMealPages = {
   1: async function (setPageNo){
     return (
       <>
-        <h2>This Is Page One</h2>
-        <h3>working on this now</h3>
+      <Container>
+        <Row>
+          <Col>
+            <h2>Pick Your Breakfast Items!</h2>
+            <h3>working on this now</h3>
+          </Col>
+        </Row>
         <button onClick={() => setPageNo(2)}>Next Page</button>
+      </Container>
       </>
     );
   },
@@ -59,8 +65,12 @@ export default function CreateMealContent() {
   return (
     <>
       <div>
+        <Container>
+          <Row >
+            <StepProgressBar page={activePage} onPageNumberClick={setActivePage} /> 
+          </Row>
 
-        <StepProgressBar page={activePage} onPageNumberClick={setActivePage} /> {/* Move the StepProgressBar here */}
+        </Container>
         {currPage}
       </div>
     </>
