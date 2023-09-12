@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ErrorBoundary
       FallbackComponent={Fallback}
     >
-      <Choosemeals />
+      {/* <Choosemeals /> */}
 
     </ErrorBoundary>
   </React.StrictMode>,
