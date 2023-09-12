@@ -3,7 +3,13 @@ import tick from "./tick.jpg";
 
 const PageFour = () => {
     return (
-      <div
+      <h1>This Is Page Four</h1>
+    );
+}
+
+export default PageFour;
+
+{/* <div
         className="mw5 bg-white pa2-ns mt5 dib"
         style={{ maxWidth: "30%", maxHeight:'30%' }}
       >
@@ -23,8 +29,4 @@ const PageFour = () => {
           type="submit"
           value="Launch Eden"
         />
-      </div>
-    );
-}
-
-export default PageFour;
+      </div> */}

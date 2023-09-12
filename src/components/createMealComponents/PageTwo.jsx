@@ -3,7 +3,13 @@ import "./PageTwo.css";
 
 const PageTwo = ({onButtonClick}) => {
     return (
-      <main
+      <h1>This Is Page Two</h1>
+    );
+}
+
+export default PageTwo;
+
+{/* <main
         className="pt5 black-80 center"
         style={{ maxWidth: "40%", maxHeight: "30%", margin: "auto" }}
       >
@@ -70,8 +76,4 @@ const PageTwo = ({onButtonClick}) => {
             />
           </div>
         </form>
-      </main>
-    );
-}
-
-export default PageTwo;
+      </main> */}

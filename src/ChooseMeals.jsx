@@ -11,8 +11,8 @@ import PageThree from "./components/createMealComponents/PageThree";
 import PageFour from "./components/createMealComponents/PageFour";
 import StepProgressBar from './components/createMealComponents/StepProgressBar.jsx'
 
-function ChooseMeals(props) {
-  const [page, setPage] = useState("pageone");
+export default function Choosemeals() {
+  const [page, setPage] = useState('pageone')
 
   const nextPage = (page) => {
     setPage(page);
@@ -21,38 +21,40 @@ function ChooseMeals(props) {
   const nextPageNumber = (pageNumber) => {
     switch (pageNumber) {
       case "1":
-        setPage("pageone");
+        setPage('pageone');
         break;
       case "2":
-        setPage("pagetwo");
+        setPage('pagetwo');
         break;
       case "3":
-        setPage("pagethree");
+        setPage('pagethree');
         break;
       case "4":
         alert("Ooops! Seems like you did not fill the form.");
         break;
       default:
-        setPage("1");
+        setPage('1');
     }
   };
 
   return (
-    <div className="App">
-      <Logo />
-      <StepProgressBar page={page} onPageNumberClick={nextPageNumber} />
-      {
+    <>
+      <div className="CreateMealPlan">
+        <Logo />
+        <StepProgressBar page={page} onPageNumberClick={nextPageNumber} />
         {
-          pageone: <PageOne onButtonClick={nextPage} />,
-          pagetwo: <PageTwo onButtonClick={nextPage} />,
-          pagethree: <PageThree onButtonClick={nextPage} />,
-          pagefour: <PageFour />,
-        }[page]
-      }
-    </div>
+          {
+            pageone: <PageOne onButtonClick={nextPage} />,
+            pagetwo: <PageTwo onButtonClick={nextPage} />,
+            pagethree: <PageThree onButtonClick={nextPage} />,
+            pagefour: <PageFour />,
+          }[page]
+        }
+      </div>
+    </>
   );
 }
 
-export default ChooseMeals
+// export default Choosemeals
 
 
