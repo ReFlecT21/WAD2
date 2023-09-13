@@ -8,10 +8,10 @@ import { Container, Row } from 'react-bootstrap'
 import Fallback from './fallback'
 import { ErrorBoundary } from 'react-error-boundary'
 
-import PageOne from "./components/createMealComponents/PageOne";
-import PageTwo from "./components/createMealComponents/PageTwo";
-import PageThree from "./components/createMealComponents/PageThree";
-import PageFour from "./components/createMealComponents/PageFour";
+// import PageOne from "./components/createMealComponents/PageOne";
+// import PageTwo from "./components/createMealComponents/PageTwo";
+// import PageThree from "./components/createMealComponents/PageThree";
+// import PageFour from "./components/createMealComponents/PageFour";
 import StepProgressBar from './components/createMealComponents/StepProgressBar.jsx'
 import CreateMealContent from './components/createMealComponents/CreateMealPlanContent';
 
