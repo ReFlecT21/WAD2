@@ -4,7 +4,7 @@ import "./login.css";
 
 const LoginComponent = () => {
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col className="backgroundLeft d-flex">
           <Image src="login.png" alt="" className="foodimg" />
