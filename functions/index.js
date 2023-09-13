@@ -28,7 +28,7 @@ const app = express();
 app.use(cors());
 
 app.get("/test", (req, res) => {
-  res.send("lets go ");
+  res.send("lets go suck my ass ");
 });
 
 exports.app = functions.https.onRequest(app);

@@ -21,7 +21,7 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
 
   return (
     <>
-    <ProgressBar color="percentageBar" percent={stepPercentage}>
+    <ProgressBar style={{backGroundColor:'#205E4B'}} percent={stepPercentage}>
       <Step>
         {({ accomplished, index }) => (
           <div

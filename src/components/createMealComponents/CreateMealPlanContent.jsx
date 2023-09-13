@@ -7,6 +7,8 @@ import StepProgressBar from './StepProgressBar';
 
 const CreateMealPages = {
   1: async function (setPageNo){
+    
+
     return (
       <>
       <Container>
@@ -15,8 +17,10 @@ const CreateMealPages = {
             <h2>Pick Your Breakfast Items!</h2>
             <h3>working on this now</h3>
           </Col>
+          <Col>
+            <button onClick={() => setPageNo(2)}>Next Page</button>
+          </Col>
         </Row>
-        <button onClick={() => setPageNo(2)}>Next Page</button>
       </Container>
       </>
     );
