@@ -17,6 +17,9 @@
 //   logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
+// import functions from "firebase-functions"
+// import express from "express";
+// import cors from "cors";
 const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
