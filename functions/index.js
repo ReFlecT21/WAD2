@@ -54,7 +54,6 @@ app.get("/getOne", async (req, res) => {
   res.json(data);
 });
 app.get("/search", async (req, res) => {
-  req.
   console.log("connected to backend");
   const data = await foodAPI.search("breakfast");
   console.log("api fetch completed");
