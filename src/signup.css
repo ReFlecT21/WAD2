@@ -93,27 +93,27 @@ a{
 }
 
 @media screen and (min-width: 1900px) {
-   .logo{
-    height:300px;
-    width:300px;
+    .logo{
+     height:300px;
+     width:300px;
+    }
+    h2{
+     font-size: 40px;
+    }
+    p{
+     font-size: 20px;
+    }
    }
-   h2{
-    font-size: 40px;
-   }
-   p{
-    font-size: 20px;
-   }
-  }
 @media screen and (min-width: 2400px) {
-   .logo{
-    height:400px;
-    width:400px;
+    .logo{
+     height:400px;
+     width:400px;
+    }
+    h2{
+     font-size: 50px;
+    }
+    p{
+     font-size: 30px;
+    }
    }
-   h2{
-    font-size: 50px;
-   }
-   p{
-    font-size: 30px;
-   }
-  }
-  
+   

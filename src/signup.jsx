@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-import "./login.css";
+import "./signup.css";
 import { Link } from "react-router-dom";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import { useAtom } from "jotai";
-import { LoggedIn } from "./atoms/logInAtom";
-const LoginComponent = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useAtom(LoggedIn);
-  const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
-      setLoggedIn(true);
-    } catch (e) {
-      console.log(password);
-      console.log(email);
-      console.log(e.message);
+import { useNavigate } from "react-router-dom";
+const SignUpComponent = () => {
+  let navigate = useNavigate();
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword1, setRegisterPassword1] = useState("");
+  const [registerPassword2, setRegisterPassword2] = useState("");
+  const register = async () => {
+    if (registerPassword1 !== registerPassword2) {
+      alert("Passwords dont match bro");
+    } else {
+      try {
+        const user = await createUserWithEmailAndPassword(
+          auth,
+          registerEmail,
+          registerPassword1
+        );
+        navigate("/");
+      } catch (e) {
+        console.log(e.message);
+      }
     }
   };
   return (
@@ -44,7 +49,7 @@ const LoginComponent = () => {
                 placeholder="Email"
                 className="inputBox"
                 id="text-input"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setRegisterEmail(e.target.value)}
               />
             </Row>
             <Row className="d-flex justify-content-center">
@@ -52,17 +57,25 @@ const LoginComponent = () => {
                 type="password"
                 placeholder="Password"
                 className="inputBox"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setRegisterPassword1(e.target.value)}
               />
             </Row>
             <Row className="d-flex justify-content-center">
-              <Button onClick={login} type="submit" className="loginButton">
-                LOGIN
+              <Form.Control
+                type="password"
+                placeholder="Re-enter Password"
+                className="inputBox"
+                onChange={(e) => setRegisterPassword2(e.target.value)}
+              />
+            </Row>
+            <Row className="d-flex justify-content-center">
+              <Button type="submit" className="loginButton" onClick={register}>
+                SIGNUP
               </Button>
             </Row>
             <Row className="d-flex justify-content-center">
               <p>
-                Do not have an account? <Link to="/signup">Sign up </Link>
+                Already have an account?<Link to="/"> Log in</Link>
               </p>
             </Row>
           </Row>
@@ -72,4 +85,4 @@ const LoginComponent = () => {
   );
 };
 
-export default LoginComponent;
+export default SignUpComponent;
