@@ -12,7 +12,11 @@ const CreateMealPages = {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      fetch('/foodAPI/testAPI')
+      fetch('/foodAPI/search', {
+        body:{
+          type:"breakfast",
+        }
+      })
         .then(res => res.json())
         .then(data => setData(data))
         .catch(error => console.log(error));
@@ -27,7 +31,7 @@ const CreateMealPages = {
       const [data, setData] = useState(null)
       CreateMealPages.getData()
         .then(res => setData(res))
-      // console.log(data)
+      console.log(data)
       return (
         <>
           <Container>

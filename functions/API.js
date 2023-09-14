@@ -25,8 +25,7 @@ const foodAPI = {
     }
   },
   search: async function(
-    type,
-    params = null,
+    params,
   ) {
     const url = `${this.APIRoot}recipes/complexSearch?addRecipeInformation=true&
     addRecipeNutrition=true&number=1`;
