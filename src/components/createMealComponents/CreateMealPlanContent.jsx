@@ -5,9 +5,16 @@ import { Container, Row, Col  } from 'react-bootstrap';
 import StepProgressBar from './StepProgressBar';
 import { fetcher } from '../../Fetcher';
 
+// const RenderPages = {
+//   render1: 
+// }
+
+
 const CreateMealPages = {
   1: async function (setPageNo){
 
+    let hasFetched = false;
+    
     function Renderpage() {
       const [data, setData] = useState(null)
       
@@ -15,11 +22,33 @@ const CreateMealPages = {
       //   tags:"breakfast"
       // })
       //   .then(res => setData(res))
-      fetcher("/foodAPI/search/?",{
-        type:"breakfast"
-      })
-        .then(res => setData(res))
-      console.log(data)
+
+      // fetcher("/foodAPI/search/?",{
+      //   type:"breakfast"
+      // })
+      //   .then(res => setData(res))
+      // console.log(data)
+      
+
+      if (!hasFetched) {
+        fetcher("/foodAPI/search/?",{
+          type:"breakfast"
+        })
+          .then(res => setData(res))
+        hasFetched = true;
+        console.log(data)
+      }
+      
+      
+      
+      // useEffect(() => {
+        //   fetcher("/foodAPI/search/?",{
+          //     type:"breakfast"
+          //   })
+          //     .then(res => setData(res))
+          // }, []) 
+          
+      
       return (
         <>
           <Container>
