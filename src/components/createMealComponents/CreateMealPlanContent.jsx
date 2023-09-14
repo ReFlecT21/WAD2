@@ -42,22 +42,6 @@ const CreateMealPages = {
         <Renderpage />
       </>
     );
-
-    // return (
-    //   <>
-    //   <Container>
-    //     <Row>
-    //       <Col>
-    //         <h2>Pick Your Breakfast Items!</h2>
-    //         <h3>working on this now</h3>
-    //       </Col>
-    //       <Col>
-    //         <button onClick={() => setPageNo(2)}>Next Page</button>
-    //       </Col>
-    //     </Row>
-    //   </Container>
-    //   </>
-    // );
   },
   2: async function (setPageNo){
     function Renderpage() {
