@@ -1,29 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import "./PageOne.css";
 
 import { Container, Row, Col  } from 'react-bootstrap';
 
 import StepProgressBar from './StepProgressBar';
 
-const CreateMealPages = {
-  1: async function (setPageNo){
-    
+// import { fetcher } from '../../Fetcher';
 
+const CreateMealPages = {
+  getData: async function getData(){
+
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+      fetch('/foodAPI/testAPI')
+        .then(res => res.json())
+        .then(data => setData(data))
+        .catch(error => console.log(error));
+    }, []);
+
+    return data
+  },
+
+  1: async function (setPageNo){
+
+    function Renderpage() {
+      const [data, setData] = useState(null)
+      CreateMealPages.getData()
+        .then(res => setData(res))
+      // console.log(data)
+      return (
+        <>
+          <Container>
+            <Row>
+              <Col>
+                <h2>Pick Your Breakfast Items!</h2>
+                <h3>working on this now</h3>
+              </Col>
+              <Col>
+                <button onClick={() => setPageNo(2)}>Next Page</button>
+
+              </Col>
+            </Row>
+          </Container>
+        </>
+      );
+    }
+  
     return (
       <>
-      <Container>
-        <Row>
-          <Col>
-            <h2>Pick Your Breakfast Items!</h2>
-            <h3>working on this now</h3>
-          </Col>
-          <Col>
-            <button onClick={() => setPageNo(2)}>Next Page</button>
-          </Col>
-        </Row>
-      </Container>
+        <Renderpage />
       </>
     );
+
+    // return (
+    //   <>
+    //   <Container>
+    //     <Row>
+    //       <Col>
+    //         <h2>Pick Your Breakfast Items!</h2>
+    //         <h3>working on this now</h3>
+    //       </Col>
+    //       <Col>
+    //         <button onClick={() => setPageNo(2)}>Next Page</button>
+    //       </Col>
+    //     </Row>
+    //   </Container>
+    //   </>
+    // );
   },
   2: async function (setPageNo){
     return (
