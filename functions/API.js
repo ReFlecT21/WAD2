@@ -7,8 +7,8 @@ const foodAPI = {
   //   },
   // },
   // apikey: "b379279f538a412dabf422f2f0b13eb7",
-  apikey: axios.defaults.headers['x-api-key'] = 
-  'b379279f538a412dabf422f2f0b13eb7',
+  apikey: axios.defaults.headers["x-api-key"] =
+  "b379279f538a412dabf422f2f0b13eb7",
   APIRoot: "https://api.spoonacular.com/",
   getOne: async function(
     id,
