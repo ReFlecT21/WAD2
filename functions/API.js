@@ -31,7 +31,19 @@ const foodAPI = {
     addRecipeNutrition=true&number=1`;
     try {
       const response = await axios.get(url, params);
-      console.log(response.data);
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  random: async function(
+    params,
+  ) {
+    const url = `${this.APIRoot}recipes/random?number=1`;
+    try {
+      const response = await axios.get(url, params);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.error(error);

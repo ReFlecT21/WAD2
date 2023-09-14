@@ -1,27 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export var fetcher = async (endpoint) => {
-    const [data, setData] = useState(null)
+export async function fetcher(endpoint, params){
+  const [data, setData] = useState(null);
 
-    try {
-      const response = await fetch(endpoint, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+  useEffect(() => {
+    fetch(endpoint + new URLSearchParams(params).toString()
+    )
+      .then(res => res.json())
+      .then(data => setData(data))
+      .catch(error => console.log(error));
+  }, []);
 
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-
-      const result = await response.json()
-      setData(result)
-      console.log(JSON.stringify(result, null, 4));
-
-    } catch (err) {
-      console.log(err.message);
-    };
-
-    return data
-  };
+  return data
+}
