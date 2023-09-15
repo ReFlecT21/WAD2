@@ -13,7 +13,7 @@ import { fetcher } from '../../Fetcher';
 const CreateMealPages = {
   1: async function (setPageNo){
 
-    let hasFetched = false;
+    // let hasFetched = false;
     
     function Renderpage() {
       const [data, setData] = useState(null)
@@ -23,21 +23,21 @@ const CreateMealPages = {
       // })
       //   .then(res => setData(res))
 
-      // fetcher("/foodAPI/search/?",{
-      //   type:"breakfast"
-      // })
-      //   .then(res => setData(res))
-      // console.log(data)
+      fetcher("/foodAPI/search/?",{
+        type:"breakfast"
+      })
+        .then(res => setData(res))
+      console.log(data)
       
 
-      if (!hasFetched) {
-        fetcher("/foodAPI/search/?",{
-          type:"breakfast"
-        })
-          .then(res => setData(res))
-        hasFetched = true;
-        console.log(data)
-      }
+      // if (!hasFetched) {
+      //   fetcher("/foodAPI/search/?",{
+      //     type:"breakfast"
+      //   })
+      //     .then(res => setData(res))
+      //   hasFetched = true;
+      //   console.log(data)
+      // }
       
       
       
