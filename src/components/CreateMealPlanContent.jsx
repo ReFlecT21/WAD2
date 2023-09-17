@@ -10,11 +10,27 @@ import { pageDataGetter } from './pageDataGetter';
 
 const CreateMealPages = {
   1: async function (setPageNo, hasFetched, data, setApiData){
+    
+    function Renderpage() {
 
-    async function Renderpage() {
+      let CardData = [];
       
       if (!hasFetched){
-        data = await pageDataGetter("breakfast")
+        // pageDataGetter("breakfast")
+        pageDataGetter("breakfast").then(res => data = res["results"])
+        // pageDataGetter("breakfast").then(res => console.log(res))
+
+        // data
+        //   .then(res => {
+        //   setApiData(prevApiData => ({
+        //       ...prevApiData,
+        //       [1]: {
+        //         hasFetched: true,
+        //         data: res
+        //       }
+        //     }));
+        //   })
+        // data = getdata("breakfast")
 
         setApiData(prevApiData => ({
           ...prevApiData,
@@ -23,10 +39,29 @@ const CreateMealPages = {
             data: data
           }
         }));
+
       }
-    
       console.log(data)
 
+      if (data !== null){
+        data.forEach(recipe=>{
+          CardData.push(
+            <Col key= {recipe["id"]}>
+              <Card>
+                <Card.Img variant="top" src={recipe["image"]} />
+                <Card.Body>
+                  <Card.Title>{recipe["title"]}</Card.Title>
+                  <Card.Text>
+                    <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div>
+                    {/* {recipe["summary"]} */}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          )
+        })
+      }
+      
 
       return (
         <>
@@ -42,19 +77,10 @@ const CreateMealPages = {
             </Row>
 
             <Row xs={1} md={2} className="g-4">
-              {data.map(recipe=>{
-                <Col key= {recipe.id}>
-                  <Card>
-                    <Card.Img variant="top" src={recipe.image} />
-                    <Card.Body>
-                      <Card.Title>{recipe.title}</Card.Title>
-                      <Card.Text>
-                        {recipe.summary}
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              })}
+              {CardData.length > 0
+                ? CardData
+                :<p>Loading</p>
+              }
             </Row>
           </Container>
         </>
@@ -71,7 +97,7 @@ const CreateMealPages = {
     function Renderpage() {
       const [data, setData] = useState(null)
       
-      fetcher("/foodAPI/random/?",{
+      fetcher("/foodAPI/search/?",{
         tags:"lunch, side dish"
       })
         .then(res => setData(res))
