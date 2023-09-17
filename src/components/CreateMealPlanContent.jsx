@@ -9,15 +9,126 @@ import { pageDataGetter } from './pageDataGetter';
 
 
 const CreateMealPages = {
-  1: async function (setPageNo, hasFetched, data, setApiData){
+  1: async function (setPageNo, hasFetched, data, setApiData, setSelected){
     
     function Renderpage() {
 
       let CardData = [];
       
       if (!hasFetched){
+        // console.log(pageDataGetter("breakfast"))
+        const [response, setResponse] = useState(null)
+
+        pageDataGetter("breakfast", setResponse)
+          // .then(res => {
+          //   response = res["results"]
+          //   })
+        // pageDataGetter("breakfast").then(res => console.log(res))
+
+        setApiData(prevApiData => ({
+          ...prevApiData,
+          1: {
+            hasFetched: true,
+            data: response
+          }
+        }))
+
+        data = response
+
+        // data
+        //   .then(res => {
+        //   setApiData(prevApiData => ({
+        //       ...prevApiData,
+        //       [1]: {
+        //         hasFetched: true,
+        //         data: res
+        //       }
+        //     }));
+        //   })
+        // data = getdata("breakfast")
+        
+      }
+      // console.log("before")
+      // console.log(apiData)
+      // setApiData(prevApiData => ({
+      //   ...prevApiData,
+      //   1: {
+      //     hasFetched: true,
+      //     data: data
+      //   }
+      // }));
+
+      console.log(data)
+      // console.log("after")
+      // console.log(apiData)
+
+      if (data !== null){
+        data.forEach(recipe=>{
+          CardData.push(
+            <Col key= {recipe["id"]}>
+              <Card > 
+                <Card.Img variant="top" src={recipe["image"]} />
+                <Card.Body>
+                  <Card.Title>{recipe["title"]}</Card.Title>
+                  <Card.Text>
+                    <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div>
+                  </Card.Text>
+                  <Row>
+                    <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col>
+                    <Col><Button onClick={()=>setSelected(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button></Col>
+                  </Row>
+                  {/* <Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button>
+                  <Button onClick={()=>setSelected(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button> */}
+                </Card.Body>
+              </Card>
+            </Col>
+          )
+        })
+      }
+
+      
+      
+
+      return (
+        <>
+          <Container>
+            <Row className={'d-flex justify-content-between'}>
+              <Col>
+                <h2>Pick Your Breakfast Items!</h2>
+                <h3>working on this now</h3>
+              </Col>
+              <Col>
+                <Button onClick={() => setPageNo(2)}>Next Page</Button>
+              </Col>
+            </Row>
+
+            <Row xs={1} md={3} className="g-4">
+              {CardData.length > 0
+                ? CardData
+                :<p>Loading</p>
+              }
+            </Row>
+          </Container>
+        </>
+      );
+    }
+  
+    return (
+      <>
+        <Renderpage />
+      </>
+    );
+  },
+
+
+  2: async function (setPageNo, hasFetched, data, setApiData){
+    function Renderpage() {
+
+      let CardData = [];
+      
+      if (!hasFetched){
         // pageDataGetter("breakfast")
-        pageDataGetter("breakfast").then(res => data = res["results"])
+        pageDataGetter("brunch").then(res => data = res["results"])
         // pageDataGetter("breakfast").then(res => console.log(res))
 
         // data
@@ -34,7 +145,90 @@ const CreateMealPages = {
 
         setApiData(prevApiData => ({
           ...prevApiData,
-          [1]: {
+          2: {
+            hasFetched: true,
+            data: data
+          }
+        }));
+
+      }
+      console.log(data)
+
+      if (data !== null){
+        data.forEach(recipe=>{
+          CardData.push(
+            <Col key= {recipe["id"]}>
+              <Card>
+                <Card.Img variant="top" src={recipe["image"]} />
+                <Card.Body>
+                  <Card.Title>{recipe["title"]}</Card.Title>
+                  <Card.Text>
+                    <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div>
+                    {/* {recipe["summary"]} */}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          )
+        })
+      }
+
+
+      return (
+        <>
+          <Container>
+            <Row>
+              <Col>
+                <h2>Pick Your Lunch Items!</h2>
+                <h3>working on this now</h3>
+              </Col>
+              <Col>
+                <Button onClick={() => setPageNo(3)}>Next Page</Button>
+              </Col>
+            </Row>
+            <Row xs={1} md={3} className="g-4">
+              {CardData.length > 0
+                ? CardData
+                :<p>Loading</p>
+              }
+            </Row>
+          </Container>
+        </>
+      );
+    }
+  
+    return (
+      <>
+        <Renderpage />
+      </>
+    );
+  },
+
+  3: async function (setPageNo, hasFetched, data, setApiData){
+    function Renderpage() {
+
+      let CardData = [];
+      
+      if (!hasFetched){
+        // pageDataGetter("breakfast")
+        pageDataGetter("dinner, main course, side dish").then(res => data = res["results"])
+        // pageDataGetter("breakfast").then(res => console.log(res))
+
+        // data
+        //   .then(res => {
+        //   setApiData(prevApiData => ({
+        //       ...prevApiData,
+        //       [1]: {
+        //         hasFetched: true,
+        //         data: res
+        //       }
+        //     }));
+        //   })
+        // data = getdata("breakfast")
+
+        setApiData(prevApiData => ({
+          ...prevApiData,
+          3: {
             hasFetched: true,
             data: data
           }
@@ -68,15 +262,15 @@ const CreateMealPages = {
           <Container>
             <Row>
               <Col>
-                <h2>Pick Your Breakfast Items!</h2>
+                <h2>Pick Your Dinner Items!</h2>
                 <h3>working on this now</h3>
               </Col>
               <Col>
-                <button onClick={() => setPageNo(2)}>Next Page</button>
+                <Button onClick={() => setPageNo(2)}>Next Page</Button>
               </Col>
             </Row>
 
-            <Row xs={1} md={2} className="g-4">
+            <Row xs={1} md={3} className="g-4">
               {CardData.length > 0
                 ? CardData
                 :<p>Loading</p>
@@ -93,51 +287,12 @@ const CreateMealPages = {
       </>
     );
   },
-  2: async function (setPageNo){
-    function Renderpage() {
-      const [data, setData] = useState(null)
-      
-      fetcher("/foodAPI/search/?",{
-        tags:"lunch, side dish"
-      })
-        .then(res => setData(res))
-      console.log(data)
-      return (
-        <>
-          <Container>
-            <Row>
-              <Col>
-                <h2>Pick Your Lunch Items!</h2>
-                <h3>working on this now</h3>
-              </Col>
-              <Col>
-                <button onClick={() => setPageNo(3)}>Next Page</button>
-              </Col>
-            </Row>
-          </Container>
-        </>
-      );
-    }
-  
-    return (
-      <>
-        <Renderpage />
-      </>
-    );
-  },
-  3: async function (setPageNo){
-    return (
-      <>
-        <h2>This Is Page Three</h2>
-        <button onClick={() => setPageNo(4)}>Next Page</button>
-      </>
-    );
-  },
+
   4: async function (setPageNo){
     return (
       <>
         <h2>This Is Page Four</h2>
-        <button onClick={() => setPageNo(1)}>Next Page</button>
+        <Button onClick={() => setPageNo(1)}>Next Page</Button>
       </>
     );
   },
@@ -148,6 +303,7 @@ const CreateMealPages = {
 export default function CreateMealContent() {
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
+  const [selected, setSelected] = useState([])
   const [apiData, setApiData] = useState(
     {
       1: {
@@ -177,6 +333,7 @@ export default function CreateMealContent() {
         apiData[activePage].hasFetched,
         apiData[activePage].data,
         setApiData,
+        setSelected,
         );
       setCurrPage(pageData);
     }
