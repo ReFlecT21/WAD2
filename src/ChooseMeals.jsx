@@ -12,8 +12,8 @@ import { ErrorBoundary } from 'react-error-boundary'
 // import PageTwo from "./components/createMealComponents/PageTwo";
 // import PageThree from "./components/createMealComponents/PageThree";
 // import PageFour from "./components/createMealComponents/PageFour";
-import StepProgressBar from './components/createMealComponents/StepProgressBar.jsx'
-import CreateMealContent from './components/createMealComponents/CreateMealPlanContent';
+import StepProgressBar from './components/StepProgressBar.jsx'
+import CreateMealContent from './components/CreateMealPlanContent';
 
 export default function Choosemeals() {
 

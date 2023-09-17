@@ -3,74 +3,31 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button, Container, Row, Col  } from 'react-bootstrap';
 
 import StepProgressBar from './StepProgressBar';
-import { fetcher } from '../../Fetcher';
+import { fetcher } from '../Fetcher';
+import { pageDataGetter } from './pageDataGetter';
 
-// const RenderPages = {
-//   render1: 
-// }
 
 
 const CreateMealPages = {
   1: async function (setPageNo, hasFetched, data, setApiData){
 
-
-    function dataSetter(){
-      const [data, setData] = useState(null)
-
-      fetcher("/foodAPI/search/?",{
-        type:"breakfast"
-      })
-        .then(res => setData(res))
-
-      setApiData = setApiData({
-        1:{
-          hasFetched: true,
-          data: data
-        }
-      })
-      console.log(data)
-
-      return data
-
-    }
-
-    function Renderpage() {
+    async function Renderpage() {
       
       if (!hasFetched){
-        dataSetter()
+        data = await pageDataGetter("breakfast")
+
+        setApiData(prevApiData => ({
+          ...prevApiData,
+          [1]: {
+            hasFetched: true,
+            data: data
+          }
+        }));
       }
-      
-      // fetcher("/foodAPI/random/?",{
-      //   tags:"breakfast"
-      // })
-      //   .then(res => setData(res))
-
-      // fetcher("/foodAPI/search/?",{
-      //   type:"breakfast"
-      // })
-      //   .then(res => setData(res))
-      // console.log(data)
     
-
-      // if (!hasFetched) {
-      //   fetcher("/foodAPI/search/?",{
-      //     type:"breakfast"
-      //   })
-      //     .then(res => setData(res))
-      //   hasFetched = true;
-      //   console.log(data)
-      // }
-      
-      
-      
-      // useEffect(() => {
-        //   fetcher("/foodAPI/search/?",{
-          //     type:"breakfast"
-          //   })
-          //     .then(res => setData(res))
-          // }, []) 
       console.log(data)
-      
+
+
       return (
         <>
           <Container>
@@ -83,16 +40,21 @@ const CreateMealPages = {
                 <button onClick={() => setPageNo(2)}>Next Page</button>
               </Col>
             </Row>
-            <Row>
-              <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="https://spoonacular.com/recipeImages/782585-312x231.jpg" />
-                <Card.Body>
-                  <Card.Title>Title</Card.Title>
-                  <Card.Text>description</Card.Text>
-                  <Button href="" target="_blank" rel="noopener noreferrer">See Recipe</Button>
-                  <Button onClick="">Add to Array</Button>
-                </Card.Body>
-              </Card>
+
+            <Row xs={1} md={2} className="g-4">
+              {data.map(recipe=>{
+                <Col key= {recipe.id}>
+                  <Card>
+                    <Card.Img variant="top" src={recipe.image} />
+                    <Card.Body>
+                      <Card.Title>{recipe.title}</Card.Title>
+                      <Card.Text>
+                        {recipe.summary}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              })}
             </Row>
           </Container>
         </>

@@ -28,7 +28,7 @@ const foodAPI = {
     params,
   ) {
     const url = `${this.APIRoot}recipes/complexSearch?addRecipeInformation=true&
-    addRecipeNutrition=true&number=1`;
+    addRecipeNutrition=true&number=3`;
     try {
       const response = await axios.get(url, params);
       // console.log(response.data);
@@ -40,7 +40,7 @@ const foodAPI = {
   random: async function(
     params,
   ) {
-    const url = `${this.APIRoot}recipes/random?number=1`;
+    const url = `${this.APIRoot}recipes/random?number=3`;
     try {
       const response = await axios.get(url, params);
       // console.log(response.data);
