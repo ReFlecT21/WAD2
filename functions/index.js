@@ -69,5 +69,13 @@ app.get("/random", async (req, res) => {
   console.log("api fetch completed");
   res.json(data);
 });
+app.get("/getBulk", async (req, res) => {
+  console.log("connected to backend");
+  const data = await foodAPI.getBulk({
+    params: req.query,
+  });
+  console.log("api fetch completed");
+  res.json(data);
+});
 
 exports.app = functions.https.onRequest(app);

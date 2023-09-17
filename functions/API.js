@@ -49,6 +49,18 @@ const foodAPI = {
       console.error(error);
     }
   },
+  getBulk: async function(
+    params,
+  ) {
+    const url = `${this.APIRoot}recipes/informationBulk`;
+    try {
+      const response = await axios.get(url, params);
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 module.exports = foodAPI;
