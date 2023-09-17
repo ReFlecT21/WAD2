@@ -16,14 +16,10 @@ const CreateMealPages = {
       let CardData = [];
       
       if (!hasFetched){
-        // console.log(pageDataGetter("breakfast"))
+
         const [response, setResponse] = useState(null)
 
         pageDataGetter("breakfast", setResponse)
-          // .then(res => {
-          //   response = res["results"]
-          //   })
-        // pageDataGetter("breakfast").then(res => console.log(res))
 
         setApiData(prevApiData => ({
           ...prevApiData,
@@ -34,33 +30,10 @@ const CreateMealPages = {
         }))
 
         data = response
-
-        // data
-        //   .then(res => {
-        //   setApiData(prevApiData => ({
-        //       ...prevApiData,
-        //       [1]: {
-        //         hasFetched: true,
-        //         data: res
-        //       }
-        //     }));
-        //   })
-        // data = getdata("breakfast")
         
       }
-      // console.log("before")
-      // console.log(apiData)
-      // setApiData(prevApiData => ({
-      //   ...prevApiData,
-      //   1: {
-      //     hasFetched: true,
-      //     data: data
-      //   }
-      // }));
 
       console.log(data)
-      // console.log("after")
-      // console.log(apiData)
 
       if (data !== null){
         data.forEach(recipe=>{
@@ -121,37 +94,29 @@ const CreateMealPages = {
   },
 
 
-  2: async function (setPageNo, hasFetched, data, setApiData){
+  2: async function (setPageNo, hasFetched, data, setApiData, setSelected){
     function Renderpage() {
 
       let CardData = [];
       
       if (!hasFetched){
-        // pageDataGetter("breakfast")
-        pageDataGetter("brunch").then(res => data = res["results"])
-        // pageDataGetter("breakfast").then(res => console.log(res))
 
-        // data
-        //   .then(res => {
-        //   setApiData(prevApiData => ({
-        //       ...prevApiData,
-        //       [1]: {
-        //         hasFetched: true,
-        //         data: res
-        //       }
-        //     }));
-        //   })
-        // data = getdata("breakfast")
+        const [response, setResponse] = useState(null)
+
+        pageDataGetter("breakfast", setResponse)
 
         setApiData(prevApiData => ({
           ...prevApiData,
           2: {
             hasFetched: true,
-            data: data
+            data: response
           }
-        }));
+        }))
 
+        data = response
+        
       }
+
       console.log(data)
 
       if (data !== null){
@@ -166,6 +131,10 @@ const CreateMealPages = {
                     <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div>
                     {/* {recipe["summary"]} */}
                   </Card.Text>
+                  <Row>
+                    <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col>
+                    <Col><Button onClick={()=>setSelected(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button></Col>
+                  </Row>
                 </Card.Body>
               </Card>
             </Col>
@@ -204,37 +173,29 @@ const CreateMealPages = {
     );
   },
 
-  3: async function (setPageNo, hasFetched, data, setApiData){
+  3: async function (setPageNo, hasFetched, data, setApiData, setSelected){
     function Renderpage() {
 
       let CardData = [];
       
       if (!hasFetched){
-        // pageDataGetter("breakfast")
-        pageDataGetter("dinner, main course, side dish").then(res => data = res["results"])
-        // pageDataGetter("breakfast").then(res => console.log(res))
 
-        // data
-        //   .then(res => {
-        //   setApiData(prevApiData => ({
-        //       ...prevApiData,
-        //       [1]: {
-        //         hasFetched: true,
-        //         data: res
-        //       }
-        //     }));
-        //   })
-        // data = getdata("breakfast")
+        const [response, setResponse] = useState(null)
+
+        pageDataGetter("breakfast", setResponse)
 
         setApiData(prevApiData => ({
           ...prevApiData,
           3: {
             hasFetched: true,
-            data: data
+            data: response
           }
-        }));
+        }))
 
+        data = response
+        
       }
+
       console.log(data)
 
       if (data !== null){
@@ -249,6 +210,10 @@ const CreateMealPages = {
                     <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div>
                     {/* {recipe["summary"]} */}
                   </Card.Text>
+                  <Row>
+                    <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col>
+                    <Col><Button onClick={()=>setSelected(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button></Col>
+                  </Row>
                 </Card.Body>
               </Card>
             </Col>
@@ -288,7 +253,7 @@ const CreateMealPages = {
     );
   },
 
-  4: async function (setPageNo){
+  4: async function (setPageNo, hasFetched, data, setApiData, setSelected){
     return (
       <>
         <h2>This Is Page Four</h2>

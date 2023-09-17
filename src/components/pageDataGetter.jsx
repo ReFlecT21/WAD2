@@ -4,7 +4,6 @@ import { fetcher } from "../Fetcher"
 export async function pageDataGetter(type, setter){
   // mealType = "breakfast", "lunch, main course"
   
-  const [data, setData] = useState(null)
       
   fetcher(
     "/foodAPI/search/?",
