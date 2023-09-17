@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Row, Col  } from 'react-bootstrap';
+import { Card, Button, Container, Row, Col  } from 'react-bootstrap';
 
 import StepProgressBar from './StepProgressBar';
 import { fetcher } from '../../Fetcher';
@@ -11,24 +11,46 @@ import { fetcher } from '../../Fetcher';
 
 
 const CreateMealPages = {
-  1: async function (setPageNo){
+  1: async function (setPageNo, hasFetched, data, setApiData){
 
-    // let hasFetched = false;
-    
-    function Renderpage() {
+
+    function dataSetter(){
       const [data, setData] = useState(null)
+
+      fetcher("/foodAPI/search/?",{
+        type:"breakfast"
+      })
+        .then(res => setData(res))
+
+      setApiData = setApiData({
+        1:{
+          hasFetched: true,
+          data: data
+        }
+      })
+      console.log(data)
+
+      return data
+
+    }
+
+    function Renderpage() {
+      
+      if (!hasFetched){
+        dataSetter()
+      }
       
       // fetcher("/foodAPI/random/?",{
       //   tags:"breakfast"
       // })
       //   .then(res => setData(res))
 
-      fetcher("/foodAPI/search/?",{
-        type:"breakfast"
-      })
-        .then(res => setData(res))
-      console.log(data)
-      
+      // fetcher("/foodAPI/search/?",{
+      //   type:"breakfast"
+      // })
+      //   .then(res => setData(res))
+      // console.log(data)
+    
 
       // if (!hasFetched) {
       //   fetcher("/foodAPI/search/?",{
@@ -47,7 +69,7 @@ const CreateMealPages = {
           //   })
           //     .then(res => setData(res))
           // }, []) 
-          
+      console.log(data)
       
       return (
         <>
@@ -60,6 +82,17 @@ const CreateMealPages = {
               <Col>
                 <button onClick={() => setPageNo(2)}>Next Page</button>
               </Col>
+            </Row>
+            <Row>
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src="https://spoonacular.com/recipeImages/782585-312x231.jpg" />
+                <Card.Body>
+                  <Card.Title>Title</Card.Title>
+                  <Card.Text>description</Card.Text>
+                  <Button href="" target="_blank" rel="noopener noreferrer">See Recipe</Button>
+                  <Button onClick="">Add to Array</Button>
+                </Card.Body>
+              </Card>
             </Row>
           </Container>
         </>
@@ -127,16 +160,42 @@ const CreateMealPages = {
 export default function CreateMealContent() {
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
+  const [apiData, setApiData] = useState(
+    {
+      1: {
+      hasFetched: false,
+      data: null
+      },
+      2: {
+      hasFetched: false,
+      data: null
+      },
+      3: {
+      hasFetched: false,
+      data: null
+      },
+      4: {
+      hasFetched: false,
+      data: null
+      },
+
+    }
+  );
 
   useEffect(() => {
     async function fetchPageData() {
-      const pageData = await CreateMealPages[activePage](setActivePage);
+      const pageData = await CreateMealPages[activePage](
+        setActivePage, 
+        apiData[activePage].hasFetched,
+        apiData[activePage].data,
+        setApiData,
+        );
       setCurrPage(pageData);
     }
 
     fetchPageData();
   }, [activePage]);
-
+  
   return (
     <>
       <div>
