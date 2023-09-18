@@ -1,0 +1,92 @@
+/* .signup-page {
+    background-color: #f6fefc;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .signup-page .overlap-group-wrapper {
+    background-color: #f6fefc;
+    height: 832px;
+    overflow: hidden;
+    width: 1280px;
+  }
+  
+  .signup-page .overlap-group {
+    height: 832px;
+    left: -17px;
+    position: relative;
+    width: 1297px;
+  }
+  
+  .signup-page .rectangle {
+    background-color: #d9d9d9;
+    border: 1px solid;
+    border-color: #000000;
+    height: 830px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    width: 740px;
+  }
+  
+  .signup-page .image {
+    height: 832px;
+    left: 17px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 790px;
+  }
+  
+  .signup-page .img {
+    height: 832px;
+    left: 759px;
+    position: absolute;
+    top: 0;
+    width: 538px;
+  }
+  
+  .signup-page .vector {
+    height: 832px;
+    left: 616px;
+    position: absolute;
+    top: 0;
+    width: 200px;
+  }
+  
+  .signup-page .text-wrapper {
+    color: #fdfdfd;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 32px;
+    font-weight: 700;
+    height: 68px;
+    left: 905px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 207px;
+    width: 230px;
+  }
+  
+  .signup-page .untitled-artwork {
+    height: 156px;
+    left: 940px;
+    object-fit: cover;
+    position: absolute;
+    top: 73px;
+    width: 156px;
+  }
+   */
+
+
+/* styles.css */
+.full-width-col {
+  background-color: darkgreen;
+  color: white; /* Optionally, change text color to white */
+  width: 100%;
+  padding: 15px; /* Adjust padding as needed */
+  box-sizing: border-box;
+}
