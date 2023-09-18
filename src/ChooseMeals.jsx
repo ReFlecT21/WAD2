@@ -14,11 +14,13 @@ import { ErrorBoundary } from 'react-error-boundary'
 // import PageFour from "./components/createMealComponents/PageFour";
 // import StepProgressBar from './components/StepProgressBar.jsx'
 import CreateMealContent from './components/CreateMealPlanContent';
+import NavBar from './NavBar'
 
 export default function Choosemeals() {
 
   return(
     <>
+      <NavBar />
       <h1 style={{textAlign:'center'}}>This is Choose Meals</h1>
       <ErrorBoundary
         FallbackComponent={Fallback}

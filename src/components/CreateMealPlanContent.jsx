@@ -7,6 +7,7 @@ import { fetcher } from '../Fetcher';
 import { pageDataGetter } from './pageDataGetter';
 
 import "./CreateMealPlanContent.css";
+import NavBar from '../NavBar';
 
 
 
