@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-import "./signup.css";
+
+// import "./signup.css";
+// import "./index.css";
+
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+
 const SignUpComponent = () => {
   let navigate = useNavigate();
   const [registerEmail, setRegisterEmail] = useState("");
@@ -74,7 +78,7 @@ const SignUpComponent = () => {
               </Button>
             </Row>
             <Row className="d-flex justify-content-center">
-              <p>
+              <p style={{marginTop:"60px", paddingTop:"40px"}}>
                 Already have an account?<Link to="/"> Log in</Link>
               </p>
             </Row>

@@ -9,6 +9,7 @@ export function RecpieCard({recipe, setter = null}) {
             <Card.Body>
               <Row>
                 <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col>
+                <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col>
                 <Col><Button onClick={()=>setter(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button></Col>
               </Row>
               <p></p>

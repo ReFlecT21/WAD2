@@ -6,7 +6,7 @@ import StepProgressBar from './StepProgressBar';
 import { fetcher } from '../Fetcher';
 import { pageDataGetter } from './pageDataGetter';
 
-import "./CreateMealPlanContent.css";
+// import "./CreateMealPlanContent.css";
 import {FinaliseRecipeCard, RecpieCard} from './RecipeCard';
 import NavBar from '../NavBar';
 
@@ -63,7 +63,7 @@ const CreateMealPages = {
               </Col>
             </Row>
 
-            <Row xs={1} md={3} className="g-4">
+            <Row xs={1} md={3} >
               {CardData.length > 0
                 ? CardData
                 :<p>Loading</p>
