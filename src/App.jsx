@@ -41,8 +41,8 @@ function App() {
           <Routes>
             {user && loggedIn ? (
               <Route path="/" element={<HomePage />} />
-            ) : (
-              <>
+              ) : (
+                <>
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
                 <Route path="/choose" element={<Choosemeals />} />
