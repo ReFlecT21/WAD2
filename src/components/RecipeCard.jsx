@@ -1,43 +1,57 @@
 import { Card, Button, Col, Row } from "react-bootstrap";
 
-function FoodItem({ imageSrc, title, description, recipeUrl, onAdd }) {
+export function RecpieCard({recipe, setter = null}) {
     return (
-      <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={imageSrc} />
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>{description}</Card.Text>
-          <Button href={recipeUrl} target="_blank" rel="noopener noreferrer">See Recipe</Button>
-          <Button onClick={onAdd}>Add to Array</Button>
-        </Card.Body>
-      </Card>
+      <Col key= {recipe["id"]}>
+        <Card > 
+          <Card.Img variant="top" src={recipe["image"]} className='img-overlay' />
+          <Card.ImgOverlay>
+            <Card.Body>
+              <Row>
+                <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col>
+                <Col><Button onClick={()=>setter(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button></Col>
+              </Row>
+              <p></p>
+              <p></p>
+              <Card.Title>{recipe["title"]}</Card.Title>
+              <Card.Text>
+                {/* <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div> */}
+              </Card.Text>
+              {/* <Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button>
+              <Button onClick={()=>setSelected(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button> */}
+            </Card.Body>
+          </Card.ImgOverlay>
+
+        </Card>
+      </Col>
     );
 }
 
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-
-function GridExample() {
+export function FinaliseRecipeCard ({recipe}){
   return (
-    <Row xs={1} md={2} className="g-4">
-      {Array.from({ length: 4 }).map((_, idx) => (
-        <Col key={idx}>
-          <Card>
-            <Card.Img variant="top" src="holder.js/100px160" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-              <Card.Text>
-                This is a longer card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+    <Col key= {recipe["id"]}>
+      <Card > 
+        <Card.Img variant="top" src={recipe["image"]} className='img-overlay' />
+        <Card.ImgOverlay>
+          <Card.Body>
+            <Row>
+              <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col>
+              {/* <Col><Button onClick={()=>setter(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button></Col> */}
+            </Row>
+            <p></p>
+            <p></p>
+            <Card.Title>{recipe["title"]}</Card.Title>
+            <Card.Text>
+              {/* <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div> */}
+            </Card.Text>
+            {/* <Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button>
+            <Button onClick={()=>setSelected(oldArray => [...oldArray, recipe["id"]])}>Add to Array</Button> */}
+          </Card.Body>
+        </Card.ImgOverlay>
+
+      </Card>
+    </Col>
   );
 }
 
-export default GridExample;
+// export default RecpieCard;
