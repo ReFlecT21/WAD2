@@ -49,7 +49,9 @@ app.get("/test", (req, res) => {
 // implementation of food API
 app.get("/getOne", async (req, res) => {
   console.log("connected to backend");
-  const data = await foodAPI.getOne("716429");
+  const data = await foodAPI.getOne({
+    params: req.query,
+  });
   console.log("api fetch completed");
   res.json(data);
 });
@@ -78,7 +80,7 @@ app.get("/getBulk", async (req, res) => {
   res.json(data);
 });
 app.get("/manualSearch", async (req, res) => {
-  
+
   fetch("https://www.nutritionix.com/track-api/v2/natural/nutrients", {
   "headers": {
     "accept": "application/json, text/plain, */*",

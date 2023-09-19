@@ -52,7 +52,7 @@ const foodAPI = {
   getBulk: async function(
     params,
   ) {
-    const url = `${this.APIRoot}recipes/informationBulk`;
+    const url = `${this.APIRoot}recipes/informationBulk?includeNutrition=true`;
     try {
       const response = await axios.get(url, params);
       // console.log(response.data);

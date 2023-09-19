@@ -9,11 +9,19 @@ import { pageDataGetter } from './pageDataGetter';
 // import "./CreateMealPlanContent.css";
 import {FinaliseRecipeCard, RecpieCard} from './RecipeCard';
 import NavBar from '../NavBar';
+import { useAtom } from 'jotai';
+import { RecipeOverlay } from '../atoms/recipeOverlay';
 
+// const [recipeOverlayTrigger, setRecipeOverlayTrigger] = useState(false)
+// const [overlayData, setOverlayData] = useState([])
+
+// if (recipeOverlayTrigger != false){
+//   setOverlayData(oldArray => [...oldArray, <RecipeDetails id={recipe["id"]}/>])
+// }
 
 
 const CreateMealPages = {
-  1: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected){
+  1: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected, setOverlayData){
     
     function Renderpage() {
 
@@ -82,7 +90,7 @@ const CreateMealPages = {
   },
 
 
-  2: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected){
+  2: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected, setOverlayData){
     function Renderpage() {
 
       let CardData = [];
@@ -146,7 +154,7 @@ const CreateMealPages = {
     );
   },
 
-  3: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected){
+  3: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected, setOverlayData){
     function Renderpage() {
 
       let CardData = [];
@@ -211,7 +219,7 @@ const CreateMealPages = {
     );
   },
 
-  4: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected ){
+  4: async function (setPageNo, hasFetched, data, setApiData, selected, setSelected, setOverlayData){
     function Renderpage() {
       let CardData = [];
       
@@ -273,10 +281,10 @@ const CreateMealPages = {
 
 
 export default function CreateMealContent() {
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay)
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
-  // const [selected, setSelected] = useState([637792, 633830])
-  const [selected, setSelected] = useState([])
+  const [selected, setSelected] = useState([]);
   const [apiData, setApiData] = useState(
     {
       1: {
@@ -308,6 +316,7 @@ export default function CreateMealContent() {
         setApiData,
         selected,
         setSelected,
+        setOverlayData,
         );
       setCurrPage(pageData);
     }
@@ -318,6 +327,7 @@ export default function CreateMealContent() {
   return (
     <>
       <div>
+        {overlayData}
         <Container>
           <Row >
             <StepProgressBar page={activePage} onPageNumberClick={setActivePage} /> 
