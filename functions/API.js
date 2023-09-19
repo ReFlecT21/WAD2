@@ -28,7 +28,7 @@ const foodAPI = {
     params,
   ) {
     const url = `${this.APIRoot}recipes/complexSearch?addRecipeInformation=true&
-    addRecipeNutrition=true&number=3&sort=random`;
+    addRecipeNutrition=true&number=6&sort=random`;
     try {
       const response = await axios.get(url, params);
       // console.log(response.data);
