@@ -27,7 +27,7 @@ export function RecpieCard({recipe, setter = null}) {
     );
 }
 
-export function FinaliseRecipeCard ({recipe}){
+export function FinaliseRecipeCard ({recipe, selected}){
   return (
     <Col key= {recipe["id"]}>
       <Card > 

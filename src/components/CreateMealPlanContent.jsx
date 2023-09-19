@@ -232,7 +232,7 @@ const CreateMealPages = {
         if (response?.length >0){
           response.forEach(recipe=>{
             CardData.push(
-              <FinaliseRecipeCard recipe={recipe} />
+              <FinaliseRecipeCard recipe={recipe} selected={selected} />
             )
           })
         }
