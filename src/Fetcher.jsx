@@ -9,8 +9,7 @@ export async function fetcher(endpoint, params, setter){
   // // .catch(error => console.log(error));
 
   useEffect(() => {
-    fetch(endpoint + new URLSearchParams(params).toString()
-    )
+    fetch(endpoint + new URLSearchParams(params).toString())
       .then(res => res.json())
       .then(data => {
         if(endpoint==="/foodAPI/search/?"){
@@ -24,4 +23,17 @@ export async function fetcher(endpoint, params, setter){
   }, []);
 
   // return data
+}
+
+export async function fetcherPOST(endpoint, body, setter){
+  useEffect(()=>{
+    fetch(endpoint, {
+      method:"POST",
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(data => setter(data))
+    .catch(error => console.log(error))
+  }, [])
+
 }

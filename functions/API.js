@@ -65,22 +65,12 @@ const foodAPI = {
     }
   },
   manualSearch: async function(
-    body=null,
+    body,
   ) {
     // const url = `https://www.nutritionix.com/track-api/v2/natural/nutrients`;
     const url = `https://trackapi.nutritionix.com/v2/natural/nutrients`;
     try {
-      const response = await axios.post(url, body
-      //   {
-      //   query:"prata",
-      //   include_subrecipe:true,
-      //   use_raw_foods:false,
-      //   line_delimited:true,
-      //   claims:true,
-      //   taxonomy:true,
-      //   ingredient_statement:true,
-      // }
-      );
+      const response = await axios.post(url, JSON.parse(body));
       // console.log(response.data);
       return response.data;
     } catch (error) {

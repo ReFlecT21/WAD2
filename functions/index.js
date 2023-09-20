@@ -22,11 +22,14 @@
 // import cors from "cors";
 const functions = require("firebase-functions");
 const express = require("express");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const foodAPI = require("./API");
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.get("/test", (req, res) => {
   res.send("lets go suck my ass ");
@@ -80,7 +83,7 @@ app.get("/getBulk", async (req, res) => {
   console.log("api fetch completed");
   res.json(data);
 });
-app.get("/manualSearch", async (req, res) => {
+app.post("/manualSearch", async (req, res) => {
   console.log("connected to manualSearch");
   const data = await foodAPI.manualSearch(req.body);
   console.log("api fetch completed");
