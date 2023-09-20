@@ -66,8 +66,10 @@ const CreateMealPages = {
                 <h2>Pick Your Breakfast Items!</h2>
                 <h3>working on this now</h3>
               </Col>
-              <Col className='.justify-content-end'>
-                <Button onClick={() => setPageNo(2)}>Next Page</Button>
+              <Col>
+                <div style={{textAlign:"right"}}>
+                  <Button onClick={() => setPageNo(2)}>Next Page</Button>
+                </div>
               </Col>
             </Row>
 
@@ -99,7 +101,7 @@ const CreateMealPages = {
 
         const [response, setResponse] = useState(null)
 
-        pageDataGetter("breakfast", setResponse)
+        pageDataGetter("lunch, side dish", setResponse)
 
         setApiData(prevApiData => ({
           ...prevApiData,
@@ -133,7 +135,9 @@ const CreateMealPages = {
                 <h3>working on this now</h3>
               </Col>
               <Col>
-                <Button onClick={() => setPageNo(3)}>Next Page</Button>
+                <div style={{textAlign:"right"}}>
+                  <Button onClick={() => setPageNo(3)}>Next Page</Button>
+                </div>
               </Col>
             </Row>
             <Row xs={1} md={3} className="g-4">
@@ -163,7 +167,7 @@ const CreateMealPages = {
 
         const [response, setResponse] = useState(null)
 
-        pageDataGetter("breakfast", setResponse)
+        pageDataGetter("dinner, main course", setResponse)
 
         setApiData(prevApiData => ({
           ...prevApiData,
@@ -197,7 +201,9 @@ const CreateMealPages = {
                 <h3>working on this now</h3>
               </Col>
               <Col>
-                <Button onClick={() => setPageNo(2)}>Next Page</Button>
+                <div style={{textAlign:"right"}}>
+                  <Button onClick={() => setPageNo(4)}>Next Page</Button>
+                </div>
               </Col>
             </Row>
 
@@ -256,7 +262,9 @@ const CreateMealPages = {
                 <h3>working on this now</h3>
               </Col>
               <Col>
-                <Button onClick={() => setPageNo(2)}>Confirm!</Button>
+                <div style={{textAlign:"right"}}>
+                  <Button onClick={() => setPageNo(1)}>Next Page</Button>
+                </div>
               </Col>
             </Row>
 
