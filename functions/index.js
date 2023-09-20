@@ -82,9 +82,9 @@ app.get("/getBulk", async (req, res) => {
 });
 app.get("/manualSearch", async (req, res) => {
   console.log("connected to manualSearch");
-  const data = await foodAPI.manualSearch();
+  const data = await foodAPI.manualSearch(req.body);
   console.log("api fetch completed");
-  // res.json(data);
+  res.json(data);
 });
 
 exports.app = functions.https.onRequest(app);
