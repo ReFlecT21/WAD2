@@ -3,9 +3,10 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 // import "./login.css";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { useAtom } from "jotai";
-import { LoggedIn } from "./atoms/logInAtom";
+import { LoggedIn } from "../atoms/logInAtom";
+
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,7 +62,7 @@ const LoginComponent = () => {
               </Button>
             </Row>
             <Row className="d-flex justify-content-center">
-              <p style={{marginTop:"60px", paddingTop:"40px"}}>
+              <p style={{ marginTop: "60px", paddingTop: "40px" }}>
                 Do not have an account? <Link to="/signup">Sign up </Link>
               </p>
             </Row>

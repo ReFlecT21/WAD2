@@ -6,7 +6,7 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
 const SignUpComponent = () => {
@@ -78,7 +78,7 @@ const SignUpComponent = () => {
               </Button>
             </Row>
             <Row className="d-flex justify-content-center">
-              <p style={{marginTop:"60px", paddingTop:"40px"}}>
+              <p style={{ marginTop: "60px", paddingTop: "40px" }}>
                 Already have an account?<Link to="/"> Log in</Link>
               </p>
             </Row>

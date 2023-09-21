@@ -1,17 +1,16 @@
-import { useState } from "react"
-import { fetcher } from "../Fetcher"
+import { useState } from "react";
+import { fetcher } from "./Fetcher";
 
-export async function pageDataGetter(type, setter){
+export async function pageDataGetter(type, setter) {
   // mealType = "breakfast", "lunch, main course"
-  
-      
+
   fetcher(
     "/foodAPI/search/?",
     {
-    type:type
+      type: type,
     },
     setter
-  )
+  );
   //   .then(res => setData(res))
   // return data
 
@@ -26,5 +25,4 @@ export async function pageDataGetter(type, setter){
 
   // console.log(data)
   // return data
-
 }
