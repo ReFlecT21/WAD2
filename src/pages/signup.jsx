@@ -78,7 +78,7 @@ const SignUpComponent = () => {
               </Button>
             </Row>
             <Row className="d-flex justify-content-center">
-              <p style={{ marginTop: "60px", paddingTop: "40px" }}>
+              <p className="signupSmallText">
                 Already have an account?<Link to="/"> Log in</Link>
               </p>
             </Row>
