@@ -6,7 +6,7 @@ import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { app, db } from "../firebase";
+import { app, db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 function NavBar() {

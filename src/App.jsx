@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
-import NavBar from "./NavBar.jsx";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ErrorBoundary } from "react-error-boundary";
-import LoginComponent from "./login.jsx";
-import SignUpComponent from "./signup.jsx";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Fallback from "./fallback.jsx";
-import Choosemeals from "./ChooseMeals.jsx";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import HomePage from "./homepage.jsx";
-import SpinnerPage from "./components/loadingComponent/SpinnerPage.jsx";
+import {
+  LoginComponent,
+  SignUpComponent,
+  ChooseMeals,
+  SpinnerPage,
+  HomePage,
+  Fallback,
+} from "./pages";
 import { useAtom } from "jotai";
-import { LoggedIn } from "./atoms/logInAtom";
+import { LoggedIn } from "./atoms/logInAtom.js";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,12 +40,12 @@ function App() {
           <Routes>
             {user && loggedIn ? (
               <Route path="/" element={<HomePage />} />
-              ) : (
+            ) : (
               <>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
-                <Route path="/choose" element={<Choosemeals />} />
+                <Route path="/choose" element={<ChooseMeals />} />
               </>
             )}
           </Routes>
