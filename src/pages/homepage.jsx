@@ -39,7 +39,7 @@ const HomePage = () => {
         </Col>
           <Col>
             <div className="neuphormicBoxInset">
-              <Button className="buttonTert">Scan</Button>
+              <Button className="buttonPrimary">Scan</Button>
               <Button className="buttonPrimary">Input</Button>
             </div>
           </Col>
