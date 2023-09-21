@@ -3,8 +3,14 @@ import { fetcherPOST } from "../components/Fetcher";
 import { NavBar } from "../components";
 import { Row, Col, Button, Stack } from "react-bootstrap";
 import { Box } from "@mui/material";
+import { useAtom } from "jotai";
+import { RecipeOverlay } from "../atoms/recipeOverlay";
+import { Modal } from "@mui/material";
+import { ManualSearchComponent } from "../components/ManualSearchInput";
 
 const HomePage = () => {
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
   // const body = {
   //   query: "prata",
   //   include_subrecipe: true,
@@ -21,10 +27,10 @@ const HomePage = () => {
   // console.log(data);
 
 
-
   return (
     <>
       <NavBar />
+      {overlayData}
       <Row xs={1} md={2}>
         <Col>
           {/* <Stack gap={2} >  */}
@@ -38,9 +44,11 @@ const HomePage = () => {
           {/* </Stack> */}
         </Col>
           <Col>
-            <div className="neuphormicBoxInset">
-              <Button className="buttonPrimary">Scan</Button>
-              <Button className="buttonPrimary">Input</Button>
+            <div className="neuphormicBox">
+              <Stack gap={2}>
+                <Button className="buttonPrimary">Scan</Button>
+                <Button className="buttonPrimary" onClick={() => setOverlayData(<ManualSearchComponent />)}>Input</Button>
+              </Stack>
             </div>
           </Col>
       </Row> 

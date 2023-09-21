@@ -2,7 +2,7 @@
                                                           /* Global */  
 
 body, html {
-  font-family: Nunito Sans;
+  font-family: "Nunito Sans";
   margin: 0;
   padding: 0;
   height: 100%;
@@ -21,8 +21,20 @@ h3{
   color: #1F5E4B;
   font-weight: bold;
 }
+h4{
+  color: #1F5E4B;
+  font-weight: bold;
+}
+h5{
+  color: #1F5E4B;
+  font-weight: bold;
+}
 
 p{
+  color: #1F5E4B;
+}
+
+ul, ol{
   color: #1F5E4B;
 }
 
@@ -49,6 +61,31 @@ p{
 .buttonTert:hover{
   background-color: #6c6c6c;
   border: 0px
+}
+
+                                        /* neuphormicBox */
+
+.neuphormicBox{
+  /* get the input from https://neumorphism.io/#e0e0e0  */
+
+  border-radius: 40px;
+  background: #F6FEFC;
+  box-shadow:  20px 20px 38px #dbe2e0,
+                -20px -20px 38px #ffffff;
+  padding: 5%;
+  margin: 5%;
+
+}
+.neuphormicBoxInset{
+  /* get the input from https://neumorphism.io/#e0e0e0  */
+
+  border-radius: 40px;
+  background: #F6FEFC;
+  box-shadow: inset 20px 20px 32px #d6dddb,
+              inset -20px -20px 32px #ffffff;
+  padding: 5%;
+  margin: 5%;
+
 }
 
 
@@ -197,7 +234,7 @@ a{
   background-color: #1f5e4b;
 }
 span{
-font-family: 'Nunito Sans', sans-serif;
+/* font-family: 'Nunito Sans', sans-serif; */
 color:white;
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
@@ -303,37 +340,23 @@ color:white;
   transform: translate(-50%, -50%);
   width: 800px;
   height: 600px;
-  background-color: whitesmoke;
+  background-color: #F6FEFC;
   /* border: 2px solid #000; */
   margin:auto;
-  overflow: scroll;
+  overflow: auto;
   padding-left: 2%;
   padding-right: 2%;
 }
 
-                                        /* neuphormicBox */
-
-.neuphormicBox{
-  /* get the input from https://neumorphism.io/#e0e0e0  */
-
-  border-radius: 40px;
-  background: #F6FEFC;
-  box-shadow:  20px 20px 38px #dbe2e0,
-               -20px -20px 38px #ffffff;
-  padding: 5%;
-  margin: 5%;
-
+.popupChild{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.neuphormicBoxInset{
-  /* get the input from https://neumorphism.io/#e0e0e0  */
 
-  border-radius: 40px;
-  background: #F6FEFC;
-  box-shadow: inset 20px 20px 32px #d6dddb,
-              inset -20px -20px 32px #ffffff;
-  padding: 5%;
-  margin: 5%;
-
+.card-title{
+  color: #F6FEFC
 }
 
                                         /* Loader Animations */
