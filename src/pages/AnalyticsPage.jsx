@@ -32,21 +32,7 @@ const AnalyticsPage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
-                  <ProgressBar />
-                </Card>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Card>
-                  <ProgressBar />
-                </Card>
-              </Col>
-              <Col>
-                <Card>
-                  <ProgressBar />
-                </Card>
+                <Card body>2100</Card>
               </Col>
             </Row>
           </Col>
