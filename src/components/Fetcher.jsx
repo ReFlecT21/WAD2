@@ -50,3 +50,17 @@ export async function fetcherPOST(endpoint, body, setter){
   // }, [])
 
 }
+export async function fetcherGET(endpoint, params, setter){
+  fetch(endpoint + new URLSearchParams(params).toString())
+  .then(res => res.json())
+  .then(data => {
+    if(endpoint==="/foodAPI/search/?"){
+      setter(data["results"])
+    } else {
+      // console.log(data)
+      setter(data)
+    }
+  })
+  .catch(error => console.log(error));
+
+}

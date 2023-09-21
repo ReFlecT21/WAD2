@@ -77,6 +77,18 @@ const foodAPI = {
       console.error(error);
     }
   },
+  instantSearch: async function(
+    params,
+  ) {
+    const url = `https://trackapi.nutritionix.com/v2/search/instant/?branded=false&common=true`;
+    try {
+      const response = await axios.get(url, params);
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 module.exports = foodAPI;
