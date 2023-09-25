@@ -43,6 +43,7 @@ function App() {
               <Route path="/" element={<AnalyticsPage />} />
             ) : (
               <>
+                <Route path="/home" element={<HomePage />} />
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
                 <Route path="/choose" element={<ChooseMeals />} />

@@ -11,6 +11,7 @@ import { FinaliseRecipeCard, RecpieCard } from "./RecipeCard";
 import NavBar from "./NavBar";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
+import Loader from "./Loader";
 
 // const [recipeOverlayTrigger, setRecipeOverlayTrigger] = useState(false)
 // const [overlayData, setOverlayData] = useState([])
@@ -62,7 +63,6 @@ const CreateMealPages = {
             <Row className="">
               <Col>
                 <h2>Pick Your Breakfast Items!</h2>
-                <h3>working on this now</h3>
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>
@@ -72,7 +72,11 @@ const CreateMealPages = {
             </Row>
 
             <Row xs={1} md={3}>
-              {CardData.length > 0 ? CardData : <p>Loading</p>}
+              {
+                CardData.length > 0 
+                ? CardData 
+                : <Loader />
+              }
             </Row>
           </Container>
         </>
@@ -128,7 +132,6 @@ const CreateMealPages = {
             <Row>
               <Col>
                 <h2>Pick Your Lunch Items!</h2>
-                <h3>working on this now</h3>
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>
@@ -137,7 +140,11 @@ const CreateMealPages = {
               </Col>
             </Row>
             <Row xs={1} md={3} className="g-4">
-              {CardData.length > 0 ? CardData : <p>Loading</p>}
+              {
+                CardData.length > 0 
+                ? CardData 
+                : <Loader />
+              }
             </Row>
           </Container>
         </>
@@ -193,7 +200,6 @@ const CreateMealPages = {
             <Row>
               <Col>
                 <h2>Pick Your Dinner Items!</h2>
-                <h3>working on this now</h3>
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>
@@ -203,7 +209,11 @@ const CreateMealPages = {
             </Row>
 
             <Row xs={1} md={3} className="g-4">
-              {CardData.length > 0 ? CardData : <p>Loading</p>}
+              {
+                CardData.length > 0 
+                ? CardData 
+                : <Loader />
+              }
             </Row>
           </Container>
         </>
@@ -258,7 +268,6 @@ const CreateMealPages = {
             <Row>
               <Col>
                 <h2>Finalise Your Items!</h2>
-                <h3>working on this now</h3>
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>

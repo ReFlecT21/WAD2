@@ -89,5 +89,13 @@ app.post("/manualSearch", async (req, res) => {
   console.log("api fetch completed");
   res.json(data);
 });
+app.get("/instantSearch", async (req, res) => {
+  console.log("connected to instantSearch");
+  const data = await foodAPI.instantSearch({
+    params: req.query,
+  });
+  console.log("api fetch completed");
+  res.json(data);
+});
 
 exports.app = functions.https.onRequest(app);

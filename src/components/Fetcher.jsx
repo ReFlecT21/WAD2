@@ -26,7 +26,20 @@ export async function fetcher(endpoint, params, setter){
 }
 
 export async function fetcherPOST(endpoint, body, setter){
-  useEffect(()=>{
+
+  // try {
+  //   const response = await fetch(endpoint, {
+  //     method:"POST",
+  //     body: JSON.stringify(body)
+  //   });
+  //   const data = await response.json();
+  //   setter(data);
+  // } catch (error) {
+  //   console.error(error);
+  // }
+
+
+  // useEffect(()=>{
     fetch(endpoint, {
       method:"POST",
       body: JSON.stringify(body)
@@ -34,6 +47,20 @@ export async function fetcherPOST(endpoint, body, setter){
     .then(res => res.json())
     .then(data => setter(data))
     .catch(error => console.log(error))
-  }, [])
+  // }, [])
+
+}
+export async function fetcherGET(endpoint, params, setter){
+  fetch(endpoint + new URLSearchParams(params).toString())
+  .then(res => res.json())
+  .then(data => {
+    if(endpoint==="/foodAPI/search/?"){
+      setter(data["results"])
+    } else {
+      // console.log(data)
+      setter(data)
+    }
+  })
+  .catch(error => console.log(error));
 
 }
