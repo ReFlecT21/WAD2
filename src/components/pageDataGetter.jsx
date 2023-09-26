@@ -1,28 +1,17 @@
 import { useState } from "react";
 import { fetcher } from "./Fetcher";
 
-export async function pageDataGetter(type, setter) {
-  // mealType = "breakfast", "lunch, main course"
+export async function pageDataGetter(type, mealCals, setter) {
+  // mealType (string, comma separated); "breakfast", "lunch, main course"
 
   fetcher(
     "/foodAPI/search/?",
     {
       type: type,
+      minCalories: mealCals*0.90,
+      maxCalories: mealCals*1.1,
     },
     setter
   );
-  //   .then(res => setData(res))
-  // return data
-
-  // const [data, setData] = useState(null)
-
-  // useEffect(() => {
-  //   fetcher("/foodAPI/search/?",{
-  //     type: "breakfast",
-  //   })
-  //     .then(res => setData(res))
-  // }, []);
-
-  // console.log(data)
-  // return data
+  
 }
