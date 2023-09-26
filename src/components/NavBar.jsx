@@ -19,7 +19,7 @@ function NavBar() {
         >
           <img
             alt=""
-            src="/Untitled_ArtWork 1.svg"
+            src="/Untitled_Artwork 1.svg"
             width="50"
             height="50"
             className="d-inline-block align-top mr-10"

@@ -10,6 +10,7 @@ import {
   SpinnerPage,
   HomePage,
   Fallback,
+  InputPage,
 } from "./pages";
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
@@ -39,7 +40,7 @@ function App() {
         <ErrorBoundary FallbackComponent={Fallback}>
           <Routes>
             {user && loggedIn ? (
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<InputPage />} />
             ) : (
               <>
                 <Route path="/home" element={<HomePage />} />
