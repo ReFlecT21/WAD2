@@ -344,8 +344,6 @@ const CreateMealPages = {
                           }
                         }))
                       });
-                    
-                      // for (const meal in ["breakfast", "lunch", "dinner"]){}
                     }
                     console.log(mealPlan)
                     // navigate('/home')
