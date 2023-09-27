@@ -35,7 +35,12 @@ export function RecpieCard({ recipe, setter = null }) {
                   </Button>
                   <Button
                     onClick={() =>
-                      setter((oldArray) => [...oldArray, recipe["id"]])
+                      setter((prev) => ({
+                        ...prev,
+                        [recipe["id"]]: recipe["nutrition"]["nutrients"][0]["amount"]
+                      }))
+                      // (oldArray) => [...oldArray, recipe["id"]]
+                      // recipe["nutrition"]["nutrients"][0]["amount"]
                     }
                   >
                     Add to Array

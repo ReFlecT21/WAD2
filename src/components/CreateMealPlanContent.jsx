@@ -48,7 +48,7 @@ const CreateMealPages = {
 
 
 
-      const [currSel, setCurrSel] = useState([])
+      const [currSel, setCurrSel] = useState(selected["breakfast"])
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -56,7 +56,7 @@ const CreateMealPages = {
         });
       }
 
-      if (currSel.length> 0){
+      if (Object.keys(currSel).length> 0){
         setSelected((prev) => ({
           ...prev,
           breakfast: currSel,
@@ -130,7 +130,7 @@ const CreateMealPages = {
       console.log(data);
 
       
-      const [currSel, setCurrSel] = useState([])
+      const [currSel, setCurrSel] = useState(selected["lunch"])
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -138,7 +138,7 @@ const CreateMealPages = {
         });
       }
 
-      if (currSel.length> 0){
+      if (Object.keys(currSel).length> 0){
         setSelected((prev) => ({
           ...prev,
           lunch: currSel,
@@ -214,7 +214,7 @@ const CreateMealPages = {
 
       
 
-      const [currSel, setCurrSel] = useState([])
+      const [currSel, setCurrSel] = useState(selected["dinner"])
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -222,7 +222,7 @@ const CreateMealPages = {
         });
       }
 
-      if (currSel.length> 0){
+      if (Object.keys(currSel).length> 0){
         setSelected((prev) => ({
           ...prev,
           dinner: currSel,
@@ -283,7 +283,11 @@ const CreateMealPages = {
 
       let CardData = [];
       
-      if (selected.breakfast.length > 0 && selected.lunch.length > 0 && selected.dinner.length > 0) {
+      // console.log(selected)
+      // console.log(Object.keys(selected.breakfast))
+      // console.log(Object.keys(selected.breakfast).length)
+
+      if (Object.keys(selected["breakfast"]).length > 0 && Object.keys(selected["lunch"]).length > 0 && Object.keys(selected["dinner"]).length > 0) {
         // console.log(selected)
         
         for (const meal in selected){
@@ -294,7 +298,7 @@ const CreateMealPages = {
           fetcher(
             "/foodAPI/getBulk/?",
             {
-              ids: selected[meal].join(),
+              ids: Object.keys(selected[meal]).join(),
             },
             setResponse
           );
@@ -311,11 +315,8 @@ const CreateMealPages = {
           }
         }
 
-        // console.log(response);
-
-
+        console.log(selected);
       }
-      Math.random()
 
       return (
         <>
@@ -327,16 +328,27 @@ const CreateMealPages = {
               <Col>
                 <div style={{ textAlign: "right" }}>
                   <Button onClick={() => 
-                  
+
                   {
-                    for (let i = 0; i < 6; i++) {
-                      for (const meal in selected){
-                        // console.log(selected[meal][Math.floor(Math.random() * selected[meal].length)])
-                        let randomDish = selected[meal][Math.floor(Math.random() * selected[meal].length)];
-                        setMealPlan((oldArray) => [...oldArray, randomDish])
-                      }
+                    for (let i = 0; i < 7; i++) {
+                      ["breakfast", "lunch", "dinner"].forEach((meal) => {
+                        let randomDish = Object.keys(selected[meal])[Math.floor(Math.random() * Object.keys(selected[meal]).length)];
+                        
+                        setMealPlan((prev) => ({
+                          ...prev,
+                          [i]: {
+                            ...prev[i],
+                            [meal]: {
+                              [randomDish]: selected[meal][randomDish]
+                            }
+                          }
+                        }))
+                      });
+                    
+                      // for (const meal in ["breakfast", "lunch", "dinner"]){}
                     }
-                    navigate('/home')
+                    console.log(mealPlan)
+                    // navigate('/home')
                   }             
                   
                   }>Next Page</Button>
@@ -375,9 +387,9 @@ export default function CreateMealContent() {
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
   const [selected, setSelected] = useState({
-    breakfast:[],
-    lunch:[],
-    dinner:[],
+    breakfast:{},
+    lunch:{},
+    dinner:{},
   });
   
   const [apiData, setApiData] = useState({
