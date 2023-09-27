@@ -345,8 +345,8 @@ const CreateMealPages = {
                         }))
                       });
                     }
-                    console.log(mealPlan)
-                    // navigate('/home')
+                    // console.log(mealPlan)
+                    navigate('/home')
                   }             
                   
                   }>Next Page</Button>
