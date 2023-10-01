@@ -8,6 +8,11 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { Modal } from "@mui/material";
 import { ManualSearchComponent } from "../components/ManualSearchInput";
 
+
+import Spline from '@splinetool/react-spline';
+
+
+
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
@@ -32,6 +37,10 @@ const HomePage = () => {
       <NavBar />
       {overlayData}
       <Row xs={1} md={2}>
+        <Col>
+          {/* <Spline scene="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode"/> */}
+          <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
+        </Col>
         <Col>
           {/* <Stack gap={2} >  */}
             <div className="neuphormicBox">
