@@ -12,8 +12,12 @@ import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { MealPlan } from "../atoms/mealPlan";
 
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 
 const CreateMealPages = {
   1: async function (
@@ -24,16 +28,20 @@ const CreateMealPages = {
     selected,
     setSelected,
     setOverlayData,
-    currCal,
+    currCal
   ) {
     function Renderpage() {
       let CardData = [];
 
-      let bfastCalories = currCal*0.3
+      let bfastCalories = currCal * 0.3;
 
       if (!hasFetched) {
         const [response, setResponse] = useState(null);
-        pageDataGetter("breakfast, morning meal, brunch", bfastCalories, setResponse);
+        pageDataGetter(
+          "breakfast, morning meal, brunch",
+          bfastCalories,
+          setResponse
+        );
         setApiData((prevApiData) => ({
           ...prevApiData,
           1: {
@@ -46,9 +54,7 @@ const CreateMealPages = {
       }
       console.log(data);
 
-
-
-      const [currSel, setCurrSel] = useState([])
+      const [currSel, setCurrSel] = useState([]);
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -56,11 +62,11 @@ const CreateMealPages = {
         });
       }
 
-      if (currSel.length> 0){
+      if (currSel.length > 0) {
         setSelected((prev) => ({
           ...prev,
           breakfast: currSel,
-        }))
+        }));
       }
 
       return (
@@ -78,11 +84,7 @@ const CreateMealPages = {
             </Row>
 
             <Row xs={1} md={2} lg={3}>
-              {
-                CardData.length > 0 
-                ? CardData 
-                : <Loader />
-              }
+              {CardData.length > 0 ? CardData : <Loader />}
             </Row>
           </Container>
         </>
@@ -104,17 +106,21 @@ const CreateMealPages = {
     selected,
     setSelected,
     setOverlayData,
-    currCal,
+    currCal
   ) {
     function Renderpage() {
       let CardData = [];
 
-      let lunchCals = currCal*0.5
+      let lunchCals = currCal * 0.5;
 
       if (!hasFetched) {
         const [response, setResponse] = useState(null);
 
-        pageDataGetter("lunch, side dish, main course, main dish, dinner", lunchCals, setResponse);
+        pageDataGetter(
+          "lunch, side dish, main course, main dish, dinner",
+          lunchCals,
+          setResponse
+        );
 
         setApiData((prevApiData) => ({
           ...prevApiData,
@@ -129,8 +135,7 @@ const CreateMealPages = {
 
       console.log(data);
 
-      
-      const [currSel, setCurrSel] = useState([])
+      const [currSel, setCurrSel] = useState([]);
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -138,14 +143,12 @@ const CreateMealPages = {
         });
       }
 
-      if (currSel.length> 0){
+      if (currSel.length > 0) {
         setSelected((prev) => ({
           ...prev,
           lunch: currSel,
-        }))
+        }));
       }
-
-      
 
       return (
         <>
@@ -161,11 +164,7 @@ const CreateMealPages = {
               </Col>
             </Row>
             <Row xs={1} md={2} lg={3}>
-              {
-                CardData.length > 0 
-                ? CardData 
-                : <Loader />
-              }
+              {CardData.length > 0 ? CardData : <Loader />}
             </Row>
           </Container>
         </>
@@ -187,12 +186,12 @@ const CreateMealPages = {
     selected,
     setSelected,
     setOverlayData,
-    currCal,
+    currCal
   ) {
     function Renderpage() {
       let CardData = [];
 
-      let dinnerCals = currCal*0.2
+      let dinnerCals = currCal * 0.2;
 
       if (!hasFetched) {
         const [response, setResponse] = useState(null);
@@ -212,9 +211,7 @@ const CreateMealPages = {
 
       console.log(data);
 
-      
-
-      const [currSel, setCurrSel] = useState([])
+      const [currSel, setCurrSel] = useState([]);
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -222,16 +219,14 @@ const CreateMealPages = {
         });
       }
 
-      if (currSel.length> 0){
+      if (currSel.length > 0) {
         setSelected((prev) => ({
           ...prev,
           dinner: currSel,
-        }))
+        }));
       }
 
-      console.log(selected)
-
-
+      console.log(selected);
 
       return (
         <>
@@ -248,11 +243,7 @@ const CreateMealPages = {
             </Row>
 
             <Row xs={1} md={2} lg={3}>
-              {
-                CardData.length > 0 
-                ? CardData 
-                : <Loader />
-              }
+              {CardData.length > 0 ? CardData : <Loader />}
             </Row>
           </Container>
         </>
@@ -266,7 +257,8 @@ const CreateMealPages = {
     );
   },
 
-  4: async function (                                 //create randomiser function
+  4: async function (
+    //create randomiser function
     setPageNo,
     hasFetched,
     data,
@@ -280,16 +272,19 @@ const CreateMealPages = {
 
       const [mealPlan, setMealPlan] = useAtom(MealPlan);
 
-
       let CardData = [];
-      
-      if (selected.breakfast.length > 0 && selected.lunch.length > 0 && selected.dinner.length > 0) {
+
+      if (
+        selected.breakfast.length > 0 &&
+        selected.lunch.length > 0 &&
+        selected.dinner.length > 0
+      ) {
         // console.log(selected)
-        
-        for (const meal in selected){
+
+        for (const meal in selected) {
           const [response, setResponse] = useState(null);
-          
-          let mealcards = []
+
+          let mealcards = [];
 
           fetcher(
             "/foodAPI/getBulk/?",
@@ -306,16 +301,22 @@ const CreateMealPages = {
               );
             });
 
-            let mealdata= <><h3>{meal}</h3><Row xs={1} md={2} lg={3}>{mealcards}</Row><br></br></>
-            CardData.push(mealdata)
+            let mealdata = (
+              <>
+                <h3>{meal}</h3>
+                <Row xs={1} md={2} lg={3}>
+                  {mealcards}
+                </Row>
+                <br></br>
+              </>
+            );
+            CardData.push(mealdata);
           }
         }
 
         // console.log(response);
-
-
       }
-      Math.random()
+      Math.random();
 
       return (
         <>
@@ -326,20 +327,23 @@ const CreateMealPages = {
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>
-                  <Button onClick={() => 
-                  
-                  {
-                    for (let i = 0; i < 6; i++) {
-                      for (const meal in selected){
-                        // console.log(selected[meal][Math.floor(Math.random() * selected[meal].length)])
-                        let randomDish = selected[meal][Math.floor(Math.random() * selected[meal].length)];
-                        setMealPlan((oldArray) => [...oldArray, randomDish])
+                  <Button
+                    onClick={() => {
+                      for (let i = 0; i < 6; i++) {
+                        for (const meal in selected) {
+                          // console.log(selected[meal][Math.floor(Math.random() * selected[meal].length)])
+                          let randomDish =
+                            selected[meal][
+                              Math.floor(Math.random() * selected[meal].length)
+                            ];
+                          setMealPlan((oldArray) => [...oldArray, randomDish]);
+                        }
                       }
-                    }
-                    navigate('/home')
-                  }             
-                  
-                  }>Next Page</Button>
+                      navigate("/home");
+                    }}
+                  >
+                    Next Page
+                  </Button>
                 </div>
               </Col>
             </Row>
@@ -364,22 +368,24 @@ const CreateMealPages = {
 };
 
 export default function CreateMealContent() {
-
-  // replace with atom when ready 
-  const weekly_cal = 14000    
-  const daily_cal = weekly_cal/7           
+  // replace with atom when ready
+  const weekly_cal = 14000;
+  const daily_cal = weekly_cal / 7;
 
   const [mealPlan, setMealPlan] = useAtom(MealPlan);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  useEffect(() => {
+    console.log("my current plan is " + mealPlan);
+  }, [mealPlan]);
 
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
   const [selected, setSelected] = useState({
-    breakfast:[],
-    lunch:[],
-    dinner:[],
+    breakfast: [],
+    lunch: [],
+    dinner: [],
   });
-  
+
   const [apiData, setApiData] = useState({
     1: {
       hasFetched: false,
