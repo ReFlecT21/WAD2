@@ -4,3 +4,4 @@ export { default as SignUpComponent } from "./signup";
 export { default as HomePage } from "./homepage";
 export { default as SpinnerPage } from "./SpinnerPage";
 export { default as Fallback } from "./Fallback";
+export { default as InputPage } from "./InputPage";
