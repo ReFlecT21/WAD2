@@ -20,6 +20,7 @@
 // import functions from "firebase-functions"
 // import express from "express";
 // import cors from "cors";
+const TelegramBot = require("node-telegram-bot-api");
 const functions = require("firebase-functions");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -96,6 +97,18 @@ app.get("/instantSearch", async (req, res) => {
   });
   console.log("api fetch completed");
   res.json(data);
+});
+// ------------------------------------------ TELEBOT
+// ------------------------------------------ https://github.com/hosein2398/node-telegram-bot-api-tutorial
+// replace the value below with the Telegram token you receive from @BotFather
+const token = "6579495868:AAGgKnnPilbLVSGR4xKv9V4a8cG-O1FI-lM";
+// Create a bot that uses 'polling' to fetch new updates
+const bot = new TelegramBot(token, {polling: true});
+bot.on("message", msg => {
+  const chatId = msg.chat.id;
+  const messageText = msg.text;
+  // You can add your bot's logic here and send responses back to users.
+  bot.sendMessage(chatId, `You said: ${messageText}`);
 });
 
 exports.app = functions.https.onRequest(app);
