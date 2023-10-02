@@ -74,7 +74,6 @@ bot.on('photo', async (msg) => {
   const photoUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
 
   // Define the API endpoint where you want to send the photo
-  const apiUrl = 'https://example.com/upload-photo'; // Replace with your API URL
 
   try {
     // Send the photo to the API using Axios
@@ -86,7 +85,7 @@ bot.on('photo', async (msg) => {
 
   } catch (error) {
     // Handle Axios errors
-    console.error('Axios error:', error);
+    console.error(error);
     bot.sendMessage(chatId, 'There was an error processing your photo. Please try again later.');
   }
 });
@@ -96,4 +95,3 @@ bot.onText(/\/start/, msg => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, "Send me a photo, and I will process it for you!");
 });
-
