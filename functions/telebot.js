@@ -3,9 +3,9 @@ const barcode = require("./barcode");
 // const axios = require("axios");
 // https://github.com/hosein2398/node-telegram-bot-api-tutorial
 // MenuMateBot MAIN
-// const token = "6579495868:AAGgKnnPilbLVSGR4xKv9V4a8cG-O1FI-lM";
+const token = "6579495868:AAGgKnnPilbLVSGR4xKv9V4a8cG-O1FI-lM";
 // MenuMateBot TEST
-const token = "6313612860:AAGENA_lQxKjLFkCrQyJz3F86DGs_H1ZFsI";
+// const token = "6313612860:AAGENA_lQxKjLFkCrQyJz3F86DGs_H1ZFsI";
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
