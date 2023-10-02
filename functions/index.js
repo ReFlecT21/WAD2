@@ -1,4 +1,4 @@
-const telebot = require('./telebot');
+const telebot = require("./telebot");
 const functions = require("firebase-functions");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -71,6 +71,14 @@ app.post("/manualSearch", async (req, res) => {
 app.get("/instantSearch", async (req, res) => {
   console.log("connected to instantSearch");
   const data = await foodAPI.instantSearch({
+    params: req.query,
+  });
+  console.log("api fetch completed");
+  res.json(data);
+});
+app.get("/instantItem", async (req, res) => {
+  console.log("connected to instantItem");
+  const data = await foodAPI.instantItem({
     params: req.query,
   });
   console.log("api fetch completed");

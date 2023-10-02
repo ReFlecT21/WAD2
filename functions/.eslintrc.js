@@ -18,6 +18,7 @@ module.exports = {
     "arrow-parens": ["error", "as-needed"],
     "indent": "off",
     "padded-blocks": "off",
+    "no-unused-vars": "off",
   },
   overrides: [
     {

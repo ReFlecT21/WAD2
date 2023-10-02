@@ -1,5 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
-const axios = require("axios");
+const barcode = require("./barcode");
+// const axios = require("axios");
 // https://github.com/hosein2398/node-telegram-bot-api-tutorial
 // MenuMateBot MAIN
 // const token = "6579495868:AAGgKnnPilbLVSGR4xKv9V4a8cG-O1FI-lM";
@@ -7,8 +8,9 @@ const axios = require("axios");
 const token = "6313612860:AAGENA_lQxKjLFkCrQyJz3F86DGs_H1ZFsI";
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
+
 bot.on("message", msg => {
-  console.log(msg)
+  console.log(msg);
   const chatId = msg.chat.id;
   const messageText = msg.text;
   // You can add your bot's logic here and send responses back to users.
@@ -17,6 +19,12 @@ bot.on("message", msg => {
   // send photo back to user
   // bot.sendPhoto(chatId, msg.photo[msg.photo.length - 3].file_id);
 });
+
+// bot.on("photo", msg => {
+//   console.log(msg);
+//   const chatId = msg.chat.id;
+//   bot.sendPhoto(chatId, msg.photo[msg.photo.length - 3].file_id);
+// });
 
 
 // bot.on('photo', async (msg) => {
@@ -59,7 +67,7 @@ bot.on("message", msg => {
 
 bot.on('photo', async (msg) => {
   const chatId = msg.chat.id;
-  const photo = msg.photo[msg.photo.length - 1]; // Get the highest resolution version
+  const photo = msg.photo[msg.photo.length - 2]; // Get the highest resolution version
 
   // Get the photo file using Telegram's getFile method
   const file = await bot.getFile(photo.file_id);
@@ -70,15 +78,12 @@ bot.on('photo', async (msg) => {
 
   try {
     // Send the photo to the API using Axios
-    const response = await axios.post(apiUrl, { photo_url: photoUrl });
+    // const response = await axios.post(apiUrl, { photo_url: photoUrl });
+    const response = barcode.processBarcode(photoUrl)
 
-    if (response.status === 200) {
-      // If the API successfully processes the photo, you can send a message to the user
-      bot.sendMessage(chatId, 'Your photo has been processed successfully!');
-    } else {
-      // Handle any errors from the API
-      bot.sendMessage(chatId, 'There was an error processing your photo. Please try again later.');
-    }
+    // If the API successfully processes the photo, you can send a message to the user
+    bot.sendMessage(chatId, `Your photo has been processed successfully! ${response}`);
+
   } catch (error) {
     // Handle Axios errors
     console.error('Axios error:', error);
@@ -87,8 +92,8 @@ bot.on('photo', async (msg) => {
 });
 
 // Start the bot
-bot.onText(/\/start/, (msg) => {
+bot.onText(/\/start/, msg => {
   const chatId = msg.chat.id;
-  bot.sendMessage(chatId, 'Send me a photo, and I will process it for you!');
+  bot.sendMessage(chatId, "Send me a photo, and I will process it for you!");
 });
 
