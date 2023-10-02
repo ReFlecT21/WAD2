@@ -1,26 +1,4 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
-// const { onRequest } = require("firebase-functions/v2/https");
-// const logger = require("firebase-functions/logger");
-
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
-
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-// import functions from "firebase-functions"
-// import express from "express";
-// import cors from "cors";
-const TelegramBot = require("node-telegram-bot-api");
+const telebot = require('./telebot');
 const functions = require("firebase-functions");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -97,18 +75,6 @@ app.get("/instantSearch", async (req, res) => {
   });
   console.log("api fetch completed");
   res.json(data);
-});
-// ------------------------------------------ TELEBOT
-// ------------------------------------------ https://github.com/hosein2398/node-telegram-bot-api-tutorial
-// replace the value below with the Telegram token you receive from @BotFather
-const token = "6579495868:AAGgKnnPilbLVSGR4xKv9V4a8cG-O1FI-lM";
-// Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(token, {polling: true});
-bot.on("message", msg => {
-  const chatId = msg.chat.id;
-  const messageText = msg.text;
-  // You can add your bot's logic here and send responses back to users.
-  bot.sendMessage(chatId, `You said: ${messageText}`);
 });
 
 exports.app = functions.https.onRequest(app);
