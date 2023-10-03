@@ -13,22 +13,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.get("/test", (req, res) => {
   res.send("lets go suck my ass ");
 });
-// testing api connections to the food API
-// app.get("/testAPIasync", async (req, res) => {
-//   console.log("connected to backend");
-//   const data = await foodAPI.getOne("716429");
-//   console.log("api fetch completed");
-//   res.json(data);
-// });
-// app.get("/testAPI", (req, res) => {
-//   foodAPI.getOne("716429")
-//     .then(data => {
-//       console.log(data);
-//       res.json(data);
-//     })
-//     .catch(err => console.log(err));
-// });
-// implementation of food API
 app.get("/getOne", async (req, res) => {
   console.log("connected to getOne");
   console.log(req.query);

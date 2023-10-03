@@ -104,4 +104,3 @@ const foodAPI = {
 };
 
 module.exports = foodAPI;
-
