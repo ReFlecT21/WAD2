@@ -19,6 +19,7 @@ module.exports = {
     "indent": "off",
     "padded-blocks": "off",
     "no-unused-vars": "off",
+    "require-jsdoc": 0,
   },
   overrides: [
     {

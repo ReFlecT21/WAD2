@@ -1,45 +1,42 @@
 const {default: axios} = require("axios");
-const Quagga = require('quagga').default;
-const fetch = require('node-fetch'); 
-
-// const barcode ={
-//   processBarcode: function(file){
-
-//   },
-// }
+const Quagga = require("quagga").default;
 
 
 class BarcodeScanner {
   constructor() {}
-  // Method to scan barcodes in a static image
   async scanBarcode(imagePath) {
-    axios.get(imagePath, { responseType: 'arraybuffer' })
-    .then((response) => {
-        // Create a buffer from the response data
-        const imageBase64 = Buffer.from(response.data).toString('base64');
 
-        // Decode the barcode using QuaggaJS
+    try {
+      const response = await axios.get(imagePath, {responseType: "arraybuffer"});
+      const imageBase64 = Buffer.from(response.data).toString("base64");
+
+      return new Promise((resolve, reject) => {
         Quagga.decodeSingle(
-        {
+          {
             src: `data:image/jpeg;base64,${imageBase64}`,
             numOfWorkers: 0,
             decoder: {
-            readers: ['ean_reader'], // Adjust the readers as needed
+              readers: ["ean_reader"], // Adjust the readers as needed
             },
-        },
-        (result) => {
+          },
+          result => {
             if (result && result.codeResult) {
-                console.log('Barcode detected and decoded: ' + result.codeResult.code);
-                return result.codeResult.code
+              console.log("Barcode detected and decoded: " + result.codeResult.code);
+              resolve(result.codeResult.code); // Resolve with the barcode value
             } else {
-                console.log('No barcode detected.');
+              console.log("No barcode detected.");
+              reject(new Error("No barcode detected")); // Reject with an error
             }
-        }
+          },
         );
-    })
-    .catch((error) => {
-      console.error('Error downloading image:', error);
-    });
+      });
+
+    } catch (error) {
+
+      console.error("Error downloading image:", error);
+      throw error; // Rethrow the error
+
+    }
   }
 }
 
