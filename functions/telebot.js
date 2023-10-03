@@ -65,7 +65,7 @@ bot.on("message", async msg => {
   }
 });
 
-// Start the bot
+// Start the bot   '
 bot.onText(/\/start/, msg => {
   const chatId = msg.chat.id;
   bot.sendMessage(
