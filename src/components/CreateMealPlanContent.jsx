@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
-
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  addDoc,
+  query,
+  getDocs,
+} from "firebase/firestore";
+import { db, auth } from "../../firebase";
 import StepProgressBar from "./StepProgressBar";
 import { fetcher } from "./Fetcher";
 import { pageDataGetter } from "./pageDataGetter";
@@ -54,9 +63,7 @@ const CreateMealPages = {
       }
       console.log(data);
 
-
-
-      const [currSel, setCurrSel] = useState(selected["breakfast"])
+      const [currSel, setCurrSel] = useState(selected["breakfast"]);
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -64,7 +71,7 @@ const CreateMealPages = {
         });
       }
 
-      if (Object.keys(currSel).length> 0){
+      if (Object.keys(currSel).length > 0) {
         setSelected((prev) => ({
           ...prev,
           breakfast: currSel,
@@ -137,8 +144,7 @@ const CreateMealPages = {
 
       console.log(data);
 
-      
-      const [currSel, setCurrSel] = useState(selected["lunch"])
+      const [currSel, setCurrSel] = useState(selected["lunch"]);
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -146,7 +152,7 @@ const CreateMealPages = {
         });
       }
 
-      if (Object.keys(currSel).length> 0){
+      if (Object.keys(currSel).length > 0) {
         setSelected((prev) => ({
           ...prev,
           lunch: currSel,
@@ -214,9 +220,7 @@ const CreateMealPages = {
 
       console.log(data);
 
-      
-
-      const [currSel, setCurrSel] = useState(selected["dinner"])
+      const [currSel, setCurrSel] = useState(selected["dinner"]);
 
       if (data !== null) {
         data.forEach((recipe) => {
@@ -224,7 +228,7 @@ const CreateMealPages = {
         });
       }
 
-      if (Object.keys(currSel).length> 0){
+      if (Object.keys(currSel).length > 0) {
         setSelected((prev) => ({
           ...prev,
           dinner: currSel,
@@ -276,14 +280,18 @@ const CreateMealPages = {
       const navigate = useNavigate();
 
       const [mealPlan, setMealPlan] = useAtom(MealPlan);
-
+      const [total, setTotal] = useState(0);
       let CardData = [];
-      
+
       // console.log(selected)
       // console.log(Object.keys(selected.breakfast))
       // console.log(Object.keys(selected.breakfast).length)
 
-      if (Object.keys(selected["breakfast"]).length > 0 && Object.keys(selected["lunch"]).length > 0 && Object.keys(selected["dinner"]).length > 0) {
+      if (
+        Object.keys(selected["breakfast"]).length > 0 &&
+        Object.keys(selected["lunch"]).length > 0 &&
+        Object.keys(selected["dinner"]).length > 0
+      ) {
         // console.log(selected)
 
         for (const meal in selected) {
@@ -321,7 +329,50 @@ const CreateMealPages = {
 
         console.log(selected);
       }
+      const countMealPlansInHistory = async (username) => {
+        const docRef = doc(db, "Food", username);
+        const subcollectionRef = collection(docRef, "MealPlanHistory");
+        const Query = query(subcollectionRef);
+        const snapshot = await getDocs(Query);
+        return snapshot.size;
+      };
+      const addMealPlanToHistory = async (plan, username) => {
+        // Get the number of documents in the `MealPlanHistory` subcollection.
+        const count = await countMealPlansInHistory(username);
 
+        // Add a new document to the `MealPlanHistory` subcollection with a sequential document ID.
+        const docRef = doc(
+          db,
+          "Food",
+          username,
+          "MealPlanHistory",
+          String(count + 1)
+        );
+        await setDoc(docRef, {
+          Plan: plan,
+          CreatedAt: Date.now(),
+        });
+      };
+      const addMeal = async (plan) => {
+        if (plan.length !== 0) {
+          console.log(JSON.stringify(plan));
+          try {
+            const username = auth.currentUser.email;
+            await setDoc(doc(db, "Food", username), {
+              Plan: plan,
+            }).then(() => {
+              console.log("Document written");
+              addMealPlanToHistory(plan, username);
+              // navigate("/home");
+            });
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+        }
+      };
+      useEffect(() => {
+        console.log(total);
+      }, [total]);
       return (
         <>
           <Container>
@@ -331,29 +382,38 @@ const CreateMealPages = {
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>
-                  <Button onClick={() => 
+                  <Button
+                    onClick={() => {
+                      let sum = 0;
+                      for (let i = 0; i < 7; i++) {
+                        ["breakfast", "lunch", "dinner"].forEach((meal) => {
+                          let randomDish = Object.keys(selected[meal])[
+                            Math.floor(
+                              Math.random() * Object.keys(selected[meal]).length
+                            )
+                          ];
 
-                  {
-                    for (let i = 0; i < 7; i++) {
-                      ["breakfast", "lunch", "dinner"].forEach((meal) => {
-                        let randomDish = Object.keys(selected[meal])[Math.floor(Math.random() * Object.keys(selected[meal]).length)];
-                        
-                        setMealPlan((prev) => ({
-                          ...prev,
-                          [i]: {
-                            ...prev[i],
-                            [meal]: {
-                              [randomDish]: selected[meal][randomDish]
-                            }
-                          }
-                        }))
-                      });
-                    }
-                    // console.log(mealPlan)
-                    navigate('/home')
-                  }             
-                  
-                  }>Next Page</Button>
+                          let value = selected[meal][randomDish];
+                          sum += value;
+
+                          setMealPlan((prev) => ({
+                            ...prev,
+                            [i]: {
+                              ...prev[i],
+                              [meal]: {
+                                [randomDish]: value,
+                              },
+                            },
+                          }));
+                        });
+                      }
+
+                      setTotal(Math.round(sum));
+                      addMeal(mealPlan);
+                    }}
+                  >
+                    Next Page
+                  </Button>
                 </div>
               </Col>
             </Row>
@@ -384,16 +444,13 @@ export default function CreateMealContent() {
 
   const [mealPlan, setMealPlan] = useAtom(MealPlan);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-  useEffect(() => {
-    console.log("my current plan is " + mealPlan);
-  }, [mealPlan]);
 
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
   const [selected, setSelected] = useState({
-    breakfast:{},
-    lunch:{},
-    dinner:{},
+    breakfast: {},
+    lunch: {},
+    dinner: {},
   });
 
   const [apiData, setApiData] = useState({
