@@ -87,7 +87,7 @@ const CreateMealPages = {
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>
-                  <Button onClick={() => setPageNo(2)}>Next Page</Button>
+                  <Button className="buttonPrimary" onClick={() => setPageNo(2)}>Next Page</Button>
                 </div>
               </Col>
             </Row>

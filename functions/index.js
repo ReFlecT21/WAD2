@@ -9,12 +9,12 @@ admin.initializeApp();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 const firestore = admin.firestore();
 exports.removeBreakfast = functions.pubsub
   .schedule("0 12 * * *")
   .timeZone("Asia/Singapore")
-  .onRun(async (context) => {
+  .onRun(async context => {
     // Your existing code...
     const collectionRef = firestore.collection("Food");
 
@@ -22,7 +22,7 @@ exports.removeBreakfast = functions.pubsub
     const snapshot = await collectionRef.get();
 
     // Iterate over each document
-    snapshot.docs.forEach(async (doc) => {
+    snapshot.docs.forEach(async doc => {
       // Get the current mealPlan object
       const mealPlan = doc.data().Plan;
 
@@ -30,14 +30,14 @@ exports.removeBreakfast = functions.pubsub
       delete mealPlan["0"]["breakfast"];
 
       // Update the mealPlan object in Firestore
-      await doc.ref.update({ Plan: mealPlan });
+      await doc.ref.update({Plan: mealPlan});
     });
   });
 
 exports.removeLunch = functions.pubsub
   .schedule("0 16 * * *")
   .timeZone("Asia/Singapore")
-  .onRun(async (context) => {
+  .onRun(async context => {
     // Your existing code...
     const collectionRef = firestore.collection("Food");
 
@@ -45,7 +45,7 @@ exports.removeLunch = functions.pubsub
     const snapshot = await collectionRef.get();
 
     // Iterate over each document
-    snapshot.docs.forEach(async (doc) => {
+    snapshot.docs.forEach(async doc => {
       // Get the current mealPlan object
       const mealPlan = doc.data().Plan;
 
@@ -53,14 +53,14 @@ exports.removeLunch = functions.pubsub
       delete mealPlan["0"]["lunch"];
 
       // Update the mealPlan object in Firestore
-      await doc.ref.update({ Plan: mealPlan });
+      await doc.ref.update({Plan: mealPlan});
     });
   });
 
 exports.removeDinner = functions.pubsub
   .schedule("0 21 * * *")
   .timeZone("Asia/Singapore")
-  .onRun(async (context) => {
+  .onRun(async context => {
     // Your existing code...
     const collectionRef = firestore.collection("Food");
 
@@ -68,7 +68,7 @@ exports.removeDinner = functions.pubsub
     const snapshot = await collectionRef.get();
 
     // Iterate over each document
-    snapshot.docs.forEach(async (doc) => {
+    snapshot.docs.forEach(async doc => {
       // Get the current mealPlan object
       let mealPlan = doc.data().Plan;
 
@@ -79,7 +79,7 @@ exports.removeDinner = functions.pubsub
       mealPlan = Object.assign({}, mealPlanArray);
 
       // Update the mealPlan object in Firestore
-      await doc.ref.update({ Plan: mealPlan });
+      await doc.ref.update({Plan: mealPlan});
     });
   });
 // express code
