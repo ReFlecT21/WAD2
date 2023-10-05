@@ -37,10 +37,9 @@ const HomePage = () => {
       <NavBar />
       {overlayData}
       <Row xs={1} md={2}>
-        <Col>
-          {/* <Spline scene="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode"/> */}
+        {/* <Col>
           <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
-        </Col>
+        </Col> */}
         <Col>
           {/* <Stack gap={2} >  */}
             <div className="neuphormicBox">
