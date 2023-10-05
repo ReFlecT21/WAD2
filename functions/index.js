@@ -4,148 +4,84 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const foodAPI = require("./API");
-// const admin = require("firebase-admin");
-// admin.initializeApp();
+const admin = require("firebase-admin");
+admin.initializeApp();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// const firestore = admin.firestore();
-// import { getDocs } from "firebase/firestore";
+const firestore = admin.firestore();
+exports.removeBreakfast = functions.pubsub
+  .schedule("0 12 * * *")
+  .timeZone("Asia/Singapore")
+  .onRun(async (context) => {
+    // Your existing code...
+    const collectionRef = firestore.collection("Food");
 
-// function code
-// exports.removeBreakfast = functions.https.onRequest(async (req, res) => {
-//   // Your existing code...
-//   const collectionRef = firestore.collection("Food");
+    // Get all documents in the collection
+    const snapshot = await collectionRef.get();
 
-//   // Get all documents in the collection
-//   const snapshot = await getDocs(collectionRef);
+    // Iterate over each document
+    snapshot.docs.forEach(async (doc) => {
+      // Get the current mealPlan object
+      const mealPlan = doc.data().Plan;
 
-//   // Iterate over each document
-//   snapshot.docs.forEach(async (doc) => {
-//     // Get the current mealPlan object
-//     const mealPlan = doc.data().Plan;
+      // Remove the first index breakfast item
+      delete mealPlan["0"]["breakfast"];
 
-//     // Remove the first index breakfast item
-//     delete mealPlan["0"]["breakfast"];
+      // Update the mealPlan object in Firestore
+      await doc.ref.update({ Plan: mealPlan });
+    });
+  });
 
-//     // Update the mealPlan object in Firestore
-//     await doc.ref.update({ Plan: mealPlan });
-//   });
-//   // Send a response to indicate that the function has finished running
-//   res.send("Removed breakfast");
-// });
-// exports.removeBreakfast = functions.pubsub
-//   .schedule("0 12 * * *")
-//   .onRun(async (context) => {
-//     // Get the collection reference
-//     const collectionRef = firestore.collection("Food");
+exports.removeLunch = functions.pubsub
+  .schedule("0 16 * * *")
+  .timeZone("Asia/Singapore")
+  .onRun(async (context) => {
+    // Your existing code...
+    const collectionRef = firestore.collection("Food");
 
-//     // Get all documents in the collection
-//     const snapshot = await getDocs(collectionRef);
+    // Get all documents in the collection
+    const snapshot = await collectionRef.get();
 
-//     // Iterate over each document
-//     snapshot.docs.forEach(async (doc) => {
-//       // Get the current mealPlan object
-//       const mealPlan = doc.data().Plan;
+    // Iterate over each document
+    snapshot.docs.forEach(async (doc) => {
+      // Get the current mealPlan object
+      const mealPlan = doc.data().Plan;
 
-//       // Remove the first index breakfast item
-//       delete mealPlan["0"]["breakfast"];
+      // Remove the first index breakfast item
+      delete mealPlan["0"]["lunch"];
 
-//       // Update the mealPlan object in Firestore
-//       await doc.ref.update({ Plan: mealPlan });
-//     });
-//   });
-// exports.removeLunch = functions.https.onRequest(async (req, res) => {
-//   // Your existing code...
-//   const collectionRef = firestore.collection("Food");
+      // Update the mealPlan object in Firestore
+      await doc.ref.update({ Plan: mealPlan });
+    });
+  });
 
-//   // Get all documents in the collection
-//   const snapshot = await getDocs(collectionRef);
+exports.removeDinner = functions.pubsub
+  .schedule("0 21 * * *")
+  .timeZone("Asia/Singapore")
+  .onRun(async (context) => {
+    // Your existing code...
+    const collectionRef = firestore.collection("Food");
 
-//   // Iterate over each document
-//   snapshot.docs.forEach(async (doc) => {
-//     // Get the current mealPlan object
-//     const mealPlan = doc.data().Plan;
+    // Get all documents in the collection
+    const snapshot = await collectionRef.get();
 
-//     // Remove the first index breakfast item
-//     delete mealPlan["0"]["lunch"];
+    // Iterate over each document
+    snapshot.docs.forEach(async (doc) => {
+      // Get the current mealPlan object
+      let mealPlan = doc.data().Plan;
 
-//     // Update the mealPlan object in Firestore
-//     await doc.ref.update({ Plan: mealPlan });
-//   });
-//   // Send a response to indicate that the function has finished running
-//   res.send("Removed lunch");
-// });
-// exports.removeLunch = functions.pubsub
-//   .schedule("0 16 * * *")
-//   .onRun(async (context) => {
-//     // Get the collection reference
-//     const collectionRef = firestore.collection("Food");
+      // Remove the first index breakfast item
+      delete mealPlan["0"]["dinner"];
+      const mealPlanArray = Object.values(mealPlan);
+      mealPlanArray.shift();
+      mealPlan = Object.assign({}, mealPlanArray);
 
-//     // Get all documents in the collection
-//     const snapshot = await getDocs(collectionRef);
-
-//     // Iterate over each document
-//     snapshot.docs.forEach(async (doc) => {
-//       // Get the current mealPlan object
-//       const mealPlan = doc.data().Plan;
-
-//       // Remove the first index breakfast item
-//       delete mealPlan["0"]["lunch"];
-
-//       // Update the mealPlan object in Firestore
-//       await doc.ref.update({ Plan: mealPlan });
-//     });
-//   });
-// exports.removeDinner = functions.https.onRequest(async (req, res) => {
-//   // Your existing code...
-//   const collectionRef = firestore.collection("Food");
-
-//   // Get all documents in the collection
-//   const snapshot = await getDocs(collectionRef);
-
-//   // Iterate over each document
-//   snapshot.docs.forEach(async (doc) => {
-//     // Get the current mealPlan object
-//     let mealPlan = doc.data().Plan;
-
-//     // Remove the first index breakfast item
-//     delete mealPlan["0"]["dinner"];
-//     const mealPlanArray = Object.values(mealPlan);
-//     mealPlanArray.shift();
-//     mealPlan = Object.assign({}, mealPlanArray);
-
-//     // Update the mealPlan object in Firestore
-//     await doc.ref.update({ Plan: mealPlan });
-//   });
-//   // Send a response to indicate that the function has finished running
-//   res.send("Removed dinner");
-// });
-// exports.removeDinner = functions.pubsub
-//   .schedule("0 21 * * *")
-//   .onRun(async (context) => {
-//     // Get the collection reference
-//     const collectionRef = firestore.collection("Food");
-
-//     // Get all documents in the collection
-//     const snapshot = await getDocs(collectionRef);
-
-//     // Iterate over each document
-//     snapshot.docs.forEach(async (doc) => {
-//       // Get the current mealPlan object
-//       let mealPlan = doc.data().Plan;
-
-//       // Remove the first index breakfast item
-//       delete mealPlan["0"]["dinner"];
-//       const mealPlanArray = Object.values(mealPlan);
-//       mealPlanArray.shift();
-//       mealPlan = Object.assign({}, mealPlanArray);
-
-//       // Update the mealPlan object in Firestore
-//       await doc.ref.update({ Plan: mealPlan });
-//     });
-//   });
+      // Update the mealPlan object in Firestore
+      await doc.ref.update({ Plan: mealPlan });
+    });
+  });
 // express code
 app.get("/test", (req, res) => {
   res.send("lets go suck my ass ");
