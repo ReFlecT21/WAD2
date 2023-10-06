@@ -85,7 +85,7 @@ app.get("/getMealPlan/:userId", async (req, res) => {
     // Get the current mealPlan object
     const mealPlan = doc.data().Plan;
 
-    res.json(mealPlan);
+    res.send(mealPlan);
   } else {
     res.send("No user found with the provided ID");
   }

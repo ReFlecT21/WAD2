@@ -1,11 +1,13 @@
-const getMealPlan = (userId) => {
-  fetch(
-    `http://127.0.0.1:5001/wad2-395904/us-central1/app/getMealPlan/${userId}`
-  )
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+const getMealPlan = async (userId) => {
+  try {
+    const response = await fetch(
+      `https://us-central1-wad2-395904.cloudfunctions.net/app/getMealPlan/${userId}`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default getMealPlan;
