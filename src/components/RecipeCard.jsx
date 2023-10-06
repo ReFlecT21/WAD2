@@ -27,6 +27,7 @@ export function RecpieCard({ recipe, setter = null }) {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Button
+                    className="buttonPrimary"
                     onClick={() =>
                       setOverlayData(<RecipeDetails id={recipe["id"]} />)
                     }
@@ -34,6 +35,7 @@ export function RecpieCard({ recipe, setter = null }) {
                     See Recipe
                   </Button>
                   <Button
+                    className="buttonPrimary"
                     onClick={() =>
                       setter((prev) => ({
                         ...prev,
