@@ -27,8 +27,21 @@ export default function MealPlan() {
     
     fetchData();
   }, []);
+
   
+  // after successfully retrieving current meal plan
   console.log(mealPlan);
+  const currMealPlan = [];
+
+
+  for (let i=0; i<7; i++){ 
+    // i is the day number 
+    ["breakfast", "lunch", "dinner"].forEach((meal) => {
+      currMealPlan.push(<p>{i}, {meal}</p>)
+    })
+
+  }
+
 
 
   return (
@@ -38,9 +51,7 @@ export default function MealPlan() {
       <ErrorBoundary FallbackComponent={Fallback}>
         {
           mealPlan!=null ? (
-            // mealPlan
-            <p>you have a meal plan</p>
-            
+            currMealPlan
           ) : (
             <>
 
@@ -50,8 +61,6 @@ export default function MealPlan() {
               </Button>
 
             </>
-
-
           )
         }
       </ErrorBoundary>
