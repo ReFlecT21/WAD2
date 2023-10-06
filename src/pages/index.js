@@ -5,3 +5,4 @@ export { default as HomePage } from "./homepage";
 export { default as SpinnerPage } from "./SpinnerPage";
 export { default as Fallback } from "./Fallback";
 export { default as InputPage } from "./InputPage";
+export { default as MealPlan } from "./MealPlan";

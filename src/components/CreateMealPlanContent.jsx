@@ -12,14 +12,16 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import StepProgressBar from "./StepProgressBar";
-import { fetcher } from "./Fetcher";
+import { fetcher } from "../getters/Fetcher";
 import { pageDataGetter } from "./pageDataGetter";
 import { FinaliseRecipeCard, RecpieCard } from "./RecipeCard";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
+
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { MealPlan } from "../atoms/mealPlan";
+import { Kcal } from "../atoms/KcalAtom";
 
 import {
   BrowserRouter as Router,
@@ -439,8 +441,10 @@ const CreateMealPages = {
 
 export default function CreateMealContent() {
   // replace with atom when ready
-  const weekly_cal = 14000;
-  const daily_cal = weekly_cal / 7;
+  const [calories, setCalories] = useAtom(Kcal);
+  console.log(calories)
+  // const weekly_cal = Kcal;
+  // const daily_cal = weekly_cal / 7;
 
   const [mealPlan, setMealPlan] = useAtom(MealPlan);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
@@ -482,7 +486,7 @@ export default function CreateMealContent() {
         selected,
         setSelected,
         setOverlayData,
-        daily_cal
+        2000
       );
       setCurrPage(pageData);
     }

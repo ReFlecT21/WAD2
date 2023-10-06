@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetcher } from "./Fetcher";
+import { fetcher } from "../getters/Fetcher";
 
 export async function pageDataGetter(type, mealCals, setter) {
   // mealType (string, comma separated); "breakfast", "lunch, main course"

@@ -87,7 +87,8 @@ app.get("/getMealPlan/:userId", async (req, res) => {
 
     res.send(mealPlan);
   } else {
-    res.send("No user found with the provided ID");
+    res.send({data: false}); 
+    // "No user found with the provided ID"
   }
 });
 

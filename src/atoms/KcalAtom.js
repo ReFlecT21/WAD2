@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const Kcal = atom(null);
+export const Kcal = atom(0);

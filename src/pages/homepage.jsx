@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetcherPOST } from "../components/Fetcher";
+import { fetcherPOST } from "../getters/Fetcher";
 import { NavBar } from "../components";
 import { Row, Col, Button, Stack } from "react-bootstrap";
 import { Box } from "@mui/material";
