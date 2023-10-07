@@ -72,6 +72,7 @@ export function FinaliseRecipeCard({ recipe, selected=null }) {
             <Row>
               <Col>
                 <Button
+                  className="buttonPrimary"
                   onClick={() =>
                     setOverlayData(<RecipeDetails id={recipe["id"]} />)
                   }

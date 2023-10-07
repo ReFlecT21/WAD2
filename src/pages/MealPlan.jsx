@@ -1,4 +1,4 @@
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row, Col, Accordion } from "react-bootstrap";
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { NavBar } from "../components";
@@ -24,6 +24,8 @@ export default function MealPlan() {
   const [currMealPlan, setCurrMealPlan] = useState(null)
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
+  var defaultActiveKey = null
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +45,8 @@ export default function MealPlan() {
     console.log(currMealPlan);
     // d.setDate(d.getDate() + 1)
     // console.log( d )
+
+    defaultActiveKey = Object.keys(currMealPlan.mealPlan)[0]
     
     
     for (const day in currMealPlan.mealPlan) {
@@ -68,32 +72,19 @@ export default function MealPlan() {
       d.setDate(d.getDate()+ parseInt(day))
       display.push(
         <>
-          <div style={{ border:"1px solid black"}}>
-            <h1>{weekday[d.getDay()]}, {d.toLocaleDateString() }</h1> 
-            <Row xs={1} md={2} lg={3}>
-              {dayData}
-            </Row>
-            {/* <div>{dayData}</div> */}
-          </div>
+          <Accordion.Item eventKey={day}>
+            <Accordion.Header>{weekday[d.getDay()]}, {d.toLocaleDateString() }</Accordion.Header>
+              <Accordion.Body>
+                <Row xs={1} md={2} lg={3}>
+                  {dayData}
+                </Row>
+              </Accordion.Body>
+          </Accordion.Item>
         </>
       )
-
-
-
       
     }
-  
-    // for (let i=0; i<7; i++){ 
-    //   // i is the day number 
-    //   ["breakfast", "lunch", "dinner"].forEach((meal) => {
-    //     currMealPlan.push(<p>{i}, {meal}</p>)
-    //   //   <Button onClick={
-    //   //     method(i, meal)
-    //   //   }></Button>
-    //   })
-  
-    // }
-    
+
   }
 
 
@@ -107,7 +98,10 @@ export default function MealPlan() {
         {
           currMealPlan!=null ? (
             <Container>
-              {display}
+              {/* {display} */}
+              <Accordion defaultActiveKey={['1']} alwaysOpen>
+                {display}
+              </Accordion>
             </Container>
           ) : (
             <>
