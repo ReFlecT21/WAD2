@@ -9,6 +9,7 @@ import {
   addDoc,
   query,
   getDocs,
+  serverTimestamp,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import StepProgressBar from "./StepProgressBar";
@@ -362,6 +363,7 @@ const CreateMealPages = {
             const username = auth.currentUser.email;
             await setDoc(doc(db, "Food", username), {
               Plan: plan,
+              CreatedAt: Date.now(),
             }).then(() => {
               console.log("Document written");
               addMealPlanToHistory(plan, username);
@@ -371,7 +373,7 @@ const CreateMealPages = {
             console.error("Error adding document: ", e);
           }
         }
-      };
+      }; 
       useEffect(() => {
         console.log(total);
       }, [total]);

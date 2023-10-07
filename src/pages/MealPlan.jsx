@@ -30,16 +30,22 @@ export default function MealPlan() {
 
   
   // after successfully retrieving current meal plan
-  console.log(mealPlan);
   const currMealPlan = [];
 
-
-  for (let i=0; i<7; i++){ 
-    // i is the day number 
-    ["breakfast", "lunch", "dinner"].forEach((meal) => {
-      currMealPlan.push(<p>{i}, {meal}</p>)
-    })
-
+  if (mealPlan){
+    console.log(mealPlan);
+    var d = new Date(mealPlan.CreatedAt);
+    console.log( d.toString() )
+  
+  
+    for (let i=0; i<7; i++){ 
+      // i is the day number 
+      ["breakfast", "lunch", "dinner"].forEach((meal) => {
+        currMealPlan.push(<p>{i}, {meal}</p>)
+      })
+  
+    }
+    
   }
 
 

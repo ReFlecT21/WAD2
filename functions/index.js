@@ -84,8 +84,9 @@ app.get("/getMealPlan/:userId", async (req, res) => {
   if (doc.exists) {
     // Get the current mealPlan object
     const mealPlan = doc.data().Plan;
+    const CreatedAt = doc.data().CreatedAt;
 
-    res.send(mealPlan);
+    res.send({mealPlan, CreatedAt});
   } else {
     res.send({data: false}); 
     // "No user found with the provided ID"
