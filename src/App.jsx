@@ -46,6 +46,7 @@ function App() {
             ) : (
               <>
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/input" element={<InputPage />} />
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
                 <Route path="/choose" element={<ChooseMeals />} />
