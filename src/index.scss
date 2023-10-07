@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Orelega+One');
+
+//variables
+$primaryTextCol: #1F5E4B;
+$whiteTextCol: #F6FEFC;
+$backgroundCol: #F6FEFC;
+$primaryFont: "Nunito Sans";
+$headerFont: "Orelega One";
+
+//mixins
+@mixin headerText(){ //for all the h1,2,3...
+    color: $primaryTextCol;
+    font-weight: bold;
+    font-family: "Orelega One"
+}
+
+@mixin bodyText(){
+    color: $primaryTextCol;
+    font-weight: normal;
+    font-family: "Nunito Sans"
+}
+
+@mixin whiteText(){
+    color: $whiteTextCol;
+    font-weight: normal;
+    font-family: "Nunito Sans"
+}
+@mixin button($bg, $size) { //change button color and font size
+    background-color: $bg;
+    color: white;
+    border: 0px;
+    border-radius: 50px;
+    font-size: $size;
+    padding: 10px 28px;
+    text-align: center;
+    font-family: "Nunito Sans";
+
+    &:hover {
+        background:darken($bg,10%);
+        transition: all 0.3s ease;
+    }
+}
+
+//VERTICAL CARD
+.card{
+    width: 300px;
+    background: $backgroundCol;
+    padding: .4em;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    
+}   
+    x
+.card:hover{
+    transform: scale(1.05);
+    transition: 0.3s; 
+    }
+
+.card-category { //Card titlea
+font-size: 26px;
+font-weight: bold;
+font-family: $primaryFont;
+color: $primaryTextCol;
+padding: 10px 7px 0;
+}
+
+.card-category:hover {
+cursor: pointer;
+}
+
+.card-heading { //Card text
+font-weight: normal;
+font-size: 14px;
+@include bodyText();
+color: rgb(88, 87, 87);
+padding: 10px;
+}
+
+.card button{
+    border-radius: 20px;
+    @include whiteText();
+    border: 0;
+    @include button($primaryTextCol, 14px)
+}
+
+// <img src="./pic.jpg" style="width:100%"/> --> NEED TO ADD STYLE TO IMG SRC
+
+
+//stuff
+.neuphormicBox{
+    /* get the input from https://neumorphism.io/#e0e0e0  */
+    border-radius: 40px;
+    background: $backgroundCol;
+    box-shadow:  20px 20px 38px #dbe2e0,
+                -20px -20px 38px #ffffff;
+    padding: 5%;
+    margin: 5%;
+}
+
+//vertical card
+
+body, html {
+    font-family: "Nunito Sans";
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #F6FEFC; 
+}
+
+
