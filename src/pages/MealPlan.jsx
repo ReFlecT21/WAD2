@@ -55,13 +55,13 @@ export default function MealPlan() {
       for (const mealType in currMealPlan.mealPlan[day]) {
       
         if (mealType == "breakfast"){
-          dayData[0] =  <div><h3>{mealType}</h3><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
+          dayData[0] =  <div><h4>{mealType}</h4><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
         }
         if (mealType == "lunch"){
-          dayData[1] =   <div><h3>{mealType}</h3><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
+          dayData[1] =   <div><h4>{mealType}</h4><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
         }
         if (mealType == "dinner"){
-          dayData[2] =   <div><h3>{mealType}</h3><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
+          dayData[2] =   <div><h4>{mealType}</h4><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
         }
         
         // Object.keys(currMealPlan.mealPlan[day][mealType])[0]
@@ -73,7 +73,7 @@ export default function MealPlan() {
       display.push(
         <>
           <Accordion.Item eventKey={day}>
-            <Accordion.Header>{weekday[d.getDay()]}, {d.toLocaleDateString() }</Accordion.Header>
+            <Accordion.Header><h3 style={{margin:"0px"}}>{d.toLocaleDateString()}, {weekday[d.getDay()]}</h3></Accordion.Header>
               <Accordion.Body>
                 <Row xs={1} md={2} lg={3}>
                   {dayData}
