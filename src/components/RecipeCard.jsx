@@ -61,7 +61,7 @@ export function RecpieCard({ recipe, setter = null }) {
   );
 }
 
-export function FinaliseRecipeCard({ recipe, selected }) {
+export function FinaliseRecipeCard({ recipe, selected=null }) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   return (
     <Col key={recipe["id"]}>
