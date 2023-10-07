@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { Kcal } from "../atoms/KcalAtom";
 import {
@@ -16,6 +16,7 @@ import { auth } from "../../firebase";
 import { LoggedIn } from "../atoms/logInAtom";
 import { NavBar } from "../components";
 import { MDBSwitch } from "mdb-react-ui-kit";
+import getMealPlan from "../getters/getMealPlan";
 const InputPage = () => {
   const [formData, setFormData] = useState({
     age: 0,
@@ -103,7 +104,15 @@ const InputPage = () => {
     setCalories(calculatedCalories);
     console.log(calories);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const userId = auth.currentUser.email;
+      const mealPlan = await getMealPlan(userId);
+      console.log(mealPlan);
+    };
 
+    fetchData();
+  }, []);
   return (
     <>
       <NavBar />

@@ -11,9 +11,11 @@ import {
   HomePage,
   Fallback,
   InputPage,
+  MealPlan,
 } from "./pages";
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
+import { Loader } from "./components";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +33,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <SpinnerPage />; // Or replace with your own loading component
+    return <Loader />; // Or replace with your own loading component
   }
 
   return (
@@ -47,6 +49,7 @@ function App() {
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
                 <Route path="/choose" element={<ChooseMeals />} />
+                <Route path="/mealplan" element={<MealPlan />} />
               </>
             )}
           </Routes>
