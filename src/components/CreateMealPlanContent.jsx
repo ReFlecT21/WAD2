@@ -389,7 +389,13 @@ const CreateMealPages = {
                   <Button
                     onClick={() => {
                       let sum = 0;
-                      for (let i = 0; i < 7; i++) {
+                      
+                      // reCal object of remaining meal plan
+                      // new remaining daily calories (based off remaining meal plan)
+                      // loop through this object then, based on what meal type key it is, i change the meal id
+                      // then push to firestore
+                      
+                      for (let i = 1; i < 8; i++) {
                         ["breakfast", "lunch", "dinner"].forEach((meal) => {
                           let randomDish = Object.keys(selected[meal])[
                             Math.floor(
@@ -488,7 +494,8 @@ export default function CreateMealContent() {
         selected,
         setSelected,
         setOverlayData,
-        2000
+        2000,
+        // calories
       );
       setCurrPage(pageData);
     }

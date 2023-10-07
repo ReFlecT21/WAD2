@@ -42,6 +42,9 @@ export default function MealPlan() {
       // i is the day number 
       ["breakfast", "lunch", "dinner"].forEach((meal) => {
         currMealPlan.push(<p>{i}, {meal}</p>)
+      //   <Button onClick={
+      //     method(i, meal)
+      //   }></Button>
       })
   
     }
