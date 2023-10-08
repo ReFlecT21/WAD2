@@ -62,17 +62,54 @@ export default function MealPlan() {
                 <h4 style={{margin:"0px",}}>{mealType}</h4>
                 </Col>
                 <Col>
-                <Button>Hello</Button>
+                <Button onClick={
+                  console.log("clicking completed")
+                  // check: if the current day he is on, the meal type has been completed 
+                  // if completed: block adding 
+                  // else: add to count of completed meals, call delete from db, call add meal to db
+                }>Completed</Button>
                 </Col>
               </Row>
               <MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/>
             </div>
         }
         if (mealType == "lunch"){
-          dayData[1] =   <div><h4>{mealType}</h4><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
+          dayData[1] = 
+            <div>
+              <Row xs={2} md={2} lg={2}>
+                <Col>
+                <h4 style={{margin:"0px",}}>{mealType}</h4>
+                </Col>
+                <Col>
+                <Button onClick={
+                  console.log("clicking completed")
+                  // check: if the current day he is on, the meal type has been completed 
+                  // if completed: block adding 
+                  // else: add to count of completed meals, call delete from db, call add meal to db
+                }>Completed</Button>
+                </Col>
+              </Row>
+              <MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/>
+          </div>
         }
         if (mealType == "dinner"){
-          dayData[2] =   <div><h4>{mealType}</h4><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
+          dayData[2] = 
+          <div>
+            <Row xs={2} md={2} lg={2}>
+              <Col>
+              <h4 style={{margin:"0px",}}>{mealType}</h4>
+              </Col>
+              <Col>
+              <Button onClick={
+                  console.log("clicking completed")
+                  // check: if the current day he is on, the meal type has been completed 
+                  // if completed: block adding 
+                  // else: add to count of completed meals, call delete from db, call add meal to db
+                }>Completed</Button>
+              </Col>
+            </Row>
+            <MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/>
+          </div>
         }
         
         // Object.keys(currMealPlan.mealPlan[day][mealType])[0]
