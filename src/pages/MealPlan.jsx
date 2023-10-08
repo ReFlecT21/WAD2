@@ -55,7 +55,18 @@ export default function MealPlan() {
       for (const mealType in currMealPlan.mealPlan[day]) {
       
         if (mealType == "breakfast"){
-          dayData[0] =  <div><h4>{mealType}</h4><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
+          dayData[0] =  
+            <div>
+              <Row xs={2} md={2} lg={2}>
+                <Col>
+                <h4 style={{margin:"0px",}}>{mealType}</h4>
+                </Col>
+                <Col>
+                <Button>Hello</Button>
+                </Col>
+              </Row>
+              <MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/>
+            </div>
         }
         if (mealType == "lunch"){
           dayData[1] =   <div><h4>{mealType}</h4><MealPlanCard recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}/></div>
