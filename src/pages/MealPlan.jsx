@@ -1,4 +1,4 @@
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row, Col, Accordion } from "react-bootstrap";
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { NavBar } from "../components";
@@ -10,6 +10,10 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
+import { fetcher } from "../getters/Fetcher";
+import { MealPlanCard } from "../components/MealPlanCard";
+import { RecipeOverlay } from "../atoms/recipeOverlay";
+import { useAtom } from "jotai";
 import {
   collection,
   doc,
@@ -27,7 +31,8 @@ export default function MealPlan() {
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
 
-  const [mealPlan, setMealPlan] = useState(null);
+  const [currMealPlan, setCurrMealPlan] = useState(null);
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   let dayIndex = 1;
   async function markMealAsComplete(dayIndex, mealType) {
     const username = auth.currentUser.email;
@@ -75,32 +80,143 @@ export default function MealPlan() {
       console.error("Error updating document: ", e);
     }
   }
+
+  var defaultActiveKey = null;
+
   useEffect(() => {
     const fetchData = async () => {
       const userId = auth.currentUser.email;
-      setMealPlan(await getMealPlan(userId));
+      setCurrMealPlan(await getMealPlan(userId));
     };
 
     fetchData();
   }, []);
 
   // after successfully retrieving current meal plan
-  const currMealPlan = [];
 
-  if (mealPlan) {
-    console.log(mealPlan);
-    var d = new Date(mealPlan.CreatedAt);
-    console.log(d.toString());
+  const display = [];
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-    for (let i = 0; i < 7; i++) {
-      // i is the day number
-      ["breakfast", "lunch", "dinner"].forEach((meal) => {
-        currMealPlan.push(
-          <p>
-            {i}, {meal}
-          </p>
-        );
-      });
+  if (currMealPlan) {
+    console.log(currMealPlan);
+    // d.setDate(d.getDate() + 1)
+    // console.log( d )
+
+    defaultActiveKey = Object.keys(currMealPlan.mealPlan)[0];
+
+    for (const day in currMealPlan.mealPlan) {
+      const dayData = [null, null, null];
+      for (const mealType in currMealPlan.mealPlan[day]) {
+        if (mealType == "breakfast") {
+          dayData[0] = (
+            <div>
+              <Row xs={2} md={2} lg={2}>
+                <Col>
+                  <h4 style={{ margin: "0px" }}>{mealType}</h4>
+                </Col>
+                <Col>
+                  <Button
+                    onClick={
+                      console.log("clicking completed")
+                      // check: if the current day he is on, the meal type has been completed
+                      // if completed: block adding
+                      // else: add to count of completed meals, call delete from db, call add meal to db
+                    }
+                  >
+                    Completed
+                  </Button>
+                </Col>
+              </Row>
+              <MealPlanCard
+                recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}
+              />
+            </div>
+          );
+        }
+        if (mealType == "lunch") {
+          dayData[1] = (
+            <div>
+              <Row xs={2} md={2} lg={2}>
+                <Col>
+                  <h4 style={{ margin: "0px" }}>{mealType}</h4>
+                </Col>
+                <Col>
+                  <Button
+                    onClick={
+                      console.log("clicking completed")
+                      // check: if the current day he is on, the meal type has been completed
+                      // if completed: block adding
+                      // else: add to count of completed meals, call delete from db, call add meal to db
+                    }
+                  >
+                    Completed
+                  </Button>
+                </Col>
+              </Row>
+              <MealPlanCard
+                recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}
+              />
+            </div>
+          );
+        }
+        if (mealType == "dinner") {
+          dayData[2] = (
+            <div>
+              <Row xs={2} md={2} lg={2}>
+                <Col>
+                  <h4 style={{ margin: "0px" }}>{mealType}</h4>
+                </Col>
+                <Col>
+                  <Button
+                    onClick={
+                      console.log("clicking completed")
+                      // check: if the current day he is on, the meal type has been completed
+                      // if completed: block adding
+                      // else: add to count of completed meals, call delete from db, call add meal to db
+                    }
+                  >
+                    Completed
+                  </Button>
+                </Col>
+              </Row>
+              <MealPlanCard
+                recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}
+              />
+            </div>
+          );
+        }
+
+        // Object.keys(currMealPlan.mealPlan[day][mealType])[0]
+      }
+
+      console.log(currMealPlan);
+
+      var d = new Date(currMealPlan.CreatedAt);
+      d.setDate(d.getDate() + parseInt(day));
+      display.push(
+        <>
+          <Accordion.Item eventKey={day}>
+            <Accordion.Header>
+              <h3 style={{ margin: "0px" }}>
+                {d.toLocaleDateString()}, {weekday[d.getDay()]}
+              </h3>
+            </Accordion.Header>
+            <Accordion.Body>
+              <Row xs={1} md={2} lg={3}>
+                {dayData}
+              </Row>
+            </Accordion.Body>
+          </Accordion.Item>
+        </>
+      );
     }
   }
 
@@ -109,12 +225,21 @@ export default function MealPlan() {
       <NavBar />
       {/* <h1 style={{ textAlign: "center" }}>This is Current Meal Plan</h1> */}
       <ErrorBoundary FallbackComponent={Fallback}>
-        {mealPlan != null ? (
-          currMealPlan
+        {overlayData}
+        {currMealPlan != null ? (
+          <Container>
+            {/* {display} */}
+            <Accordion defaultActiveKey={["1"]} alwaysOpen>
+              {display}
+            </Accordion>
+          </Container>
         ) : (
           <>
             <h1>Create A Meal Plan With Us First!</h1>
-            <Button onClick={navChoose}>Create Meal Plan!</Button>
+            <Button onClick={navChoose}>
+              {/* <Button> */}
+              Create Meal Plan!
+            </Button>
           </>
         )}
       </ErrorBoundary>

@@ -61,7 +61,7 @@ export function RecpieCard({ recipe, setter = null }) {
   );
 }
 
-export function FinaliseRecipeCard({ recipe, selected }) {
+export function FinaliseRecipeCard({ recipe, selected=null }) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   return (
     <Col key={recipe["id"]}>
@@ -72,6 +72,7 @@ export function FinaliseRecipeCard({ recipe, selected }) {
             <Row>
               <Col>
                 <Button
+                  className="buttonPrimary"
                   onClick={() =>
                     setOverlayData(<RecipeDetails id={recipe["id"]} />)
                   }
