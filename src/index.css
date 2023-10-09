@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Orelega+One");
+p {
+  font-family: "Nunito Sans";
+}
+
 .card {
   width: 300px;
   background: #F6FEFC;
@@ -8,7 +12,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
- .card:hover {
+x .card:hover {
   transform: scale(1.05);
   transition: 0.3s;
 }
@@ -42,7 +46,7 @@
   font-family: "Nunito Sans";
   border: 0;
   background-color: #1F5E4B;
-  color: white;
+  color: #F6FEFC;
   border: 0px;
   border-radius: 50px;
   font-size: 14px;
@@ -70,4 +74,166 @@ body, html {
   padding: 0;
   height: 100%;
   background-color: #F6FEFC;
+}
+
+.logo {
+  height: 180px;
+  width: 200px;
+  margin: 20px;
+  margin-top: 30px;
+}
+
+.foodimg {
+  height: 500px;
+  width: 400;
+  margin: 0;
+}
+
+.backgroundRight {
+  background-color: #1F5E4B;
+}
+
+.backgroundLeft {
+  background-color: #1F5E4B;
+}
+
+.tagline {
+  font-family: "Orelega One";
+  font-size: 24px;
+  text-align: center;
+  color: #F6FEFC;
+}
+
+.inputBox {
+  font-family: "Nunito Sans";
+  border-radius: 80px;
+  width: 55vh;
+  height: 60px;
+  margin: 5px;
+  padding-left: 50px;
+  font-size: large;
+}
+
+.inputBox::-moz-placeholder {
+  color: #1F5E4B;
+}
+
+.inputBox::placeholder {
+  color: #1F5E4B;
+}
+
+.loginButton {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 18px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  width: 40vh;
+  height: 60px;
+  margin-top: 40px;
+}
+.loginButton:hover {
+  background: #319677;
+  transition: all 0.3s ease;
+}
+
+.signupSmallText {
+  text-align: center;
+  margin-top: 20px;
+  color: #F6FEFC;
+}
+
+.link {
+  color: #3EBC96;
+  font-style: italic;
+}
+
+.custom-navbar {
+  background-color: #1F5E4B;
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+}
+
+.homeNav h3 {
+  font-family: "Nunito Sans";
+  font-weight: bold;
+  color: #F6FEFC;
+  margin: 0;
+}
+
+.homeNav img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.createBtn {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  font-weight: bold;
+}
+.createBtn:hover {
+  background: #319677;
+  transition: all 0.3s ease;
+}
+
+.plusIcon {
+  color: #F6FEFC;
+  margin-right: 10px;
+}
+
+span {
+  color: #F6FEFC;
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+span:hover {
+  color: #3EBC96;
+  transition: 0.5s;
+}
+
+.profileIcon {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 30px;
+  width: 30px;
+}
+
+h2 {
+  color: #1F5E4B;
+  font-family: "Orelega One";
+  font-size: 40px;
+}
+
+.text {
+  font-family: "Nunito Sans";
+  font-weight: bold;
+  font-size: 20px;
+  color: #1F5E4B;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.genderSwitch {
+  height: 20px;
+  width: 50px;
+}
+
+.switchText {
+  color: #1F5E4B;
+  font-size: 16px;
 }/*# sourceMappingURL=index.css.map */

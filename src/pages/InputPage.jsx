@@ -121,13 +121,13 @@ const InputPage = () => {
           <Col>hi</Col>
           <Col
             style={{
-              padding: "20px",
+              padding: "40px",
             }}
           >
             <Row>
               <h2>Getting to know you!</h2>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
+            <Row className="text" style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
@@ -143,23 +143,13 @@ const InputPage = () => {
                 Age
               </Col>
             </Row>
-            <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+            <Row 
+           >
+              <Col className="switchText" 
               >
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <span style={{ marginRight: "10px", color: "black" }}>
-                    Female
-                  </span>
-                  <MDBSwitch
+                <div style={{ display: "flex", alignItems: "center"}}>
+                  <span style={{color: "#1F5E4B", fontWeight: "normal"}}>Female</span>
+                  <MDBSwitch className="genderSwitch"
                     name="gender"
                     checked={formData.gender === "male"}
                     onChange={handleChangeGender}
@@ -168,7 +158,7 @@ const InputPage = () => {
                   />
                 </div>
               </Col>
-              <Col
+              <Col className="text" 
                 style={{
                   paddingLeft: "20px",
                 }}
@@ -183,34 +173,21 @@ const InputPage = () => {
                   onChange={handleChange}
                 />
               </Col>
+              
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 Height
               </Col>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 Weight
               </Col>
             </Row>
             <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
             >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 {" "}
                 <Form.Control
@@ -222,10 +199,7 @@ const InputPage = () => {
                   onChange={handleChange}
                 />
               </Col>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 {" "}
                 <Form.Control
@@ -237,12 +211,10 @@ const InputPage = () => {
                   onChange={handleChange}
                 />
               </Col>
+                      
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 Select your activity level
               </Col>
@@ -252,10 +224,7 @@ const InputPage = () => {
                 marginTop: "20px",
               }}
             >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <Form.Select
                   onChange={handleChange}
@@ -282,19 +251,13 @@ const InputPage = () => {
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 Allergies
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <Form.Select
                   onChange={handleChange}
@@ -312,19 +275,13 @@ const InputPage = () => {
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 Goal
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <Form.Select
                   onChange={handleChange}
@@ -337,7 +294,7 @@ const InputPage = () => {
                 </Form.Select>
               </Col>
             </Row>
-            <Row>
+            <Row className="d-flex justify-content-center">
               <Button
                 onClick={handleSubmit}
                 type="submit"
