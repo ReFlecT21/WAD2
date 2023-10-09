@@ -141,33 +141,10 @@ h2,h3,h4,h5{
   }
 
 
-//   @mixin button($bg, $size) { //change button color and font size
-//     background-color: $bg;
-//     color: white;
-//     border: 0px;
-//     border-radius: 50px;
-//     font-size: $size;
-//     padding: 10px 28px;
-//     text-align: center;
-//     font-family: "Nunito Sans";
-
-
-// }
-   
 
 
 
     .inputButton{
-        // width: 50%;
-        // border-radius: 50px;
-        // margin-top: 30px;
-        // background-color:$primaryTextCol;
-        // border: 2px solid;
-        // border-color: #F6FEFC;
-      
-        // color: #F6FEFC  ;
-        // font-family: "Nunito";
-        // font-weight: bold;
 
         @include button($secondaryCol,16px );
         width: 30%;
@@ -179,35 +156,3 @@ h2,h3,h4,h5{
 
 
     
-
-// .loginButto{
-//     width: 50%;
-//     border-radius: 50px;
-//     margin-top: 30px;
-//     background-color:#3EBC96;
-//     border: 2px solid;
-//     border-color: #F6FEFC;
-  
-//     color: #F6FEFC  ;
-//     font-family: "Nunito";
-//     font-weight: bold;
-//   }
-
-
-
-
-// //for loginpage
-
-// //I made a light green col variable
-//   $lightGreenCol: #3EBC96;
-
-
-//   .loginButton{
-//     @include button($lightGreenCol,14px );
-//     width: 90%;
-//     margin: 15px;
-//   }
-
-//   .background{
-//     background-color: $primaryTextCol;
-//   }
