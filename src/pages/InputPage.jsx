@@ -118,34 +118,42 @@ const InputPage = () => {
       <NavBar />
       <Container fluid>
         <Row>
-          <Col>hi</Col>
+          <Col>
+          <Image src="/login.png" alt="" className="sideimg" />
+          </Col>
           <Col
             style={{
               padding: "40px",
             }}
           >
             <Row>
-              <h2>Getting to know you!</h2>
+              <h1>Getting to know you!</h1>
             </Row>
             <Row className="text" style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
+                
               >
-                Gender
+                <h3>Gender</h3>
+                
               </Col>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                Age
+                <h3>Age</h3>
               </Col>
             </Row>
-            <Row 
-           >
-              <Col className="switchText" 
+            <Row
+
+            >
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
                 <div style={{ display: "flex", alignItems: "center"}}>
                   <span style={{color: "#1F5E4B", fontWeight: "normal"}}>Female</span>
@@ -178,14 +186,17 @@ const InputPage = () => {
             <Row style={{ marginTop: "20px" }}>
               <Col className="text" 
               >
-                Height
+                <h3>Height</h3>
               </Col>
               <Col className="text" 
               >
-                Weight
+                <h3>Weight</h3>
               </Col>
             </Row>
             <Row
+
+
+         
             >
               <Col className="text" 
               >
@@ -214,14 +225,18 @@ const InputPage = () => {
                       
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col className="text" 
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                  paddingBottom: "10px",
+                }}
               >
-                Select your activity level
+                <h3>Select your activity level</h3>
               </Col>
             </Row>
             <Row
               style={{
-                marginTop: "20px",
+                marginTop: "0px",
               }}
             >
               <Col className="text" 
@@ -253,11 +268,14 @@ const InputPage = () => {
             <Row style={{ marginTop: "20px" }}>
               <Col className="text" 
               >
-                Allergies
+                <h3>Allergies</h3>
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col className="text" 
+            <Row style={{ marginTop: "10px" }}>
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
                 <Form.Select
                   onChange={handleChange}
@@ -277,11 +295,15 @@ const InputPage = () => {
             <Row style={{ marginTop: "20px" }}>
               <Col className="text" 
               >
-                Goal
+                <h3>Goal</h3>
+                
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col className="text" 
+            <Row style={{ marginTop: "10px" }}>
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
                 <Form.Select
                   onChange={handleChange}
@@ -295,14 +317,17 @@ const InputPage = () => {
               </Col>
             </Row>
             <Row className="d-flex justify-content-center">
-              <Button
+         
+              <Button 
                 onClick={handleSubmit}
                 type="submit"
-                className="loginButton"
+                className="inputButton"
               >
-                Create Meal
+                Choose My Meals!
               </Button>
             </Row>
+
+            
           </Col>
         </Row>
       </Container>
