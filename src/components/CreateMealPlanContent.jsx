@@ -389,39 +389,67 @@ const CreateMealPages = {
                   <Button
                     onClick={() => {
                       
-                      if (mealPlan) {
+                      // if (mealPlan) {
                         
-                        for (const day in mealPlan) {
-                          if (mealPlan[day]){
-                            for (const meal in mealPlan) {
+                      //   for (const day in mealPlan) {
+                      //     if (mealPlan[day]){
+                      //       for (const meal in mealPlan) {
 
-                              let randomDish = Object.keys(selected[meal])[
-                                Math.floor(
-                                  Math.random() * Object.keys(selected[meal]).length
-                                )
-                              ];
+                      //         let randomDish = Object.keys(selected[meal])[
+                      //           Math.floor(
+                      //             Math.random() * Object.keys(selected[meal]).length
+                      //           )
+                      //         ];
 
-                              setMealPlan((prev) => ({
-                                ...prev,
-                                [day]: {
-                                  ...prev[day],
-                                  [meal]: {
-                                    [randomDish]: value,
-                                  },
-                                },
-                              }));
+                      //         setMealPlan((prev) => ({
+                      //           ...prev,
+                      //           [day]: {
+                      //             ...prev[day],
+                      //             [meal]: {
+                      //               [randomDish]: value,
+                      //             },
+                      //           },
+                      //         }));
 
-                            }
-                          }
-                        }
-                        // reCal object of remaining meal plan
-                        // new remaining daily calories (based off remaining meal plan)
-                        // loop through this object then, based on what meal type key it is, i change the meal id
-                        // then push to firestore
+                      //       }
+                      //     }
+                      //   }
+                      //   // reCal object of remaining meal plan
+                      //   // new remaining daily calories (based off remaining meal plan)
+                      //   // loop through this object then, based on what meal type key it is, i change the meal id
+                      //   // then push to firestore
                         
-                      } else {
+                      // } else {
                         
-                        let sum = 0;
+                      //   let sum = 0;
+                      //   for (let i = 1; i < 8; i++) {
+                      //     ["breakfast", "lunch", "dinner"].forEach((meal) => {
+                      //       let randomDish = Object.keys(selected[meal])[
+                      //         Math.floor(
+                      //           Math.random() * Object.keys(selected[meal]).length
+                      //         )
+                      //       ];
+  
+                      //       let value = selected[meal][randomDish];
+                      //       sum += value;
+  
+                      //       setMealPlan((prev) => ({
+                      //         ...prev,
+                      //         [i]: {
+                      //           ...prev[i],
+                      //           [meal]: {
+                      //             [randomDish]: value,
+                      //           },
+                      //         },
+                      //       }));
+                      //     });
+                      //   }
+  
+                      //   setTotal(Math.round(sum));
+                      //   addMeal(mealPlan);
+                      // }
+
+                      let sum = 0;
                         for (let i = 1; i < 8; i++) {
                           ["breakfast", "lunch", "dinner"].forEach((meal) => {
                             let randomDish = Object.keys(selected[meal])[
@@ -447,9 +475,9 @@ const CreateMealPages = {
   
                         setTotal(Math.round(sum));
                         addMeal(mealPlan);
-                      }
                       
-                    }}
+                    }
+                  }
                   >
                     Next Page
                   </Button>
