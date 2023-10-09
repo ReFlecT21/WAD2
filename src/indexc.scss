@@ -175,7 +175,7 @@ body, html {
 
 // NAVBAR
 .custom-navbar{
-    background-color: $primaryCol;
+    background-color: red;
     border-bottom-right-radius: 40px;
     border-bottom-left-radius: 40px;
     box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
@@ -205,7 +205,7 @@ body, html {
     margin-right: 10px;
 }
 
-span{
+.navText{
     color: $whiteTextCol;
     font-family: $primaryFont;
     font-size: 16px;
@@ -214,7 +214,7 @@ span{
     margin-right: 20px;
 }
 
-span:hover{
+.navText:hover{
     color: $secondaryCol;
     transition: 0.5s;
 }

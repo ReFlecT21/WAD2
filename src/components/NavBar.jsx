@@ -48,13 +48,13 @@ function NavBar() {
               className="d-flex align-items-center"
               href="#myPlan"
             >
-              <span>My Plan</span>
+              <span className="navText">My Plan</span>
             </Nav.Link>
             <Nav.Link
               className="d-flex align-items-center"
               href="#insights"
             >
-              <span>Insights</span>
+              <span className="navText">Insights</span>
             </Nav.Link>
           </Nav>
           <Image className="profileIcon"

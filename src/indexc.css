@@ -7,17 +7,13 @@ p {
 .card {
   width: 300px;
   background: #F6FEFC;
-  padding: .4em;
+  padding: 0.4em;
   border-radius: 6px;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-x
-.card:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-  -webkit-transition: 0.3s;
+x .card:hover {
+  transform: scale(1.05);
   transition: 0.3s;
 }
 
@@ -39,7 +35,7 @@ x
   color: #1F5E4B;
   font-weight: normal;
   font-family: "Nunito Sans";
-  color: #585757;
+  color: rgb(88, 87, 87);
   padding: 10px;
 }
 
@@ -58,10 +54,8 @@ x
   text-align: center;
   font-family: "Nunito Sans";
 }
-
 .card button:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -69,8 +63,7 @@ x
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
-          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
 }
@@ -121,15 +114,7 @@ body, html {
   font-size: large;
 }
 
-.inputBox::-webkit-input-placeholder {
-  color: #1F5E4B;
-}
-
-.inputBox:-ms-input-placeholder {
-  color: #1F5E4B;
-}
-
-.inputBox::-ms-input-placeholder {
+.inputBox::-moz-placeholder {
   color: #1F5E4B;
 }
 
@@ -150,10 +135,8 @@ body, html {
   height: 60px;
   margin-top: 40px;
 }
-
 .loginButton:hover {
   background: #319677;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -169,11 +152,10 @@ body, html {
 }
 
 .custom-navbar {
-  background-color: #1F5E4B;
+  background-color: red;
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
-          box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
 }
 
 .homeNav h3 {
@@ -200,10 +182,8 @@ body, html {
   font-family: "Nunito Sans";
   font-weight: bold;
 }
-
 .createBtn:hover {
   background: #319677;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -212,7 +192,7 @@ body, html {
   margin-right: 10px;
 }
 
-span {
+.navText {
   color: #F6FEFC;
   font-family: "Nunito Sans";
   font-size: 16px;
@@ -221,9 +201,8 @@ span {
   margin-right: 20px;
 }
 
-span:hover {
+.navText:hover {
   color: #3EBC96;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
@@ -246,11 +225,9 @@ h2, h3, h4, h5 {
 }
 
 .sideimg {
-  max-width: 100%;
-  /* Ensure the image fits within its container */
+  max-width: 100%; /* Ensure the image fits within its container */
   height: 100%;
-  display: block;
-  /* Remove any default inline spacing */
+  display: block; /* Remove any default inline spacing */
   margin: 0 auto;
 }
 
@@ -267,10 +244,8 @@ h2, h3, h4, h5 {
   margin-top: 20px;
   margin-right: 15px;
 }
-
 .inputButton:hover {
   background: #319677;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -281,5 +256,4 @@ h2, h3, h4, h5 {
   margin: 5px;
   padding-left: 50px;
   font-size: large;
-}
-/*# sourceMappingURL=indexc.css.map */
+}/*# sourceMappingURL=indexc.css.map */
