@@ -15,25 +15,16 @@ function NavBar() {
       <Container>
         <Navbar.Brand
           href="#home"
-          className="d-flex align-items-center justify-content-center "
+          className="homeNav d-flex align-items-center justify-content-center"
         >
           <img
             alt=""
             src="/Untitled_Artwork 1.svg"
-            width="50"
-            height="50"
             className="d-inline-block align-top mr-10"
-            style={{ marginRight: "10px" }}
-          />{" "}
-          <h2
-            style={{
-              color: "white",
-              fontFamily: "'Nunito Sans', sans-serif;",
-              margin: "0",
-            }}
-          >
+            />{" "}
+          <h3>
             MenuMate
-          </h2>
+          </h3>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
@@ -42,16 +33,14 @@ function NavBar() {
               href="#createPlan"
               style={{ marginLeft: "10px", marginRight: "10px" }}
             >
-              <Button
+              <Button className="createBtn"
                 variant="secondary"
-                style={{ backgroundColor: "#d9d9d9" }}
               >
                 {" "}
-                <FontAwesomeIcon
+                <FontAwesomeIcon className="plusIcon"
                   icon={faPlus}
-                  style={{ marginRight: "10px", color: "black" }}
                 />
-                <span style={{ color: "#1f5e4b" }}>Create Plan!</span>
+                Create Meal Plan!
               </Button>{" "}
             </Nav.Link>
             <Nav.Link
@@ -62,15 +51,13 @@ function NavBar() {
               <span>My Plan</span>
             </Nav.Link>
             <Nav.Link
-              style={{ marginLeft: "10px", marginRight: "10px" }}
               className="d-flex align-items-center"
               href="#insights"
             >
               <span>Insights</span>
             </Nav.Link>
           </Nav>
-          <Image
-            style={{ marginLeft: "10px", marginRight: "10px" }}
+          <Image className="profileIcon"
             src="holder.js/100x100"
             roundedCircle
           />

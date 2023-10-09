@@ -2,23 +2,21 @@
 @import url('https://fonts.googleapis.com/css?family=Orelega+One');
 
 //variables
-$primaryTextCol: #1F5E4B;
+$primaryCol: #1F5E4B;
 $secondaryCol: #3EBC96;
 $whiteTextCol: #F6FEFC;
 $backgroundCol: #F6FEFC;
 $primaryFont: "Nunito Sans";
 $headerFont: "Orelega One";
 
-
 //mixins
 @mixin headerText(){ //for all the h1,2,3...
-    color: $primaryTextCol;
-    // font-weight: bold;
+    color: $primaryCol;
     font-family: "Orelega One"
 }
 
 @mixin bodyText(){
-    color: $primaryTextCol;
+    color: $primaryCol;
     font-weight: normal;
     font-family: "Nunito Sans"
 }
@@ -44,6 +42,10 @@ $headerFont: "Orelega One";
     }
 }
 
+p{
+    font-family: $primaryFont;
+}
+
 //VERTICAL CARD
 .card{
     width: 300px;
@@ -63,7 +65,7 @@ $headerFont: "Orelega One";
 font-size: 26px;
 font-weight: bold;
 font-family: $primaryFont;
-color: $primaryTextCol;
+color: $primaryCol;
 padding: 10px 7px 0;
 }
 
@@ -83,7 +85,7 @@ padding: 10px;
     border-radius: 20px;
     @include whiteText();
     border: 0;
-    @include button($primaryTextCol, 14px)
+    @include button($primaryCol, 14px)
 }
 
 // <img src="./pic.jpg" style="width:100%"/> --> NEED TO ADD STYLE TO IMG SRC
@@ -110,9 +112,121 @@ body, html {
     background-color: #F6FEFC; 
 }
 
+// LOGIN + SIGNUP PAGE
 
+.logo{
+    height: 180px;
+    width: 200px;
+    margin: 20px;
+    margin-top: 30px;
+}
 
+.foodimg{
+    height: 500px;
+    width: 400;
+    margin: 0;
+}
 
+.backgroundRight{
+    background-color: $primaryCol;
+}
+.backgroundLeft{
+    background-color: $primaryCol;
+}
+
+.tagline{
+    font-family: $headerFont;
+    font-size: 24px;
+    text-align: center;
+    color: $whiteTextCol;
+}
+
+.inputBox{
+    font-family: $primaryFont;
+    border-radius: 80px;
+    width: 55vh;
+    height: 60px;
+    margin: 5px;
+    padding-left: 50px;
+    font-size: large;
+}
+
+.inputBox::placeholder{
+    color: $primaryCol;
+}
+
+.loginButton{
+    @include button($secondaryCol,18px);
+    width: 40vh;
+    height: 60px;
+    margin-top: 40px;
+}
+
+.signupSmallText{
+    text-align: center;
+    margin-top: 20px;
+    color: $whiteTextCol;
+}
+
+.link{
+    color: $secondaryCol;
+    font-style: italic;
+}
+
+// NAVBAR
+.custom-navbar{
+    background-color: $primaryCol;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+  
+}
+
+.homeNav h3{
+    font-family: $primaryFont;
+    font-weight: bold;
+    color: $whiteTextCol;
+    margin: 0;
+}
+
+.homeNav img{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.createBtn{
+    @include button($secondaryCol, 16px);
+    font-weight: bold;
+}
+
+.plusIcon{
+    color: $whiteTextCol;
+    margin-right: 10px;
+}
+
+span{
+    color: $whiteTextCol;
+    font-family: $primaryFont;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+span:hover{
+    color: $secondaryCol;
+    transition: 0.5s;
+}
+
+.profileIcon{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+//MAKE STICKY!!!!!!!!!!//
 
 
 //////////////////////////////Anan stuff below
@@ -127,8 +241,6 @@ h2,h3,h4,h5{
     @include bodyText()
 }
 
-
-
   @mixin sideImage {
     max-width: 100%; /* Ensure the image fits within its container */
     height: 100%;
@@ -140,10 +252,6 @@ h2,h3,h4,h5{
     @include sideImage()
   }
 
-
-
-
-
     .inputButton{
 
         @include button($secondaryCol,16px );
@@ -153,6 +261,12 @@ h2,h3,h4,h5{
 
     }
 
-
-
-    
+    .formInputBox{
+        font-family: $primaryFont;
+        border-radius: 80px;
+        height: 50px;
+        margin: 5px;
+        padding-left: 50px;
+        font-size: large;
+    }
+    /////////////////////////////Anan stuff end

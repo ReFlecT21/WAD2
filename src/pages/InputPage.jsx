@@ -123,13 +123,13 @@ const InputPage = () => {
           </Col>
           <Col
             style={{
-              padding: "20px",
+              padding: "40px",
             }}
           >
             <Row>
               <h1>Getting to know you!</h1>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
+            <Row className="text" style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
@@ -146,7 +146,7 @@ const InputPage = () => {
               >
                 <h3>Age</h3>
               </Col>
-            </Row>
+              </Row>
             <Row
 
             >
@@ -155,11 +155,9 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <span style={{ marginRight: "10px", color: "black" }}>
-                    Female
-                  </span>
-                  <MDBSwitch
+                <div style={{ display: "flex", alignItems: "center"}}>
+                  <span style={{color: "#1F5E4B", fontWeight: "normal"}}>Female</span>
+                  <MDBSwitch className="genderSwitch"
                     name="gender"
                     checked={formData.gender === "male"}
                     onChange={handleChangeGender}
@@ -168,7 +166,7 @@ const InputPage = () => {
                   />
                 </div>
               </Col>
-              <Col
+              <Col className="text" 
                 style={{
                   paddingLeft: "20px",
                 }}
@@ -178,63 +176,51 @@ const InputPage = () => {
                   type="number"
                   name="age"
                   placeholder="Age"
-                  className="inputBox"
+                  className="formInputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
+              
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <h3>Height</h3>
               </Col>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <h3>Weight</h3>
               </Col>
             </Row>
             <Row
 
-
-         
             >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 {" "}
                 <Form.Control
                   type="number"
                   name="height"
                   placeholder="cm"
-                  className="inputBox"
+                  className="formInputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 {" "}
                 <Form.Control
                   type="number"
                   name="weight"
                   placeholder="kg"
-                  className="inputBox"
+                  className="formInputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
+                      
             </Row>
             <Row style={{ marginTop: "20px" }}>
               <Col
@@ -251,10 +237,7 @@ const InputPage = () => {
                 marginTop: "0px",
               }}
             >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <Form.Select
                   onChange={handleChange}
@@ -281,10 +264,7 @@ const InputPage = () => {
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <h3>Allergies</h3>
               </Col>
@@ -311,10 +291,7 @@ const InputPage = () => {
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
+              <Col className="text" 
               >
                 <h3>Goal</h3>
                 

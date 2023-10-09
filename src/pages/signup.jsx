@@ -33,7 +33,7 @@ const SignUpComponent = () => {
   return (
     <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }}>
       <Row style={{ margin: "0", height: "100vh" }}>
-        <Col className="backgroundLeft d-flex d-none d-md-block">
+        <Col className="backgroundLeft d-flex d-none d-md-block p-0 col-7">
           <Image src="/login.png" alt="" className="foodimg" />
         </Col>
         <Col className="backgroundRight d-flex ">
@@ -52,7 +52,6 @@ const SignUpComponent = () => {
                 type="text"
                 placeholder="Email"
                 className="inputBox"
-                id="text-input"
                 onChange={(e) => setRegisterEmail(e.target.value)}
               />
             </Row>
@@ -74,12 +73,12 @@ const SignUpComponent = () => {
             </Row>
             <Row className="d-flex justify-content-center">
               <Button type="submit" className="loginButton" onClick={register}>
-                SIGNUP
+                Start your journey!
               </Button>
-            </Row>
+            </Row>  
             <Row className="d-flex justify-content-center">
               <p className="signupSmallText">
-                Already have an account?<Link to="/"> Log in</Link>
+                Already have an account? <Link className="link" to="/">Log in</Link>
               </p>
             </Row>
           </Row>
