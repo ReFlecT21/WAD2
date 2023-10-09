@@ -15,7 +15,7 @@ function NavBar() {
       <Container>
         <Navbar.Brand
           href="#home"
-          className="d-flex align-items-center justify-content-center"
+          className="d-flex align-items-center justify-content-center "
         >
           <img
             alt=""

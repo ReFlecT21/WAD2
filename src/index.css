@@ -3,13 +3,17 @@
 .card {
   width: 300px;
   background: #F6FEFC;
-  padding: 0.4em;
+  padding: .4em;
   border-radius: 6px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
- .card:hover {
-  transform: scale(1.05);
+x
+.card:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+  -webkit-transition: 0.3s;
   transition: 0.3s;
 }
 
@@ -31,7 +35,7 @@
   color: #1F5E4B;
   font-weight: normal;
   font-family: "Nunito Sans";
-  color: rgb(88, 87, 87);
+  color: #585757;
   padding: 10px;
 }
 
@@ -42,7 +46,7 @@
   font-family: "Nunito Sans";
   border: 0;
   background-color: #1F5E4B;
-  color: white;
+  color: #F6FEFC;
   border: 0px;
   border-radius: 50px;
   font-size: 14px;
@@ -50,8 +54,10 @@
   text-align: center;
   font-family: "Nunito Sans";
 }
+
 .card button:hover {
   background: #12382c;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -59,7 +65,8 @@
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
 }
@@ -70,4 +77,45 @@ body, html {
   padding: 0;
   height: 100%;
   background-color: #F6FEFC;
-}/*# sourceMappingURL=index.css.map */
+}
+
+h1 {
+  color: #1F5E4B;
+  font-family: "Orelega One";
+}
+
+h2, h3, h4, h5 {
+  color: #1F5E4B;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+}
+
+.sideimg {
+  max-width: 100%;
+  /* Ensure the image fits within its container */
+  height: 100%;
+  display: block;
+  /* Remove any default inline spacing */
+  margin: 0 auto;
+}
+
+.inputButton {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  width: 30%;
+  margin-top: 20px;
+  margin-right: 15px;
+}
+
+.inputButton:hover {
+  background: #319677;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/*# sourceMappingURL=index.css.map */

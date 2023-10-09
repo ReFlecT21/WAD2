@@ -118,37 +118,37 @@ const InputPage = () => {
       <NavBar />
       <Container fluid>
         <Row>
-          <Col>hi</Col>
+          <Col>
+          <Image src="/login.png" alt="" className="sideimg" />
+          </Col>
           <Col
             style={{
               padding: "20px",
             }}
           >
             <Row>
-              <h2>Getting to know you!</h2>
+              <h1>Getting to know you!</h1>
             </Row>
             <Row style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
+                
               >
-                Gender
+                <h3>Gender</h3>
+                
               </Col>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                Age
+                <h3>Age</h3>
               </Col>
             </Row>
             <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
+
             >
               <Col
                 style={{
@@ -190,22 +190,20 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                Height
+                <h3>Height</h3>
               </Col>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                Weight
+                <h3>Weight</h3>
               </Col>
             </Row>
             <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
+
+
+         
             >
               <Col
                 style={{
@@ -242,14 +240,15 @@ const InputPage = () => {
               <Col
                 style={{
                   paddingLeft: "20px",
+                  paddingBottom: "10px",
                 }}
               >
-                Select your activity level
+                <h3>Select your activity level</h3>
               </Col>
             </Row>
             <Row
               style={{
-                marginTop: "20px",
+                marginTop: "0px",
               }}
             >
               <Col
@@ -287,10 +286,10 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                Allergies
+                <h3>Allergies</h3>
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
+            <Row style={{ marginTop: "10px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
@@ -317,10 +316,11 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                Goal
+                <h3>Goal</h3>
+                
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
+            <Row style={{ marginTop: "10px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
@@ -337,15 +337,18 @@ const InputPage = () => {
                 </Form.Select>
               </Col>
             </Row>
-            <Row>
-              <Button
+            <Row className="d-flex justify-content-center">
+         
+              <Button 
                 onClick={handleSubmit}
                 type="submit"
-                className="loginButton"
+                className="inputButton"
               >
-                Create Meal
+                Choose My Meals!
               </Button>
             </Row>
+
+            
           </Col>
         </Row>
       </Container>
