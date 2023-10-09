@@ -7,10 +7,9 @@ p {
 .card {
   width: 300px;
   background: #F6FEFC;
-  padding: .4em;
+  padding: 0.4em;
   border-radius: 6px;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 x .card:hover {
@@ -36,7 +35,7 @@ x .card:hover {
   color: #1F5E4B;
   font-weight: normal;
   font-family: "Nunito Sans";
-  color: #585757;
+  color: rgb(88, 87, 87);
   padding: 10px;
 }
 
@@ -48,7 +47,6 @@ x .card:hover {
   border: 0;
   background-color: #1F5E4B;
   color: #F6FEFC;
-  color: #F6FEFC;
   border: 0px;
   border-radius: 50px;
   font-size: 14px;
@@ -56,10 +54,8 @@ x .card:hover {
   text-align: center;
   font-family: "Nunito Sans";
 }
-
 .card button:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -67,10 +63,7 @@ x .card:hover {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  -webkit-box-shadow: 20px 20px 38px #dbe2e0,
- -20px -20px 38px #ffffff;
-          box-shadow: 20px 20px 38px #dbe2e0,
- -20px -20px 38px #ffffff;
+  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
 }
