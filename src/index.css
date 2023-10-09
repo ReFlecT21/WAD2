@@ -211,29 +211,4 @@ span:hover {
   margin-right: 10px;
   height: 30px;
   width: 30px;
-}
-
-h2 {
-  color: #1F5E4B;
-  font-family: "Orelega One";
-  font-size: 40px;
-}
-
-.text {
-  font-family: "Nunito Sans";
-  font-weight: bold;
-  font-size: 20px;
-  color: #1F5E4B;
-  padding-left: 20px;
-  padding-bottom: 20px;
-}
-
-.genderSwitch {
-  height: 20px;
-  width: 50px;
-}
-
-.switchText {
-  color: #1F5E4B;
-  font-size: 16px;
 }/*# sourceMappingURL=index.css.map */

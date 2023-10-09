@@ -228,31 +228,5 @@ span:hover{
 
 //MAKE STICKY!!!!!!!!!!//
 
-//INPUT PAGE
-h2{
-    @include headerText();  
-    font-size: 40px;
-}
-
-.text{
-    font-family: $primaryFont;
-    font-weight: bold;
-    font-size: 20px;
-    color: $primaryCol;
-    padding-left: 20px;
-    padding-bottom: 20px;
-}
-
-.genderSwitch{
-    height: 20px;
-    width: 50px;
-}
-
-.switchText{
-    color: $primaryCol;
-    font-size: 16px;
-}
-
-
 
 
