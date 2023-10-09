@@ -9,7 +9,6 @@ import {
   addDoc,
   query,
   getDocs,
-  serverTimestamp,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import StepProgressBar from "./StepProgressBar";
@@ -363,7 +362,6 @@ const CreateMealPages = {
             const username = auth.currentUser.email;
             await setDoc(doc(db, "Food", username), {
               Plan: plan,
-              CreatedAt: Date.now(),
             }).then(() => {
               console.log("Document written");
               addMealPlanToHistory(plan, username);
@@ -373,7 +371,7 @@ const CreateMealPages = {
             console.error("Error adding document: ", e);
           }
         }
-      }; 
+      };
       useEffect(() => {
         console.log(total);
       }, [total]);
@@ -387,97 +385,69 @@ const CreateMealPages = {
               <Col>
                 <div style={{ textAlign: "right" }}>
                   <Button
-                    onClick={() => {
-                      
-                      // if (mealPlan) {
-                        
-                      //   for (const day in mealPlan) {
-                      //     if (mealPlan[day]){
-                      //       for (const meal in mealPlan) {
-
-                      //         let randomDish = Object.keys(selected[meal])[
-                      //           Math.floor(
-                      //             Math.random() * Object.keys(selected[meal]).length
-                      //           )
-                      //         ];
-
-                      //         setMealPlan((prev) => ({
-                      //           ...prev,
-                      //           [day]: {
-                      //             ...prev[day],
-                      //             [meal]: {
-                      //               [randomDish]: value,
-                      //             },
-                      //           },
-                      //         }));
-
-                      //       }
-                      //     }
-                      //   }
-                      //   // reCal object of remaining meal plan
-                      //   // new remaining daily calories (based off remaining meal plan)
-                      //   // loop through this object then, based on what meal type key it is, i change the meal id
-                      //   // then push to firestore
-                        
-                      // } else {
-                        
-                      //   let sum = 0;
-                      //   for (let i = 1; i < 8; i++) {
-                      //     ["breakfast", "lunch", "dinner"].forEach((meal) => {
-                      //       let randomDish = Object.keys(selected[meal])[
-                      //         Math.floor(
-                      //           Math.random() * Object.keys(selected[meal]).length
-                      //         )
-                      //       ];
-  
-                      //       let value = selected[meal][randomDish];
-                      //       sum += value;
-  
-                      //       setMealPlan((prev) => ({
-                      //         ...prev,
-                      //         [i]: {
-                      //           ...prev[i],
-                      //           [meal]: {
-                      //             [randomDish]: value,
-                      //           },
-                      //         },
-                      //       }));
-                      //     });
-                      //   }
-  
-                      //   setTotal(Math.round(sum));
-                      //   addMeal(mealPlan);
-                      // }
-
-                      let sum = 0;
-                        for (let i = 1; i < 8; i++) {
-                          ["breakfast", "lunch", "dinner"].forEach((meal) => {
-                            let randomDish = Object.keys(selected[meal])[
-                              Math.floor(
-                                Math.random() * Object.keys(selected[meal]).length
-                              )
-                            ];
-  
-                            let value = selected[meal][randomDish];
-                            sum += value;
-  
-                            setMealPlan((prev) => ({
-                              ...prev,
-                              [i]: {
-                                ...prev[i],
-                                [meal]: {
-                                  [randomDish]: value,
-                                },
-                              },
-                            }));
-                          });
-                        }
-  
-                        setTotal(Math.round(sum));
-                        addMeal(mealPlan);
-                      
+                    onClick={() => { 
+                       
+                      if (Object.keys(mealPlan).length != 0 ) { 
+                         
+                        for (const day in mealPlan) { 
+                          if (mealPlan[day]){ 
+                            for (const meal in mealPlan) { 
+ 
+                              let randomDish = Object.keys(selected[meal])[ 
+                                Math.floor( 
+                                  Math.random() * Object.keys(selected[meal]).length 
+                                ) 
+                              ]; 
+ 
+                              setMealPlan((prev) => ({ 
+                                ...prev, 
+                                [day]: { 
+                                  ...prev[day], 
+                                  [meal]: { 
+                                    [randomDish]: value, 
+                                  }, 
+                                }, 
+                              })); 
+ 
+                            } 
+                          } 
+                        } 
+                        // reCal object of remaining meal plan 
+                        // new remaining daily calories (based off remaining meal plan) 
+                        // loop through this object then, based on what meal type key it is, i change the meal id 
+                        // then push to firestore 
+                         
+                      } else { 
+                         
+                        let sum = 0; 
+                        for (let i = 1; i < 8; i++) { 
+                          ["breakfast", "lunch", "dinner"].forEach((meal) => { 
+                            let randomDish = Object.keys(selected[meal])[ 
+                              Math.floor( 
+                                Math.random() * Object.keys(selected[meal]).length 
+                              ) 
+                            ]; 
+   
+                            let value = selected[meal][randomDish]; 
+                            sum += value; 
+   
+                            setMealPlan((prev) => ({ 
+                              ...prev, 
+                              [i]: { 
+                                ...prev[i], 
+                                [meal]: { 
+                                  [randomDish]: value, 
+                                }, 
+                              }, 
+                            })); 
+                          }); 
+                        } 
+   
+                        setTotal(Math.round(sum)); 
+                        addMeal(mealPlan); 
+                      } 
                     }
-                  }
+                    }
                   >
                     Next Page
                   </Button>
@@ -551,8 +521,7 @@ export default function CreateMealContent() {
         selected,
         setSelected,
         setOverlayData,
-        2000,
-        // calories
+        2000
       );
       setCurrPage(pageData);
     }
