@@ -229,4 +229,44 @@ span:hover{
 //MAKE STICKY!!!!!!!!!!//
 
 
+//////////////////////////////Anan stuff below
 
+
+//for input page
+h1{
+    @include headerText()
+}
+
+h2,h3,h4,h5{
+    @include bodyText()
+}
+
+  @mixin sideImage {
+    max-width: 100%; /* Ensure the image fits within its container */
+    height: 100%;
+    display: block; /* Remove any default inline spacing */
+    margin: 0 auto;
+  }
+
+  .sideimg{
+    @include sideImage()
+  }
+
+    .inputButton{
+
+        @include button($secondaryCol,16px );
+        width: 30%;
+        margin-top:20px;
+        margin-right: 15px;
+
+    }
+
+    .formInputBox{
+        font-family: $primaryFont;
+        border-radius: 80px;
+        height: 50px;
+        margin: 5px;
+        padding-left: 50px;
+        font-size: large;
+    }
+    /////////////////////////////Anan stuff end

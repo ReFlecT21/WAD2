@@ -211,4 +211,49 @@ span:hover {
   margin-right: 10px;
   height: 30px;
   width: 30px;
+}
+
+h1 {
+  color: #1F5E4B;
+  font-family: "Orelega One";
+}
+
+h2, h3, h4, h5 {
+  color: #1F5E4B;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+}
+
+.sideimg {
+  max-width: 100%; /* Ensure the image fits within its container */
+  height: 100%;
+  display: block; /* Remove any default inline spacing */
+  margin: 0 auto;
+}
+
+.inputButton {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  width: 30%;
+  margin-top: 20px;
+  margin-right: 15px;
+}
+.inputButton:hover {
+  background: #319677;
+  transition: all 0.3s ease;
+}
+
+.formInputBox {
+  font-family: "Nunito Sans";
+  border-radius: 80px;
+  height: 50px;
+  margin: 5px;
+  padding-left: 50px;
+  font-size: large;
 }/*# sourceMappingURL=index.css.map */

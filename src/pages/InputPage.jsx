@@ -146,7 +146,7 @@ const InputPage = () => {
               >
                 <h3>Age</h3>
               </Col>
-            </Row>
+              </Row>
             <Row
 
             >
@@ -176,7 +176,7 @@ const InputPage = () => {
                   type="number"
                   name="age"
                   placeholder="Age"
-                  className="inputBox"
+                  className="formInputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
@@ -195,8 +195,6 @@ const InputPage = () => {
             </Row>
             <Row
 
-
-         
             >
               <Col className="text" 
               >
@@ -205,7 +203,7 @@ const InputPage = () => {
                   type="number"
                   name="height"
                   placeholder="cm"
-                  className="inputBox"
+                  className="formInputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
@@ -217,7 +215,7 @@ const InputPage = () => {
                   type="number"
                   name="weight"
                   placeholder="kg"
-                  className="inputBox"
+                  className="formInputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
