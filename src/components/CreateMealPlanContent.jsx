@@ -362,6 +362,7 @@ const CreateMealPages = {
             const username = auth.currentUser.email;
             await setDoc(doc(db, "Food", username), {
               Plan: plan,
+              CreatedAt: Date.now(),
             }).then(() => {
               console.log("Document written");
               addMealPlanToHistory(plan, username);
@@ -387,7 +388,7 @@ const CreateMealPages = {
                   <Button
                     onClick={() => { 
                        
-                      if (Object.keys(mealPlan).length != 0 ) { 
+                      if (typeof mealPlan !== 'object' ) { 
                          
                         for (const day in mealPlan) { 
                           if (mealPlan[day]){ 

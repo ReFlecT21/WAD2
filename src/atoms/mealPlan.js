@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const MealPlan = atom({});
+export const MealPlan = atom([]);

@@ -116,6 +116,8 @@ export default function MealPlan() {
 
       }
 
+      console.log(currMealPlan)
+
       var d = new Date(currMealPlan.CreatedAt);
       d.setDate(d.getDate()+ parseInt(day))
       display.push(
