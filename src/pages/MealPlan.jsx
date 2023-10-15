@@ -33,7 +33,10 @@ export default function MealPlan() {
 
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  
+  
   let dayIndex = 1;
+  
   async function markMealAsComplete(dayIndex, mealType) {
     const username = auth.currentUser.email;
     const docRef = doc(db, "Food", username);
@@ -67,7 +70,7 @@ export default function MealPlan() {
         await setDoc(docRef, {
           Plan: data.Plan,
           Completed: Completed,
-          CreatedAt: Date.now(),
+          CreatedAt: Date.now(), // i cannot have this field change everytime i update the document
         });
 
         console.log("Document written");
@@ -81,7 +84,7 @@ export default function MealPlan() {
     }
   }
 
-  var defaultActiveKey = null;
+  var defaultActiveKey = null
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,7 +113,10 @@ export default function MealPlan() {
     // d.setDate(d.getDate() + 1)
     // console.log( d )
 
-    defaultActiveKey = Object.keys(currMealPlan.mealPlan)[0];
+    // console.log(currMealPlan.CreatedAt)
+    // console.log(Date.now())
+    // console.log()
+    defaultActiveKey = Math.floor((Date.now() -currMealPlan.CreatedAt) / (1000 * 3600 * 24))
 
     for (const day in currMealPlan.mealPlan) {
       const dayData = [null, null, null];
@@ -124,11 +130,14 @@ export default function MealPlan() {
                 </Col>
                 <Col>
                   <Button
+                    className="buttonPrimary"
                     onClick={
                       console.log("clicking completed")
+                      
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
-                      // else: add to count of completed meals, call delete from db, call add meal to db
+                      // else: add to count of completed meals, call delete from db, call add meal to completed
+
                     }
                   >
                     Completed
@@ -150,6 +159,7 @@ export default function MealPlan() {
                 </Col>
                 <Col>
                   <Button
+                    className="buttonPrimary"
                     onClick={
                       console.log("clicking completed")
                       // check: if the current day he is on, the meal type has been completed
@@ -176,6 +186,7 @@ export default function MealPlan() {
                 </Col>
                 <Col>
                   <Button
+                    className="buttonPrimary"
                     onClick={
                       console.log("clicking completed")
                       // check: if the current day he is on, the meal type has been completed

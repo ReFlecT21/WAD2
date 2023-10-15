@@ -360,21 +360,37 @@ const CreateMealPages = {
           CreatedAt: Date.now(),
         });
       };
-      const addMeal = async (plan) => {
+      const addMeal = async (plan, flag=true) => {
         if (plan.length !== 0) {
           console.log(JSON.stringify(plan));
           try {
             const username = auth.currentUser.email;
-            await setDoc(doc(db, "Food", username), {
-              Plan: plan,
-              CreatedAt: Date.now(),
-              Completed: [],
-              Added: [],
-            }).then(() => {
-              console.log("Document written");
-              addMealPlanToHistory(plan, username);
-              // navigate("/home");
-            });
+            
+            if (flag) {
+              await setDoc(doc(db, "Food", username), {
+                Plan: plan,
+                CreatedAt: Date.now(),
+                Completed: [],
+                Added: [],
+              }).then(() => {
+                console.log("Document written");
+                addMealPlanToHistory(plan, username);
+                // navigate("/home");
+              });
+            } else {      // This is for recal, i need update only the "Plan", not the "CreatedAt" and "Completed"
+              await setDoc(doc(db, "Food", username), {
+                Plan: plan,
+                CreatedAt: Date.now(),
+                Completed: [],
+                Added: [],
+              }).then(() => {
+                console.log("Document written");
+                addMealPlanToHistory(plan, username);
+                // navigate("/home");
+              });
+            }
+
+
           } catch (e) {
             console.error("Error adding document: ", e);
           }
@@ -414,6 +430,8 @@ const CreateMealPages = {
                                   },
                                 },
                               }));
+
+                              addMeal(mealPlan, false);
                             }
                           }
                         }
@@ -446,6 +464,8 @@ const CreateMealPages = {
                             }));
                           });
                         }
+
+                        console.log(mealPlan)
 
                         setTotal(Math.round(sum));
                         addMeal(mealPlan);
