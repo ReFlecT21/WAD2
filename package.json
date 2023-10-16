@@ -26,6 +26,7 @@
     "mdb-react-ui-kit": "^6.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.11",
     "react-query": "^3.39.3",

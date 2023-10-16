@@ -84,12 +84,53 @@ app.get("/getMealPlan/:userId", async (req, res) => {
   if (doc.exists) {
     // Get the current mealPlan object
     const mealPlan = doc.data().Plan;
+    const CreatedAt = doc.data().CreatedAt;
 
-    res.send(mealPlan);
+    res.send({ mealPlan, CreatedAt });
   } else {
-    res.send({data: false}); 
+    res.send({ data: false });
     // "No user found with the provided ID"
   }
+});
+
+app.get("/removeBreakfast/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+  const doc = await docRef.get();
+  // Get the current mealPlan object
+  const mealPlan = doc.data().Plan;
+
+  // Remove the first index breakfast item
+  delete mealPlan["0"]["breakfast"];
+
+  // Update the mealPlan object in Firestore
+  await doc.ref.update({ Plan: mealPlan });
+});
+app.get("/removeLunch/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+  const doc = await docRef.get();
+  // Get the current mealPlan object
+  const mealPlan = doc.data().Plan;
+
+  // Remove the first index breakfast item
+  delete mealPlan["0"]["lunch"];
+
+  // Update the mealPlan object in Firestore
+  await doc.ref.update({ Plan: mealPlan });
+});
+app.get("/removeDinner/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+  const doc = await docRef.get();
+  // Get the current mealPlan object
+  const mealPlan = doc.data().Plan;
+
+  // Remove the first index breakfast item
+  delete mealPlan["0"]["dinner"];
+
+  // Update the mealPlan object in Firestore
+  await doc.ref.update({ Plan: mealPlan });
 });
 
 exports.app = functions.https.onRequest(app);

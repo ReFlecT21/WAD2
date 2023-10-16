@@ -61,7 +61,7 @@ export function RecpieCard({ recipe, setter = null }) {
   );
 }
 
-export function FinaliseRecipeCard({ recipe, selected }) {
+export function FinaliseRecipeCard({ recipe, selected=null }) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   return (
     <Col key={recipe["id"]}>
@@ -72,6 +72,7 @@ export function FinaliseRecipeCard({ recipe, selected }) {
             <Row>
               <Col>
                 <Button
+                  className="buttonPrimary"
                   onClick={() =>
                     setOverlayData(<RecipeDetails id={recipe["id"]} />)
                   }
@@ -93,6 +94,46 @@ export function FinaliseRecipeCard({ recipe, selected }) {
         </Card.ImgOverlay>
       </Card>
     </Col>
+  );
+}
+export function HomeRecipeCard({ recipe, selected=null }) {
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
+  // let width = window.innerWidth;
+  // let cardDirection = {flexDirection:"row"}
+
+  // if(width < 768){
+  //   cardDirection = {}
+  // }
+
+  // useState(() => {
+  //   const handleResize = () => {
+  //     width = window.innerWidth;
+  //   };
+  //   window.addEventListener("resize", handleResize);
+
+  // }, [width]);
+  
+  return (
+    <Card style={{flexDirection:"row"}}>
+      <Card.Img style={{objectFit:"contain", height:"auto", width:"200px"}} src={recipe["image"]} />
+      <Card.Body>
+          <Card.Title>Title Text</Card.Title>
+          <Card.Text>
+          Here's some fillllllller text
+          </Card.Text>
+          <div className="d-flex justify-content-between">
+          <Button
+            className="buttonPrimary"
+            onClick={() =>
+              setOverlayData(<RecipeDetails id={recipe["id"]} />)
+            }
+          >
+            See Recipe
+          </Button>
+          </div>
+      </Card.Body>
+    </Card>
   );
 }
 
