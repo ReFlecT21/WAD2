@@ -287,6 +287,7 @@ const CreateMealPages = {
       const navigate = useNavigate();
 
       const [mealPlan, setMealPlan] = useAtom(MealPlan);
+      const [mealPlanCopy, setMealPlanCopy] = useState([]);
       const [total, setTotal] = useState(0);
       let CardData = [];
 
@@ -462,10 +463,24 @@ const CreateMealPages = {
                                 },
                               },
                             }));
+
+                            setMealPlanCopy((prev) => ({
+                              ...prev,
+                              [i]: {
+                                ...prev[i],
+                                [meal]: {
+                                  [randomDish]: 0,
+                                },
+                              },
+                            }));
                           });
                         }
 
                         console.log(mealPlan)
+                        
+                        
+                        console.log(mealPlanCopy) // use for front end display
+
 
                         setTotal(Math.round(sum));
                         addMeal(mealPlan);
