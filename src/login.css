@@ -1,0 +1,119 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+}
+
+
+.backgroundLeft{
+    background-color: #1F5E4B;
+    flex: 2;
+    padding: 0%;
+    margin-left: 0%;
+}
+
+.backgroundRight{
+    background-color: #1F5E4B;
+    flex: 1;
+    padding: 0%;
+    margin: 0%;
+}
+
+.row{
+    display:flex;
+    width: 100%;
+}
+
+.col {
+    margin:0;
+    padding:0;
+}
+.foodimg{
+    max-width: 100%; /* Ensure the image fits within its container */
+    height: 100%;
+    display: block; /* Remove any default inline spacing */
+    margin: 0 auto;
+}
+
+.logo{
+    margin-top: 10%;
+    padding: 0;
+    height: 140px;
+    width: 140px;
+}
+
+h2{
+    text-align: center;
+    font-family: "Orelega One";
+    color: white;
+}
+
+.inputBox{
+    width: 80%;
+    border-radius: 30px;
+    background-color: #F6FEFC;
+    border: 0cm;
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+.inputBox::placeholder{
+    color: #1F5E4B;
+    font-size: large;
+    /* padding-left: 20px; */
+    font-family: "Nunito";
+    border: 0;
+}
+
+.loginButton{
+    width: 50%;
+    border-radius: 50px;
+    margin-top: 30px;
+    background-color:#3EBC96;
+    border: 2px solid;
+    border-color: #F6FEFC;
+
+    color: #F6FEFC  ;
+    font-family: "Nunito";
+    font-weight: bold;
+}
+
+p{
+    margin-top: 60px;
+    padding-top: 40px;
+    font-family: Nunito;
+    color:#F6FEFC;
+    text-align: center;
+
+}
+
+a{
+    color:#4EEBBC;
+    font-style: italic;
+}
+
+@media screen and (min-width: 1900px) {
+   .logo{
+    height:300px;
+    width:300px;
+   }
+   h2{
+    font-size: 40px;
+   }
+   p{
+    font-size: 20px;
+   }
+  }
+@media screen and (min-width: 2400px) {
+   .logo{
+    height:400px;
+    width:400px;
+   }
+   h2{
+    font-size: 50px;
+   }
+   p{
+    font-size: 30px;
+   }
+  }
+  

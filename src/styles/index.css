@@ -1,0 +1,63 @@
+.darkGreenButton {
+  background-color: color 1F5E4B;
+  border-radius: 25px;
+  color: color F6FEFC;
+  font-family: font-family Inter;
+  width: 112px;
+  height: 50px;
+}
+
+.greenButton {
+  background-color: color 3EBC96;
+  border-radius: 25px;
+  color: color F6FEFC;
+  font-family: font-family Inter;
+  width: 112px;
+  height: 50px;
+}
+
+.whiteButton {
+  background-color: color F6FEFC;
+  border-radius: 25px;
+  color: color 1B1B1B;
+  font-family: font-family Inter;
+  width: 112px;
+  height: 50px;
+}
+
+h1 {
+  color: color F6FEFC;
+  font-family: Inter;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+h2 {
+  color: color F6FEFC;
+  font-family: Inter;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.h1v2 {
+  color: color 1F5E4B;
+  font-family: Futura;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.h2v2 {
+  color: color 1F5E4B;
+  font-family: Inter;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+# sourceMappingURL=index.css.map
