@@ -74,6 +74,7 @@ export const dbFoodMethods = {
 
     createMealplan: async function(plan1, plan2){
         console.log("createMealplan")
+        await this.init();
         // console.log(a == undefined)
         try {
             await setDoc(this.docRef, {
@@ -129,8 +130,9 @@ export const dbFoodMethods = {
                 // console.log(data);
                 
                 const Completed = data.Completed;
+                const Plan = data.Plan;
                 const DisplayPlan = data.DisplayPlan;
-                // console.log(DisplayPlan[dayIndex]);
+                // console.log(Plan);
                 
                 // console.log(Object.values(DisplayPlan[dayIndex].breakfast)[0]);
         
@@ -159,6 +161,7 @@ export const dbFoodMethods = {
                 // } else {
                 
                 // console.log(Completed);
+                console.log(Plan);
 
                 if (Completed[dayIndex] == undefined){
                     Completed[dayIndex] = {};
@@ -173,8 +176,12 @@ export const dbFoodMethods = {
 
                     console.log(JSON.stringify(Completed, null, 2));
                     // Update the document in Firestore
+
+                    delete Plan[dayIndex][mealType];
+
                     await updateDoc(this.docRef, {
                         Completed: Completed,
+                        Plan: Plan,
                         DisplayPlan: DisplayPlan,
                     });
             

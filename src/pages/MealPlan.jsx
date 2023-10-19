@@ -182,6 +182,9 @@ export default function MealPlan() {
                           currMealPlan.mealPlan[day][mealType]
                       );
                     }}
+
+                    style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
+                      {cursor: 'not-allowed'} : {cursor: 'pointer'}}
                   >
                     Completed
                   </Button>
