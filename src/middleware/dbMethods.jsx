@@ -11,18 +11,20 @@ import {
   } from "firebase/firestore";
   import { db, auth } from "../../firebase";
 
-export const dbMethods = {
+export const dbFoodMethods = {
 
-    username: auth.currentUser.email,
-    docRef: doc(db, "Food", username),
+    username: null,
+    docRef: null,
     docSnap: false,
 
-    
+
 
 
     init: async function(){
         if (this.docSnap == false){
             this.docSnap = await getDoc(docRef);
+            this.username = auth.currentUser.email;
+            this.docRef = doc(db, "Food", username);
         }
     },
 

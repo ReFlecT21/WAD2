@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useAtom } from "jotai";
 import { LoggedIn } from "../atoms/logInAtom";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,10 @@ const LoginComponent = () => {
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user);
       setLoggedIn(true);
+      
+      dbFoodMethods.init();
+
+      
     } catch (e) {
       console.log(password);
       console.log(email);

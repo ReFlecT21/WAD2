@@ -1,9 +1,9 @@
 import { Button, Container, Row, Col, Accordion } from "react-bootstrap";
+import { NavBar } from "../components";
+import { MealPlanCard } from "../components/MealPlanCard";
+
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
-import { NavBar } from "../components";
-import getMealPlan from "../getters/getMealPlan";
-import getDisplayMealPlan from "../getters/getDisplayMealPlan";
 import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -11,10 +11,17 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import { fetcher } from "../middleware/Fetcher";
-import { MealPlanCard } from "../components/MealPlanCard";
-import { RecipeOverlay } from "../atoms/recipeOverlay";
+
+
 import { useAtom } from "jotai";
+import { RecipeOverlay } from "../atoms/recipeOverlay";
+
+
+import getMealPlan from "../middleware/getMealPlan";
+import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
+
+import { fetcher } from "../middleware/Fetcher";
+
 import {
   collection,
   doc,
