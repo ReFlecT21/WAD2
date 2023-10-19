@@ -92,6 +92,24 @@ app.get("/getMealPlan/:userId", async (req, res) => {
     // "No user found with the provided ID"
   }
 });
+app.get("/getDisplayMealPlan/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+
+  // Get the document
+  const doc = await docRef.get();
+
+  if (doc.exists) {
+    // Get the current mealPlan object
+    const DisplayMealPlan = doc.data().DisplayPlan;
+    const CreatedAt = doc.data().CreatedAt;
+
+    res.send({ DisplayMealPlan, CreatedAt });
+  } else {
+    res.send({ data: false });
+    // "No user found with the provided ID"
+  }
+});
 
 app.get("/removeBreakfast/:userId", async (req, res) => {
   const userId = req.params.userId;
