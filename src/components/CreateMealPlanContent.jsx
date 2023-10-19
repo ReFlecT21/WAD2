@@ -29,6 +29,7 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 const CreateMealPages = {
   1: async function (
@@ -337,53 +338,57 @@ const CreateMealPages = {
 
         console.log(selected);
       }
-      const countMealPlansInHistory = async (username) => {
-        const docRef = doc(db, "Food", username);
-        const subcollectionRef = collection(docRef, "MealPlanHistory");
-        const Query = query(subcollectionRef);
-        const snapshot = await getDocs(Query);
-        return snapshot.size;
-      };
-      const addMealPlanToHistory = async (plan, username) => {
-        // Get the number of documents in the `MealPlanHistory` subcollection.
-        const count = await countMealPlansInHistory(username);
 
-        // Add a new document to the `MealPlanHistory` subcollection with a sequential document ID.
-        const docRef = doc(
-          db,
-          "Food",
-          username,
-          "MealPlanHistory",
-          String(count + 1)
-        );
-        await setDoc(docRef, {
-          Plan: plan,
-          CreatedAt: Date.now(),
-        });
-      };
+      
+      // const countMealPlansInHistory = async (username) => {
+      //   const docRef = doc(db, "Food", username);
+      //   const subcollectionRef = collection(docRef, "MealPlanHistory");
+      //   const Query = query(subcollectionRef);
+      //   const snapshot = await getDocs(Query);
+      //   return snapshot.size;
+      // };
+      // const addMealPlanToHistory = async (plan, username) => {
+      //   // Get the number of documents in the `MealPlanHistory` subcollection.
+      //   const count = await countMealPlansInHistory(username);
+
+      //   // Add a new document to the `MealPlanHistory` subcollection with a sequential document ID.
+      //   const docRef = doc(
+      //     db,
+      //     "Food",
+      //     username,
+      //     "MealPlanHistory",
+      //     String(count + 1)
+      //   );
+      //   await setDoc(docRef, {
+      //     Plan: plan,
+      //     CreatedAt: Date.now(),
+      //   });
+      // };
+
+      
       // plan1 is for recal, plan2 is for display
-      const addMeal = async (plan1, plan2) => {
-        if (plan1.length !== 0) {
-          console.log(JSON.stringify(plan1));
-          try {
-            const username = auth.currentUser.email;
-            await setDoc(doc(db, "Food", username), {
-              Plan: plan1,          // this is for recal 
-              DisplayPlan: plan2,   // this is for display (1 for compeleted, 0 for not completed)
-              CreatedAt: Date.now(),
-              Completed: {},
-              Added: [],
-            }).then(() => {
-              console.log("Document written");
-              addMealPlanToHistory(plan1, username);
-              // addMealPLanToHistory only when 7 days is up , sends completed & added calories to addMealPLanToHistory
-              // navigate("/home");
-            });
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-        }
-      };
+      // const addMeal = async (plan1, plan2) => {
+      //   if (plan1.length !== 0) {
+      //     console.log(JSON.stringify(plan1));
+      //     try {
+      //       const username = auth.currentUser.email;
+      //       await setDoc(doc(db, "Food", username), {
+      //         Plan: plan1,          // this is for recal 
+      //         DisplayPlan: plan2,   // this is for display (1 for compeleted, 0 for not completed)
+      //         CreatedAt: Date.now(),
+      //         Completed: {},
+      //         Added: [],
+      //       }).then(() => {
+      //         console.log("Document written");
+      //         addMealPlanToHistory(plan1, username);
+      //         // addMealPLanToHistory only when 7 days is up , sends completed & added calories to addMealPLanToHistory
+      //         // navigate("/home");
+      //       });
+      //     } catch (e) {
+      //       console.error("Error adding document: ", e);
+      //     }
+      //   }
+      // };
 
 
 
@@ -394,7 +399,8 @@ const CreateMealPages = {
           Object.keys(mealPlan).length !== 0 &&
           Object.keys(mealPlanCopy).length !== 0
         ) {
-          addMeal(mealPlan, mealPlanCopy);
+          // addMeal(mealPlan, mealPlanCopy);
+          dbFoodMethods.createMealplan(mealPlan, mealPlanCopy);
         }
       }, [mealPlan, mealPlanCopy]);
 
@@ -416,38 +422,73 @@ const CreateMealPages = {
                   <Button
                     onClick={() => {
                       let sum = 0;
-                      for (let i = 1; i < 8; i++) {
-                        ["breakfast", "lunch", "dinner"].forEach((meal) => {
-                          let randomDish = Object.keys(selected[meal])[
-                            Math.floor(
-                              Math.random() * Object.keys(selected[meal]).length
-                            )
-                          ];
 
-                          let value = selected[meal][randomDish];
-                          sum += value;
+                      if (typeof mealPlan !== "object") {
+                        for (const day in mealPlan) {
+                          if (mealPlan[day]) {
+                            for (const meal in mealPlan) {
+                              let randomDish = Object.keys(selected[meal])[
+                                Math.floor(
+                                  Math.random() *
+                                    Object.keys(selected[meal]).length
+                                )
+                              ];
 
-                          setMealPlan((prev) => ({
-                            ...prev,
-                            [i]: {
-                              ...prev[i],
-                              [meal]: {
-                                [randomDish]: value,
+                              setMealPlan((prev) => ({
+                                ...prev,
+                                [day]: {
+                                  ...prev[day],
+                                  [meal]: {
+                                    [randomDish]: value,
+                                  },
+                                },
+                              }));
+
+                              addMeal(mealPlan, false);
+                            }
+                          }
+                        }
+                        // reCal object of remaining meal plan
+                        // new remaining daily calories (based off remaining meal plan)
+                        // loop through this object then, based on what meal type key it is, i change the meal id
+                        // then push to firestore
+                      } else {
+
+                        for (let i = 1; i < 8; i++) {
+                          ["breakfast", "lunch", "dinner"].forEach((meal) => {
+                            let randomDish = Object.keys(selected[meal])[
+                              Math.floor(
+                                Math.random() * Object.keys(selected[meal]).length
+                              )
+                            ];
+  
+                            let value = selected[meal][randomDish];
+                            sum += value;
+  
+                            setMealPlan((prev) => ({
+                              ...prev,
+                              [i]: {
+                                ...prev[i],
+                                [meal]: {
+                                  [randomDish]: value,
+                                },
                               },
-                            },
-                          }));
-
-                          setMealPlanCopy((prev) => ({
-                            ...prev,
-                            [i]: {
-                              ...prev[i],
-                              [meal]: {
-                                [randomDish]: 0,
+                            }));
+  
+                            setMealPlanCopy((prev) => ({
+                              ...prev,
+                              [i]: {
+                                ...prev[i],
+                                [meal]: {
+                                  [randomDish]: 0,
+                                },
                               },
-                            },
-                          }));
-                        });
+                            }));
+                          });
+                        }
+
                       }
+
 
                       console.log(mealPlanCopy); // use for front end display
 

@@ -19,8 +19,8 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 
 import getMealPlan from "../middleware/getMealPlan";
 import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
-
 import { fetcher } from "../middleware/Fetcher";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 import {
   collection,
@@ -36,6 +36,8 @@ import {
 import { db, auth } from "../../firebase";
 
 export default function MealPlan() {
+  
+
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
@@ -43,82 +45,89 @@ export default function MealPlan() {
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-  const [dayIndex, setDayIndex] = useState(1);
+
+  // const [dayIndex, setDayIndex] = useState(1);
 
   
-  async function markMealAsComplete(dayIndex, mealType, food) {
-    const username = auth.currentUser.email;
-    const docRef = doc(db, "Food", username);
+  // async function markMealAsComplete(dayIndex, mealType, food) {
+  //   const username = auth.currentUser.email;
+  //   const docRef = doc(db, "Food", username);
 
-    try {
-      // Get the current state of the document
-      const docSnap = await getDoc(docRef);
+  //   try {
+  //     // Get the current state of the document
+  //     const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        console.log(data);
-        const Completed = data.Completed;
-        const DisplayPLan = data.DisplayPlan;
-        console.log(Object.values(DisplayPLan[dayIndex].breakfast)[0]);
+  //     if (docSnap.exists()) {
+  //       const data = docSnap.data();
+  //       console.log(data);
+  //       const Completed = data.Completed;
+  //       const DisplayPlan = data.DisplayPlan;
+  //       console.log(Object.values(DisplayPlan[dayIndex].breakfast)[0]);
 
-        // Make sure the day exists in the Completed array
-        if (Object.keys(Completed).length == 0) {
-          Completed[dayIndex] = {};
-          console.log(Completed);
-        }
-        if (Object.values(DisplayPLan[dayIndex][mealType])[0] == 0) {
-          const key = Object.keys(DisplayPLan[dayIndex][mealType])[0];
-          DisplayPLan[dayIndex][mealType][key] = 1;
-        }
-        if (
-          Completed[dayIndex].breakfast &&
-          Completed[dayIndex].lunch &&
-          Completed[dayIndex].dinner
-        ) {
-          setDayIndex((prevDayIndex) => {
-            const newDayIndex = prevDayIndex + 1;
-            Completed[newDayIndex] = {};
-            Completed[newDayIndex][mealType] = food;
-            return newDayIndex;
-          });
-        } else {
-          if (Completed[dayIndex][mealType]) {
-            console.log(dayIndex);
-            alert(`you cant have ${mealType} again`);
-          } else {
-            Completed[dayIndex][mealType] = food;
-          }
-        }
+  //       // Make sure the day exists in the Completed array
+  //       if (Object.keys(Completed).length == 0) {
+  //         Completed[dayIndex] = {};
+  //         console.log(Completed);
+  //       }
+  //       if (Object.values(DisplayPlan[dayIndex][mealType])[0] == 0) {
+  //         const key = Object.keys(DisplayPlan[dayIndex][mealType])[0];
+  //         DisplayPlan[dayIndex][mealType][key] = 1;
+  //       }
+  //       if (
+  //         Completed[dayIndex].breakfast &&
+  //         Completed[dayIndex].lunch &&
+  //         Completed[dayIndex].dinner
+  //       ) {
+  //         // setDayIndex((prevDayIndex) => {
+  //         //   const newDayIndex = prevDayIndex + 1;
+  //         //   Completed[newDayIndex] = {};
+  //         //   Completed[newDayIndex][mealType] = food;
+  //         //   return newDayIndex;
+  //         // });
 
-        console.log(JSON.stringify(Completed, null, 2));
-        // Update the document in Firestore
-        await updateDoc(docRef, {
-          Completed: Completed,
-          DisplayPLan: DisplayPLan,
-        });
+  //         // should use formula instead of hardcoding
+  //       } else {
+  //         if (Completed[dayIndex][mealType]) {
+  //           console.log(dayIndex);
+  //           alert(`you cant have ${mealType} again`);
+  //         } else {
+  //           Completed[dayIndex][mealType] = food;
+  //         }
+  //       }
 
-        console.log("Document written");
-      } else {
-        console.error(
-          "Document does not exist or Completed field is not an array"
-        );
-      }
-    } catch (e) {
-      console.error("Error updating document: ", e);
-    }
-  }
+  //       console.log(JSON.stringify(Completed, null, 2));
+  //       // Update the document in Firestore
+  //       await updateDoc(docRef, {
+  //         Completed: Completed,
+  //         DisplayPlan: DisplayPlan,
+  //       });
 
-  var defaultActiveKey = null;
+  //       console.log("Document written");
+  //     } else {
+  //       console.error(
+  //         "Document does not exist or Completed field is not an array"
+  //       );
+  //     }
+  //   } catch (e) {
+  //     console.error("Error updating document: ", e);
+  //   }
+  // }
+
+  var dayIndex = null;
 
   useEffect(() => {
+    
     const fetchData = async () => {
-      const userId = auth.currentUser.email;
-      setCurrMealPlan(await getMealPlan(userId));
-      setCurrDisplayMealPlan(await getDisplayMealPlan(userId));
+      await dbFoodMethods.init();
+      // const userId = auth.currentUser.email;
+      setCurrMealPlan(await dbFoodMethods.getMealPlan());
+      setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
+      // setCurrDisplayMealPlan(await getDisplayMealPlan(auth.currentUser.email));
     };
-
+    
     fetchData();
   }, []);
+
   useEffect(() => {
     console.log(currDisplayMealPlan);
   }, [currDisplayMealPlan]);
@@ -136,26 +145,24 @@ export default function MealPlan() {
     "Saturday",
   ];
 
-  if (currMealPlan) {
-    // console.log(currMealPlan);
-    // d.setDate(d.getDate() + 1)
-    // console.log( d )
+  if (currDisplayMealPlan) {
 
-    // console.log(currMealPlan.CreatedAt)
+    // console.log(currDisplayMealPlan)
     // console.log(Date.now())
-    // console.log()
-    defaultActiveKey = Math.floor(
-      (Date.now() - currMealPlan.CreatedAt) / (1000 * 3600 * 24)
-    );
+    // dayIndex = Math.floor((Date.now() - currDisplayMealPlan.CreatedAt) / (1000 * 3600 * 24));
+    dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate();
 
-    for (const day in currMealPlan.mealPlan) {
+
+    console.log(dayIndex);
+
+    for (const day in currDisplayMealPlan.DisplayMealPlan) {
       const dayData = [null, null, null];
-      for (const mealType in currMealPlan.mealPlan[day]) {
-        // currMealPlan.mealPlan[day][mealType]
-        // [mealType]: currMealPlan.mealPlan[day][mealType]
+      for (const mealType in currDisplayMealPlan.DisplayMealPlan[day]) {
+        // currDisplayMealPlan.DisplayMealPlan[day][mealType]
+        // [mealType]: currDisplayMealPlan.DisplayMealPlan[day][mealType]
         if (mealType == "breakfast") {
           dayData[0] = (
-            <div>
+            <div key={`${day}${mealType}`}>
               <Row xs={2} md={2} lg={2}>
                 <Col>
                   <h4 style={{ margin: "0px" }}>{mealType}</h4>
@@ -166,13 +173,13 @@ export default function MealPlan() {
                     onClick={() => {
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
-                      // "breakfast": currMealPlan.mealPlan[day][mealType]
+                      // "breakfast": currDisplayMealPlan.DisplayMealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
                       console.log("clicking completed");
-                      markMealAsComplete(
-                        dayIndex,
-                        "breakfast",
-                        currMealPlan.mealPlan[day][mealType]
+                      dbFoodMethods.completeMeal(
+                          dayIndex,
+                          "breakfast",
+                          currMealPlan.mealPlan[day][mealType]
                       );
                     }}
                   >
@@ -181,14 +188,14 @@ export default function MealPlan() {
                 </Col>
               </Row>
               <MealPlanCard
-                recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}
+                recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}
               />
             </div>
           );
         }
         if (mealType == "lunch") {
           dayData[1] = (
-            <div>
+            <div key={`${day}${mealType}`}>
               <Row xs={2} md={2} lg={2}>
                 <Col>
                   <h4 style={{ margin: "0px" }}>{mealType}</h4>
@@ -199,10 +206,10 @@ export default function MealPlan() {
                     onClick={() => {
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
-                      // "breakfast": currMealPlan.mealPlan[day][mealType]
+                      // "breakfast": currDisplayMealPlan.DisplayMealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
                       console.log("clicking completed");
-                      markMealAsComplete(
+                      dbFoodMethods.completeMeal(
                         dayIndex,
                         "lunch",
                         currMealPlan.mealPlan[day][mealType]
@@ -214,14 +221,14 @@ export default function MealPlan() {
                 </Col>
               </Row>
               <MealPlanCard
-                recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}
+                recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}
               />
             </div>
           );
         }
         if (mealType == "dinner") {
           dayData[2] = (
-            <div>
+            <div key={`${day}${mealType}`}>
               <Row xs={2} md={2} lg={2}>
                 <Col>
                   <h4 style={{ margin: "0px" }}>{mealType}</h4>
@@ -232,10 +239,10 @@ export default function MealPlan() {
                     onClick={() => {
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
-                      // "breakfast": currMealPlan.mealPlan[day][mealType]
+                      // "breakfast": currDisplayMealPlan.DisplayMealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
                       console.log("clicking completed");
-                      markMealAsComplete(
+                      dbFoodMethods.completeMeal(
                         dayIndex,
                         "dinner",
                         currMealPlan.mealPlan[day][mealType]
@@ -247,19 +254,19 @@ export default function MealPlan() {
                 </Col>
               </Row>
               <MealPlanCard
-                recipe={Object.keys(currMealPlan.mealPlan[day][mealType])[0]}
+                recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}
               />
             </div>
           );
         }
 
-        // Object.keys(currMealPlan.mealPlan[day][mealType])[0]
+        // Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]
       }
 
-      var d = new Date(currMealPlan.CreatedAt);
+      var d = new Date(currDisplayMealPlan.CreatedAt);
       d.setDate(d.getDate() + parseInt(day));
       display.push(
-        <>
+        <div key={day}>
           <Accordion.Item eventKey={day}>
             <Accordion.Header>
               <h3 style={{ margin: "0px" }}>
@@ -272,7 +279,7 @@ export default function MealPlan() {
               </Row>
             </Accordion.Body>
           </Accordion.Item>
-        </>
+        </div>
       );
     }
   }
@@ -283,7 +290,7 @@ export default function MealPlan() {
       {/* <h1 style={{ textAlign: "center" }}>This is Current Meal Plan</h1> */}
       <ErrorBoundary FallbackComponent={Fallback}>
         {overlayData}
-        {currMealPlan != null ? (
+        {currDisplayMealPlan != null ? (
           <Container>
             {/* {display} */}
             <Accordion defaultActiveKey={["1"]} alwaysOpen>
