@@ -368,8 +368,8 @@ const CreateMealPages = {
             await setDoc(doc(db, "Food", username), {
               Plan: plan,
               CreatedAt: Date.now(),
-              Completed: [],
-              Added: [],
+              Completed: {},
+              Added: {},
             }).then(() => {
               console.log("Document written");
               addMealPlanToHistory(plan, username);
