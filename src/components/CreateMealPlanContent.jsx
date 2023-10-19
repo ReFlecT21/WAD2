@@ -361,41 +361,41 @@ const CreateMealPages = {
           CreatedAt: Date.now(),
         });
       };
-      const addMeal = async (plan, flag = true) => {
-        if (plan.length !== 0) {
-          console.log(JSON.stringify(plan));
+      // plan1 is for recal, plan2 is for display
+      const addMeal = async (plan1, plan2) => {
+        console.log("yes");
+        console.log(plan1);
+        console.log(plan2);
+        if (plan1.length !== 0) {
+          console.log(JSON.stringify(plan1));
           try {
             const username = auth.currentUser.email;
-
-            if (flag) {
-              await setDoc(doc(db, "Food", username), {
-                Plan: plan,
-                CreatedAt: Date.now(),
-                Completed: [],
-                Added: [],
-              }).then(() => {
-                console.log("Document written");
-                addMealPlanToHistory(plan, username);
-                // navigate("/home");
-              });
-            } else {
-              // This is for recal, i need update only the "Plan", not the "CreatedAt" and "Completed"
-              await setDoc(doc(db, "Food", username), {
-                Plan: plan,
-                CreatedAt: Date.now(),
-                Completed: [],
-                Added: [],
-              }).then(() => {
-                console.log("Document written");
-                addMealPlanToHistory(plan, username);
-                // navigate("/home");
-              });
-            }
+            await setDoc(doc(db, "Food", username), {
+              Plan: plan1,
+              DisplayPlan: plan2,
+              CreatedAt: Date.now(),
+              Completed: {},
+              Added: [],
+            }).then(() => {
+              console.log("Document written");
+              addMealPlanToHistory(plan1, username);
+              // navigate("/home");
+            });
           } catch (e) {
             console.error("Error adding document: ", e);
           }
         }
       };
+      useEffect(() => {
+        console.log(mealPlan);
+        console.log(mealPlanCopy);
+        if (
+          Object.keys(mealPlan).length !== 0 &&
+          Object.keys(mealPlanCopy).length !== 0
+        ) {
+          addMeal(mealPlan, mealPlanCopy);
+        }
+      }, [mealPlan, mealPlanCopy]);
       useEffect(() => {
         console.log(total);
       }, [total]);
@@ -410,78 +410,43 @@ const CreateMealPages = {
                 <div style={{ textAlign: "right" }}>
                   <Button
                     onClick={() => {
-                      if (typeof mealPlan !== "object") {
-                        for (const day in mealPlan) {
-                          if (mealPlan[day]) {
-                            for (const meal in mealPlan) {
-                              let randomDish = Object.keys(selected[meal])[
-                                Math.floor(
-                                  Math.random() *
-                                    Object.keys(selected[meal]).length
-                                )
-                              ];
+                      let sum = 0;
+                      for (let i = 1; i < 8; i++) {
+                        ["breakfast", "lunch", "dinner"].forEach((meal) => {
+                          let randomDish = Object.keys(selected[meal])[
+                            Math.floor(
+                              Math.random() * Object.keys(selected[meal]).length
+                            )
+                          ];
 
-                              setMealPlan((prev) => ({
-                                ...prev,
-                                [day]: {
-                                  ...prev[day],
-                                  [meal]: {
-                                    [randomDish]: value,
-                                  },
-                                },
-                              }));
+                          let value = selected[meal][randomDish];
+                          sum += value;
 
-                              addMeal(mealPlan, false);
-                            }
-                          }
-                        }
-                        // reCal object of remaining meal plan
-                        // new remaining daily calories (based off remaining meal plan)
-                        // loop through this object then, based on what meal type key it is, i change the meal id
-                        // then push to firestore
-                      } else {
-                        let sum = 0;
-                        for (let i = 1; i < 8; i++) {
-                          ["breakfast", "lunch", "dinner"].forEach((meal) => {
-                            let randomDish = Object.keys(selected[meal])[
-                              Math.floor(
-                                Math.random() *
-                                  Object.keys(selected[meal]).length
-                              )
-                            ];
-
-                            let value = selected[meal][randomDish];
-                            sum += value;
-
-                            setMealPlan((prev) => ({
-                              ...prev,
-                              [i]: {
-                                ...prev[i],
-                                [meal]: {
-                                  [randomDish]: value,
-                                },
+                          setMealPlan((prev) => ({
+                            ...prev,
+                            [i]: {
+                              ...prev[i],
+                              [meal]: {
+                                [randomDish]: value,
                               },
-                            }));
+                            },
+                          }));
 
-                            setMealPlanCopy((prev) => ({
-                              ...prev,
-                              [i]: {
-                                ...prev[i],
-                                [meal]: {
-                                  [randomDish]: 0,
-                                },
+                          setMealPlanCopy((prev) => ({
+                            ...prev,
+                            [i]: {
+                              ...prev[i],
+                              [meal]: {
+                                [randomDish]: 0,
                               },
-                            }));
-                          });
-                        }
-
-                        console.log(mealPlan);
-
-                        console.log(mealPlanCopy); // use for front end display
-
-                        setTotal(Math.round(sum));
-                        addMeal(mealPlan);
+                            },
+                          }));
+                        });
                       }
+
+                      console.log(mealPlanCopy); // use for front end display
+
+                      setTotal(Math.round(sum));
                     }}
                   >
                     Next Page
@@ -512,7 +477,6 @@ const CreateMealPages = {
 export default function CreateMealContent() {
   // replace with atom when ready
   const [calories, setCalories] = useAtom(Kcal);
-  console.log(calories);
   // const weekly_cal = Kcal;
   // const daily_cal = weekly_cal / 7;
 
