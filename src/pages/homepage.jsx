@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetcherPOST } from "../getters/Fetcher";
+import { fetcherPOST } from "../middleware/Fetcher";
 import { NavBar } from "../components";
 import { Row, Col, Button, Stack } from "react-bootstrap";
 import { Box } from "@mui/material";
@@ -21,7 +21,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
-import getMealPlan from "../getters/getMealPlan";
+import getMealPlan from "../middleware/getMealPlan";
 import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
 import { isMobile } from "react-device-detect";
 

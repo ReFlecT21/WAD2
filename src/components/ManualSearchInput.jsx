@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import React, { useState } from "react";
 import { Stack, InputGroup, Form, Button, Card, Row, Col, Image} from "react-bootstrap";
-import { fetcher, fetcherGET, fetcherPOST } from "../getters/Fetcher";
+import { fetcher, fetcherGET, fetcherPOST } from "../middleware/Fetcher";
 
 // CHILD MODAL
 function ChildModal(foodname) {

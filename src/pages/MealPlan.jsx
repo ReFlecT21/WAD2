@@ -2,7 +2,7 @@ import { Button, Container, Row, Col, Accordion } from "react-bootstrap";
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { NavBar } from "../components";
-import getMealPlan from "../getters/getMealPlan";
+import getMealPlan from "../middleware/getMealPlan";
 import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -10,7 +10,7 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import { fetcher } from "../getters/Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 import { MealPlanCard } from "../components/MealPlanCard";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { useAtom } from "jotai";
@@ -35,6 +35,8 @@ export default function MealPlan() {
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [dayIndex, setDayIndex] = useState(1);
+
+  
   async function markMealAsComplete(dayIndex, mealType, food) {
     const username = auth.currentUser.email;
     const docRef = doc(db, "Food", username);
@@ -77,7 +79,7 @@ export default function MealPlan() {
         // Update the document in Firestore
         await updateDoc(docRef, {
           Completed: Completed,
-          CreatedAt: Date.now(),
+          CreatedAt: Date.now(),                  // -------------- why is this here? cannot update created time
         });
 
         console.log("Document written");

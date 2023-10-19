@@ -16,7 +16,9 @@ import { auth } from "../../firebase";
 import { LoggedIn } from "../atoms/logInAtom";
 import { NavBar } from "../components";
 import { MDBSwitch } from "mdb-react-ui-kit";
-import getMealPlan from "../getters/getMealPlan";
+import getMealPlan from "../middleware/getMealPlan";
+
+
 const InputPage = () => {
   const [formData, setFormData] = useState({
     age: 0,

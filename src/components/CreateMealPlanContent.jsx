@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import StepProgressBar from "./StepProgressBar";
-import { fetcher } from "../getters/Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 import { pageDataGetter } from "./pageDataGetter";
 import { FinaliseRecipeCard, RecpieCard } from "./RecipeCard";
 import Loader from "./Loader";
@@ -368,8 +368,8 @@ const CreateMealPages = {
           try {
             const username = auth.currentUser.email;
             await setDoc(doc(db, "Food", username), {
-              Plan: plan1,
-              DisplayPlan: plan2,
+              Plan: plan1,          // this is for recal 
+              DisplayPlan: plan2,   // this is for display (1 for compeleted, 0 for not completed)
               CreatedAt: Date.now(),
               Completed: {},
               Added: [],
@@ -383,6 +383,9 @@ const CreateMealPages = {
           }
         }
       };
+
+
+
       useEffect(() => {
         console.log(mealPlan);
         console.log(mealPlanCopy);
@@ -393,9 +396,13 @@ const CreateMealPages = {
           addMeal(mealPlan, mealPlanCopy);
         }
       }, [mealPlan, mealPlanCopy]);
+
       useEffect(() => {
         console.log(total);
       }, [total]);
+
+
+
       return (
         <>
           <Container>

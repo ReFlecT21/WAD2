@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
-import { fetcher } from "../getters/Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 import { RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
