@@ -61,12 +61,18 @@ export default function MealPlan() {
           setDayIndex((prevDayIndex) => {
             const newDayIndex = prevDayIndex + 1;
             Completed[newDayIndex] = {};
+            Completed[newDayIndex][mealType] = food;
             return newDayIndex;
           });
+        } else {
+          if (Completed[dayIndex][mealType]) {
+            console.log(dayIndex);
+            alert(`you cant have ${mealType} again`);
+          } else {
+            Completed[dayIndex][mealType] = food;
+          }
         }
 
-        // Mark the meal as complete
-        Completed[dayIndex][mealType] = food;
         console.log(JSON.stringify(Completed, null, 2));
         // Update the document in Firestore
         await updateDoc(docRef, {
@@ -137,9 +143,17 @@ export default function MealPlan() {
                   <Button
                     className="buttonPrimary"
                     onClick={
-                      console.log("clicking completed")
+                      () => {
+                        console.log("clicking completed");
+                        markMealAsComplete(
+                          dayIndex,
+                          "breakfast",
+                          currMealPlan.mealPlan[day][mealType]
+                        );
+                      }
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
+                      // "breakfast": currMealPlan.mealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
                     }
                   >

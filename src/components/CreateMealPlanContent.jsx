@@ -363,9 +363,6 @@ const CreateMealPages = {
       };
       // plan1 is for recal, plan2 is for display
       const addMeal = async (plan1, plan2) => {
-        console.log("yes");
-        console.log(plan1);
-        console.log(plan2);
         if (plan1.length !== 0) {
           console.log(JSON.stringify(plan1));
           try {
