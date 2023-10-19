@@ -2,7 +2,8 @@ import { Button, Container, Row, Col, Accordion } from "react-bootstrap";
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { NavBar } from "../components";
-import getMealPlan from "../middleware/getMealPlan";
+import getMealPlan from "../getters/getMealPlan";
+import getDisplayMealPlan from "../getters/getDisplayMealPlan";
 import { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -33,6 +34,7 @@ export default function MealPlan() {
   const navChoose = () => navigate("/choose");
 
   const [currMealPlan, setCurrMealPlan] = useState(null);
+  const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [dayIndex, setDayIndex] = useState(1);
 
@@ -49,11 +51,17 @@ export default function MealPlan() {
         const data = docSnap.data();
         console.log(data);
         const Completed = data.Completed;
+        const DisplayPLan = data.DisplayPlan;
+        console.log(Object.values(DisplayPLan[dayIndex].breakfast)[0]);
 
         // Make sure the day exists in the Completed array
         if (Object.keys(Completed).length == 0) {
           Completed[dayIndex] = {};
           console.log(Completed);
+        }
+        if (Object.values(DisplayPLan[dayIndex][mealType])[0] == 0) {
+          const key = Object.keys(DisplayPLan[dayIndex][mealType])[0];
+          DisplayPLan[dayIndex][mealType][key] = 1;
         }
         if (
           Completed[dayIndex].breakfast &&
@@ -79,7 +87,7 @@ export default function MealPlan() {
         // Update the document in Firestore
         await updateDoc(docRef, {
           Completed: Completed,
-          CreatedAt: Date.now(),                  // -------------- why is this here? cannot update created time
+          DisplayPLan: DisplayPLan,
         });
 
         console.log("Document written");
@@ -99,10 +107,14 @@ export default function MealPlan() {
     const fetchData = async () => {
       const userId = auth.currentUser.email;
       setCurrMealPlan(await getMealPlan(userId));
+      setCurrDisplayMealPlan(await getDisplayMealPlan(userId));
     };
 
     fetchData();
   }, []);
+  useEffect(() => {
+    console.log(currDisplayMealPlan);
+  }, [currDisplayMealPlan]);
 
   // after successfully retrieving current meal plan
 
@@ -144,20 +156,18 @@ export default function MealPlan() {
                 <Col>
                   <Button
                     className="buttonPrimary"
-                    onClick={
-                      () => {
-                        console.log("clicking completed");
-                        markMealAsComplete(
-                          dayIndex,
-                          "breakfast",
-                          currMealPlan.mealPlan[day][mealType]
-                        );
-                      }
+                    onClick={() => {
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
                       // "breakfast": currMealPlan.mealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
-                    }
+                      console.log("clicking completed");
+                      markMealAsComplete(
+                        dayIndex,
+                        "breakfast",
+                        currMealPlan.mealPlan[day][mealType]
+                      );
+                    }}
                   >
                     Completed
                   </Button>
@@ -179,20 +189,18 @@ export default function MealPlan() {
                 <Col>
                   <Button
                     className="buttonPrimary"
-                    onClick={
-                      () => {
-                        console.log("clicking completed");
-                        markMealAsComplete(
-                          dayIndex,
-                          "lunch",
-                          currMealPlan.mealPlan[day][mealType]
-                        );
-                      }
+                    onClick={() => {
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
                       // "breakfast": currMealPlan.mealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
-                    }
+                      console.log("clicking completed");
+                      markMealAsComplete(
+                        dayIndex,
+                        "lunch",
+                        currMealPlan.mealPlan[day][mealType]
+                      );
+                    }}
                   >
                     Completed
                   </Button>
@@ -214,20 +222,18 @@ export default function MealPlan() {
                 <Col>
                   <Button
                     className="buttonPrimary"
-                    onClick={
-                      () => {
-                        console.log("clicking completed");
-                        markMealAsComplete(
-                          dayIndex,
-                          "dinner",
-                          currMealPlan.mealPlan[day][mealType]
-                        );
-                      }
+                    onClick={() => {
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
                       // "breakfast": currMealPlan.mealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
-                    }
+                      console.log("clicking completed");
+                      markMealAsComplete(
+                        dayIndex,
+                        "dinner",
+                        currMealPlan.mealPlan[day][mealType]
+                      );
+                    }}
                   >
                     Completed
                   </Button>

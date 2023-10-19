@@ -376,6 +376,7 @@ const CreateMealPages = {
             }).then(() => {
               console.log("Document written");
               addMealPlanToHistory(plan1, username);
+              // addMealPLanToHistory only when 7 days is up , sends completed & added calories to addMealPLanToHistory
               // navigate("/home");
             });
           } catch (e) {
