@@ -17,11 +17,22 @@ function ChildModal(foodname) {
 
     if (searchData != null){
         searchData["foods"].forEach(food => {
+            console.log(food)
             APIres.push(
                 <>
-                    <p>{food["food_name"]}</p>
-                    <p>{food["nf_calories"]}</p>
-                    <p>{food["nf_cholesterol"]}</p>
+                    <Row>
+                        <Col>
+                            {/* <img width={300} src={food.photo.highres} alt="" /> */}
+                        </Col>
+                        <Col>
+                            <h2>{food["food_name"]}</h2>
+                            <p>Calories: {food["nf_calories"]}</p>
+                            <p>Total Protein: {food["nf_protein"]}</p>
+                            <p>Total Fats: {food["nf_total_fat"]}</p>
+                            <p>Total Carbohydrates: {food["nf_total_carbohydrate"]}</p>
+                            <p>Cholesterol: {food["nf_cholesterol"]}</p>
+                        </Col>
+                    </Row>
                 </>
             )
         });
@@ -53,8 +64,10 @@ function ChildModal(foodname) {
                     <Button className="buttonPrimary" onClick={handleClose}>Back</Button>
                     <Button className="buttonPrimary" onClick={null}>Confirm</Button>
                 </div>
-            <h2>Text in a child modal</h2>
-            {APIres}
+            {/* <h2>Text in a child modal</h2> */}
+            <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                {APIres}
+            </div>
           </Box>
         </Modal>
       </React.Fragment>

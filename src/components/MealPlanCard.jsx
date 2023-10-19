@@ -3,7 +3,8 @@ import { Card, Button, Col, Row } from "react-bootstrap";
 import { fetcher } from "../getters/Fetcher";
 import { RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
-import { FinaliseRecipeCard, RecpieCard } from "./RecipeCard";
+import { FinaliseRecipeCard, HomeRecipeCard, RecpieCard } from "./RecipeCard";
+import { isMobile } from "react-device-detect";
 
 export function MealPlanCard({ recipe, setter = null }) {
     // console.log("mealplancard")
@@ -18,7 +19,7 @@ export function MealPlanCard({ recipe, setter = null }) {
       },
       setResponse
     );
-    console.log(response)
+    // console.log(response)
 
     if(response){
         response.forEach(recipe => {
@@ -27,6 +28,50 @@ export function MealPlanCard({ recipe, setter = null }) {
                 <FinaliseRecipeCard recipe={recipe} />
             </>
             )
+        })
+    }   
+
+    return (
+        <>
+            {toSend}
+        </>
+    )
+
+}
+export function MealPlanCardHome({ recipe, setter = null }) {
+    // console.log("mealplancard")
+    const [response, setResponse] = useState(null);
+
+    const toSend = []
+
+    fetcher(
+      "/foodAPI/getBulk/?",
+      {
+        ids: recipe,
+      },
+      setResponse
+    );
+    // console.log(response)
+
+    if(response){
+        response.forEach(recipe => {
+
+            toSend.push(
+                // <HomeRecipeCard recipe={recipe} />
+                <FinaliseRecipeCard recipe={recipe} />
+            )
+            // if (isMobile){
+            //     toSend.push(
+            //         // <HomeRecipeCard recipe={recipe} />
+            //         <FinaliseRecipeCard recipe={recipe} />
+            //     )
+            // } else {
+            //     toSend.push(
+            //         <HomeRecipeCard recipe={recipe} />
+            //         // <FinaliseRecipeCard recipe={recipe} />
+            //     )
+
+            // }
         })
     }   
 

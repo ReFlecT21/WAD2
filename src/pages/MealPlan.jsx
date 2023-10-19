@@ -71,6 +71,7 @@ export default function MealPlan() {
         // Update the document in Firestore
         await updateDoc(docRef, {
           Completed: Completed,
+          CreatedAt: Date.now(),
         });
 
         console.log("Document written");
@@ -113,7 +114,12 @@ export default function MealPlan() {
     // d.setDate(d.getDate() + 1)
     // console.log( d )
 
-    defaultActiveKey = Object.keys(currMealPlan.mealPlan)[0];
+    // console.log(currMealPlan.CreatedAt)
+    // console.log(Date.now())
+    // console.log()
+    defaultActiveKey = Math.floor(
+      (Date.now() - currMealPlan.CreatedAt) / (1000 * 3600 * 24)
+    );
 
     for (const day in currMealPlan.mealPlan) {
       const dayData = [null, null, null];
@@ -129,18 +135,11 @@ export default function MealPlan() {
                 </Col>
                 <Col>
                   <Button
+                    className="buttonPrimary"
                     onClick={
-                      () => {
-                        console.log("clicking completed");
-                        markMealAsComplete(
-                          dayIndex,
-                          "breakfast",
-                          currMealPlan.mealPlan[day][mealType]
-                        );
-                      }
+                      console.log("clicking completed")
                       // check: if the current day he is on, the meal type has been completed
                       // if completed: block adding
-                      // "breakfast": currMealPlan.mealPlan[day][mealType]
                       // else: add to count of completed meals, call delete from db, call add meal to db
                     }
                   >
@@ -163,6 +162,7 @@ export default function MealPlan() {
                 </Col>
                 <Col>
                   <Button
+                    className="buttonPrimary"
                     onClick={
                       () => {
                         console.log("clicking completed");
@@ -197,6 +197,7 @@ export default function MealPlan() {
                 </Col>
                 <Col>
                   <Button
+                    className="buttonPrimary"
                     onClick={
                       () => {
                         console.log("clicking completed");
