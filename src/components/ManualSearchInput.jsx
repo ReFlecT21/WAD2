@@ -13,6 +13,24 @@ function ConfirmModal (){
         setConfirmModalOpen(false);
     };
 
+
+    // user to manual select meal type 
+    // check whether plan still exists
+    // if plan exists, you cannot eat this
+    // if plan does not exists, you can eat this
+
+    // Show to him how much he is over or under for that plan by comparing manually added cal to the current day meal type cal
+    // Recal or ADD
+    // if recal, 
+        // minus off manually added cals from weekly calories before sending remaining cals to recal
+
+    // if add,
+        // add into added array
+        // delete current day meal type
+        // display plan must change to 1 for that meal type
+
+
+
     return (
         <React.Fragment>
             <Button className="buttonPrimary" onClick={()=>{
@@ -27,11 +45,13 @@ function ConfirmModal (){
                 <Box className="popup">
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <Button className="buttonPrimary" onClick={handleClose}>Back</Button>
-                        <Button className="buttonPrimary" onClick={null}>Confirm</Button>
+                        <Button className="buttonPrimary" onClick={null}>Add</Button>
+                        <Button className="buttonPrimary" onClick={null}>Recal</Button>
                     </div>
 
                     <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
                         <h2>Confrim modal</h2>
+                        {}
                     </div>
                 </Box>
             </Modal>
