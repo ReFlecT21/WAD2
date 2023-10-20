@@ -132,6 +132,7 @@ export const dbFoodMethods = {
                 const Completed = data.Completed;
                 const Plan = data.Plan;
                 const DisplayPlan = data.DisplayPlan;
+                const CreatedAt = data.CreatedAt;
                 // console.log(Plan);
                 // console.log(Object.values(DisplayPlan[dayIndex].breakfast)[0]);
         
@@ -185,6 +186,8 @@ export const dbFoodMethods = {
                     });
             
                     console.log("Document written");
+
+                    // return {DisplayMealPlan, CreatedAt};
                 }
                 // }
         

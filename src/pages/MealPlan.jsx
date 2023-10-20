@@ -128,13 +128,9 @@ export default function MealPlan() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(currMealPlan);
-    console.log(currDisplayMealPlan);
-  }, [currDisplayMealPlan]);
-
+  
   // after successfully retrieving current meal plan
-
+  
   const display = [];
   const weekday = [
     "Sunday",
@@ -146,6 +142,56 @@ export default function MealPlan() {
     "Saturday",
   ];
 
+  useEffect(() => {
+    // console.log(currMealPlan);
+    console.log(currDisplayMealPlan);
+
+  }, [currDisplayMealPlan]);
+
+  function populateDisplay(day, mealType, dayIndex){
+    return (
+      <div key={`${day}${mealType}`}>
+        <Row xs={2} md={2} lg={2}>
+          <Col>
+            <h4 style={{ margin: "0px" }}>{mealType}</h4>
+            {/* <p>{Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}</p> */}
+          </Col>
+          <Col>
+            <Button
+              className="buttonPrimary"
+              onClick={() => {
+                // check: if the current day he is on, the meal type has been completed
+                // if completed: block adding
+                // "breakfast": currDisplayMealPlan.DisplayMealPlan[day][mealType]
+                // else: add to count of completed meals, call delete from db, call add meal to db
+                console.log("clicking completed");
+                const clickFunc = async () => {
+                  await dbFoodMethods.completeMeal(
+                      dayIndex,
+                      mealType,
+                      currMealPlan.mealPlan[day][mealType]
+                  );
+                  window.location.reload(false)
+
+                }
+                clickFunc();
+              }}
+
+              style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
+                {cursor: 'not-allowed'} : {cursor: 'pointer'}}
+            >
+              Completed
+            </Button>
+          </Col>
+        </Row>
+        <MealPlanCard
+          recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}
+        />
+      </div>
+    )
+  }
+
+  
   if (currDisplayMealPlan) {
 
     // console.log(currDisplayMealPlan)
@@ -158,121 +204,19 @@ export default function MealPlan() {
 
     for (const day in currDisplayMealPlan.DisplayMealPlan) {
       const dayData = [null, null, null];
+      
       for (const mealType in currDisplayMealPlan.DisplayMealPlan[day]) {
-        // currDisplayMealPlan.DisplayMealPlan[day][mealType]
-        // [mealType]: currDisplayMealPlan.DisplayMealPlan[day][mealType]
         if (mealType == "breakfast") {
-          // console.log(Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0])
-          dayData[0] = (
-            <div key={`${day}${mealType}`}>
-              <Row xs={2} md={2} lg={2}>
-                <Col>
-                  <h4 style={{ margin: "0px" }}>{mealType}</h4>
-                  {/* <p>{Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}</p> */}
-                </Col>
-                <Col>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={() => {
-                      // check: if the current day he is on, the meal type has been completed
-                      // if completed: block adding
-                      // "breakfast": currDisplayMealPlan.DisplayMealPlan[day][mealType]
-                      // else: add to count of completed meals, call delete from db, call add meal to db
-                      console.log("clicking completed");
-                      dbFoodMethods.completeMeal(
-                          dayIndex,
-                          "breakfast",
-                          currMealPlan.mealPlan[day][mealType]
-                      );
-                    }}
-
-                    style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
-                      {cursor: 'not-allowed'} : {cursor: 'pointer'}}
-                  >
-                    Completed
-                  </Button>
-                </Col>
-              </Row>
-              <MealPlanCard
-                recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}
-              />
-            </div>
-          );
+          dayData[0] = populateDisplay(day, mealType, dayIndex);
         }
-        if (mealType == "lunch") {
-          dayData[1] = (
-            <div key={`${day}${mealType}`}>
-              <Row xs={2} md={2} lg={2}>
-                <Col>
-                  <h4 style={{ margin: "0px" }}>{mealType}</h4>
-                  {/* <p>{Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}</p> */}
-                </Col>
-                <Col>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={() => {
-                      // check: if the current day he is on, the meal type has been completed
-                      // if completed: block adding
-                      // "breakfast": currDisplayMealPlan.DisplayMealPlan[day][mealType]
-                      // else: add to count of completed meals, call delete from db, call add meal to db
-                      console.log("clicking completed");
-                      dbFoodMethods.completeMeal(
-                        dayIndex,
-                        "lunch",
-                        currMealPlan.mealPlan[day][mealType]
-                      );
-                    }}
-                    style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
-                      {cursor: 'not-allowed'} : {cursor: 'pointer'}}
-                  >
-                    Completed
-                  </Button>
-                </Col>
-              </Row>
-              <MealPlanCard
-                recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}
-              />
-            </div>
-          );
+        else if (mealType == "lunch") {
+          dayData[1] = populateDisplay(day, mealType, dayIndex); 
         }
-        if (mealType == "dinner") {
-          dayData[2] = (
-            <div key={`${day}${mealType}`}>
-              <Row xs={2} md={2} lg={2}>
-                <Col>
-                  <h4 style={{ margin: "0px" }}>{mealType}</h4>
-                  {/* <p>{Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}</p> */}
-                </Col>
-                <Col>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={() => {
-                      // check: if the current day he is on, the meal type has been completed
-                      // if completed: block adding
-                      // "breakfast": currDisplayMealPlan.DisplayMealPlan[day][mealType]
-                      // else: add to count of completed meals, call delete from db, call add meal to db
-                      console.log("clicking completed");
-                      dbFoodMethods.completeMeal(
-                        dayIndex,
-                        "dinner",
-                        currMealPlan.mealPlan[day][mealType]
-                      );
-                    }}
-                    style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
-                      {cursor: 'not-allowed'} : {cursor: 'pointer'}}
-                  >
-                    Completed
-                  </Button>
-                </Col>
-              </Row>
-              <MealPlanCard
-                recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}
-              />
-            </div>
-          );
+        else if (mealType == "dinner") {
+          dayData[2] = populateDisplay(day, mealType, dayIndex);
         }
 
-        // Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]
+
       }
 
       var d = new Date(currDisplayMealPlan.CreatedAt);
