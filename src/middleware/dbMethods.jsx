@@ -26,6 +26,27 @@ export const dbFoodMethods = {
         }
     },
 
+    getCompleted: async function(){
+        console.log("getCompleted")
+        // console.log(this.docSnap)
+        try {
+            // Get the current state of the document
+            if (this.docSnap) {
+                const data = this.docSnap.data();
+                // console.log(data);
+                const Completed = data.Completed;
+                const CreatedAt = data.CreatedAt;
+                // console.log(mealPlan);
+                return {Completed, CreatedAt};
+            } else {
+                console.error(
+                    "Document does not exist"
+                );
+            }
+        } catch (e) {
+            console.error("Error updating document: ", e);
+        }
+    },
     getMealPlan: async function(){
         console.log("getMealPlan")
         // console.log(this.docSnap)
