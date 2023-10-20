@@ -24,9 +24,9 @@ export function MealPlanCard({ recipe, setter = null }) {
     if(response){
         response.forEach(recipe => {
             toSend.push(
-            <>
-                <FinaliseRecipeCard recipe={recipe} />
-            </>
+            <div key={recipe.id}>
+                <FinaliseRecipeCard recipe={recipe}/>
+            </div>
             )
         })
     }   

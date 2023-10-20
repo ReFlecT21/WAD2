@@ -33,7 +33,7 @@ export const dbFoodMethods = {
             // Get the current state of the document
             if (this.docSnap) {
                 const data = this.docSnap.data();
-                console.log(data);
+                // console.log(data);
                 const mealPlan = data.Plan;
                 const CreatedAt = data.CreatedAt;
                 // console.log(mealPlan);
@@ -133,7 +133,6 @@ export const dbFoodMethods = {
                 const Plan = data.Plan;
                 const DisplayPlan = data.DisplayPlan;
                 // console.log(Plan);
-                
                 // console.log(Object.values(DisplayPlan[dayIndex].breakfast)[0]);
         
                 // Make sure the day exists in the Completed array

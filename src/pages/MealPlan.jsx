@@ -129,6 +129,7 @@ export default function MealPlan() {
   }, []);
 
   useEffect(() => {
+    console.log(currMealPlan);
     console.log(currDisplayMealPlan);
   }, [currDisplayMealPlan]);
 
@@ -150,10 +151,10 @@ export default function MealPlan() {
     // console.log(currDisplayMealPlan)
     // console.log(Date.now())
     // dayIndex = Math.floor((Date.now() - currDisplayMealPlan.CreatedAt) / (1000 * 3600 * 24));
-    dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate();
+    dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() + 1;
 
 
-    console.log(dayIndex);
+    // console.log(dayIndex);
 
     for (const day in currDisplayMealPlan.DisplayMealPlan) {
       const dayData = [null, null, null];
@@ -161,11 +162,13 @@ export default function MealPlan() {
         // currDisplayMealPlan.DisplayMealPlan[day][mealType]
         // [mealType]: currDisplayMealPlan.DisplayMealPlan[day][mealType]
         if (mealType == "breakfast") {
+          // console.log(Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0])
           dayData[0] = (
             <div key={`${day}${mealType}`}>
               <Row xs={2} md={2} lg={2}>
                 <Col>
                   <h4 style={{ margin: "0px" }}>{mealType}</h4>
+                  {/* <p>{Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}</p> */}
                 </Col>
                 <Col>
                   <Button
@@ -202,6 +205,7 @@ export default function MealPlan() {
               <Row xs={2} md={2} lg={2}>
                 <Col>
                   <h4 style={{ margin: "0px" }}>{mealType}</h4>
+                  {/* <p>{Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}</p> */}
                 </Col>
                 <Col>
                   <Button
@@ -218,6 +222,8 @@ export default function MealPlan() {
                         currMealPlan.mealPlan[day][mealType]
                       );
                     }}
+                    style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
+                      {cursor: 'not-allowed'} : {cursor: 'pointer'}}
                   >
                     Completed
                   </Button>
@@ -235,6 +241,7 @@ export default function MealPlan() {
               <Row xs={2} md={2} lg={2}>
                 <Col>
                   <h4 style={{ margin: "0px" }}>{mealType}</h4>
+                  {/* <p>{Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]}</p> */}
                 </Col>
                 <Col>
                   <Button
@@ -251,6 +258,8 @@ export default function MealPlan() {
                         currMealPlan.mealPlan[day][mealType]
                       );
                     }}
+                    style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
+                      {cursor: 'not-allowed'} : {cursor: 'pointer'}}
                   >
                     Completed
                   </Button>
