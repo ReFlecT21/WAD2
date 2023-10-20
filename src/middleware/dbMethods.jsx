@@ -188,8 +188,8 @@ export const dbFoodMethods = {
                     Completed[dayIndex] = {};
                 }
 
-                if (Completed[dayIndex][mealType]) {
-                    console.log(dayIndex);
+                if (Completed[dayIndex][mealType] || Plan[dayIndex][mealType] == undefined) {
+                    // console.log(dayIndex);
                     console.log(JSON.stringify(Completed, null, 2));
                     alert(`you cant have ${mealType} again`);
                 } else {

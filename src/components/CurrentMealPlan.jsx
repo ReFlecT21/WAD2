@@ -63,7 +63,7 @@ export default function CurrentMealPlan() {
   ];
 
   useEffect(() => {
-    // console.log(currMealPlan);
+    console.log(currMealPlan);
     console.log(currDisplayMealPlan);
 
   }, [currDisplayMealPlan]);
@@ -117,7 +117,7 @@ export default function CurrentMealPlan() {
     // console.log(currDisplayMealPlan)
     // console.log(Date.now())
     // dayIndex = Math.floor((Date.now() - currDisplayMealPlan.CreatedAt) / (1000 * 3600 * 24));
-    dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() + 1;
+    dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() + 1; // +1 not suppose to be there  this is for testing
 
 
     // console.log(dayIndex);

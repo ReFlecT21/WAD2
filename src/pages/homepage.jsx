@@ -79,13 +79,13 @@ const HomePage = () => {
     for (const mealType in todayMeal){
       // console.log(todayMeal[mealType])
       todayMealDisplay.push(
-        <>
+        <div key={mealType}>
           <MealPlanCardHome recipe={Object.keys(todayMeal[mealType])[0]} />
           {/* <div>
             <h3>{mealType}</h3>
             <p>{todayMeal[mealType]}</p>
           </div> */}
-        </>
+        </div>
       )
     }
   }

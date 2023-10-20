@@ -5,10 +5,46 @@ import React, { useState } from "react";
 import { Stack, InputGroup, Form, Button, Card, Row, Col, Image} from "react-bootstrap";
 import { fetcher, fetcherGET, fetcherPOST } from "../middleware/Fetcher";
 
+// CONFIRM MODAL
+function ConfirmModal (){
+    const [searchData, setSearchData] = useState(null);
+    const [ConfirmModalopen, setConfirmModalOpen] = useState(false);
+    const handleClose = () => {
+        setConfirmModalOpen(false);
+    };
+
+    return (
+        <React.Fragment>
+            <Button className="buttonPrimary" onClick={()=>{
+              setConfirmModalOpen(true)
+
+            }}>Confirm</Button>
+
+            <Modal
+                open={ConfirmModalopen}
+                onClose={handleClose}
+            >
+                <Box className="popup">
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <Button className="buttonPrimary" onClick={handleClose}>Back</Button>
+                        <Button className="buttonPrimary" onClick={null}>Confirm</Button>
+                    </div>
+
+                    <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                        <h2>Confrim modal</h2>
+                    </div>
+                </Box>
+            </Modal>
+        </React.Fragment>
+    );
+}
+
+
+
 // CHILD MODAL
 function ChildModal(foodname) {
     const [searchData, setSearchData] = useState(null);
-    const [ChildModalopen, setChildModalOpen] = React.useState(false);
+    const [ChildModalopen, setChildModalOpen] = useState(false);
     const handleClose = () => {
         setChildModalOpen(false);
     };
@@ -62,7 +98,8 @@ function ChildModal(foodname) {
           <Box className="popup">
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <Button className="buttonPrimary" onClick={handleClose}>Back</Button>
-                    <Button className="buttonPrimary" onClick={null}>Confirm</Button>
+                    {/* <Button className="buttonPrimary" onClick={null}>Confirm</Button> */}
+                    <ConfirmModal />
                 </div>
             {/* <h2>Text in a child modal</h2> */}
             <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>

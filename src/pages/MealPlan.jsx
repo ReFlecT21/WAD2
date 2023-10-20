@@ -1,5 +1,5 @@
 import { Button, Container, Row, Col, Accordion, Tab, Tabs} from "react-bootstrap";
-import { NavBar } from "../components";
+import { CurrentMealPlan, CompletedMeals, NavBar } from "../components";
 
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
@@ -18,7 +18,6 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 
-import CurrentMealPlan from "../components/CurrentMealPlan";
 
 export default function MealPlan() {
   
@@ -65,7 +64,7 @@ export default function MealPlan() {
 
               </Tab>
               <Tab eventKey="Completed" title="Completed Meals">
-                Tab content for Profile
+                <CompletedMeals />
               </Tab>
 
             </Tabs>
