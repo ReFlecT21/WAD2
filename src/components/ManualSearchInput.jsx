@@ -1,7 +1,7 @@
 import { Modal, Box } from "@mui/material";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Stack,
   InputGroup,
@@ -79,8 +79,9 @@ function ConfirmModal() {
 }
 
 // CHILD MODAL
-function ChildModal(foodname) {
-  const [searchData, setSearchData] = useState(null);
+const food = [];
+function ChildModal(foodArray) {
+  const [searchData, setSearchData] = useState({});
   const [ChildModalopen, setChildModalOpen] = useState(false);
   const handleClose = () => {
     setChildModalOpen(false);
@@ -88,26 +89,33 @@ function ChildModal(foodname) {
 
   const APIres = [];
 
-  if (searchData != null) {
-    searchData["foods"].forEach((food) => {
-      console.log(food);
-      APIres.push(
-        <>
-          <Row>
-            <Col>
-              {/* <img width={300} src={food.photo.highres} alt="" /> */}
-            </Col>
-            <Col>
-              <h2>{food["food_name"]}</h2>
-              <p>Calories: {food["nf_calories"]}</p>
-              <p>Total Protein: {food["nf_protein"]}</p>
-              <p>Total Fats: {food["nf_total_fat"]}</p>
-              <p>Total Carbohydrates: {food["nf_total_carbohydrate"]}</p>
-              <p>Cholesterol: {food["nf_cholesterol"]}</p>
-            </Col>
-          </Row>
-        </>
-      );
+  if (Object.keys(searchData).length !== 0) {
+    console.log(searchData);
+    Object.keys(searchData).forEach((key) => {
+      searchData[key]["foods"].forEach((food) => {
+        console.log(food);
+        APIres.push(
+          <>
+            <Row>
+              <Col>
+                <img
+                  style={{ width: "100%" }}
+                  src={food.photo.highres}
+                  alt=""
+                />
+              </Col>
+              <Col>
+                <h2>{food["food_name"]}</h2>
+                <p>Calories: {food["nf_calories"]}</p>
+                <p>Total Protein: {food["nf_protein"]}</p>
+                <p>Total Fats: {food["nf_total_fat"]}</p>
+                <p>Total Carbohydrates: {food["nf_total_carbohydrate"]}</p>
+                <p>Cholesterol: {food["nf_cholesterol"]}</p>
+              </Col>
+            </Row>
+          </>
+        );
+      });
     });
   }
 
@@ -116,22 +124,29 @@ function ChildModal(foodname) {
       <Button
         className="buttonPrimary"
         onClick={() => {
-          // setChildModalOpen(true)
+          setChildModalOpen(true);
+          const food_array = foodArray.food_Array;
+          const fetchPromises = food_array.map((food) => {
+            const body = {
+              query: food,
+              include_subrecipe: true,
+              use_raw_foods: false,
+              line_delimited: true,
+              claims: true,
+              taxonomy: true,
+              ingredient_statement: true,
+            };
 
-          const body = {
-            query: foodname["food_name"],
-            include_subrecipe: true,
-            use_raw_foods: false,
-            line_delimited: true,
-            claims: true,
-            taxonomy: true,
-            ingredient_statement: true,
-          };
-
-          fetcherPOST("/foodAPI/manualSearch", body, setSearchData);
+            return fetcherPOST("/foodAPI/manualSearch", body);
+          });
+          Promise.all(fetchPromises)
+            .then((data) => {
+              setSearchData((prevData) => ({ ...prevData, ...data }));
+            })
+            .catch((error) => console.error(error));
         }}
       >
-        select
+        confirm
       </Button>
       <Modal open={ChildModalopen} onClose={handleClose}>
         <Box className="popup">
@@ -145,7 +160,7 @@ function ChildModal(foodname) {
           {/* <h2>Text in a child modal</h2> */}
           <div
             style={{
-              display: "flex",
+              display: "block",
               alignItems: "center",
               justifyContent: "center",
             }}
@@ -201,7 +216,10 @@ export function ManualSearchComponent() {
       setInputError("You must type something!");
     }
   }
-
+  const [foodArray, setFoodArray] = useState([]);
+  useEffect(() => {
+    console.log(foodArray);
+  }, [foodArray]);
   // ------------------------------------------------------------------------------------
   // this is handling instantSearch endpoint
   if (instantData != null) {
@@ -224,7 +242,19 @@ export function ManualSearchComponent() {
             />
             <div>
               <h5>{food["food_name"]}</h5>
-              <ChildModal food_name={food["food_name"]} />
+              {/* <ChildModal food_name={food["food_name"]} /> */}
+              <Button
+                className="buttonPrimary"
+                onClick={() => {
+                  setFoodArray((prevFoodArray) => [
+                    ...prevFoodArray,
+                    food["food_name"],
+                  ]);
+                }}
+              >
+                {" "}
+                select{" "}
+              </Button>
             </div>
           </Stack>
         </Col>
@@ -242,6 +272,7 @@ export function ManualSearchComponent() {
         <Box className="popup">
           <div className="text-center">
             <h1>This is manualSearch</h1>
+            <ChildModal food_Array={foodArray} />
 
             <Form onSubmit={handleSubmit}>
               <InputGroup className="mb-3">
@@ -249,7 +280,7 @@ export function ManualSearchComponent() {
                   aria-label="Default"
                   aria-describedby="inputGroup-sizing-default"
                   value={inputValue}
-                  onChangeCapture={handleInputChange}
+                  onChange={handleInputChange}
                   placeholder="type something!"
                 />
               </InputGroup>
