@@ -50,6 +50,7 @@ export const dbFoodMethods = {
     getMealPlan: async function(){
         console.log("getMealPlan")
         // console.log(this.docSnap)
+        this.init();
         try {
             // Get the current state of the document
             if (this.docSnap) {
