@@ -10,16 +10,26 @@ import {
   Button,
   Dropdown,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { LoggedIn } from "../atoms/logInAtom";
 import { NavBar } from "../components";
 import { MDBSwitch } from "mdb-react-ui-kit";
 import getMealPlan from "../middleware/getMealPlan";
+import { dbFoodMethods } from "../middleware/dbMethods";
+import { Allergies } from "../atoms/allergiesAtom";
+
+
 
 
 const InputPage = () => {
+  
+  const navigate = useNavigate();
+  const navHome = () => navigate("/home");
+  const navChoose = () => navigate("/choose");
+
+
   const [formData, setFormData] = useState({
     age: 0,
     gender: "female",
@@ -28,6 +38,8 @@ const InputPage = () => {
     activityLevel: "sedentary",
     goal: "maintain",
   });
+
+  const [allergies, setAllergies] = useAtom(Allergies);
 
   const [calories, setCalories] = useAtom(Kcal);
 
@@ -91,7 +103,25 @@ const InputPage = () => {
       [e.target.name]: value,
     });
   };
-  const handleSubmit = (e) => {
+  
+  const handleAllergies = (e) => {
+    if (allergies.includes(e.target.value)) {
+      // If the allergy is already in the array, remove it
+      setAllergies((prevAllergies) =>
+        prevAllergies.filter((item) => item !== e.target.value)
+      );
+
+      // localStorage.setItem("allergies", JSON.stringify(calories));
+
+    } else {
+      // If the allergy is not in the array, add it
+      setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
+      
+      // localStorage.setItem("allergies", JSON.stringify(calories));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     // Check if all fields are filled out
@@ -103,24 +133,36 @@ const InputPage = () => {
     }
 
     const calculatedCalories = calculateCalories();
-    setCalories(calculatedCalories);
-    console.log(calories);
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      const userId = auth.currentUser.email;
-      const mealPlan = await getMealPlan(userId);
-      console.log(mealPlan);
-    };
+    await setCalories(calculatedCalories);
+    // localStorage.setItem("calories", JSON.stringify(calories));
+    // console.log(calories);
 
-    fetchData();
-  }, []);
+    navChoose();
+  };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const userId = auth.currentUser.email;
+  //     const mealPlan = await getMealPlan(userId);               // why do we need this? called but not used.
+  //     // dbFoodMethods.init();
+  //     // const mealPlan = await dbFoodMethods.getMealPlan();     // why do we need this? called but not used.
+  //     // console.log(mealPlan);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
     <>
       <NavBar />
       <Container fluid>
         <Row>
+          
+          
           <Col>hi</Col>
+
+
+
           <Col
             style={{
               padding: "20px",
@@ -129,39 +171,22 @@ const InputPage = () => {
             <Row>
               <h2>Getting to know you!</h2>
             </Row>
+
             <Row style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                Gender
-              </Col>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                Age
-              </Col>
-            </Row>
-            <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
+                <h5>Gender</h5>
+              
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <span style={{ marginRight: "10px", color: "black" }}>
                     Female
                   </span>
-                  <MDBSwitch
+                  <MDBSwitch 
+                    style={{ color: "white"}}
+                    className="p"
                     name="gender"
                     checked={formData.gender === "male"}
                     onChange={handleChangeGender}
@@ -175,11 +200,12 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
+                <h5>Age</h5>
                 {" "}
                 <Form.Control
                   type="number"
                   name="age"
-                  placeholder="Age"
+                  placeholder="Please key in your age"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -192,33 +218,12 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                Height
-              </Col>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                Weight
-              </Col>
-            </Row>
-            <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
+                <h5>Height</h5>
                 {" "}
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder="cm"
+                  placeholder="Please key in your height"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -229,11 +234,12 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
+                <h5>Weight</h5>
                 {" "}
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder="kg"
+                  placeholder="Please key in your weight"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -246,19 +252,8 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                Select your activity level
-              </Col>
-            </Row>
-            <Row
-              style={{
-                marginTop: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
+                <h5>Select your activity level</h5>
+              
                 <Form.Select
                   onChange={handleChange}
                   aria-label="Default select example"
@@ -282,54 +277,15 @@ const InputPage = () => {
                   </option>
                 </Form.Select>
               </Col>
-            </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
+              <Col xs={4}
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                Allergies
-              </Col>
-            </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
+                <h5>Goal</h5>
+              
                 <Form.Select
-                  onChange={handleChange}
-                  aria-label="Default select example"
-                  multiple
-                >
-                  <option value="soy">Soy</option>
-                  <option value="nuts">Nuts</option>
-                  <option value="wheat">Wheat</option>
-                  <option value="dairy">Dairy</option>
-                  <option value="seafood">Seafood</option>
-                  <option value="eggs">Eggs</option>
-                  <option value="none">None</option>
-                </Form.Select>
-              </Col>
-            </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                Goal
-              </Col>
-            </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                <Form.Select
-                  onChange={handleChange}
+                  onChange={handleAllergies}
                   aria-label="Default select example"
                   name="goal"
                 >
@@ -339,14 +295,59 @@ const InputPage = () => {
                 </Form.Select>
               </Col>
             </Row>
-            <Row>
-              <Button
-                onClick={handleSubmit}
-                type="submit"
-                className="loginButton"
+            <Row style={{ marginTop: "20px" }}>
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
-                Create Meal
-              </Button>
+                <h5>Allergies</h5>
+
+                
+
+                {["Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"
+                ].map((item) => (
+                  <Form.Check 
+                    key={item} // Make sure to add a unique key when mapping over an array in React
+                    type="checkbox"
+                    label={item}
+                    name="allergies"
+                    value={item}
+                    onChange={handleAllergies}
+                    inline
+                    style={{ color: "#1F5E4B" }}
+                  />
+                ))}
+              
+                
+        
+                {/* <Form.Select
+                  onChange={handleChange}
+                  aria-label="Default select example"
+                  name="allergies"
+                  multiple
+                >
+                  <option value="soy">Soy</option>
+                  <option value="nuts">Nuts</option>
+                  <option value="wheat">Wheat</option>
+                  <option value="dairy">Dairy</option>
+                  <option value="seafood">Seafood</option>
+                  <option value="eggs">Eggs</option>
+                  <option value="none">None</option>
+                </Form.Select> */}
+              </Col>
+            </Row>
+            <Row style={{}}>
+              <Col>
+                <Button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="buttonPrimary"
+                  style={{width: "100%"}}
+                >
+                  Create Meal
+                </Button>
+              </Col>
             </Row>
           </Col>
         </Row>
