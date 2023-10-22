@@ -157,7 +157,12 @@ const InputPage = () => {
       <NavBar />
       <Container fluid>
         <Row>
+          
+          
           <Col>hi</Col>
+
+
+
           <Col
             style={{
               padding: "20px",
