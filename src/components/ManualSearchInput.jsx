@@ -79,21 +79,30 @@ function ConfirmModal() {
 }
 
 // CHILD MODAL
-const food = [];
+
 function ChildModal(foodArray) {
   const [searchData, setSearchData] = useState({});
   const [ChildModalopen, setChildModalOpen] = useState(false);
   const handleClose = () => {
     setChildModalOpen(false);
   };
-
+  const [added, setAdded] = useState([]);
   const APIres = [];
 
   if (Object.keys(searchData).length !== 0) {
     console.log(searchData);
+    const tempData = [];
     Object.keys(searchData).forEach((key) => {
       searchData[key]["foods"].forEach((food) => {
-        console.log(food);
+        const tempArray = [];
+        tempArray.push(food.photo.highres);
+        tempArray.push(food["food_name"]);
+        tempArray.push(food["nf_calories"]);
+        tempArray.push(food["nf_protein"]);
+        tempArray.push(food["nf_total_fat"]);
+        tempArray.push(food["nf_total_carbohydrate"]);
+        tempArray.push(food["nf_cholesterol"]);
+        tempData.push(tempArray);
         APIres.push(
           <>
             <Row>
@@ -117,8 +126,11 @@ function ChildModal(foodArray) {
         );
       });
     });
+    setAdded(tempData);
   }
-
+  useEffect(() => {
+    console.log(added);
+  }, [added]);
   return (
     <React.Fragment>
       <Button
@@ -175,12 +187,14 @@ function ChildModal(foodArray) {
 
 export function ManualSearchComponent() {
   const instantSearchRes = [];
-
+  const [mealModalOpen, setMealModalOpen] = useState(true);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  const [selectedMeal, setSelectedMeal] = useState("");
   const [open, setOpen] = useState(true);
   const handleClose = () => {
     setOpen(false);
     setOverlayData([]);
+    setSelectedMeal("");
   };
 
   // FORM VALIDATION
@@ -264,8 +278,37 @@ export function ManualSearchComponent() {
 
   return (
     <div>
+      <Modal open={mealModalOpen} onClose={() => setMealModalOpen(false)}>
+        <Box className="popup">
+          <h1>Select a meal</h1>
+          <Button
+            onClick={() => {
+              setSelectedMeal("Breakfast");
+              setMealModalOpen(false);
+            }}
+          >
+            Breakfast
+          </Button>
+          <Button
+            onClick={() => {
+              setSelectedMeal("Lunch");
+              setMealModalOpen(false);
+            }}
+          >
+            Lunch
+          </Button>
+          <Button
+            onClick={() => {
+              setSelectedMeal("Dinner");
+              setMealModalOpen(false);
+            }}
+          >
+            Dinner
+          </Button>
+        </Box>
+      </Modal>
       <Modal
-        open={true}
+        open={selectedMeal !== ""}
         onClose={handleClose}
         style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
       >
