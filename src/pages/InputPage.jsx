@@ -18,6 +18,7 @@ import { NavBar } from "../components";
 import { MDBSwitch } from "mdb-react-ui-kit";
 import getMealPlan from "../middleware/getMealPlan";
 import { dbFoodMethods } from "../middleware/dbMethods";
+import { Allergies } from "../atoms/allergiesAtom";
 
 
 
@@ -38,7 +39,7 @@ const InputPage = () => {
     goal: "maintain",
   });
 
-  const [allergies, setAllergies] = useState([]);
+  const [allergies, setAllergies] = useAtom(Allergies);
 
   const [calories, setCalories] = useAtom(Kcal);
 
@@ -109,9 +110,14 @@ const InputPage = () => {
       setAllergies((prevAllergies) =>
         prevAllergies.filter((item) => item !== e.target.value)
       );
+
+      // localStorage.setItem("allergies", JSON.stringify(calories));
+
     } else {
       // If the allergy is not in the array, add it
       setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
+      
+      // localStorage.setItem("allergies", JSON.stringify(calories));
     }
   };
 
@@ -128,7 +134,8 @@ const InputPage = () => {
 
     const calculatedCalories = calculateCalories();
     await setCalories(calculatedCalories);
-    console.log(calories);
+    // localStorage.setItem("calories", JSON.stringify(calories));
+    // console.log(calories);
 
     navChoose();
   };
@@ -193,7 +200,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="age"
-                  placeholder="Age"
+                  placeholder="Please key in your age"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -211,7 +218,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder="cm"
+                  placeholder="Please key in your height"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -227,7 +234,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder="kg"
+                  placeholder="Please key in your weight"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -291,7 +298,10 @@ const InputPage = () => {
               >
                 <h5>Allergies</h5>
 
-                {["soy", "nuts", "wheat", "dairy", "seafood", "eggs", "none"].map((item) => (
+                
+
+                {["Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"
+                ].map((item) => (
                   <Form.Check 
                     key={item} // Make sure to add a unique key when mapping over an array in React
                     type="checkbox"
@@ -303,6 +313,7 @@ const InputPage = () => {
                     style={{ color: "#1F5E4B" }}
                   />
                 ))}
+              
                 
         
                 {/* <Form.Select

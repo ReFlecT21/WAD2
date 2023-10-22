@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Card, Button, Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import {
   collection,
   doc,
@@ -30,6 +30,9 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { dbFoodMethods } from "../middleware/dbMethods";
+import { Allergies } from "../atoms/allergiesAtom";
+import { SelectedMeals } from "../atoms/selectedMeals";
+import { SelectedMealsDisplay } from "./SelectedMeals";
 
 const CreateMealPages = {
   1: async function (
@@ -420,6 +423,7 @@ const CreateMealPages = {
               <Col>
                 <div style={{ textAlign: "right" }}>
                   <Button
+                    className="buttonPrimary"
                     onClick={() => {
                       let sum = 0;
 
@@ -495,7 +499,7 @@ const CreateMealPages = {
                       setTotal(Math.round(sum));
                     }}
                   >
-                    Next Page
+                    Complete
                   </Button>
                 </div>
               </Col>
@@ -505,7 +509,7 @@ const CreateMealPages = {
               {CardData.length > 0 ? (
                 CardData
               ) : (
-                <p>Please choose at least 1 meal</p>
+                <p>Please choose at least 1 dish for each meal</p>
               )}
             </Row>
           </Container>
@@ -521,21 +525,26 @@ const CreateMealPages = {
 };
 
 export default function CreateMealContent() {
-  // replace with atom when ready
-  const [calories, setCalories] = useAtom(Kcal);
-  // const weekly_cal = Kcal;
-  // const daily_cal = weekly_cal / 7;
 
+  const [calories, setCalories] = useAtom(Kcal);
   const [mealPlan, setMealPlan] = useAtom(MealPlan);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
+
+  // const localStorageKey = 'calories';
+  // useEffect(() => {
+  //   const storedCalories = localStorage.getItem(localStorageKey);
+  //   if (storedCalories) {
+  //     setCalories(JSON.parse(storedCalories));
+  //   }
+  // }, []);
+
+  // console.log(calories);
+  
+
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
-  const [selected, setSelected] = useState({
-    breakfast: {},
-    lunch: {},
-    dinner: {},
-  });
+  const [selected, setSelected] = useAtom(SelectedMeals);
 
   const [apiData, setApiData] = useState({
     1: {
@@ -566,7 +575,7 @@ export default function CreateMealContent() {
         selected,
         setSelected,
         setOverlayData,
-        2000
+        calories,
       );
       setCurrPage(pageData);
     }
@@ -577,16 +586,34 @@ export default function CreateMealContent() {
   return (
     <>
       <div>
-        {overlayData}
-        <Container>
-          <Row>
-            <StepProgressBar
-              page={activePage}
-              onPageNumberClick={setActivePage}
-            />
-          </Row>
-        </Container>
-        {currPage}
+        
+        {/* {currPage} */}
+
+        <Tabs
+          defaultActiveKey="chooseMeals"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+          fill
+          >
+          <Tab eventKey="chooseMeals" title="Pick your meals!">
+            {overlayData}
+            <Container>
+            <Row>
+              <StepProgressBar
+                page={activePage}
+                onPageNumberClick={setActivePage}
+              />
+            </Row>
+          </Container>
+            {currPage}
+        </Tab>
+        <Tab eventKey="Selected" title="Meals selected">
+          <Container>
+            <SelectedMealsDisplay />
+          </Container>
+        </Tab>
+
+        </Tabs>
       </div>
     </>
   );
