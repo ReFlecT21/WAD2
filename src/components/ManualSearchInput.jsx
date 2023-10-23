@@ -22,7 +22,7 @@ function ChildModal(foodname) {
                 <>
                     <Row>
                         <Col>
-                            <img width={300} src={food.photo.highres} alt="" />
+                            {/* <img width={300} src={food.photo.highres} alt="" /> */}
                         </Col>
                         <Col>
                             <h2>{food["food_name"]}</h2>
