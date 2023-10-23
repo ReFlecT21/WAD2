@@ -19,6 +19,7 @@ import { MDBSwitch } from "mdb-react-ui-kit";
 import getMealPlan from "../middleware/getMealPlan";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { Allergies } from "../atoms/allergiesAtom";
+import Spline from "@splinetool/react-spline";
 
 
 
@@ -155,14 +156,14 @@ const InputPage = () => {
   return (
     <>
       <NavBar />
-      <Container fluid>
+      <Container fluid style={{display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }} >
         <Row>
           
           
-          <Col>hi</Col>
-
-
-
+          <Col md={7}>
+            <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" />
+          </Col>
+          
           <Col
             style={{
               padding: "20px",
@@ -205,7 +206,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="age"
-                  placeholder="Please key in your age"
+                  placeholder="Enter your age"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -223,7 +224,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder="Please key in your height"
+                  placeholder="Enter your height"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -239,7 +240,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder="Please key in your weight"
+                  placeholder="Enter your weight"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
