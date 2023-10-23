@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
-import { fetcher } from "../getters/Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 import { RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
@@ -10,7 +10,6 @@ export function RecpieCard({ recipe, setter = null }) {
 
   return (
     <Col key={recipe["id"]}>
-      {/* {overlayData} */}
       <Card style={{ border: "0px", margin: "10px" }}>
         <Card.Img
           variant="top"
@@ -21,7 +20,6 @@ export function RecpieCard({ recipe, setter = null }) {
         <Card.ImgOverlay>
           <Card.Body>
             <Row>
-              {/* <Col><Button href={recipe["spoonacularSourceUrl"]} target="_blank" rel="noopener noreferrer">See Recipe</Button></Col> */}
               <Col>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -43,7 +41,7 @@ export function RecpieCard({ recipe, setter = null }) {
                       }))
                     }
                   >
-                    Add to Array
+                    Select Meal
                   </Button>
                 </div>
               </Col>
@@ -52,13 +50,97 @@ export function RecpieCard({ recipe, setter = null }) {
               {recipe["title"]}
             </Card.Title>
             <Card.Text>
-              {/* <div className="recipeSummary" dangerouslySetInnerHTML={{__html: recipe["summary"]}}></div> */}
             </Card.Text>
           </Card.Body>
         </Card.ImgOverlay>
       </Card>
     </Col>
   );
+}
+
+export function SelectedMealCard ({recipe, selected=null, setter=null, mealType}) {
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  const [response, setResponse] = useState(null);
+
+  fetcher(
+    "/foodAPI/getBulk/?",
+    {
+      ids: recipe,
+    },
+    setResponse
+  );
+
+  const res= [];
+
+  if (response?.length > 0 ){
+    response.forEach((recipe) => {
+      // console.log(recipe)
+      res.push(
+        <Col key={recipe["id"]}>
+          <Card style={{ border: "0px", margin: "10px" }}>
+              <Card.Img
+              variant="top"
+              src={recipe["image"]}
+              className="img-overlay"
+              style={{ borderRadius: "20px" }}
+              />
+              <Card.ImgOverlay>
+              <Card.Body>
+                  <Row>
+                  <Col>
+                      <div
+                      style={{ display: "flex", justifyContent: "space-between" }}
+                      >
+                      <Button
+                          className="buttonPrimary"
+                          onClick={() =>
+                          setOverlayData(<RecipeDetails id={recipe["id"]} />)
+                          }
+                      >
+                          See Recipe
+                      </Button>
+                      <Button
+                          className="buttonPrimary"
+                          onClick={() => {
+                            // console.log(selected);
+                            const updatedSelected = { ...selected };
+
+                            // Check if the meal type exists and the recipe ID exists in it
+                            if (updatedSelected[mealType.toLowerCase()] && updatedSelected[mealType.toLowerCase()][recipe.id]) {
+                              // console.log(updatedSelected[mealType.toLowerCase()][recipe.id]);
+                              delete updatedSelected[mealType.toLowerCase()][recipe.id];
+                              // Remove the recipe ID from the meal type
+                            }
+
+                            // Update the state with the modified copy
+                            setter(updatedSelected);
+                            // console.log(selected);
+                          }}
+                      >
+                          Remove Meal
+                      </Button>
+                      </div>
+                  </Col>
+                  </Row>
+                  <Card.Title style={{ marginTop: "10px" }}>
+                  {recipe["title"]}
+                  </Card.Title>
+                  <Card.Text>
+                  </Card.Text>
+              </Card.Body>
+              </Card.ImgOverlay>
+          </Card>
+        </Col>
+      )
+    });
+  }
+
+
+  return (
+    <>
+    {res}
+    </>
+  )
 }
 
 export function FinaliseRecipeCard({ recipe, selected=null }) {
@@ -98,21 +180,6 @@ export function FinaliseRecipeCard({ recipe, selected=null }) {
 }
 export function HomeRecipeCard({ recipe, selected=null }) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-
-  // let width = window.innerWidth;
-  // let cardDirection = {flexDirection:"row"}
-
-  // if(width < 768){
-  //   cardDirection = {}
-  // }
-
-  // useState(() => {
-  //   const handleResize = () => {
-  //     width = window.innerWidth;
-  //   };
-  //   window.addEventListener("resize", handleResize);
-
-  // }, [width]);
   
   return (
     <Card style={{flexDirection:"row"}}>

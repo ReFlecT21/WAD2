@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetcherPOST } from "../getters/Fetcher";
+import { fetcherPOST } from "../middleware/Fetcher";
 import { NavBar } from "../components";
 import { Row, Col, Button, Stack } from "react-bootstrap";
 import { Box } from "@mui/material";
@@ -21,9 +21,10 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
-import getMealPlan from "../getters/getMealPlan";
+import getMealPlan from "../middleware/getMealPlan";
 import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
 import { isMobile } from "react-device-detect";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 
 
@@ -49,8 +50,11 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userId = auth.currentUser.email;
-      setCurrMealPlan(await getMealPlan(userId));
+      // const userId = auth.currentUser.email;
+      // setCurrMealPlan(await getMealPlan(userId));
+      await dbFoodMethods.init();
+      
+      setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
     };
 
     fetchData();
@@ -58,24 +62,30 @@ const HomePage = () => {
 
   var todayMealDisplay = []
   var todayMeal = []
-  // console.log(currMealPlan)
+  console.log(currMealPlan)
   
   if (currMealPlan != null) {
-    var currDay = Math.floor((Date.now() - currMealPlan.CreatedAt) / (1000 * 3600 * 24))
+    
+    // FOR TESTING PURPOSES ONLY (NEED TO +1 )
+
+    var currDay = new Date(Date.now()).getDate() - new Date(currMealPlan.CreatedAt).getDate()+1;    
     // console.log(currDay)
-    todayMeal = currMealPlan["mealPlan"][currDay];
+    // console.log(new Date(currMealPlan.CreatedAt).getDate())
+    
+    
+    todayMeal = currMealPlan["DisplayMealPlan"][currDay];
     // console.log(todayMeal)
 
     for (const mealType in todayMeal){
       // console.log(todayMeal[mealType])
       todayMealDisplay.push(
-        <>
+        <div key={mealType}>
           <MealPlanCardHome recipe={Object.keys(todayMeal[mealType])[0]} />
           {/* <div>
             <h3>{mealType}</h3>
             <p>{todayMeal[mealType]}</p>
           </div> */}
-        </>
+        </div>
       )
     }
   }

@@ -3,12 +3,68 @@ import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import React, { useState } from "react";
 import { Stack, InputGroup, Form, Button, Card, Row, Col, Image} from "react-bootstrap";
-import { fetcher, fetcherGET, fetcherPOST } from "../getters/Fetcher";
+import { fetcher, fetcherGET, fetcherPOST } from "../middleware/Fetcher";
+
+// CONFIRM MODAL
+function ConfirmModal (){
+    const [searchData, setSearchData] = useState(null);
+    const [ConfirmModalopen, setConfirmModalOpen] = useState(false);
+    const handleClose = () => {
+        setConfirmModalOpen(false);
+    };
+
+
+    // user to manual select meal type 
+    // check whether plan still exists
+    // if plan exists, you cannot eat this
+    // if plan does not exists, you can eat this
+
+    // Show to him how much he is over or under for that plan by comparing manually added cal to the current day meal type cal
+    // Recal or ADD
+    // if recal, 
+        // minus off manually added cals from weekly calories before sending remaining cals to recal
+
+    // if add,
+        // add into added array
+        // delete current day meal type
+        // display plan must change to 1 for that meal type
+
+
+
+    return (
+        <React.Fragment>
+            <Button className="buttonPrimary" onClick={()=>{
+              setConfirmModalOpen(true)
+
+            }}>Confirm</Button>
+
+            <Modal
+                open={ConfirmModalopen}
+                onClose={handleClose}
+            >
+                <Box className="popup">
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <Button className="buttonPrimary" onClick={handleClose}>Back</Button>
+                        <Button className="buttonPrimary" onClick={null}>Add</Button>
+                        <Button className="buttonPrimary" onClick={null}>Recal</Button>
+                    </div>
+
+                    <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                        <h2>Confrim modal</h2>
+                        {}
+                    </div>
+                </Box>
+            </Modal>
+        </React.Fragment>
+    );
+}
+
+
 
 // CHILD MODAL
 function ChildModal(foodname) {
     const [searchData, setSearchData] = useState(null);
-    const [ChildModalopen, setChildModalOpen] = React.useState(false);
+    const [ChildModalopen, setChildModalOpen] = useState(false);
     const handleClose = () => {
         setChildModalOpen(false);
     };
@@ -62,7 +118,8 @@ function ChildModal(foodname) {
           <Box className="popup">
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <Button className="buttonPrimary" onClick={handleClose}>Back</Button>
-                    <Button className="buttonPrimary" onClick={null}>Confirm</Button>
+                    {/* <Button className="buttonPrimary" onClick={null}>Confirm</Button> */}
+                    <ConfirmModal />
                 </div>
             {/* <h2>Text in a child modal</h2> */}
             <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>

@@ -10,14 +10,27 @@ import {
   Button,
   Dropdown,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { LoggedIn } from "../atoms/logInAtom";
 import { NavBar } from "../components";
 import { MDBSwitch } from "mdb-react-ui-kit";
-import getMealPlan from "../getters/getMealPlan";
+import getMealPlan from "../middleware/getMealPlan";
+import { dbFoodMethods } from "../middleware/dbMethods";
+import { Allergies } from "../atoms/allergiesAtom";
+import Spline from "@splinetool/react-spline";
+
+
+
+
 const InputPage = () => {
+  
+  const navigate = useNavigate();
+  const navHome = () => navigate("/home");
+  const navChoose = () => navigate("/choose");
+
+
   const [formData, setFormData] = useState({
     age: 0,
     gender: "female",
@@ -26,6 +39,8 @@ const InputPage = () => {
     activityLevel: "sedentary",
     goal: "maintain",
   });
+
+  const [allergies, setAllergies] = useAtom(Allergies);
 
   const [calories, setCalories] = useAtom(Kcal);
 
@@ -89,7 +104,25 @@ const InputPage = () => {
       [e.target.name]: value,
     });
   };
-  const handleSubmit = (e) => {
+  
+  const handleAllergies = (e) => {
+    if (allergies.includes(e.target.value)) {
+      // If the allergy is already in the array, remove it
+      setAllergies((prevAllergies) =>
+        prevAllergies.filter((item) => item !== e.target.value)
+      );
+
+      // localStorage.setItem("allergies", JSON.stringify(calories));
+
+    } else {
+      // If the allergy is not in the array, add it
+      setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
+      
+      // localStorage.setItem("allergies", JSON.stringify(calories));
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     // Check if all fields are filled out
@@ -101,26 +134,31 @@ const InputPage = () => {
     }
 
     const calculatedCalories = calculateCalories();
-    setCalories(calculatedCalories);
-    console.log(calories);
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      const userId = auth.currentUser.email;
-      const mealPlan = await getMealPlan(userId);
-      console.log(mealPlan);
-    };
+    await setCalories(calculatedCalories);
+    // localStorage.setItem("calories", JSON.stringify(calories));
+    // console.log(calories);
 
-    fetchData();
-  }, []);
+    navChoose();
+  };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const userId = auth.currentUser.email;
+  //     const mealPlan = await getMealPlan(userId);               // why do we need this? called but not used.
+  //     // dbFoodMethods.init();
+  //     // const mealPlan = await dbFoodMethods.getMealPlan();     // why do we need this? called but not used.
+  //     // console.log(mealPlan);
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
     <>
       <NavBar />
-      <Container fluid>
+      <Container style={{display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
         <Row>
-          <Col>
-          <Image src="/login.png" alt="" className="sideimg" />
-          </Col>
+          <Col>hi</Col>
           <Col
             style={{
               padding: "40px",
@@ -129,35 +167,40 @@ const InputPage = () => {
             <Row>
               <h1>Getting to know you!</h1>
             </Row>
-            <Row className="text" style={{ marginTop: "20px" }}>
+            <Row style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
                 
               >
-                <h3>Gender</h3>
-                
+                Gender
               </Col>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                <h3>Age</h3>
+                Age
               </Col>
-              </Row>
+            </Row>
             <Row
-
+              style={{
+                borderBottom: "solid",
+                borderBottomColor: "red",
+                marginTop: "20px",
+              }}
             >
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center"}}>
-                  <span style={{color: "#1F5E4B", fontWeight: "normal"}}>Female</span>
-                  <MDBSwitch className="genderSwitch"
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <span style={{ marginRight: "10px", color: "black" }}>
+                    Female
+                  </span>
+                  <MDBSwitch
                     name="gender"
                     checked={formData.gender === "male"}
                     onChange={handleChangeGender}
@@ -171,12 +214,13 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
+                <h5>Age</h5>
                 {" "}
                 <Form.Control
                   type="number"
                   name="age"
                   placeholder="Age"
-                  className="formInputBox"
+                  className="inputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
@@ -186,36 +230,47 @@ const InputPage = () => {
             <Row style={{ marginTop: "20px" }}>
               <Col className="text" 
               >
-                <h3>Height</h3>
+                Height
               </Col>
-              <Col className="text" 
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
-                <h3>Weight</h3>
+                Weight
               </Col>
             </Row>
             <Row
-
+              style={{
+                borderBottom: "solid",
+                borderBottomColor: "red",
+                marginTop: "20px",
+              }}
             >
-              <Col className="text" 
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
                 {" "}
                 <Form.Control
                   type="number"
                   name="height"
                   placeholder="cm"
-                  className="formInputBox"
+                  className="inputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
               <Col className="text" 
               >
+                <h5>Weight</h5>
                 {" "}
                 <Form.Control
                   type="number"
                   name="weight"
                   placeholder="kg"
-                  className="formInputBox"
+                  className="inputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
@@ -229,15 +284,18 @@ const InputPage = () => {
                   paddingBottom: "10px",
                 }}
               >
-                <h3>Select your activity level</h3>
+                Select your activity level
               </Col>
             </Row>
             <Row
               style={{
-                marginTop: "0px",
+                marginTop: "20px",
               }}
             >
-              <Col className="text" 
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
                 <Form.Select
                   onChange={handleChange}
@@ -264,9 +322,12 @@ const InputPage = () => {
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col className="text" 
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
-                <h3>Allergies</h3>
+                Allergies
               </Col>
             </Row>
             <Row style={{ marginTop: "10px" }}>
@@ -275,9 +336,30 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                <Form.Select
+                <h5>Allergies</h5>
+
+                
+
+                {["Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"
+                ].map((item) => (
+                  <Form.Check 
+                    key={item} // Make sure to add a unique key when mapping over an array in React
+                    type="checkbox"
+                    label={item}
+                    name="allergies"
+                    value={item}
+                    onChange={handleAllergies}
+                    inline
+                    style={{ color: "#1F5E4B" }}
+                  />
+                ))}
+              
+                
+        
+                {/* <Form.Select
                   onChange={handleChange}
                   aria-label="Default select example"
+                  name="allergies"
                   multiple
                 >
                   <option value="soy">Soy</option>
@@ -287,17 +369,19 @@ const InputPage = () => {
                   <option value="seafood">Seafood</option>
                   <option value="eggs">Eggs</option>
                   <option value="none">None</option>
-                </Form.Select>
+                </Form.Select> */}
               </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col className="text" 
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
-                <h3>Goal</h3>
-                
+                Goal
               </Col>
             </Row>
-            <Row style={{ marginTop: "10px" }}>
+            <Row style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
@@ -314,14 +398,13 @@ const InputPage = () => {
                 </Form.Select>
               </Col>
             </Row>
-            <Row className="d-flex justify-content-center">
-         
-              <Button 
+            <Row>
+              <Button
                 onClick={handleSubmit}
                 type="submit"
-                className="inputButton"
+                className="loginButton"
               >
-                Choose My Meals!
+                Create Meal
               </Button>
             </Row>
 

@@ -14,7 +14,7 @@ function NavBar() {
     <Navbar expand="lg" className="custom-navbar justify-content-between">
       <Container>
         <Navbar.Brand
-          href="#home"
+          href="/home"
           className="homeNav d-flex align-items-center justify-content-center"
         >
           <img
@@ -30,7 +30,7 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav style={{ marginRight: "10px" }}>
             <Nav.Link
-              href="#createPlan"
+              href="/input"
               style={{ marginLeft: "10px", marginRight: "10px" }}
             >
               <Button className="createBtn"
@@ -46,7 +46,7 @@ function NavBar() {
             <Nav.Link
               style={{ marginLeft: "10px", marginRight: "10px" }}
               className="d-flex align-items-center"
-              href="#myPlan"
+              href="/mealplan"
             >
               <span className="navText">My Plan</span>
             </Nav.Link>

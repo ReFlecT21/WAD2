@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
-import { fetcher } from "../getters/Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 import { RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
 import { FinaliseRecipeCard, HomeRecipeCard, RecpieCard } from "./RecipeCard";
@@ -24,9 +24,9 @@ export function MealPlanCard({ recipe, setter = null }) {
     if(response){
         response.forEach(recipe => {
             toSend.push(
-            <>
-                <FinaliseRecipeCard recipe={recipe} />
-            </>
+            <div key={recipe.id}>
+                <FinaliseRecipeCard recipe={recipe}/>
+            </div>
             )
         })
     }   
