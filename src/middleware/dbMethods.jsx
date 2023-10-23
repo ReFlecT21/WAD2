@@ -64,6 +64,7 @@ export const dbFoodMethods = {
                 console.error(
                     "Document does not exist"
                 );
+                return null
             }
         } catch (e) {
             console.error("Error updating document: ", e);
@@ -73,6 +74,8 @@ export const dbFoodMethods = {
     getDisplayMealPlan: async function(){
         console.log("getDisplayMealPlan")
         // console.log(this.username)
+
+        this.init();
 
         try {
             // Get the current state of the document
@@ -84,9 +87,10 @@ export const dbFoodMethods = {
                 // console.log(DisplayMealPlan);
                 return {DisplayMealPlan, CreatedAt};
             } else {
-                console.error(
+                console.log(
                     "Document does not exist"
                 );
+                return null
             }
         } catch (e) {
             console.error("Error updating document: ", e);

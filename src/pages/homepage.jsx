@@ -64,7 +64,7 @@ const HomePage = () => {
   var todayMeal = []
   console.log(currMealPlan)
   
-  if (currMealPlan != null) {
+  if (currMealPlan?.DisplayMealPlan) {
     
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
 
@@ -88,7 +88,14 @@ const HomePage = () => {
         </div>
       )
     }
+  } else {
+    todayMealDisplay.push(
+      <div key="noMeal">
+        <h3>No Meal Plan</h3>
+      </div>
+    )
   }
+
 
 
   return (
