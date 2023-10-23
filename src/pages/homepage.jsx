@@ -54,8 +54,8 @@ const HomePage = () => {
           <Col>
             <div className="neuphormicBox">
               <Stack gap={2}>
-                <Button className="buttonPrimary">Scan</Button>
-                <Button className="buttonPrimary" onClick={() => setOverlayData(<ManualSearchComponent />)}>Input</Button>
+                <Button className="homePageBtn">Scan</Button>
+                <Button className="homePageBtn" onClick={() => setOverlayData(<ManualSearchComponent />)}>Manual Search</Button>
               </Stack>
             </div>
           </Col>

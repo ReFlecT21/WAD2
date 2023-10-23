@@ -282,4 +282,133 @@ h2, h3, h4, h5 {
   padding-left: 50px;
   font-size: large;
 }
+
+.popup {
+  background-color: #F6FEFC;
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 70%;
+  height: 600px;
+  /* border: 2px solid #000; */
+  margin: auto;
+  overflow: auto;
+  padding: 2%;
+  /* padding-left: 2%; */
+  /* padding-right: 2%; */
+  border-radius: 50px;
+}
+
+.popupChild {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.card-title {
+  color: #F6FEFC;
+}
+
+.manualSelectBtn {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+}
+
+.manualSelectBtn:hover {
+  background: #12382c;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.popUpclass h2, .popUpclass p {
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 36px;
+}
+
+.popUpclass h2 {
+  padding-top: 5%;
+}
+
+.popUpclass button {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+}
+
+.popUpclass button:hover {
+  background: #12382c;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.manualSearchBar {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-overlay {
+  -webkit-filter: brightness(70%);
+          filter: brightness(70%);
+}
+
+.img-overlay-small {
+  -webkit-filter: brightness(75%);
+          filter: brightness(75%);
+  float: left;
+  width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.homePageBtn {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+  width: 70%;
+  height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.homePageBtn:hover {
+  background: #12382c;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
 /*# sourceMappingURL=indexa.css.map */

@@ -29,7 +29,7 @@ function ChildModal(foodname) {
 
     return (
       <React.Fragment>
-        <Button className="buttonPrimary" onClick={()=>{
+        <Button className="manualSelectBtn" onClick={()=>{
             setChildModalOpen(true)
 
             const body = {
@@ -43,17 +43,18 @@ function ChildModal(foodname) {
             };
 
             fetcherPOST("/foodAPI/manualSearch", body, setSearchData);
-        }}>select</Button>
+        }}>Select</Button>
         <Modal
           open={ChildModalopen}
           onClose={handleClose}
         >
-          <Box className="popup">
+          <Box className="popup popUpclass">
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <Button className="buttonPrimary" onClick={handleClose}>Back</Button>
                     <Button className="buttonPrimary" onClick={null}>Confirm</Button>
                 </div>
-            <h2>Text in a child modal</h2>
+                <br />
+            <h2>Details of Dish:</h2>
             {APIres}
           </Box>
         </Modal>
@@ -124,7 +125,7 @@ export function ManualSearchComponent(){
                     style={{ border: "0px", margin: "10px" , textAlign:"center"}} 
                     onClick={null}
                     >
-                        <Image className="img-overlay-small"  style={{margin:"5px"}} src={food["photo"]["thumb"]} rounded />
+                        <Image className=" img-overlay-small"  style={{margin:"5px"}} src={food["photo"]["thumb"]} rounded />
                         <div>
                             <h5>{food["food_name"]}</h5>
                             <ChildModal food_name={food["food_name"]}/>
@@ -145,17 +146,19 @@ export function ManualSearchComponent(){
           >
              <Box className="popup">
                 <div className="text-center">
-                    <h1>This is manualSearch</h1>
+                    <br /><br /><br /><br />
+
+                    <h1>Manual Search</h1>
                     
                         <Form onSubmit={handleSubmit}>
-                            <InputGroup className="mb-3">
+                            <InputGroup className="mb-3 manualSearchBar">
 
                                 <Form.Control
                                 aria-label="Default"
                                 aria-describedby="inputGroup-sizing-default"
                                 value={inputValue}
                                 onChange={handleInputChange}
-                                placeholder="type something!"
+                                placeholder="Search a dish!"
                                 />
                             </InputGroup>
 
