@@ -12,6 +12,7 @@ import {
   Fallback,
   InputPage,
   MealPlan,
+  ChooseMealsv2
 } from "./pages";
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/signup" element={<SignUpComponent />} />
                 <Route path="/choose" element={<ChooseMeals />} />
                 <Route path="/mealplan" element={<MealPlan />} />
+                <Route path="/choosev2" element={<ChooseMealsv2 />} />
               </>
             )}
           </Routes>
