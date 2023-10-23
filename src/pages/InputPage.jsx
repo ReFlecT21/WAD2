@@ -25,6 +25,7 @@ const InputPage = () => {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
+  const navChoose2 = () => navigate("/choosev2");
 
   const [formData, setFormData] = useState({
     age: 0,
@@ -107,14 +108,14 @@ const InputPage = () => {
         prevAllergies.filter((item) => item !== e.target.value)
       );
 
-      // localStorage.setItem("allergies", JSON.stringify(calories));
+
     } else {
       // If the allergy is not in the array, add it
       setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
 
-      // localStorage.setItem("allergies", JSON.stringify(calories));
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,11 +129,13 @@ const InputPage = () => {
     }
 
     const calculatedCalories = calculateCalories();
-    await setCalories(calculatedCalories);
-    // localStorage.setItem("calories", JSON.stringify(calories));
+    // await setCalories(calculatedCalories);
+    localStorage.setItem("calories", calculatedCalories);
+    localStorage.setItem("allergies", JSON.stringify(allergies));
     // console.log(calories);
 
-    navChoose();
+    // navChoose();
+    navChoose2();
   };
 
   // useEffect(() => {
