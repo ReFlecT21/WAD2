@@ -145,8 +145,8 @@ export function RecpieCard({ recipe, setter = null }) {
 export function SelectedRecpieCardV2({recipe, setter}) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-  console.log(recipe)
-  console.log(setter)
+  // console.log(recipe)
+  // console.log(setter)
   return (
     <>
       <Card style={{ border: "0px", margin: "10px" }}>
@@ -175,8 +175,6 @@ export function SelectedRecpieCardV2({recipe, setter}) {
                       className="buttonPrimary"
                       onClick={() =>
                         setter((prevArray) => prevArray.filter((item) => item !== recipe))
-                        // setMyArray((prevArray) => prevArray.filter((item) => item !== itemToRemove));
-                        // setter(oldArray => [...oldArray, recipe["id"]])
                       }
                     >
                       Remove

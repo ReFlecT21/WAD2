@@ -54,9 +54,9 @@ export function CreateMealPlanContentFinalise(
     {info}
 ){
 
-    console.log(info)
-    console.log(info["Breakfast"].data)
-    console.log(info["Breakfast"].setter)
+    // console.log(info)
+    // console.log(info["Breakfast"].data)
+    // console.log(info["Breakfast"].setter)
     return (
         <>
             <h1>Finalise Meal Plan</h1>
@@ -66,7 +66,7 @@ export function CreateMealPlanContentFinalise(
                     {Object.keys(info[mealType].data).length > 0 ? (
                         <Row xs={1} md={2} lg={3}>
                             {info[mealType].data.map((recipe) => (
-                                console.log(recipe),
+                                // console.log(recipe),
                                 <SelectedRecpieCardV2 
                                     recipe={recipe}
                                     setter={info[mealType].setter}
