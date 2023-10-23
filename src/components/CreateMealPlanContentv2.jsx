@@ -10,7 +10,7 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
           <Container>
             <Row className="">
               <Col>
-                <h2>Pick Your {mealType} Items!</h2>
+                <h1>Pick Your {mealType} Items!</h1>
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>

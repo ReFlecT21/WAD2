@@ -93,7 +93,7 @@ export default function ChooseMealsV2() {
                 />
                 </Row>
                 <Row>
-                    <h1>Choose Meals v2</h1>
+                    {/* <h1>Choose Meals v2</h1> */}
                     {activePage <4 ? (<CreateMealPlanContentv2 
                         pageNum={activePage} 
                         mealType={paramList[activePage][2]}
