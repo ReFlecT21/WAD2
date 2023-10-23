@@ -21,15 +21,10 @@ import { dbFoodMethods } from "../middleware/dbMethods";
 import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
 
-
-
-
 const InputPage = () => {
-  
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
-
 
   const [formData, setFormData] = useState({
     age: 0,
@@ -104,7 +99,7 @@ const InputPage = () => {
       [e.target.name]: value,
     });
   };
-  
+
   const handleAllergies = (e) => {
     if (allergies.includes(e.target.value)) {
       // If the allergy is already in the array, remove it
@@ -113,11 +108,10 @@ const InputPage = () => {
       );
 
       // localStorage.setItem("allergies", JSON.stringify(calories));
-
     } else {
       // If the allergy is not in the array, add it
       setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
-      
+
       // localStorage.setItem("allergies", JSON.stringify(calories));
     }
   };
@@ -156,51 +150,44 @@ const InputPage = () => {
   return (
     <>
       <NavBar />
-      <Container fluid style={{display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }} >
+      <Container
+        fluid
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
         <Row>
-          <Col>hi</Col>
+          <Col md={7}>
+            <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" />
+          </Col>
+
           <Col
             style={{
-              padding: "40px",
+              padding: "20px",
             }}
           >
             <Row>
-              <h1>Getting to know you!</h1>
+              <h2>Getting to know you!</h2>
             </Row>
+
             <Row style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
-                
               >
-                Gender
-              </Col>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                Age
-              </Col>
-            </Row>
-            <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
+                <h5>Gender</h5>
+
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <span style={{ marginRight: "10px", color: "black" }}>
                     Female
                   </span>
                   <MDBSwitch
+                    style={{ color: "white" }}
+                    className="p"
                     name="gender"
                     checked={formData.gender === "male"}
                     onChange={handleChangeGender}
@@ -209,94 +196,62 @@ const InputPage = () => {
                   />
                 </div>
               </Col>
-              <Col className="text" 
+              <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                <h5>Age</h5>
-                {" "}
+                <h5>Age</h5>{" "}
                 <Form.Control
                   type="number"
                   name="age"
-                  placeholder="Age"
+                  placeholder="Enter your age"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
-              
             </Row>
             <Row style={{ marginTop: "20px" }}>
-              <Col className="text" 
-              >
-                Height
-              </Col>
               <Col
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                Weight
-              </Col>
-            </Row>
-            <Row
-              style={{
-                borderBottom: "solid",
-                borderBottomColor: "red",
-                marginTop: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                {" "}
+                <h5>Height</h5>{" "}
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder="cm"
+                  placeholder="Enter your height"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
-              <Col className="text" 
+              <Col
+                style={{
+                  paddingLeft: "20px",
+                }}
               >
-                <h5>Weight</h5>
-                {" "}
+                <h5>Weight</h5>{" "}
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder="kg"
+                  placeholder="Enter your weight"
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
-                      
             </Row>
             <Row style={{ marginTop: "20px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
-                  paddingBottom: "10px",
                 }}
               >
-                Select your activity level
-              </Col>
-            </Row>
-            <Row
-              style={{
-                marginTop: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
+                <h5>Select your activity level</h5>
+
                 <Form.Select
                   onChange={handleChange}
                   aria-label="Default select example"
@@ -320,6 +275,24 @@ const InputPage = () => {
                   </option>
                 </Form.Select>
               </Col>
+              <Col
+                xs={4}
+                style={{
+                  paddingLeft: "20px",
+                }}
+              >
+                <h5>Goal</h5>
+
+                <Form.Select
+                  onChange={handleAllergies}
+                  aria-label="Default select example"
+                  name="goal"
+                >
+                  <option value="maintain">Maintain</option>
+                  <option value="lose">Lose</option>
+                  <option value="gain">Gain</option>
+                </Form.Select>
+              </Col>
             </Row>
             <Row style={{ marginTop: "20px" }}>
               <Col
@@ -327,22 +300,23 @@ const InputPage = () => {
                   paddingLeft: "20px",
                 }}
               >
-                Allergies
-              </Col>
-            </Row>
-            <Row style={{ marginTop: "10px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
                 <h5>Allergies</h5>
 
-                
-
-                {["Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"
+                {[
+                  "Dairy",
+                  "Egg",
+                  "Gluten",
+                  "Grain",
+                  "Peanut",
+                  "Seafood",
+                  "Sesame",
+                  "Shellfish",
+                  "Soy",
+                  "Sulfite",
+                  "Tree Nut",
+                  "Wheat",
                 ].map((item) => (
-                  <Form.Check 
+                  <Form.Check
                     key={item} // Make sure to add a unique key when mapping over an array in React
                     type="checkbox"
                     label={item}
@@ -353,9 +327,7 @@ const InputPage = () => {
                     style={{ color: "#1F5E4B" }}
                   />
                 ))}
-              
-                
-        
+
                 {/* <Form.Select
                   onChange={handleChange}
                   aria-label="Default select example"
@@ -372,43 +344,18 @@ const InputPage = () => {
                 </Form.Select> */}
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                Goal
-              </Col>
-            </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
-                style={{
-                  paddingLeft: "20px",
-                }}
-              >
-                <Form.Select
-                  onChange={handleChange}
-                  aria-label="Default select example"
-                  name="goal"
+            <Row style={{}}>
+              <Col>
+                <Button
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="buttonPrimary"
+                  style={{ width: "100%" }}
                 >
-                  <option value="maintain">Maintain</option>
-                  <option value="lose">Lose</option>
-                  <option value="gain">Gain</option>
-                </Form.Select>
+                  Create Meal
+                </Button>
               </Col>
             </Row>
-            <Row>
-              <Button
-                onClick={handleSubmit}
-                type="submit"
-                className="loginButton"
-              >
-                Create Meal
-              </Button>
-            </Row>
-
-            
           </Col>
         </Row>
       </Container>
