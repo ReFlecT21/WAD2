@@ -156,7 +156,7 @@ const InputPage = () => {
   return (
     <>
       <NavBar />
-      <Container style={{display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }}>
+      <Container fluid style={{display: "flex", justifyContent: "center", alignItems: "center", height: "80vh" }} >
         <Row>
           
           
