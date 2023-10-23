@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Card, Button, Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import {
   collection,
   doc,
@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import StepProgressBar from "./StepProgressBar";
-import { fetcher } from "../getters/Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 import { pageDataGetter } from "./pageDataGetter";
 import { FinaliseRecipeCard, RecpieCard } from "./RecipeCard";
 import Loader from "./Loader";
@@ -29,6 +29,10 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
+import { dbFoodMethods } from "../middleware/dbMethods";
+import { Allergies } from "../atoms/allergiesAtom";
+import { SelectedMeals } from "../atoms/selectedMeals";
+import { SelectedMealsDisplay } from "./SelectedMeals";
 
 const CreateMealPages = {
   1: async function (
@@ -89,7 +93,12 @@ const CreateMealPages = {
               </Col>
               <Col>
                 <div style={{ textAlign: "right" }}>
-                  <Button className="buttonPrimary" onClick={() => setPageNo(2)}>Next Page</Button>
+                  <Button
+                    className="buttonPrimary"
+                    onClick={() => setPageNo(2)}
+                  >
+                    Next Page
+                  </Button>
                 </div>
               </Col>
             </Row>
@@ -282,6 +291,7 @@ const CreateMealPages = {
       const navigate = useNavigate();
 
       const [mealPlan, setMealPlan] = useAtom(MealPlan);
+      const [mealPlanCopy, setMealPlanCopy] = useState([]);
       const [total, setTotal] = useState(0);
       let CardData = [];
 
@@ -331,50 +341,78 @@ const CreateMealPages = {
 
         console.log(selected);
       }
-      const countMealPlansInHistory = async (username) => {
-        const docRef = doc(db, "Food", username);
-        const subcollectionRef = collection(docRef, "MealPlanHistory");
-        const Query = query(subcollectionRef);
-        const snapshot = await getDocs(Query);
-        return snapshot.size;
-      };
-      const addMealPlanToHistory = async (plan, username) => {
-        // Get the number of documents in the `MealPlanHistory` subcollection.
-        const count = await countMealPlansInHistory(username);
 
-        // Add a new document to the `MealPlanHistory` subcollection with a sequential document ID.
-        const docRef = doc(
-          db,
-          "Food",
-          username,
-          "MealPlanHistory",
-          String(count + 1)
-        );
-        await setDoc(docRef, {
-          Plan: plan,
-          CreatedAt: Date.now(),
-        });
-      };
-      const addMeal = async (plan) => {
-        if (plan.length !== 0) {
-          console.log(JSON.stringify(plan));
-          try {
-            const username = auth.currentUser.email;
-            await setDoc(doc(db, "Food", username), {
-              Plan: plan,
-            }).then(() => {
-              console.log("Document written");
-              addMealPlanToHistory(plan, username);
-              // navigate("/home");
-            });
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
+      
+      // const countMealPlansInHistory = async (username) => {
+      //   const docRef = doc(db, "Food", username);
+      //   const subcollectionRef = collection(docRef, "MealPlanHistory");
+      //   const Query = query(subcollectionRef);
+      //   const snapshot = await getDocs(Query);
+      //   return snapshot.size;
+      // };
+      // const addMealPlanToHistory = async (plan, username) => {
+      //   // Get the number of documents in the `MealPlanHistory` subcollection.
+      //   const count = await countMealPlansInHistory(username);
+
+      //   // Add a new document to the `MealPlanHistory` subcollection with a sequential document ID.
+      //   const docRef = doc(
+      //     db,
+      //     "Food",
+      //     username,
+      //     "MealPlanHistory",
+      //     String(count + 1)
+      //   );
+      //   await setDoc(docRef, {
+      //     Plan: plan,
+      //     CreatedAt: Date.now(),
+      //   });
+      // };
+
+      
+      // plan1 is for recal, plan2 is for display
+      // const addMeal = async (plan1, plan2) => {
+      //   if (plan1.length !== 0) {
+      //     console.log(JSON.stringify(plan1));
+      //     try {
+      //       const username = auth.currentUser.email;
+      //       await setDoc(doc(db, "Food", username), {
+      //         Plan: plan1,          // this is for recal 
+      //         DisplayPlan: plan2,   // this is for display (1 for compeleted, 0 for not completed)
+      //         CreatedAt: Date.now(),
+      //         Completed: {},
+      //         Added: [],
+      //       }).then(() => {
+      //         console.log("Document written");
+      //         addMealPlanToHistory(plan1, username);
+      //         // addMealPLanToHistory only when 7 days is up , sends completed & added calories to addMealPLanToHistory
+      //         // navigate("/home");
+      //       });
+      //     } catch (e) {
+      //       console.error("Error adding document: ", e);
+      //     }
+      //   }
+      // };
+
+
+
+      useEffect(() => {
+        console.log(mealPlan);
+        console.log(mealPlanCopy);
+        if (
+          Object.keys(mealPlan).length !== 0 &&
+          Object.keys(mealPlanCopy).length !== 0
+        ) {
+          // addMeal(mealPlan, mealPlanCopy);
+          dbFoodMethods.createMealplan(mealPlan, mealPlanCopy);
         }
-      };
+      }, [mealPlan, mealPlanCopy]);
+
       useEffect(() => {
         console.log(total);
       }, [total]);
+
+
+
       return (
         <>
           <Container>
@@ -385,36 +423,83 @@ const CreateMealPages = {
               <Col>
                 <div style={{ textAlign: "right" }}>
                   <Button
+                    className="buttonPrimary"
                     onClick={() => {
                       let sum = 0;
-                      for (let i = 0; i < 7; i++) {
-                        ["breakfast", "lunch", "dinner"].forEach((meal) => {
-                          let randomDish = Object.keys(selected[meal])[
-                            Math.floor(
-                              Math.random() * Object.keys(selected[meal]).length
-                            )
-                          ];
 
-                          let value = selected[meal][randomDish];
-                          sum += value;
+                      if (typeof mealPlan !== "object") {
+                        for (const day in mealPlan) {
+                          if (mealPlan[day]) {
+                            for (const meal in mealPlan) {
+                              let randomDish = Object.keys(selected[meal])[
+                                Math.floor(
+                                  Math.random() *
+                                    Object.keys(selected[meal]).length
+                                )
+                              ];
 
-                          setMealPlan((prev) => ({
-                            ...prev,
-                            [i]: {
-                              ...prev[i],
-                              [meal]: {
-                                [randomDish]: value,
+                              setMealPlan((prev) => ({
+                                ...prev,
+                                [day]: {
+                                  ...prev[day],
+                                  [meal]: {
+                                    [randomDish]: value,
+                                  },
+                                },
+                              }));
+
+                              addMeal(mealPlan, false);
+                            }
+                          }
+                        }
+                        // reCal object of remaining meal plan
+                        // new remaining daily calories (based off remaining meal plan)
+                        // loop through this object then, based on what meal type key it is, i change the meal id
+                        // then push to firestore
+                      } else {
+
+                        for (let i = 1; i < 8; i++) {
+                          ["breakfast", "lunch", "dinner"].forEach((meal) => {
+                            let randomDish = Object.keys(selected[meal])[
+                              Math.floor(
+                                Math.random() * Object.keys(selected[meal]).length
+                              )
+                            ];
+  
+                            let value = selected[meal][randomDish];
+                            sum += value;
+  
+                            setMealPlan((prev) => ({
+                              ...prev,
+                              [i]: {
+                                ...prev[i],
+                                [meal]: {
+                                  [randomDish]: value,
+                                },
                               },
-                            },
-                          }));
-                        });
+                            }));
+  
+                            setMealPlanCopy((prev) => ({
+                              ...prev,
+                              [i]: {
+                                ...prev[i],
+                                [meal]: {
+                                  [randomDish]: 0,
+                                },
+                              },
+                            }));
+                          });
+                        }
+
                       }
 
+
+                      console.log(mealPlanCopy); // use for front end display
+
                       setTotal(Math.round(sum));
-                      addMeal(mealPlan);
                     }}
                   >
-                    Next Page
+                    Complete
                   </Button>
                 </div>
               </Col>
@@ -424,7 +509,7 @@ const CreateMealPages = {
               {CardData.length > 0 ? (
                 CardData
               ) : (
-                <p>Please choose at least 1 meal</p>
+                <p>Please choose at least 1 dish for each meal</p>
               )}
             </Row>
           </Container>
@@ -440,22 +525,26 @@ const CreateMealPages = {
 };
 
 export default function CreateMealContent() {
-  // replace with atom when ready
-  const [calories, setCalories] = useAtom(Kcal);
-  console.log(calories)
-  // const weekly_cal = Kcal;
-  // const daily_cal = weekly_cal / 7;
 
+  const [calories, setCalories] = useAtom(Kcal);
   const [mealPlan, setMealPlan] = useAtom(MealPlan);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
+
+  // const localStorageKey = 'calories';
+  // useEffect(() => {
+  //   const storedCalories = localStorage.getItem(localStorageKey);
+  //   if (storedCalories) {
+  //     setCalories(JSON.parse(storedCalories));
+  //   }
+  // }, []);
+
+  // console.log(calories);
+  
+
   const [activePage, setActivePage] = useState(1);
   const [currPage, setCurrPage] = useState(null);
-  const [selected, setSelected] = useState({
-    breakfast: {},
-    lunch: {},
-    dinner: {},
-  });
+  const [selected, setSelected] = useAtom(SelectedMeals);
 
   const [apiData, setApiData] = useState({
     1: {
@@ -486,7 +575,7 @@ export default function CreateMealContent() {
         selected,
         setSelected,
         setOverlayData,
-        2000
+        calories,
       );
       setCurrPage(pageData);
     }
@@ -497,16 +586,34 @@ export default function CreateMealContent() {
   return (
     <>
       <div>
-        {overlayData}
-        <Container>
-          <Row>
-            <StepProgressBar
-              page={activePage}
-              onPageNumberClick={setActivePage}
-            />
-          </Row>
-        </Container>
-        {currPage}
+        
+        {/* {currPage} */}
+
+        <Tabs
+          defaultActiveKey="chooseMeals"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+          fill
+          >
+          <Tab eventKey="chooseMeals" title="Pick your meals!">
+            {overlayData}
+            <Container>
+            <Row>
+              <StepProgressBar
+                page={activePage}
+                onPageNumberClick={setActivePage}
+              />
+            </Row>
+          </Container>
+            {currPage}
+        </Tab>
+        <Tab eventKey="Selected" title="Meals selected">
+          <Container>
+            <SelectedMealsDisplay />
+          </Container>
+        </Tab>
+
+        </Tabs>
       </div>
     </>
   );

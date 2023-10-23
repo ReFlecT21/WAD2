@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { Modal, Box } from "@mui/material";
 import { useState } from "react";
-import { fetcher } from "../getters/Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 
 export function RecipeDetails(id) {
   let CardData = [];

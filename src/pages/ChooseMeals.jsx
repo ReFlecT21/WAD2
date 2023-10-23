@@ -19,7 +19,7 @@ export default function ChooseMeals() {
   return (
     <>
       <NavBar />
-      <h1 style={{ textAlign: "center" }}>This is Choose Meals</h1>
+      {/* <h1 style={{ textAlign: "center" }}>This is Choose Meals</h1> */}
       <ErrorBoundary FallbackComponent={Fallback}>
         <CreateMealContent />
       </ErrorBoundary>
