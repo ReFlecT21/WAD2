@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetcher } from "../middleware/Fetcher";
+import { fetcher, fetcherGET } from "../middleware/Fetcher";
 import { useAtom } from "jotai";
 import { Allergies } from "../atoms/allergiesAtom";
 
@@ -22,7 +22,7 @@ export async function pageDataGetter(type, mealCals, setter) {
   // console.log(allergies);
 
 
-  fetcher(
+  fetcherGET(
     "/foodAPI/search/?",
     {
       type: type,

@@ -27,23 +27,30 @@ export function RecipeDetails(id) {
     setResponse
   );
 
-  console.log(response);
+  // console.log(response);
 
   if (response?.length > 0) {
     response.forEach((recipe) => {
+
+      let visited = [];
       let ingredients = [];
       let instructions = [];
 
-      recipe["extendedIngredients"].forEach((ingre) => {
-        ingredients.push(<li>{ingre["original"]}</li>);
+      recipe?.extendedIngredients.forEach((ingre) => {
+        if (visited.includes(`${recipe.id}${ingre.id}`) === false) {
+          ingredients.push(<li key={`${recipe.id}${ingre.id}`}>{ingre["original"]}</li>);
+          visited.push(`${recipe.id}${ingre.id}`);
+        };
       });
-
-      recipe["analyzedInstructions"][0]["steps"].forEach((steps) => {
-        instructions.push(<li>{steps["step"]}</li>);
+      // console.log(recipe?.analyzedInstructions[0]);
+      
+      recipe?.analyzedInstructions[0]?.steps.forEach((steps) => {
+        // console.log(steps);
+        instructions.push(<li key={`${recipe.id}${steps.number}`}>{steps["step"]}</li>);
       });
 
       CardData.push(
-        <>
+        <div key={`${recipe.id}Details`}>
           <Row>
             <Col>
               <h1>{recipe["title"]}</h1>
@@ -66,7 +73,7 @@ export function RecipeDetails(id) {
 
             <ol>{instructions}</ol>
           </Row>
-        </>
+        </div>
       );
     });
   }
