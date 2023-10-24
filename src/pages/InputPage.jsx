@@ -160,21 +160,23 @@ const InputPage = () => {
         }}
       >
         <Row>
-          <Col md={7}>
+          <Col md={5}>
             <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" />
+            {/* <img src="https://via.placeholder.com/500" alt="" /> */}
           </Col>
 
           <Col
             style={{
-              padding: "20px",
+              padding: "20px",paddingTop:"60px"
             }}
           >
-            <Row>
+            <Row >
+              
               <h2>Getting to know you!</h2>
             </Row>
 
-            <Row style={{ marginTop: "20px" }}>
-              <Col
+            <Row style={{ marginTop: "25px" }}>
+              <Col md={6}
                 style={{
                   paddingLeft: "20px",
                 }}
@@ -196,7 +198,8 @@ const InputPage = () => {
                   />
                 </div>
               </Col>
-              <Col
+
+              <Col md={6}
                 style={{
                   paddingLeft: "20px",
                 }}
@@ -206,14 +209,14 @@ const InputPage = () => {
                   type="number"
                   name="age"
                   placeholder="Enter your age"
-                  className="inputBox"
+                  className="inputBo round"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
+            <Row style={{ marginTop: "35px" }}>
+              <Col md={6}
                 style={{
                   paddingLeft: "20px",
                 }}
@@ -222,13 +225,13 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder="Enter your height"
-                  className="inputBox"
+                  placeholder="Enter your height (cm)"
+                  className="inputBo round"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
-              <Col
+              <Col md={6}
                 style={{
                   paddingLeft: "20px",
                 }}
@@ -237,22 +240,23 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder="Enter your weight"
-                  className="inputBox"
+                  placeholder="Enter your weight (kg)"
+                  className="inputBo round"
                   id="text-input"
                   onChange={handleChange}
                 />
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
-              <Col
+            <Row style={{ marginTop: "35px" }}>
+            <Col md={6} 
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                <h5>Select your activity level</h5>
+                <h5>Activity level</h5>
 
                 <Form.Select
+                className="round"
                   onChange={handleChange}
                   aria-label="Default select example"
                   name="activityLevel"
@@ -275,8 +279,7 @@ const InputPage = () => {
                   </option>
                 </Form.Select>
               </Col>
-              <Col
-                xs={4}
+              <Col md={6}
                 style={{
                   paddingLeft: "20px",
                 }}
@@ -284,6 +287,7 @@ const InputPage = () => {
                 <h5>Goal</h5>
 
                 <Form.Select
+                className="round"
                   onChange={handleAllergies}
                   aria-label="Default select example"
                   name="goal"
@@ -294,7 +298,7 @@ const InputPage = () => {
                 </Form.Select>
               </Col>
             </Row>
-            <Row style={{ marginTop: "20px" }}>
+            <Row style={{ marginTop: "35px" }}>
               <Col
                 style={{
                   paddingLeft: "20px",
@@ -344,13 +348,17 @@ const InputPage = () => {
                 </Form.Select> */}
               </Col>
             </Row>
-            <Row style={{}}>
-              <Col>
+            <Row >
+              <Col style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                      }}>
                 <Button
                   onClick={handleSubmit}
                   type="submit"
-                  className="buttonPrimary"
-                  style={{ width: "100%" }}
+                  className="CreateMealBtn"
+                  
+                  
                 >
                   Create Meal
                 </Button>

@@ -370,4 +370,29 @@ h2,h3,h4,h5{
     margin-left: auto;
 }
 
+
+/////INPUT PAGE
+
+.gapp{
+    padding-top: 5%;
+}
+
+.round{
+    border-radius: 20px;
+}
+
+.CreateMealBtn{
+
+    @include whiteText();
+    @include button($primaryCol, 14px);
+    border-radius: 20px;
+    width: 40%;
+    height: 50px;
+    margin-right: auto;
+    margin-left: auto;
+   
+    margin-top: 35px
+}
+
+
     /////////////////////////////Anan stuff end
