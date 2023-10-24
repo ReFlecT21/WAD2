@@ -71,7 +71,14 @@ export function CurrentMealPlanV2({currDisplayMealPlan}) {
             <Accordion.Body>
               <Row xs={1} md={2} lg={3}>
                 {["breakfast", "lunch", "dinner" ].map((mealType) => (
-                  <h4>{mealType.charAt(0).toUpperCase()+ mealType.slice(1)}</h4>
+                  <Col key={`${day}${mealType}`}>
+                    <h4>{mealType.charAt(0).toUpperCase()+ mealType.slice(1)}</h4>
+                    {Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType]).map((recipe) => (
+                      // console.log(recipe)
+                      <p>{recipe}</p>
+                    ))}  
+
+                  </Col>
                   // {Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType]).map((recipe) => (
                   //   <p>
                       
