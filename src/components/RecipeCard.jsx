@@ -199,8 +199,9 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                   </Button>
                   <Button
                     className="buttonPrimary"
-                    onClick={() =>{
-                      handleButtonClick()
+                    onClick={ async () =>{
+                      await handleButtonClick()
+                      window.location.reload(false)
                     }}
                     disabled={!buttonState}
                   >
