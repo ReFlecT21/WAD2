@@ -8,9 +8,14 @@ export default function CompletedMeals({completed}) {
 
     Object.keys(completed.Completed).forEach((day) => {
         Object.keys(completed.Completed[day]).forEach((mealType) => {
-            Object.keys(completed.Completed[day][mealType]).forEach((recipe) => {
-                display.push(<MealPlanCardHome key={`${recipe}completedPage`} recipe={recipe} />)
-            })
+            if (typeof completed.Completed[day][mealType] === "object"){
+                Object.keys(completed.Completed[day][mealType]).forEach((recipe) => {
+                    display.push(<MealPlanCardHome key={`${recipe}completedPage`} recipe={recipe} />)
+                })
+            } else {
+                // for manual input content
+                console.log(completed.Completed[day][mealType])
+            }
         })
     })
 
