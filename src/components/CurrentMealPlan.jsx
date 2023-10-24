@@ -77,14 +77,13 @@ export function CurrentMealPlanV2({currDisplayMealPlan}) {
                       // console.log(recipe)
                       <p>{recipe}</p>
                     ))}  
-
+                    {/* 
+                    i need a card that can make API calls
+                    i need to check against display (0/1) to see if i should display disabled or enabled. 
+                    on click completed: call function as per before to update db
+                    
+                    */}
                   </Col>
-                  // {Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType]).map((recipe) => (
-                  //   <p>
-                      
-                  //   </p>
-                  // ))}
-
                 ))}
               </Row>
             </Accordion.Body>
