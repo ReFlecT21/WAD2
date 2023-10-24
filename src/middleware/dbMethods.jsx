@@ -28,6 +28,7 @@ export const dbFoodMethods = {
 
     getCompleted: async function(){
         console.log("getCompleted")
+        await this.init();
         // console.log(this.docSnap)
         try {
             // Get the current state of the document
@@ -36,7 +37,7 @@ export const dbFoodMethods = {
                 // console.log(data);
                 const Completed = data.Completed;
                 const CreatedAt = data.CreatedAt;
-                // console.log(mealPlan);
+                // console.log({Completed, CreatedAt});
                 return {Completed, CreatedAt};
             } else {
                 console.error(
@@ -188,7 +189,7 @@ export const dbFoodMethods = {
                 // } else {
                 
                 // console.log(Completed);
-                console.log(Plan);
+                // console.log(Plan);
 
                 if (Completed[dayIndex] == undefined){
                     Completed[dayIndex] = {};
@@ -196,12 +197,12 @@ export const dbFoodMethods = {
 
                 if (Completed[dayIndex][mealType] || Plan[dayIndex][mealType] == undefined) {
                     // console.log(dayIndex);
-                    console.log(JSON.stringify(Completed, null, 2));
+                    // console.log(JSON.stringify(Completed, null, 2));
                     alert(`you cant have ${mealType} again`);
                 } else {
                     Completed[dayIndex][mealType] = food;
 
-                    console.log(JSON.stringify(Completed, null, 2));
+                    // console.log(JSON.stringify(Completed, null, 2));
                     // Update the document in Firestore
 
                     delete Plan[dayIndex][mealType];

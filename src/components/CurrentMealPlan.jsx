@@ -21,6 +21,13 @@ import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 
+
+
+
+
+
+
+
 export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
