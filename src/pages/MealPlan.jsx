@@ -1,5 +1,6 @@
 import { Button, Container, Row, Col, Accordion, Tab, Tabs} from "react-bootstrap";
-import { CurrentMealPlan, CompletedMeals, NavBar } from "../components";
+import {  CompletedMeals, NavBar } from "../components";
+import { CurrentMealPlan, CurrentMealPlanV2 } from "../components/CurrentMealPlan";
 
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
@@ -37,7 +38,7 @@ export default function MealPlan() {
     const fetchData = async () => {
       await dbFoodMethods.init();
       // const userId = auth.currentUser.email;
-      setCurrMealPlan(await dbFoodMethods.getMealPlan());
+      // setCurrMealPlan(await dbFoodMethods.getMealPlan());
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       // setCurrDisplayMealPlan(await getDisplayMealPlan(auth.currentUser.email));
     };
@@ -60,8 +61,14 @@ export default function MealPlan() {
               fill
             >
               <Tab eventKey="mealPlan" title="Current Meal Plan">
-                <CurrentMealPlan />
+                {/* <CurrentMealPlan /> */}
+                <CurrentMealPlanV2 
+                  currDisplayMealPlan={currDisplayMealPlan}
+                />
 
+              </Tab>
+              <Tab eventKey="cart" title="Shopping Cart">
+                <h1>Shopping cart</h1>
               </Tab>
               <Tab eventKey="Completed" title="Completed Meals">
                 <CompletedMeals />

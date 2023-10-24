@@ -92,59 +92,6 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
   )
 }
 
-export function RecpieCard({ recipe, setter = null }) {
-  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-
-  return (
-    <Col key={recipe["id"]}>
-      <Card style={{ border: "0px", margin: "10px" }}>
-        <Card.Img
-          variant="top"
-          src={recipe["image"]}
-          className="img-overlay"
-          style={{ borderRadius: "20px" }}
-        />
-        <Card.ImgOverlay>
-          <Card.Body>
-            <Row>
-              <Col>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <Button
-                    className="buttonPrimary"
-                    onClick={() =>
-                      setOverlayData(<RecipeDetails id={recipe["id"]} />)
-                    }
-                  >
-                    See Recipe
-                  </Button>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={() =>
-                      setter((prev) => ({
-                        ...prev,
-                        [recipe["id"]]: recipe["nutrition"]["nutrients"][0]["amount"]
-                      }))
-                    }
-                  >
-                    Select Meal
-                  </Button>
-                </div>
-              </Col>
-            </Row>
-            <Card.Title style={{ marginTop: "10px" }}>
-              {recipe["title"]}
-            </Card.Title>
-            <Card.Text>
-            </Card.Text>
-          </Card.Body>
-        </Card.ImgOverlay>
-      </Card>
-    </Col>
-  );
-}
-
 export function SelectedRecpieCardV2({recipe, setter}) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
@@ -202,6 +149,65 @@ export function SelectedRecpieCardV2({recipe, setter}) {
     
   )
 }
+
+
+
+
+
+
+export function RecpieCard({ recipe, setter = null }) {
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
+  return (
+    <Col key={recipe["id"]}>
+      <Card style={{ border: "0px", margin: "10px" }}>
+        <Card.Img
+          variant="top"
+          src={recipe["image"]}
+          className="img-overlay"
+          style={{ borderRadius: "20px" }}
+        />
+        <Card.ImgOverlay>
+          <Card.Body>
+            <Row>
+              <Col>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <Button
+                    className="buttonPrimary"
+                    onClick={() =>
+                      setOverlayData(<RecipeDetails id={recipe["id"]} />)
+                    }
+                  >
+                    See Recipe
+                  </Button>
+                  <Button
+                    className="buttonPrimary"
+                    onClick={() =>
+                      setter((prev) => ({
+                        ...prev,
+                        [recipe["id"]]: recipe["nutrition"]["nutrients"][0]["amount"]
+                      }))
+                    }
+                  >
+                    Select Meal
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+            <Card.Title style={{ marginTop: "10px" }}>
+              {recipe["title"]}
+            </Card.Title>
+            <Card.Text>
+            </Card.Text>
+          </Card.Body>
+        </Card.ImgOverlay>
+      </Card>
+    </Col>
+  );
+}
+
 export function SelectedMealCard ({recipe, selected=null, setter=null, mealType}) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [response, setResponse] = useState(null);

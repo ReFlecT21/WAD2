@@ -21,10 +21,78 @@ import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 
+export function CurrentMealPlanV2({currDisplayMealPlan}) {
+  const navigate = useNavigate();
+  const navHome = () => navigate("/home");
+  const navChoose = () => navigate("/choose");
+
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  // const [currMealPlan, setCurrMealPlan] = useState(null);
+  // const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
+
+  const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() + 1; // +1 not suppose to be there  this is for testing
+  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  const d = new Date(currDisplayMealPlan.CreatedAt);
+
+  const weekday = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await dbFoodMethods.init();
+  //     setCurrMealPlan(await dbFoodMethods.getMealPlan());
+  //     setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
+  //   };
+    
+  //   fetchData();
+  // }, []);
+
+  console.log(currDisplayMealPlan);
+
+  return (
+    // <h1>v2 meal plan</h1>
+    <>
+    {currDisplayMealPlan ? (
+      <Accordion defaultActiveKey={["1"]} alwaysOpen>
+        {Object.keys(currDisplayMealPlan.DisplayMealPlan).map((day) => (
+          <Accordion.Item eventKey={day} key={day}>
+            <Accordion.Header>
+              <h3 style={{ margin: "0px" }}>
+                {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000)).toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000)).getDay()]}
+              </h3>
+            </Accordion.Header>
+            <Accordion.Body>
+              <Row xs={1} md={2} lg={3}>
+                {["breakfast", "lunch", "dinner" ].map((mealType) => (
+                  <h4>{mealType.charAt(0).toUpperCase()+ mealType.slice(1)}</h4>
+                  // {Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType]).map((recipe) => (
+                  //   <p>
+                      
+                  //   </p>
+                  // ))}
+
+                ))}
+              </Row>
+            </Accordion.Body>
+          </Accordion.Item>
+        ))}
+      </Accordion>  
+    ) : (<p> error </p>)}
+    </>
+  )
+
+}
 
 
 
-export default function CurrentMealPlan() {
+export function CurrentMealPlan() {
 
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
