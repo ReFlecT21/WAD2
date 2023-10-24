@@ -5,8 +5,8 @@ import { Allergies } from "../atoms/allergiesAtom";
 
 export async function pageDataGetter(type, mealCals, setter) {
   // mealType (string, comma separated); "breakfast", "lunch, main course"
-  const [allergies, setAllergies] = useAtom(Allergies);
-
+  // const [allergies, setAllergies] = useAtom(Allergies);
+  const allergies= JSON.parse(localStorage.getItem("allergies"))
   // useEffect(() => {
   //   const storedAllergies = localStorage.getItem('allergies');
   //   if (storedAllergies) {
@@ -14,6 +14,11 @@ export async function pageDataGetter(type, mealCals, setter) {
   //   }
   // }, [setAllergies]);
 
+
+  let allergyString = ""
+  if (allergies.length > 0){
+    allergyString = allergies.join(', ');
+  }
   // console.log(allergies);
 
 
@@ -23,7 +28,7 @@ export async function pageDataGetter(type, mealCals, setter) {
       type: type,
       minCalories: mealCals*0.90,
       maxCalories: mealCals*1.1,
-      intolerances: allergies.join(', '),
+      intolerances: allergyString,
     },
     setter
   );

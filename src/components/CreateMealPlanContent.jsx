@@ -505,13 +505,13 @@ const CreateMealPages = {
               </Col>
             </Row>
 
-            <Row xs={1} md={2} lg={3}>
+            {/* <Row xs={1} md={2} lg={3}> */}
               {CardData.length > 0 ? (
                 CardData
               ) : (
                 <p>Please choose at least 1 dish for each meal</p>
               )}
-            </Row>
+            {/* </Row> */}
           </Container>
         </>
       );

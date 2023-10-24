@@ -58,7 +58,7 @@ export function MealPlanCardHome({ recipe, setter = null }) {
 
             toSend.push(
                 // <HomeRecipeCard recipe={recipe} />
-                <FinaliseRecipeCard recipe={recipe} />
+                <FinaliseRecipeCard recipe={recipe} key={recipe.id}/>
             )
             // if (isMobile){
             //     toSend.push(

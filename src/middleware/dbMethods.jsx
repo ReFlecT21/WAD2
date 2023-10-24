@@ -84,7 +84,7 @@ export const dbFoodMethods = {
                 // console.log(data);
                 const DisplayMealPlan = data.DisplayPlan;
                 const CreatedAt = data.CreatedAt;
-                // console.log(DisplayMealPlan);
+                // console.log(data.Calories);
                 return {DisplayMealPlan, CreatedAt};
             } else {
                 console.log(
@@ -108,7 +108,8 @@ export const dbFoodMethods = {
                 DisplayPlan: plan2,   // this is for display (1 for compeleted, 0 for not completed)
                 CreatedAt: Date.now(),
                 Completed: {},
-                Added: [],
+                Calories: localStorage.getItem("calories")*7,
+                // Added: [],
             }).then(() => {
                 console.log("Document written");
                 // this.addMealPlanToHistory(plan1, username);
