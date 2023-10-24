@@ -25,7 +25,7 @@ const InputPage = () => {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
-  const navChoose2 = () => navigate("/choosev2");
+  const navChoose2 = () => navigate("/choose");
 
   const [formData, setFormData] = useState({
     age: 0,

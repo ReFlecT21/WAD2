@@ -23,10 +23,7 @@ export default function ChooseMealsV2({recal = false}) {
 
     const [breakfastSelected, setBreakfastSelected] = useState({});
     const [lunchSelected, setLunchSelected] = useState({});
-    const [dinnerSelected, setDinnerSelected] = useState({});
-
-    // console.log(breakfastSelected, lunchSelected, dinnerSelected);
- 
+    const [dinnerSelected, setDinnerSelected] = useState({}); 
 
 
     // ------------------------ api data on mount
@@ -110,12 +107,7 @@ export default function ChooseMealsV2({recal = false}) {
                                 "Dinner": {data: dinnerSelected, setter: setDinnerSelected},
                             }}
                             recal={recal}
-                            // breakfastSelected={breakfastSelected}
-                            // lunchSelected={lunchSelected}
-                            // dinnerSelected={dinnerSelected}
-                            // breakfastSelectedSetter={setBreakfastSelected}
-                            // lunchSelectedSetter={setLunchSelected}
-                            // dinnerSelectedSetter={setDinnerSelected}
+
                     />)
                     }
                 </Row>
