@@ -15,16 +15,17 @@ import { CreateMealPlanContentFinalise, CreateMealPlanContentv2 } from "../compo
 
 
 
-export default function ChooseMealsV2() {
+export default function ChooseMealsV2({recal = false}) {
+    const navigate = useNavigate();
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
     const [activePage, setActivePage] = useState(1);
 
-    const [breakfastSelected, setBreakfastSelected] = useState([]);
-    const [lunchSelected, setLunchSelected] = useState([]);
-    const [dinnerSelected, setDinnerSelected] = useState([]);
+    const [breakfastSelected, setBreakfastSelected] = useState({});
+    const [lunchSelected, setLunchSelected] = useState({});
+    const [dinnerSelected, setDinnerSelected] = useState({});
 
-    console.log(breakfastSelected, lunchSelected, dinnerSelected);
+    // console.log(breakfastSelected, lunchSelected, dinnerSelected);
  
 
 
@@ -50,10 +51,10 @@ export default function ChooseMealsV2() {
         3:[["dinner, main course"], localStorage.getItem("calories")*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
     }
 
-    console.log(localStorage.getItem("calories"));
+    // console.log(localStorage.getItem("calories"));
 
     if (!localStorage.getItem("calories")) {
-        console.log("calories does not exist");
+        navigate("/input");
     }
 
     useEffect(() => {
@@ -76,7 +77,7 @@ export default function ChooseMealsV2() {
           }
         }
     }, [apiData]);
-    console.log(apiData);
+    // console.log(apiData);
     // ------------------------ api data on mount  
 
 
@@ -108,6 +109,7 @@ export default function ChooseMealsV2() {
                                 "Lunch": {data: lunchSelected, setter: setLunchSelected},
                                 "Dinner": {data: dinnerSelected, setter: setDinnerSelected},
                             }}
+                            recal={recal}
                             // breakfastSelected={breakfastSelected}
                             // lunchSelected={lunchSelected}
                             // dinnerSelected={dinnerSelected}

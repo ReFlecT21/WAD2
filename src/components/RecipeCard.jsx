@@ -64,7 +64,10 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
                   <Button
                     className="buttonPrimary"
                     onClick={() =>{
-                      setter((prev) => [...prev, recipe])
+                      setter((prev) => ({
+                        ...prev,
+                        [recipe["id"]]: recipe
+                      }))
 
                       handleButtonClick()
 
@@ -174,7 +177,12 @@ export function SelectedRecpieCardV2({recipe, setter}) {
                     <Button
                       className="buttonPrimary"
                       onClick={() =>
-                        setter((prevArray) => prevArray.filter((item) => item !== recipe))
+                        setter((prev) => {
+                          const updatedState = { ...prev };
+                          delete updatedState[recipe["id"]];
+                          return updatedState;
+                        })
+
                       }
                     >
                       Remove

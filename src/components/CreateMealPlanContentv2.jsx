@@ -1,12 +1,14 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Loader from "./Loader";
 import { RecpieCardV2, SelectedRecpieCardV2 } from "./RecipeCard";
+import { useState } from "react";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recipes, selected, selectedSetter}) {
 
     return (
         <>
-        {pageNum}
+        {/* {pageNum} */}
           <Container>
             <Row className="">
               <Col>
@@ -33,6 +35,9 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
             <Row xs={1} md={2} lg={3}>
                 {recipes ? (
                     recipes.map((recipe) => (
+                        // console.log(recipe),
+                        // console.log(selected),
+                        // console.log(recipe in selected ),
                         <RecpieCardV2 key={recipe.id} recipe={recipe} setter={selectedSetter} render={recipe.id in selected ? false : true }/>
                     )))
                 :(<Loader />)}
@@ -44,31 +49,100 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
 
 }
 
-export function CreateMealPlanContentFinalise(
-    // breakfastSelected, 
-    // lunchSelected, 
-    // dinnerSelected, 
-    // breakfastSelectedSetter, 
-    // lunchSelectedSetter, 
-    // dinnerSelectedSetter 
-    {info}
-){
+export function CreateMealPlanContentFinalise({info, recal}){
 
-    // console.log(info)
-    // console.log(info["Breakfast"].data)
-    // console.log(info["Breakfast"].setter)
+    const [mealPlan, setMealPlan] = useState({});
+    const [mealPlanCopy, setMealPlanCopy] = useState({});
+
+    const sendToDB = () => {
+        console.log("send to db");
+        console.log(mealPlan);
+        console.log(mealPlanCopy);
+
+        dbFoodMethods.createMealplan(mealPlan, mealPlanCopy);
+
+        localStorage.removeItem("calories");
+        localStorage.removeItem("allergies");
+
+    }
+
+    const handleFinalise = () => {
+        if (
+            Object.keys(info["Breakfast"].data).length > 0 && 
+            Object.keys(info["Lunch"].data).length > 0 && 
+            Object.keys(info["Dinner"].data).length > 0
+        ){
+            console.log("finalise meal plan");
+
+            if (!recal){
+
+                for (let i=1; i<8; i++){
+                    ["Breakfast", "Lunch", "Dinner"].forEach((meal) => {
+                        let randomDish = Object.keys(info[meal].data)[
+                            Math.floor(
+                            Math.random() * Object.keys(info[meal].data).length
+                            )
+                        ];
+                        let recipe = info[meal].data[randomDish];
+                        // console.log(recipe); 
+                        // sum += value;
+    
+                        setMealPlan((prev) => ({
+                            ...prev,
+                            [i]: {
+                            ...prev[i],
+                                [meal.toLowerCase()]: {
+                                    [recipe.id]: recipe["nutrition"]["nutrients"][0]["amount"],
+                                },
+                            },
+                        }));
+    
+                        setMealPlanCopy((prev) => ({
+                            ...prev,
+                            [i]: {
+                                ...prev[i],
+                                    [meal.toLowerCase()]: {
+                                        [recipe.id]: 0,
+                                },
+                            },
+                        }));
+                    })
+    
+                }
+
+                sendToDB();
+            }
+
+
+        } else {
+            alert("please select at least 1 dish for each meal type");
+        }
+
+    }
+
+
     return (
         <>
-            <h1>Finalise Meal Plan</h1>
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+                <h1>Finalise Meal Plan</h1>
+                <div style={{textAlign:"right"}}>
+                    <Button 
+                        className="buttonPrimary"
+                        onClick={handleFinalise}
+                    >Finalise Plan</Button>
+                </div>
+            </div>
             {["Breakfast", "Lunch", "Dinner"].map((mealType) => (
                 <div key={mealType}>
                     <h3>{mealType}</h3>
                     {Object.keys(info[mealType].data).length > 0 ? (
                         <Row xs={1} md={2} lg={3}>
-                            {info[mealType].data.map((recipe) => (
+                            {Object.keys(info[mealType].data).map((recipe) => (
                                 // console.log(recipe),
-                                <SelectedRecpieCardV2 
-                                    recipe={recipe}
+                                <SelectedRecpieCardV2
+                                    
+                                    key={info[mealType].data[recipe].id} 
+                                    recipe={info[mealType].data[recipe]}
                                     setter={info[mealType].setter}
                                 />
 
