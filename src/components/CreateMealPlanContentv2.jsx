@@ -1,8 +1,9 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Loader from "./Loader";
 import { RecpieCardV2, SelectedRecpieCardV2 } from "./RecipeCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dbFoodMethods } from "../middleware/dbMethods";
+import { useNavigate } from "react-router-dom";
 
 export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recipes, selected, selectedSetter}) {
 
@@ -50,21 +51,26 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
 }
 
 export function CreateMealPlanContentFinalise({info, recal}){
+    const navigate = useNavigate();
 
     const [mealPlan, setMealPlan] = useState({});
     const [mealPlanCopy, setMealPlanCopy] = useState({});
 
-    const sendToDB = () => {
-        console.log("send to db");
-        console.log(mealPlan);
-        console.log(mealPlanCopy);
+    useEffect(() => {
+        // console.log(plan1);
+        // console.log(plan2);
+        if (
+            Object.keys(mealPlan).length !== 0 &&
+            Object.keys(mealPlanCopy).length !== 0
+            ) {
+                console.log("send to db");
+                dbFoodMethods.createMealplan(mealPlan, mealPlanCopy);
+                localStorage.removeItem("calories");
+                localStorage.removeItem("allergies");
+                navigate("/home");   
+            }
+    }, [mealPlan, mealPlanCopy]);
 
-        dbFoodMethods.createMealplan(mealPlan, mealPlanCopy);
-
-        localStorage.removeItem("calories");
-        localStorage.removeItem("allergies");
-
-    }
 
     const handleFinalise = () => {
         if (
@@ -87,30 +93,54 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         // console.log(recipe); 
                         // sum += value;
     
-                        setMealPlan((prev) => ({
-                            ...prev,
-                            [i]: {
-                            ...prev[i],
-                                [meal.toLowerCase()]: {
+                        setMealPlan((prev) => {
+                            const updated = {
+                                ...prev,
+                                [i]: {
+                                  ...prev[i],
+                                  [meal.toLowerCase()]: {
                                     [recipe.id]: recipe["nutrition"]["nutrients"][0]["amount"],
+                                  },
                                 },
-                            },
-                        }));
+                              };
+                              return updated;
+                        })
+                        setMealPlanCopy((prev) => {
+                            const updated = {
+                                ...prev,
+                                [i]: {
+                                  ...prev[i],
+                                  [meal.toLowerCase()]: {
+                                    [recipe.id]: 0,
+                                  },
+                                },
+                              };
+                              return updated;
+                        })
+                        // setMealPlan((prev) => ({
+                        //     ...prev,
+                        //     [i]: {
+                        //     ...prev[i],
+                        //         [meal.toLowerCase()]: {
+                        //             [recipe.id]: recipe["nutrition"]["nutrients"][0]["amount"],
+                        //         },
+                        //     },
+                        // }));
     
-                        setMealPlanCopy((prev) => ({
-                            ...prev,
-                            [i]: {
-                                ...prev[i],
-                                    [meal.toLowerCase()]: {
-                                        [recipe.id]: 0,
-                                },
-                            },
-                        }));
+                        // setMealPlanCopy((prev) => ({
+                        //     ...prev,
+                        //     [i]: {
+                        //         ...prev[i],
+                        //             [meal.toLowerCase()]: {
+                        //                 [recipe.id]: 0,
+                        //         },
+                        //     },
+                        // }));
                     })
     
                 }
 
-                sendToDB();
+                // sendToDB(mealPlan, mealPlanCopy);
             }
 
 

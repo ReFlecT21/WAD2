@@ -50,9 +50,9 @@ function App() {
                 <Route path="/input" element={<InputPage />} />
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
-                <Route path="/choose" element={<ChooseMeals />} />
+                {/* <Route path="/choose" element={<ChooseMeals />} /> */}
                 <Route path="/mealplan" element={<MealPlan />} />
-                <Route path="/choosev2" element={<ChooseMealsv2 />} />
+                <Route path="/choose" element={<ChooseMealsv2 />} />
               </>
             )}
           </Routes>
