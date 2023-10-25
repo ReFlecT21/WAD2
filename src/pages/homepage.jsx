@@ -111,10 +111,10 @@ const HomePage = () => {
             <div className="neuphormicBox">
               <h1>Today's Meal</h1>
 
-              <Row xs={1} md={3} lg={3}>
+              <Row className="todayMealCards" xs={1} md={3} lg={3}>
 
                 {todayMealDisplay}
-              </Row>
+              </Row >
               {/* <h3>Breakfast</h3>
               <h3>Lunch</h3>
               <h3>Dinner</h3>

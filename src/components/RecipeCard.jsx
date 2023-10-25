@@ -39,6 +39,7 @@ export function RecpieCard({ recipe, setter = null }) {
                         ...prev,
                         [recipe["id"]]: recipe["nutrition"]["nutrients"][0]["amount"]
                       }))
+
                     }
                   >
                     Select Meal
@@ -157,6 +158,7 @@ export function FinaliseRecipeCard({ recipe, selected=null }) {
                   className="buttonPrimary"
                   onClick={() =>
                     setOverlayData(<RecipeDetails id={recipe["id"]} />)
+
                   }
                 >
                   See Recipe
