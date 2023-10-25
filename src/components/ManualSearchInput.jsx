@@ -276,12 +276,12 @@ export function ManualSearchComponent() {
   }
   const [foodArray, setFoodArray] = useState([]);
   useEffect(() => {
-    console.log(foodArray);
+    // console.log(foodArray);
   }, [foodArray]);
   // ------------------------------------------------------------------------------------
   // this is handling instantSearch endpoint
   if (instantData != null) {
-    console.log(instantData);
+    // console.log(instantData);
 
     instantData["common"].forEach((food) => {
       instantSearchRes.push(

@@ -37,7 +37,7 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
   // const [currMealPlan, setCurrMealPlan] = useState(null);
   // const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
 
-  const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() + 1; // +1 not suppose to be there  this is for testing
+  const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() +2; // +1 not suppose to be there  this is for testing
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
   const d = new Date(currDisplayMealPlan.CreatedAt);
 
