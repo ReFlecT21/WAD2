@@ -87,47 +87,50 @@ function ChildModal(foodArray) {
     setChildModalOpen(false);
   };
   const [added, setAdded] = useState([]);
-  const APIres = [];
 
-  if (Object.keys(searchData).length !== 0) {
-    console.log(searchData);
-    const tempData = [];
-    Object.keys(searchData).forEach((key) => {
-      searchData[key]["foods"].forEach((food) => {
-        const tempArray = [];
-        tempArray.push(food.photo.highres);
-        tempArray.push(food["food_name"]);
-        tempArray.push(food["nf_calories"]);
-        tempArray.push(food["nf_protein"]);
-        tempArray.push(food["nf_total_fat"]);
-        tempArray.push(food["nf_total_carbohydrate"]);
-        tempArray.push(food["nf_cholesterol"]);
-        tempData.push(tempArray);
-        APIres.push(
-          <>
-            <Row>
-              <Col>
-                <img
-                  style={{ width: "100%" }}
-                  src={food.photo.highres}
-                  alt=""
-                />
-              </Col>
-              <Col>
-                <h2>{food["food_name"]}</h2>
-                <p>Calories: {food["nf_calories"]}</p>
-                <p>Total Protein: {food["nf_protein"]}</p>
-                <p>Total Fats: {food["nf_total_fat"]}</p>
-                <p>Total Carbohydrates: {food["nf_total_carbohydrate"]}</p>
-                <p>Cholesterol: {food["nf_cholesterol"]}</p>
-              </Col>
-            </Row>
-          </>
-        );
-      });
-    });
-    setAdded(tempData);
-  }
+
+
+  // if (Object.keys(searchData).length !== 0) {
+  //   console.log(searchData);
+  //   const tempData = [];
+  //   Object.keys(searchData).forEach((key) => {
+  //     searchData[key]["foods"].forEach((food) => {
+  //       const tempArray = [];
+  //       tempArray.push(food.photo.highres);
+  //       tempArray.push(food["food_name"]);
+  //       tempArray.push(food["nf_calories"]);
+  //       tempArray.push(food["nf_protein"]);
+  //       tempArray.push(food["nf_total_fat"]);
+  //       tempArray.push(food["nf_total_carbohydrate"]);
+  //       tempArray.push(food["nf_cholesterol"]);
+  //       tempData.push(tempArray);
+  //       APIres.push(
+  //         <>
+  //           <Row>
+  //             <Col>
+  //               <img
+  //                 style={{ width: "100%" }}
+  //                 src={food.photo.highres}
+  //                 alt=""
+  //               />
+  //             </Col>
+  //             <Col>
+  //               <h2>{food["food_name"]}</h2>
+  //               <p>Calories: {food["nf_calories"]}</p>
+  //               <p>Total Protein: {food["nf_protein"]}</p>
+  //               <p>Total Fats: {food["nf_total_fat"]}</p>
+  //               <p>Total Carbohydrates: {food["nf_total_carbohydrate"]}</p>
+  //               <p>Cholesterol: {food["nf_cholesterol"]}</p>
+  //             </Col>
+  //           </Row>
+  //         </>
+  //       );
+  //     });
+  //   });
+  //   setAdded(tempData);
+  // }
+
+
   useEffect(() => {
     console.log(added);
   }, [added]);
@@ -138,6 +141,7 @@ function ChildModal(foodArray) {
         onClick={() => {
           setChildModalOpen(true);
           const food_array = foodArray.food_Array;
+          console.log(food_array);
           const fetchPromises = food_array.map((food) => {
             const body = {
               query: food,
@@ -154,12 +158,16 @@ function ChildModal(foodArray) {
           Promise.all(fetchPromises)
             .then((data) => {
               setSearchData((prevData) => ({ ...prevData, ...data }));
+              console.log(searchData);
             })
             .catch((error) => console.error(error));
+          
         }}
       >
         confirm
       </Button>
+
+
       <Modal open={ChildModalopen} onClose={handleClose}>
         <Box className="popup">
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -177,7 +185,43 @@ function ChildModal(foodArray) {
               justifyContent: "center",
             }}
           >
-            {APIres}
+            {searchData ? (
+              <div>
+                {Object.keys(searchData).map((key) => {
+                  return (
+                    <div key={key}>
+                    {/* <h2>{key}</h2> */}
+                      {searchData[key]["foods"].map((food) => {
+                        return (
+                          <div key={food+key}>
+                            <Row>
+                              <Col>
+                                <img
+                                  style={{ width: "100%" }}
+                                  src={food.photo.highres}
+                                  alt=""
+                                />
+                              </Col>
+                              <Col>
+                                <h2>{food["food_name"]}</h2>
+                                <p>Calories: {food["nf_calories"]}</p>
+                                <p>Total Protein: {food["nf_protein"]}</p>
+                                <p>Total Fats: {food["nf_total_fat"]}</p>
+                                <p>
+                                  Total Carbohydrates:{" "}
+                                  {food["nf_total_carbohydrate"]}
+                                </p>
+                                <p>Cholesterol: {food["nf_cholesterol"]}</p>
+                              </Col>
+                            </Row>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : <h2>loading</h2>}
           </div>
         </Box>
       </Modal>
@@ -241,7 +285,7 @@ export function ManualSearchComponent() {
 
     instantData["common"].forEach((food) => {
       instantSearchRes.push(
-        <Col>
+        <Col key={food.food_name}>
           {/* <Card className="text-center" onClick={null} style={{ border: "0px", margin: "10px" }}> */}
           <Stack
             direction="horizontal"
