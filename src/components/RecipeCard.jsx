@@ -198,18 +198,20 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                   >
                     See Recipe
                   </Button>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={ async () =>{
-                      let res = await handleButtonClick()
-                      if (res) {
-                        window.location.reload(false)
-                      }
-                    }}
-                    disabled={!buttonState}
-                  >
-                    {buttonText}
-                  </Button>
+                  {/* {buttonState ? ( */}
+                    <Button
+                      className="buttonPrimary"
+                      onClick={ async () =>{
+                        let res = await handleButtonClick()
+                        if (res) {
+                          window.location.reload(false)
+                        }
+                      }}
+                      // disabled={!buttonState}
+                    >
+                      {buttonText}
+                    </Button>
+                  {/* ):(<></>)} */}
                 </div>
               </Col>
             </Row>

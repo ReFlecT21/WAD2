@@ -25,6 +25,11 @@ export function MealPlanCard({ recipe, setter = null, render=true, day, mealType
           {response ? (
             response.map((recipe) => (
               <div key={recipe.id}>
+                {render ? (
+                  <h4>{mealType}</h4>
+                ): (
+                  <h4>You ate {mealType} today!</h4>
+                )}
                 <RecpieCardMealPlan
                     key={recipe.id}
                     recipe={recipe}
