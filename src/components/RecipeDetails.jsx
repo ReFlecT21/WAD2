@@ -42,7 +42,7 @@ export function RecipeDetails(id) {
           visited.push(`${recipe.id}${ingre.id}`);
         };
       });
-      console.log(recipe);
+      // console.log(recipe);
       
       recipe?.analyzedInstructions[0]?.steps.forEach((steps) => {
         // console.log(steps);

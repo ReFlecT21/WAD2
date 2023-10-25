@@ -36,9 +36,6 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
             <Row xs={1} md={2} lg={3}>
                 {recipes ? (
                     recipes.map((recipe) => (
-                        // console.log(recipe),
-                        // console.log(selected),
-                        // console.log(recipe in selected ),
                         <RecpieCardV2 key={recipe.id} recipe={recipe} setter={selectedSetter} render={recipe.id in selected ? false : true }/>
                     )))
                 :(<Loader />)}
