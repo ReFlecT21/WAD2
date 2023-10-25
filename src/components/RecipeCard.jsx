@@ -1,9 +1,234 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
 import { fetcher } from "../middleware/Fetcher";
 import { RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
+import { dbFoodMethods } from "../middleware/dbMethods";
+
+export function RecpieCardV2({ recipe, setter = null , render}) {
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
+  const [buttonState, setButtonState] = useState(render);
+  const [buttonText, setButtonText] = useState("Select");
+  
+  useEffect(() => {
+    if (buttonState === true) {
+      setButtonText("Select");
+    } else {
+      setButtonText("Selected");
+    }
+  }, []);
+  
+  const handleButtonClick = () => {
+      if (buttonState === true) {
+        setButtonState(false)
+        setButtonText("Selected");
+      } else {
+        setButtonText("Select");
+      }
+  };
+
+  return (
+    // <div>
+      <Card style={{ border: "0px", margin: "10px" }}>
+        <Card.Img
+          variant="top"
+          src={recipe["image"]}
+          className="img-overlay"
+          style={{ borderRadius: "20px" }}
+        />
+        <Card.ImgOverlay>
+          <Card.Body>
+            <Row>
+              <Col>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <Button
+                    className="buttonPrimary"
+                    onClick={() =>
+                      setOverlayData(<RecipeDetails id={recipe["id"]} />)
+                    }
+                  >
+                    See Recipe
+                  </Button>
+                  <Button
+                    className="buttonPrimary"
+                    onClick={() =>{
+                      setter((prev) => ({
+                        ...prev,
+                        [recipe["id"]]: recipe
+                      }))
+
+                      handleButtonClick()
+
+                    }}
+                    disabled={!buttonState}
+                  >
+                    {buttonText}
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+            <Card.Title style={{ marginTop: "10px" }}>
+              {recipe["title"]}
+            </Card.Title>
+            <Card.Text>
+            </Card.Text>
+          </Card.Body>
+        </Card.ImgOverlay>
+      </Card>
+    // </div>
+    // <p>V2</p>
+  )
+}
+
+export function SelectedRecpieCardV2({recipe, setter}) {
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
+  // console.log(recipe)
+  // console.log(setter)
+  return (
+    <>
+      <Card style={{ border: "0px", margin: "10px" }}>
+          <Card.Img
+            variant="top"
+            src={recipe["image"]}
+            className="img-overlay"
+            style={{ borderRadius: "20px" }}
+          />
+          <Card.ImgOverlay>
+            <Card.Body>
+              <Row>
+                <Col>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Button
+                      className="buttonPrimary"
+                      onClick={() =>
+                        setOverlayData(<RecipeDetails id={recipe["id"]} />)
+                      }
+                    >
+                      See Recipe
+                    </Button>
+                    <Button
+                      className="buttonPrimary"
+                      onClick={() =>
+                        setter((prev) => {
+                          const updatedState = { ...prev };
+                          delete updatedState[recipe["id"]];
+                          return updatedState;
+                        })
+
+                      }
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+              <Card.Title style={{ marginTop: "10px" }}>
+                {recipe["title"]}
+              </Card.Title>
+              <Card.Text>
+              </Card.Text>
+            </Card.Body>
+          </Card.ImgOverlay>
+        </Card>
+      </> 
+    
+  )
+}
+
+export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealType, dayIndex, currMealPlan}) {
+
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
+  const [buttonState, setButtonState] = useState(render);
+  const [buttonText, setButtonText] = useState("Complete Meal");
+
+  useEffect(() => {
+    if (buttonState === true) {
+      setButtonText("Complete Meal");
+    } else {
+      setButtonText("Completed");
+    }
+  }, []);
+  
+  const handleButtonClick = async () => {
+    let res = await dbFoodMethods.completeMeal(
+      dayIndex,
+      mealType,
+      currMealPlan.mealPlan[day][mealType]
+    );
+    return res
+    // setTrigger((prev) => prev + 1);
+      // if (buttonState === true) {
+      //   setButtonState(false)
+      //   setButtonText("Completed");
+
+      // } else {
+      //   setButtonText("Complete Meal");
+      // }
+  };
+
+  return (
+    // <div>
+      <Card style={{ border: "0px", margin: "10px" }}>
+        <Card.Img
+          variant="top"
+          src={recipe["image"]}
+          className="img-overlay"
+          style={{ borderRadius: "20px" }}
+        />
+        <Card.ImgOverlay>
+          <Card.Body>
+            <Row>
+              <Col>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <Button
+                    className="buttonPrimary"
+                    onClick={() =>
+                      setOverlayData(<RecipeDetails key={`${recipe["id"]}popup`} id={recipe["id"]} />)
+                    }
+                  >
+                    See Recipe
+                  </Button>
+                  <Button
+                    className="buttonPrimary"
+                    onClick={ async () =>{
+                      let res = await handleButtonClick()
+                      if (res) {
+                        window.location.reload(false)
+                      }
+                    }}
+                    disabled={!buttonState}
+                  >
+                    {buttonText}
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+            <Card.Title style={{ marginTop: "10px" }}>
+              {recipe["title"]}
+            </Card.Title>
+            <Card.Text>
+            </Card.Text>
+          </Card.Body>
+        </Card.ImgOverlay>
+      </Card>
+    // </div>
+    // <p>V2</p>
+  )
+
+}
+
+
+
 
 export function RecpieCard({ recipe, setter = null }) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);

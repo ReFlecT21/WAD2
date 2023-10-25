@@ -62,7 +62,7 @@ const HomePage = () => {
 
   var todayMealDisplay = []
   var todayMeal = []
-  console.log(currMealPlan)
+  // console.log(currMealPlan)
   
   if (currMealPlan?.DisplayMealPlan) {
     

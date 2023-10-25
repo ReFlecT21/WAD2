@@ -6,12 +6,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   LoginComponent,
   SignUpComponent,
-  ChooseMeals,
   SpinnerPage,
   HomePage,
   Fallback,
   InputPage,
   MealPlan,
+  ChooseMealsV2
 } from "./pages";
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
@@ -49,8 +49,9 @@ function App() {
                 <Route path="/input" element={<InputPage />} />
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
-                <Route path="/choose" element={<ChooseMeals />} />
+                {/* <Route path="/choose" element={<ChooseMeals />} /> */}
                 <Route path="/mealplan" element={<MealPlan />} />
+                <Route path="/choose" element={<ChooseMealsV2 />} />
               </>
             )}
           </Routes>
