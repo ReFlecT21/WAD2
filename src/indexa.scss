@@ -47,46 +47,46 @@ p{
 }
 
 //VERTICAL CARD
-.card{
-    width: 300px;
-    background: $backgroundCol;
-    padding: .4em;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+// .card{
+//     width: 300px;
+//     background: $backgroundCol;
+//     padding: .4em;
+//     border-radius: 6px;
+//     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     
-}   
-    x
-.card:hover{
-    transform: scale(1.05);
-    transition: 0.3s; 
-    }
+// }   
+//     x
+// .card:hover{
+//     transform: scale(1.05);
+//     transition: 0.3s; 
+//     }
 
-.card-category { //Card titlea
-font-size: 26px;
-font-weight: bold;
-font-family: $primaryFont;
-color: $primaryCol;
-padding: 10px 7px 0;
-}
+// .card-category { //Card titlea
+// font-size: 26px;
+// font-weight: bold;
+// font-family: $primaryFont;
+// color: $primaryCol;
+// padding: 10px 7px 0;
+// }
 
-.card-category:hover {
-cursor: pointer;
-}
+// .card-category:hover {
+// cursor: pointer;
+// }
 
-.card-heading { //Card text
-font-weight: normal;
-font-size: 14px;
-@include bodyText();
-color: rgb(88, 87, 87);
-padding: 10px;
-}
+// .card-heading { //Card text
+// font-weight: normal;
+// font-size: 14px;
+// @include bodyText();
+// color: rgb(88, 87, 87);
+// padding: 10px;
+// }
 
-.card button{
-    border-radius: 20px;
-    @include whiteText();
-    border: 0;
-    @include button($primaryCol, 14px)
-}
+// .card button{
+//     border-radius: 20px;
+//     @include whiteText();
+//     border: 0;
+//     @include button($primaryCol, 14px)
+// }
 
 // <img src="./pic.jpg" style="width:100%"/> --> NEED TO ADD STYLE TO IMG SRC
 
