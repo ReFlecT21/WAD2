@@ -199,6 +199,7 @@ export const dbFoodMethods = {
                     // console.log(dayIndex);
                     // console.log(JSON.stringify(Completed, null, 2));
                     alert(`you cant have ${mealType} again`);
+                    return false
                 } else {
                     Completed[dayIndex][mealType] = food;
 
@@ -214,6 +215,7 @@ export const dbFoodMethods = {
                     });
             
                     console.log("Document written");
+                    return true
 
                     // return {DisplayMealPlan, CreatedAt};
                 }

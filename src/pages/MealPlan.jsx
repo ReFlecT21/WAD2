@@ -32,6 +32,7 @@ export default function MealPlan() {
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  const [trigger, setTrigger] = useState(false);
 
   
 
@@ -46,7 +47,7 @@ export default function MealPlan() {
       setCurrMealPlan(await dbFoodMethods.getMealPlan());
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       // setCurrDisplayMealPlan(await getDisplayMealPlan(auth.currentUser.email));
-      // console.log("triggered")
+      console.log("triggered")
       // console.log(completed)
     };
     

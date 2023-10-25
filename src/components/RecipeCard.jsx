@@ -158,11 +158,12 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
   }, []);
   
   const handleButtonClick = async () => {
-    await dbFoodMethods.completeMeal(
+    let res = await dbFoodMethods.completeMeal(
       dayIndex,
       mealType,
       currMealPlan.mealPlan[day][mealType]
     );
+    return res
     // setTrigger((prev) => prev + 1);
       // if (buttonState === true) {
       //   setButtonState(false)
@@ -200,8 +201,10 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                   <Button
                     className="buttonPrimary"
                     onClick={ async () =>{
-                      await handleButtonClick()
-                      window.location.reload(false)
+                      let res = await handleButtonClick()
+                      if (res) {
+                        window.location.reload(false)
+                      }
                     }}
                     disabled={!buttonState}
                   >
