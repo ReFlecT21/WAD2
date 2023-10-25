@@ -149,13 +149,13 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
   const [buttonState, setButtonState] = useState(render);
   const [buttonText, setButtonText] = useState("Complete Meal");
 
-  useEffect(() => {
-    if (buttonState === true) {
-      setButtonText("Complete Meal");
-    } else {
-      setButtonText("Completed");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (buttonState === true) {
+  //     setButtonText("Complete Meal");
+  //   } else {
+  //     setButtonText("Completed");
+  //   }
+  // }, []);
   
   const handleButtonClick = async () => {
     let res = await dbFoodMethods.completeMeal(

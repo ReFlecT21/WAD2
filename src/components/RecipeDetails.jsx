@@ -42,7 +42,7 @@ export function RecipeDetails(id) {
           visited.push(`${recipe.id}${ingre.id}`);
         };
       });
-      // console.log(recipe?.analyzedInstructions[0]);
+      console.log(recipe);
       
       recipe?.analyzedInstructions[0]?.steps.forEach((steps) => {
         // console.log(steps);
@@ -55,13 +55,18 @@ export function RecipeDetails(id) {
             <Col>
               <h1>{recipe["title"]}</h1>
             </Col>
-            <Col style={{ textAlign: "right" }}>
-              <h3>{recipe["nutrition"]["nutrients"][0]["name"]}</h3>
-              <h3>{recipe["nutrition"]["nutrients"][0]["amount"]}</h3>
-            </Col>
           </Row>
           <Row>
-            <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            <Col>
+              <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            </Col>
+            <Col >
+              <h4>{recipe["nutrition"]["nutrients"][0]["name"]}: {recipe["nutrition"]["nutrients"][0]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][8]["name"]}: {recipe["nutrition"]["nutrients"][8]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][1]["name"]}: {recipe["nutrition"]["nutrients"][1]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][3]["name"]}: {recipe["nutrition"]["nutrients"][3]["amount"]}</h4>
+
+            </Col>
           </Row>
           <Row>
             <h3>Ingredients</h3>
