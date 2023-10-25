@@ -63,37 +63,38 @@ const HomePage = () => {
   var todayMealDisplay = []
   var todayMeal = []
   // console.log(currMealPlan)
+  var currDay = 0;
   
   if (currMealPlan?.DisplayMealPlan) {
+    var currDay = new Date(Date.now()).getDate() - new Date(currMealPlan.CreatedAt).getDate()+1;    
     
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
 
-    var currDay = new Date(Date.now()).getDate() - new Date(currMealPlan.CreatedAt).getDate()+1;    
     // console.log(currDay)
     // console.log(new Date(currMealPlan.CreatedAt).getDate())
     
     
-    todayMeal = currMealPlan["DisplayMealPlan"][currDay];
-    // console.log(todayMeal)
+  //   todayMeal = currMealPlan["DisplayMealPlan"][currDay];
+  //   // console.log(todayMeal)
 
-    for (const mealType in todayMeal){
-      // console.log(todayMeal[mealType])
-      todayMealDisplay.push(
-        <div key={mealType}>
-          <MealPlanCardHome recipe={Object.keys(todayMeal[mealType])[0]} />
-          {/* <div>
-            <h3>{mealType}</h3>
-            <p>{todayMeal[mealType]}</p>
-          </div> */}
-        </div>
-      )
-    }
-  } else {
-    todayMealDisplay.push(
-      <div key="noMeal">
-        <h3>No Meal Plan</h3>
-      </div>
-    )
+  //   for (const mealType in todayMeal){
+  //     // console.log(todayMeal[mealType])
+  //     todayMealDisplay.push(
+  //       <div key={mealType}>
+  //         <MealPlanCardHome recipe={Object.keys(todayMeal[mealType])[0]} />
+  //         {/* <div>
+  //           <h3>{mealType}</h3>
+  //           <p>{todayMeal[mealType]}</p>
+  //         </div> */}
+  //       </div>
+  //     )
+  //   }
+  // } else {
+  //   todayMealDisplay.push(
+  //     <div key="noMeal">
+  //       <h3>No Meal Plan</h3>
+  //     </div>
+  //   )
   }
 
 
@@ -109,11 +110,29 @@ const HomePage = () => {
         <Col md={8}>
           {/* <Stack gap={2} >  */}
             <div className="neuphormicBox">
-              <h1>Today's Meal</h1>
+              <div style={{display:"flex", justifyContent:"space-between"}}>
+                <h1>Today's Meal</h1>
+                <Button
+                  className="buttonPrimary"
+                  href="/mealplan"
+                >See meal plan</Button>
+              </div>
 
               <Row xs={1} md={3} lg={3}>
-
                 {todayMealDisplay}
+                {currMealPlan?.DisplayMealPlan ? (
+                  <>
+                    {["breakfast", "lunch", "dinner"].map((mealType)=>(
+                      <Col key={`${mealType}home`}>
+                        {Object.keys(currMealPlan.DisplayMealPlan[currDay][mealType])[0] ? (
+                          <h4>{mealType} completed!</h4>
+                        ):(<h4>{mealType}</h4>)}
+                        <MealPlanCardHome recipe={Object.keys(currMealPlan.DisplayMealPlan[currDay][mealType])[0]} />
+                      </Col>
+
+                    ))}
+                  </>
+                ):(<></>)}
               </Row>
               {/* <h3>Breakfast</h3>
               <h3>Lunch</h3>
