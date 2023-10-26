@@ -1,6 +1,6 @@
 import { Button, Container, Row, Col, Accordion, Tab, Tabs} from "react-bootstrap";
 import {  CompletedMeals, NavBar } from "../components";
-import { CurrentMealPlan, CurrentMealPlanV2 } from "../components/CurrentMealPlan";
+import { CurrentMealPlanV2 } from "../components/CurrentMealPlan";
 
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
@@ -18,6 +18,7 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
+import ShoppingCart from "../components/ShoppingCart";
 
 
 export default function MealPlan() {
@@ -27,9 +28,13 @@ export default function MealPlan() {
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
 
+  const [completed, setCompleted] = useState(null);
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  const [trigger, setTrigger] = useState(false);
+
+  
 
 
 
@@ -38,12 +43,16 @@ export default function MealPlan() {
     const fetchData = async () => {
       await dbFoodMethods.init();
       // const userId = auth.currentUser.email;
-      // setCurrMealPlan(await dbFoodMethods.getMealPlan());
+      setCompleted(await dbFoodMethods.getCompleted());
+      setCurrMealPlan(await dbFoodMethods.getMealPlan());
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       // setCurrDisplayMealPlan(await getDisplayMealPlan(auth.currentUser.email));
+      console.log("triggered")
+      // console.log(completed)
     };
     
     fetchData();
+    
   }, []);
 
   return (
@@ -63,15 +72,24 @@ export default function MealPlan() {
               <Tab eventKey="mealPlan" title="Current Meal Plan">
                 {/* <CurrentMealPlan /> */}
                 <CurrentMealPlanV2 
+                  currMealPlan={currMealPlan}
                   currDisplayMealPlan={currDisplayMealPlan}
+                  
                 />
 
               </Tab>
               <Tab eventKey="cart" title="Shopping Cart">
-                <h1>Shopping cart</h1>
+                <ShoppingCart 
+                  // props= {prop}
+                />
               </Tab>
               <Tab eventKey="Completed" title="Completed Meals">
-                <CompletedMeals />
+                <h1>Completed Meals</h1>
+                <Row xs={1} md={2} lg={3} >
+                  <CompletedMeals 
+                    completed={completed}
+                  />
+                </Row>
               </Tab>
 
             </Tabs>

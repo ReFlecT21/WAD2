@@ -4,6 +4,7 @@ import { RecpieCardV2, SelectedRecpieCardV2 } from "./RecipeCard";
 import { useEffect, useState } from "react";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { useNavigate } from "react-router-dom";
+import { fetcher, fetcherGET } from "../middleware/Fetcher";
 
 export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recipes, selected, selectedSetter}) {
 
@@ -36,9 +37,6 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
             <Row xs={1} md={2} lg={3}>
                 {recipes ? (
                     recipes.map((recipe) => (
-                        // console.log(recipe),
-                        // console.log(selected),
-                        // console.log(recipe in selected ),
                         <RecpieCardV2 key={recipe.id} recipe={recipe} setter={selectedSetter} render={recipe.id in selected ? false : true }/>
                     )))
                 :(<Loader />)}
@@ -55,24 +53,83 @@ export function CreateMealPlanContentFinalise({info, recal}){
 
     const [mealPlan, setMealPlan] = useState({});
     const [mealPlanCopy, setMealPlanCopy] = useState({});
+    
+    // shopping cart content
+    // const [IDs, setIDs] = useState([]);
+    const [response, setResponse] = useState(null);
+    const [shoppingCart, setShoppingCart] = useState({});
 
     useEffect(() => {
-        // console.log(plan1);
-        // console.log(plan2);
-        if (
-            Object.keys(mealPlan).length !== 0 &&
-            Object.keys(mealPlanCopy).length !== 0
-            ) {
-                console.log("send to db");
-                dbFoodMethods.createMealplan(mealPlan, mealPlanCopy);
-                localStorage.removeItem("calories");
-                localStorage.removeItem("allergies");
-                navigate("/home");   
-            }
-    }, [mealPlan, mealPlanCopy]);
+      // console.log(plan1);
+      // console.log(plan2);
+      if (
+          Object.keys(mealPlan).length !== 0 &&
+          Object.keys(mealPlanCopy).length !== 0 &&
+          Object.keys(shoppingCart).length !== 0
+          ) {
+              console.log("send to db");
+              // dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, IDs);
+              // localStorage.removeItem("calories");
+              // localStorage.removeItem("allergies");
+              // navigate("/home");   
+              console.log(response);
+              console.log(shoppingCart);  
+          }
 
 
-    const handleFinalise = () => {
+
+
+  // }, [shoppingCart]);
+  }, [mealPlan, mealPlanCopy]);
+
+  const populateCart = (res) => {
+    if (res?.length > 0) {
+      console.log("populating")
+      console.log(res);
+      res.forEach((recipe) => {
+        recipe.extendedIngredients.forEach((ingre) => {
+          setShoppingCart((prev) => ({
+            ...prev,
+            [ingre.aisle]: {
+              ...prev[ingre.aisle],
+              [ingre.id]: {
+                name: ingre.name,
+                amount: ingre.measures.metric.amount,
+                unit: ingre.measures.metric.unitShort,
+              }
+            },
+          }));
+        });
+      });
+
+      console.log(shoppingCart);
+    }
+  }
+
+  const createCart = async () => {
+    console.log("shopping cart ")
+
+    // loop through display meal plan instead creating IDs
+    if (IDs.length > 0) {
+      await fetcherGET(
+        "/foodAPI/getBulk/?",
+        {
+          ids: IDs.join(","),
+        },
+        setResponse
+        );
+        console.log(response)
+        populateCart(response)
+      }
+  }
+    // useEffect(() => {
+    //   // console.log(IDs)
+    //   createCart()
+      
+    // }, [IDs]);
+
+
+    const handleFinalise = async () => {
         if (
             Object.keys(info["Breakfast"].data).length > 0 && 
             Object.keys(info["Lunch"].data).length > 0 && 
@@ -92,6 +149,8 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         let recipe = info[meal].data[randomDish];
                         // console.log(recipe); 
                         // sum += value;
+
+                        // setIDs((prev) => [...prev, recipe.id]);
     
                         setMealPlan((prev) => {
                             const updated = {
@@ -141,6 +200,10 @@ export function CreateMealPlanContentFinalise({info, recal}){
                 }
 
                 // sendToDB(mealPlan, mealPlanCopy);
+                // IDs.forEach((id) => {});
+                // handleShoppingCart()
+                // createCart()
+
             }
 
 
@@ -158,7 +221,10 @@ export function CreateMealPlanContentFinalise({info, recal}){
                 <div style={{textAlign:"right"}}>
                     <Button 
                         className="buttonPrimary"
-                        onClick={handleFinalise}
+                        onClick={async () => {
+                          await handleFinalise()
+                          await createCart()
+                        }}
                     >Finalise Plan</Button>
                 </div>
             </div>
