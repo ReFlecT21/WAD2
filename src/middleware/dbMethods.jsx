@@ -99,7 +99,7 @@ export const dbFoodMethods = {
     },
     
 
-    createMealplan: async function(plan1, plan2){
+    createMealplan: async function(plan1, plan2, IDs){
         console.log("createMealplan")
         await this.init();
         // console.log(a == undefined)

@@ -3,7 +3,7 @@ import { FinaliseRecipeCard } from "./RecipeCard";
 
 
 export default function CompletedMeals({completed}) {
-    console.log(completed.Completed)
+    // console.log(completed.Completed)
     const display = []
 
     Object.keys(completed.Completed).forEach((day) => {

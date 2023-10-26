@@ -31,6 +31,7 @@ export function RecipeDetails(id) {
 
   if (response?.length > 0) {
     response.forEach((recipe) => {
+      console.log(recipe);
 
       let visited = [];
       let ingredients = [];

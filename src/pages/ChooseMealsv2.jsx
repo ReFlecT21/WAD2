@@ -62,6 +62,7 @@ export default function ChooseMealsV2({recal = false}) {
               paramList[data][0],
               paramList[data][1],
               (response) => {
+                // console.log(response)
                 setApiData((prevApiData) => ({
                   ...prevApiData,
                   [data]: {

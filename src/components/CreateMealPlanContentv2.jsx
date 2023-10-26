@@ -4,6 +4,7 @@ import { RecpieCardV2, SelectedRecpieCardV2 } from "./RecipeCard";
 import { useEffect, useState } from "react";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { useNavigate } from "react-router-dom";
+import { fetcher, fetcherGET } from "../middleware/Fetcher";
 
 export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recipes, selected, selectedSetter}) {
 
@@ -52,21 +53,66 @@ export function CreateMealPlanContentFinalise({info, recal}){
 
     const [mealPlan, setMealPlan] = useState({});
     const [mealPlanCopy, setMealPlanCopy] = useState({});
+    
+    // shopping cart content
+    const [IDs, setIDs] = useState([]);
+    const [response, setResponse] = useState(null);
+    const [shoppingCart, setShoppingCart] = useState({});
+
+    // useEffect(() => {
+    //     // console.log(plan1);
+    //     // console.log(plan2);
+    //     if (
+    //         Object.keys(mealPlan).length !== 0 &&
+    //         Object.keys(mealPlanCopy).length !== 0
+    //         ) {
+    //             console.log("send to db");
+    //             dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, IDs);
+    //             localStorage.removeItem("calories");
+    //             localStorage.removeItem("allergies");
+    //             navigate("/home");   
+    //         }
+    // }, [shoppingCart]);
+    // }, [mealPlan, mealPlanCopy, IDs]);
 
     useEffect(() => {
-        // console.log(plan1);
-        // console.log(plan2);
-        if (
-            Object.keys(mealPlan).length !== 0 &&
-            Object.keys(mealPlanCopy).length !== 0
-            ) {
-                console.log("send to db");
-                dbFoodMethods.createMealplan(mealPlan, mealPlanCopy);
-                localStorage.removeItem("calories");
-                localStorage.removeItem("allergies");
-                navigate("/home");   
-            }
-    }, [mealPlan, mealPlanCopy]);
+      console.log("shopping cart ")
+      // console.log(IDs)
+      const createCart = async () => {
+        if (IDs.length > 0) {
+          await fetcherGET(
+            "/foodAPI/getBulk/?",
+            {
+              ids: IDs.join(","),
+            },
+            setResponse
+          );
+  
+        }
+        if (response?.length > 0) {
+          console.log(response);
+          response.forEach((recipe) => {
+            recipe.extendedIngredients.forEach((ingre) => {
+              setShoppingCart((prev) => ({
+                ...prev,
+                [ingre.aisle]: {
+                  ...prev[ingre.aisle],
+                  [ingre.id]: {
+                    name: ingre.name,
+                    amount: ingre.measures.metric.amount,
+                    unit: ingre.measures.metric.unitShort,
+                  }
+                },
+              }));
+            });
+          });
+
+          console.log(shoppingCart);
+        }
+      }
+      createCart()
+  
+    }, [IDs]);
 
 
     const handleFinalise = () => {
@@ -89,6 +135,8 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         let recipe = info[meal].data[randomDish];
                         // console.log(recipe); 
                         // sum += value;
+
+                        setIDs((prev) => [...prev, recipe.id]);
     
                         setMealPlan((prev) => {
                             const updated = {
@@ -138,6 +186,9 @@ export function CreateMealPlanContentFinalise({info, recal}){
                 }
 
                 // sendToDB(mealPlan, mealPlanCopy);
+                // IDs.forEach((id) => {});
+                // handleShoppingCart()
+
             }
 
 
