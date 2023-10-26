@@ -164,27 +164,27 @@ const InputPage = () => {
       >
         <Row>
           <Col md={5}>
-            <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" />
+            {/* <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" /> */}
             {/* <img src="https://via.placeholder.com/500" alt="" /> */}
           </Col>
 
           <Col
             style={{
-              padding: "20px",paddingTop:"60px"
+              padding: "20px",paddingTop:"100px"
             }}
           >
-            <Row >
+            <Row style={{ marginTop: "0" }} >
               
               <h2>Getting to know you!</h2>
             </Row>
 
-            <Row style={{ marginTop: "25px" }}>
+            <Row style={{ marginTop: "35px" }}>
               <Col md={6}
                 style={{
                   paddingLeft: "20px",
                 }}
               >
-                <h5>Gender</h5>
+                <h5 >Gender</h5>
 
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <span style={{ marginRight: "10px", color: "black" }}>

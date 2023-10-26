@@ -412,10 +412,6 @@ h2, h3, h4, h5 {
   transition: all 0.3s ease;
 }
 
-.gapp {
-  padding-top: 5%;
-}
-
 .round {
   border-radius: 20px;
 }
@@ -437,6 +433,7 @@ h2, h3, h4, h5 {
   height: 50px;
   margin-right: auto;
   margin-left: auto;
+  text-align: center;
   margin-top: 35px;
 }
 
@@ -444,5 +441,10 @@ h2, h3, h4, h5 {
   background: #12382c;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+
+.ttt {
+  height: 100px;
+  width: 300px;
 }
 /*# sourceMappingURL=indexa.css.map */
