@@ -56,7 +56,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
     
     // shopping cart content
     // const [IDs, setIDs] = useState([]);
-    const [response, setResponse] = useState(null);
+    // const [response, setResponse] = useState(null);
     const [shoppingCart, setShoppingCart] = useState({});
 
     useEffect(() => {
@@ -72,56 +72,74 @@ export function CreateMealPlanContentFinalise({info, recal}){
               // localStorage.removeItem("calories");
               // localStorage.removeItem("allergies");
               // navigate("/home");   
-              console.log(response);
+              // console.log(response);
               console.log(shoppingCart);  
           }
 
-
-
-
   // }, [shoppingCart]);
-  }, [mealPlan, mealPlanCopy]);
+  }, [mealPlan, mealPlanCopy, shoppingCart]);
 
-  const populateCart = (res) => {
-    if (res?.length > 0) {
-      console.log("populating")
-      console.log(res);
-      res.forEach((recipe) => {
-        recipe.extendedIngredients.forEach((ingre) => {
-          setShoppingCart((prev) => ({
-            ...prev,
-            [ingre.aisle]: {
-              ...prev[ingre.aisle],
-              [ingre.id]: {
-                name: ingre.name,
-                amount: ingre.measures.metric.amount,
-                unit: ingre.measures.metric.unitShort,
-              }
-            },
-          }));
-        });
-      });
-
-      console.log(shoppingCart);
-    }
-  }
-
-  const createCart = async () => {
-    console.log("shopping cart ")
-
-    // loop through display meal plan instead creating IDs
-    if (IDs.length > 0) {
-      await fetcherGET(
-        "/foodAPI/getBulk/?",
-        {
-          ids: IDs.join(","),
+  const handleShoppingCart = (res) => {
+    console.log("shopping cart get")
+    // console.log(res)
+    let recipe = res[0]
+    // console.log(recipe) 
+    recipe.extendedIngredients.forEach((ingre) => {
+      setShoppingCart((prev) => ({
+        ...prev,
+        [ingre.aisle]: {
+          ...prev[ingre.aisle],
+          [ingre.id]: {
+            name: ingre.name,
+            amount: ingre.measures.metric.amount,
+            unit: ingre.measures.metric.unitShort,
+          }
         },
-        setResponse
-        );
-        console.log(response)
-        populateCart(response)
-      }
+      }));
+    })
+
   }
+
+  // const populateCart = (res) => {
+  //   if (res?.length > 0) {
+  //     console.log("populating")
+  //     console.log(res);
+  //     res.forEach((recipe) => {
+  //       recipe.extendedIngredients.forEach((ingre) => {
+  //         setShoppingCart((prev) => ({
+  //           ...prev,
+  //           [ingre.aisle]: {
+  //             ...prev[ingre.aisle],
+  //             [ingre.id]: {
+  //               name: ingre.name,
+  //               amount: ingre.measures.metric.amount,
+  //               unit: ingre.measures.metric.unitShort,
+  //             }
+  //           },
+  //         }));
+  //       });
+  //     });
+
+  //     console.log(shoppingCart);
+  //   }
+  // }
+
+  // const createCart = async () => {
+  //   console.log("shopping cart ")
+
+  //   // loop through display meal plan instead creating IDs
+  //   if (IDs.length > 0) {
+  //     await fetcherGET(
+  //       "/foodAPI/getBulk/?",
+  //       {
+  //         ids: IDs.join(","),
+  //       },
+  //       setResponse
+  //       );
+  //       console.log(response)
+  //       populateCart(response)
+  //     }
+  // }
     // useEffect(() => {
     //   // console.log(IDs)
     //   createCart()
@@ -140,7 +158,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
             if (!recal){
 
                 for (let i=1; i<8; i++){
-                    ["Breakfast", "Lunch", "Dinner"].forEach((meal) => {
+                    ["Breakfast", "Lunch", "Dinner"].forEach(async (meal) => {
                         let randomDish = Object.keys(info[meal].data)[
                             Math.floor(
                             Math.random() * Object.keys(info[meal].data).length
@@ -151,6 +169,14 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         // sum += value;
 
                         // setIDs((prev) => [...prev, recipe.id]);
+                        await fetcherGET(
+                          "/foodAPI/getBulk/?",
+                          {
+                            ids: recipe.id,
+                          },
+                          handleShoppingCart
+                        );
+
     
                         setMealPlan((prev) => {
                             const updated = {
@@ -223,7 +249,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         className="buttonPrimary"
                         onClick={async () => {
                           await handleFinalise()
-                          await createCart()
+                          // await createCart()
                         }}
                     >Finalise Plan</Button>
                 </div>
