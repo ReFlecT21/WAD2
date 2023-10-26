@@ -158,20 +158,19 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
   // }, []);
   
   const handleButtonClick = async () => {
-    let res = await dbFoodMethods.completeMeal(
-      dayIndex,
-      mealType,
-      currMealPlan.mealPlan[day][mealType]
-    );
-    return res
-    // setTrigger((prev) => prev + 1);
-      // if (buttonState === true) {
-      //   setButtonState(false)
-      //   setButtonText("Completed");
 
-      // } else {
-      //   setButtonText("Complete Meal");
-      // }
+    if(dayIndex === 0){
+      alert("You can only start completing meals from tomorrow onwards!")
+    } else {
+      let res = await dbFoodMethods.completeMeal(
+        dayIndex,
+        mealType,
+        currMealPlan.mealPlan[day][mealType]
+      );
+      return res
+
+    }
+
   };
 
   return (

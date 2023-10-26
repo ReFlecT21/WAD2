@@ -49,6 +49,8 @@ export default function MealPlan() {
       // setCurrDisplayMealPlan(await getDisplayMealPlan(auth.currentUser.email));
       console.log("triggered")
       // console.log(completed)
+      console.log(currMealPlan)
+      console.log(currDisplayMealPlan)
     };
     
     fetchData();

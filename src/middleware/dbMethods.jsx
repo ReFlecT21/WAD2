@@ -99,7 +99,7 @@ export const dbFoodMethods = {
     },
     
 
-    createMealplan: async function(plan1, plan2, IDs){
+    createMealplan: async function(plan1, plan2, shoppingCart){
         console.log("createMealplan")
         await this.init();
         // console.log(a == undefined)
@@ -110,6 +110,7 @@ export const dbFoodMethods = {
                 CreatedAt: Date.now(),
                 Completed: {},
                 Calories: localStorage.getItem("calories")*7,
+                shoppingCart: shoppingCart,
                 // Added: [],
             }).then(() => {
                 console.log("Document written");

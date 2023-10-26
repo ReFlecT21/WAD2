@@ -23,21 +23,14 @@ import { dbFoodMethods } from "../middleware/dbMethods";
 
 
 
-
-
-
-
-
 export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
 
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-  // const [currMealPlan, setCurrMealPlan] = useState(null);
-  // const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
 
-  const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() ; // +1 not suppose to be there  this is for testing
+  const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate(); // +1 not suppose to be there  this is for testing
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
   const d = new Date(currDisplayMealPlan.CreatedAt);
 
@@ -53,17 +46,8 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
 
   const [content, setContent] = useState(currDisplayMealPlan);
 
-  // useEffect(() => {
-  //   console.log("updates content")
-  //   setContent(currDisplayMealPlan)
-  // }, [currDisplayMealPlan]);
-
-  // console.log(content)
-
-  // console.log(currDisplayMealPlan);
 
   return (
-    // <h1>v2 meal plan</h1>
     <>
     {content ? (
       <Accordion defaultActiveKey={[`${dayIndex}`]} alwaysOpen>
