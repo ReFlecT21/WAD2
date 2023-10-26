@@ -90,7 +90,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
   
         }
         if (response?.length > 0) {
-          console.log(response);
+          // console.log(response);
           response.forEach((recipe) => {
             recipe.extendedIngredients.forEach((ingre) => {
               setShoppingCart((prev) => ({
