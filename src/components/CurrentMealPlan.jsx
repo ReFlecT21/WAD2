@@ -20,10 +20,11 @@ import getMealPlan from "../middleware/getMealPlan";
 import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
+import { ShoppingCartPopUp } from "./ShoppingCart";
 
 
 
-export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
+export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCart}) {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
@@ -86,6 +87,9 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
                   </div>
                 ))}
               </Row>
+              <ShoppingCartPopUp
+                shoppingCart={shoppingCart}
+              />
             </Accordion.Body>
           </Accordion.Item>
         ))}

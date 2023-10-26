@@ -18,7 +18,7 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
-import ShoppingCart from "../components/ShoppingCart";
+import {ShoppingCart} from "../components/ShoppingCart";
 
 
 export default function MealPlan() {
@@ -31,6 +31,7 @@ export default function MealPlan() {
   const [completed, setCompleted] = useState(null);
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
+  const [shoppingCart, setShoppingCart] = useState(null);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [trigger, setTrigger] = useState(false);
 
@@ -42,21 +43,20 @@ export default function MealPlan() {
     
     const fetchData = async () => {
       await dbFoodMethods.init();
-      // const userId = auth.currentUser.email;
       setCompleted(await dbFoodMethods.getCompleted());
       setCurrMealPlan(await dbFoodMethods.getMealPlan());
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
-      // setCurrDisplayMealPlan(await getDisplayMealPlan(auth.currentUser.email));
-      console.log("triggered")
+      setShoppingCart(await dbFoodMethods.getShoppingCart());
       // console.log(completed)
-      console.log(currMealPlan)
-      console.log(currDisplayMealPlan)
+      // console.log(currMealPlan)
+      // console.log(currDisplayMealPlan)
     };
     
     fetchData();
     
   }, []);
-
+  
+  // console.log(shoppingCart)
   return (
     <>
       <NavBar />
@@ -76,13 +76,14 @@ export default function MealPlan() {
                 <CurrentMealPlanV2 
                   currMealPlan={currMealPlan}
                   currDisplayMealPlan={currDisplayMealPlan}
-                  
+                  shoppingCart={shoppingCart}
                 />
 
               </Tab>
               <Tab eventKey="cart" title="Shopping Cart">
                 <ShoppingCart 
                   // props= {prop}
+                  shoppingCart={shoppingCart}
                 />
               </Tab>
               <Tab eventKey="Completed" title="Completed Meals">

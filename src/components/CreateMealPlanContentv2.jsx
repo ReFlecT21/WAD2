@@ -58,6 +58,8 @@ export function CreateMealPlanContentFinalise({info, recal}){
     // const [IDs, setIDs] = useState([]);
     // const [response, setResponse] = useState(null);
     const [shoppingCart, setShoppingCart] = useState({});
+    
+    const [flag, setFlag] = useState(0);
 
     useEffect(() => {
       // console.log(plan1);
@@ -69,16 +71,17 @@ export function CreateMealPlanContentFinalise({info, recal}){
           ) {
               console.log("send to db");
               dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart);
-              localStorage.removeItem("calories");
-              localStorage.removeItem("allergies");
-              navigate("/home");   
+            //   localStorage.removeItem("calories");
+            //   localStorage.removeItem("allergies");
+            //   navigate("/home");
+
               // console.log(response);
               // console.log(shoppingCart);  
               // console.log(mealPlan);
               // console.log(mealPlanCopy);
           }
 
-  }, [shoppingCart]);
+    }, [flag]);
   // }, [mealPlan, mealPlanCopy, shoppingCart]);
   // }, [mealPlan, mealPlanCopy]);
 
@@ -100,83 +103,50 @@ export function CreateMealPlanContentFinalise({info, recal}){
   //     // }
   // }
 
-  const handleShoppingCart = async (res) => {
-    // console.log("shopping cart get")
-    // console.log(res)
-    // let recipe = res[0]
-    // console.log(recipe) 
-    // await recipe.extendedIngredients.forEach((ingre) => {
-    await res.forEach((recipe) => {
-      recipe.extendedIngredients.forEach((ingre) => {
-        setShoppingCart((prev) => {
-          const updated = {
-            ...prev,
-            [ingre.aisle]: {
-              ...prev[ingre.aisle],
-              [ingre.id]: {
-                name: ingre.name,
-                amount: ingre.measures.metric.amount,
-                unit: ingre.measures.metric.unitShort,
-                completed: false,
-              }
-            },
-          }
-          
-          return updated
+    var dayIdx = 0
+
+
+    const handleShoppingCart = async (res) => {
+        // console.log(res);
+        await res.forEach((recipe) => {
+
+            setShoppingCart((prev) => {
+                const updated = { ...prev };
+        
+                recipe.extendedIngredients.forEach((ingre) => {
+                    const { aisle, id, name, measures } = ingre;
+                    const amount = measures.metric.amount;
+        
+                    if (!updated[dayIdx]) {
+                        updated[dayIdx] = {}; // Create dayIdx if it doesn't exist
+                    }
+        
+                    if (!updated[dayIdx][aisle]) {
+                        updated[dayIdx][aisle] = {}; // Create aisle if it doesn't exist
+                    }
+        
+                    if (!updated[dayIdx][aisle][id]) {
+                        updated[dayIdx][aisle][id] = {
+                            name,
+                            unit: measures.metric.unitShort,
+                            amount,
+                            completed: false,
+                        };
+                    } else {
+                        // If the ingredient already exists, update the amount
+                        updated[dayIdx][aisle][id].amount += amount;
+                    }
+                });
+        
+                return updated;
+            });
         });
-      })
-    });
-  }
-  // console.log(shoppingCart)
-  // if(Object.keys(shoppingCart).length !== 0){
-  //   sendToDB()
-  // }
+        dayIdx += 1;
 
-  // const populateCart = (res) => {
-  //   if (res?.length > 0) {
-  //     console.log("populating")
-  //     console.log(res);
-  //     res.forEach((recipe) => {
-  //       recipe.extendedIngredients.forEach((ingre) => {
-  //         setShoppingCart((prev) => ({
-  //           ...prev,
-  //           [ingre.aisle]: {
-  //             ...prev[ingre.aisle],
-  //             [ingre.id]: {
-  //               name: ingre.name,
-  //               amount: ingre.measures.metric.amount,
-  //               unit: ingre.measures.metric.unitShort,
-  //             }
-  //           },
-  //         }));
-  //       });
-  //     });
-
-  //     console.log(shoppingCart);
-  //   }
-  // }
-
-  // const createCart = async () => {
-  //   console.log("shopping cart ")
-
-  //   // loop through display meal plan instead creating IDs
-  //   if (IDs.length > 0) {
-  //     await fetcherGET(
-  //       "/foodAPI/getBulk/?",
-  //       {
-  //         ids: IDs.join(","),
-  //       },
-  //       setResponse
-  //       );
-  //       console.log(response)
-  //       populateCart(response)
-  //     }
-  // }
-    // useEffect(() => {
-    //   // console.log(IDs)
-    //   createCart()
-      
-    // }, [IDs]);
+        if (dayIdx === 7) {
+            setFlag(1);
+        }
+    }
 
 
     const handleFinalise = async () => {
@@ -188,6 +158,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
             console.log("finalise meal plan");
 
             let IDs = [];
+            // let counter =  0
             if (!recal){
 
                 for (let i=1; i<8; i++){
@@ -229,16 +200,19 @@ export function CreateMealPlanContentFinalise({info, recal}){
                               return updated;
                         })
                     })
-    
+                  
+                    await fetcherGET(
+                      "/foodAPI/getBulk/?",
+                      {
+                        // ids: recipe.id,
+                        ids: IDs.join(",")
+                      },
+                      handleShoppingCart
+                    );
+                    IDs = []
+
                 }
-                await fetcherGET(
-                  "/foodAPI/getBulk/?",
-                  {
-                    // ids: recipe.id,
-                    ids: IDs.join(",")
-                  },
-                  handleShoppingCart
-                );
+
                 
             } else {
                 
