@@ -58,7 +58,7 @@ export function RecipeDetails(id) {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col style={{}}>
               <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
             </Col>
             <Col >

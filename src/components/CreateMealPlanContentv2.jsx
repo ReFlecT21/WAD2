@@ -56,8 +56,10 @@ export function CreateMealPlanContentFinalise({info, recal}){
     
     // shopping cart content
     // const [IDs, setIDs] = useState([]);
-    const [response, setResponse] = useState(null);
+    // const [response, setResponse] = useState(null);
     const [shoppingCart, setShoppingCart] = useState({});
+    
+    const [flag, setFlag] = useState(0);
 
     useEffect(() => {
       // console.log(plan1);
@@ -68,65 +70,83 @@ export function CreateMealPlanContentFinalise({info, recal}){
           Object.keys(shoppingCart).length !== 0
           ) {
               console.log("send to db");
-              // dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, IDs);
-              // localStorage.removeItem("calories");
-              // localStorage.removeItem("allergies");
-              // navigate("/home");   
-              console.log(response);
-              console.log(shoppingCart);  
+              dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart);
+            //   localStorage.removeItem("calories");
+            //   localStorage.removeItem("allergies");
+            //   navigate("/home");
+
+              // console.log(response);
+              // console.log(shoppingCart);  
+              // console.log(mealPlan);
+              // console.log(mealPlanCopy);
           }
 
+    }, [flag]);
+  // }, [mealPlan, mealPlanCopy, shoppingCart]);
+  // }, [mealPlan, mealPlanCopy]);
+
+  // const sendToDB = async () => {
+  //   // if (
+  //   //   Object.keys(mealPlan).length !== 0 &&
+  //   //   Object.keys(mealPlanCopy).length !== 0 &&
+  //   //   Object.keys(shoppingCart).length !== 0
+  //   //   ) {
+  //         console.log("send to db");
+  //         // dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, IDs);
+  //         // localStorage.removeItem("calories");
+  //         // localStorage.removeItem("allergies");
+  //         // navigate("/home");   
+  //         // console.log(response);
+  //         console.log(shoppingCart);  
+  //         console.log(mealPlan);  
+  //         console.log(mealPlanCopy);  
+  //     // }
+  // }
+
+    var dayIdx = 0
 
 
+    const handleShoppingCart = async (res) => {
+        // console.log(res);
+        await res.forEach((recipe) => {
 
-  // }, [shoppingCart]);
-  }, [mealPlan, mealPlanCopy]);
-
-  const populateCart = (res) => {
-    if (res?.length > 0) {
-      console.log("populating")
-      console.log(res);
-      res.forEach((recipe) => {
-        recipe.extendedIngredients.forEach((ingre) => {
-          setShoppingCart((prev) => ({
-            ...prev,
-            [ingre.aisle]: {
-              ...prev[ingre.aisle],
-              [ingre.id]: {
-                name: ingre.name,
-                amount: ingre.measures.metric.amount,
-                unit: ingre.measures.metric.unitShort,
-              }
-            },
-          }));
+            setShoppingCart((prev) => {
+                const updated = { ...prev };
+        
+                recipe.extendedIngredients.forEach((ingre) => {
+                    const { aisle, id, name, measures } = ingre;
+                    const amount = measures.metric.amount;
+        
+                    if (!updated[dayIdx]) {
+                        updated[dayIdx] = {}; // Create dayIdx if it doesn't exist
+                    }
+        
+                    if (!updated[dayIdx][aisle]) {
+                        updated[dayIdx][aisle] = {}; // Create aisle if it doesn't exist
+                    }
+        
+                    if (!updated[dayIdx][aisle][id]) {
+                        updated[dayIdx][aisle][id] = {
+                            name,
+                            unit: measures.metric.unitShort,
+                            amount,
+                            completed: false,
+                        };
+                    } else {
+                        // If the ingredient already exists, update the amount
+                        updated[dayIdx][aisle][id].amount += amount;
+                    }
+                });
+        
+                return updated;
+            });
         });
-      });
+        dayIdx += 1;
 
-      console.log(shoppingCart);
+        if (dayIdx === 7) {
+            setFlag(1);
+        }
     }
-  }
-
-  const createCart = async () => {
-    console.log("shopping cart ")
-
-    // loop through display meal plan instead creating IDs
-    if (IDs.length > 0) {
-      await fetcherGET(
-        "/foodAPI/getBulk/?",
-        {
-          ids: IDs.join(","),
-        },
-        setResponse
-        );
-        console.log(response)
-        populateCart(response)
-      }
-  }
-    // useEffect(() => {
-    //   // console.log(IDs)
-    //   createCart()
-      
-    // }, [IDs]);
 
 
     const handleFinalise = async () => {
@@ -137,10 +157,12 @@ export function CreateMealPlanContentFinalise({info, recal}){
         ){
             console.log("finalise meal plan");
 
+            let IDs = [];
+            // let counter =  0
             if (!recal){
 
                 for (let i=1; i<8; i++){
-                    ["Breakfast", "Lunch", "Dinner"].forEach((meal) => {
+                    ["Breakfast", "Lunch", "Dinner"].forEach(async (meal) => {
                         let randomDish = Object.keys(info[meal].data)[
                             Math.floor(
                             Math.random() * Object.keys(info[meal].data).length
@@ -151,6 +173,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         // sum += value;
 
                         // setIDs((prev) => [...prev, recipe.id]);
+                        IDs.push(recipe.id);
     
                         setMealPlan((prev) => {
                             const updated = {
@@ -176,36 +199,24 @@ export function CreateMealPlanContentFinalise({info, recal}){
                               };
                               return updated;
                         })
-                        // setMealPlan((prev) => ({
-                        //     ...prev,
-                        //     [i]: {
-                        //     ...prev[i],
-                        //         [meal.toLowerCase()]: {
-                        //             [recipe.id]: recipe["nutrition"]["nutrients"][0]["amount"],
-                        //         },
-                        //     },
-                        // }));
-    
-                        // setMealPlanCopy((prev) => ({
-                        //     ...prev,
-                        //     [i]: {
-                        //         ...prev[i],
-                        //             [meal.toLowerCase()]: {
-                        //                 [recipe.id]: 0,
-                        //         },
-                        //     },
-                        // }));
                     })
-    
+                  
+                    await fetcherGET(
+                      "/foodAPI/getBulk/?",
+                      {
+                        // ids: recipe.id,
+                        ids: IDs.join(",")
+                      },
+                      handleShoppingCart
+                    );
+                    IDs = []
+
                 }
 
-                // sendToDB(mealPlan, mealPlanCopy);
-                // IDs.forEach((id) => {});
-                // handleShoppingCart()
-                // createCart()
-
+                
+            } else {
+                
             }
-
 
         } else {
             alert("please select at least 1 dish for each meal type");
@@ -223,7 +234,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         className="buttonPrimary"
                         onClick={async () => {
                           await handleFinalise()
-                          await createCart()
+                          // await createCart()
                         }}
                     >Finalise Plan</Button>
                 </div>

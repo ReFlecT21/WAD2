@@ -98,8 +98,33 @@ export const dbFoodMethods = {
         }
     },
     
+    getShoppingCart: async function(){
+        console.log("getShoppingCart")
+        // console.log(this.username)
 
-    createMealplan: async function(plan1, plan2, IDs){
+        this.init();
+
+        try {
+            // Get the current state of the document
+            if (this.docSnap) {
+                const data = this.docSnap.data();
+                // console.log(data);
+                const shoppingCart = data.shoppingCart;
+                const CreatedAt = data.CreatedAt;
+
+                return {shoppingCart, CreatedAt};
+            } else {
+                console.log(
+                    "Document does not exist"
+                );
+                return null
+            }
+        } catch (e) {
+            console.error("Error updating document: ", e);
+        }
+    },
+
+    createMealplan: async function(plan1, plan2, shoppingCart){
         console.log("createMealplan")
         await this.init();
         // console.log(a == undefined)
@@ -110,6 +135,7 @@ export const dbFoodMethods = {
                 CreatedAt: Date.now(),
                 Completed: {},
                 Calories: localStorage.getItem("calories")*7,
+                shoppingCart: shoppingCart,
                 // Added: [],
             }).then(() => {
                 console.log("Document written");
