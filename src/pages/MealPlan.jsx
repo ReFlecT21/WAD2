@@ -46,7 +46,7 @@ export default function MealPlan() {
       setCurrMealPlan(await dbFoodMethods.getMealPlan());
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       setShoppingCart(await dbFoodMethods.getShoppingCart());
-      console.log(shoppingCart)
+      // console.log(shoppingCart)
       // console.log(completed)
       // console.log(currMealPlan)
       // console.log(currDisplayMealPlan)
