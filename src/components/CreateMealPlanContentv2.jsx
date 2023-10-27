@@ -71,9 +71,9 @@ export function CreateMealPlanContentFinalise({info, recal}){
           ) {
               console.log("send to db");
               dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart);
-            //   localStorage.removeItem("calories");
-            //   localStorage.removeItem("allergies");
-            //   navigate("/home");
+              localStorage.removeItem("calories");
+              localStorage.removeItem("allergies");
+              navigate("/home");
 
               // console.log(response);
               // console.log(shoppingCart);  
