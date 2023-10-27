@@ -162,6 +162,20 @@ export const dbFoodMethods = {
     });
   },
 
+  updateShoppingCart: async function(shoppingCart){
+    console.log("updateShoppingCart")
+    console.log(shoppingCart)
+    await this.init();
+    try {
+        await updateDoc(this.docRef, {
+            shoppingCart: shoppingCart,
+        });
+        console.log("Document written");
+    } catch (e) {
+        console.error("Error updating document: ", e);
+    }
+},
+
   completeMeal: async function (dayIndex, mealType, food) {
     try {
       // Get the current state of the document
