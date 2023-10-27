@@ -5,10 +5,10 @@ import Fallback from "../pages/Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { useEffect, useState } from "react";
 import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
+BrowserRouter as Router,
+Route,
+Routes,
+useNavigate,
 } from "react-router-dom";
 
 
@@ -25,17 +25,17 @@ import { ShoppingCartPopUp } from "./ShoppingCart";
 
 
 export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCart}) {
-  const navigate = useNavigate();
-  const navHome = () => navigate("/home");
-  const navChoose = () => navigate("/choose");
+const navigate = useNavigate();
+const navHome = () => navigate("/home");
+const navChoose = () => navigate("/choose");
 
-  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-  const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate(); // +1 not suppose to be there  this is for testing
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-  const d = new Date(currDisplayMealPlan.CreatedAt);
+const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate()+1; // +1 not suppose to be there  this is for testing
+const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+const d = new Date(currDisplayMealPlan.CreatedAt);
 
-  const weekday = [
+const weekday = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -43,30 +43,32 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCa
     "Thursday",
     "Friday",
     "Saturday",
-  ];
+];
 
-  const [content, setContent] = useState(currDisplayMealPlan);
+const [content, setContent] = useState(currDisplayMealPlan);
 
 
-  return (
+return (
     <>
     {content ? (
-      <Accordion defaultActiveKey={[`${dayIndex}`]} alwaysOpen>
+    <Accordion defaultActiveKey={[`${dayIndex}`]} alwaysOpen>
         {Object.keys(content.DisplayMealPlan).map((day) => (
-          <Accordion.Item eventKey={day} key={day}>
+        <Accordion.Item eventKey={day} key={day}>
             <Accordion.Header>
-              <h3 style={{ margin: "0px" }}>
-                {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000)).toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000)).getDay()]}
-              </h3>
+            <h3 style={{ margin: "0px" }}>
+                {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                .getDay()]}
+            </h3>
             </Accordion.Header>
             <Accordion.Body>
-              <Row xs={1} md={2} lg={3}>
+            <Row xs={1} md={2} lg={3}>
                 {["breakfast", "lunch", "dinner" ].map((mealType) => (
-                  <div key={`${day}-${mealType}`}>
+                <div key={`${day}-${mealType}`}>
                     {Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
-                      // console.log(recipe)
-                      // <p>{recipe}</p>
-                      <MealPlanCard 
+                    // console.log(recipe)
+                    // <p>{recipe}</p>
+                    <MealPlanCard 
                         key={`${recipe.id}card`}
                         recipe={recipe}
                         render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
@@ -76,7 +78,7 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCa
                         dayIndex={dayIndex}
                         currMealPlan={currMealPlan}
                         
-                      />
+                    />
                     ))}  
                     {/* 
                     i need a card that can make API calls
@@ -84,19 +86,19 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCa
                     on click completed: call function as per before to update db
                     
                     */}
-                  </div>
+                </div>
                 ))}
-              </Row>
-              <ShoppingCartPopUp
+            </Row>
+            {/* <ShoppingCartPopUp
                 shoppingCart={shoppingCart}
-              />
+            /> */}
             </Accordion.Body>
-          </Accordion.Item>
+        </Accordion.Item>
         ))}
-      </Accordion>  
+    </Accordion>  
     ) : (<p> error </p>)}
     </>
-  )
+)
 
 }
 
@@ -126,9 +128,9 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCa
 //     fetchData();
 //   }, []);
 
-  
+
 //   // after successfully retrieving current meal plan
-  
+
 //   const display = [];
 //   const weekday = [
 //     "Sunday",
@@ -189,7 +191,7 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCa
 //     )
 //   }
 
-  
+
 //   if (currDisplayMealPlan) {
 
 //     // console.log(currDisplayMealPlan)
@@ -202,7 +204,7 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCa
 
 //     for (const day in currDisplayMealPlan.DisplayMealPlan) {
 //       const dayData = [null, null, null];
-      
+    
 //       for (const mealType in currDisplayMealPlan.DisplayMealPlan[day]) {
 //         if (mealType == "breakfast") {
 //           dayData[0] = populateDisplay(day, mealType, dayIndex);
