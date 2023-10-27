@@ -174,6 +174,19 @@ export const dbFoodMethods = {
         });
     },
 
+    updateShoppingCart: async function(shoppingCart){
+        console.log("updateShoppingCart")
+        console.log(shoppingCart)
+        await this.init();
+        try {
+            await updateDoc(this.docRef, {
+                shoppingCart: shoppingCart,
+            });
+            console.log("Document written");
+        } catch (e) {
+            console.error("Error updating document: ", e);
+        }
+    },
 
     completeMeal: async function(dayIndex, mealType, food){
         try {
@@ -199,20 +212,7 @@ export const dbFoodMethods = {
                     const key = Object.keys(DisplayPlan[dayIndex][mealType])[0];
                     DisplayPlan[dayIndex][mealType][key] = 1;
                 }
-                // if (
-                //     Completed[dayIndex].breakfast &&
-                //     Completed[dayIndex].lunch &&
-                //     Completed[dayIndex].dinner
-                // ) {
-                //     // setDayIndex((prevDayIndex) => {
-                //     //   const newDayIndex = prevDayIndex + 1;
-                //     //   Completed[newDayIndex] = {};
-                //     //   Completed[newDayIndex][mealType] = food;
-                //     //   return newDayIndex;
-                //     // });
-                //     // console.log(Completed);
-                //     // should use formula instead of hardcoding
-                // } else {
+
                 
                 // console.log(Completed);
                 // console.log(Plan);
