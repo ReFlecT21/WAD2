@@ -1,5 +1,13 @@
-import { Button, Container, Row, Col, Accordion, Tab, Tabs} from "react-bootstrap";
-import {  CompletedMeals, NavBar } from "../components";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Accordion,
+  Tab,
+  Tabs,
+} from "react-bootstrap";
+import { CompletedMeals, NavBar } from "../components";
 import { CurrentMealPlanV2 } from "../components/CurrentMealPlan";
 
 import Fallback from "./Fallback";
@@ -12,18 +20,14 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
-import {ShoppingCart} from "../components/ShoppingCart";
-
+import { ShoppingCart } from "../components/ShoppingCart";
 
 export default function MealPlan() {
-  
-
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
@@ -32,30 +36,25 @@ export default function MealPlan() {
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [shoppingCart, setShoppingCart] = useState(null);
-  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  const [overlayData, setOverlayData] = useState(null);
   const [trigger, setTrigger] = useState(false);
 
-  
-
-
-
   useEffect(() => {
-    
     const fetchData = async () => {
       await dbFoodMethods.init();
       setCompleted(await dbFoodMethods.getCompleted());
       setCurrMealPlan(await dbFoodMethods.getMealPlan());
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       setShoppingCart(await dbFoodMethods.getShoppingCart());
+      // console.log(shoppingCart)
       // console.log(completed)
       // console.log(currMealPlan)
       // console.log(currDisplayMealPlan)
     };
-    
+
     fetchData();
-    
   }, []);
-  
+
   // console.log(shoppingCart)
   return (
     <>
@@ -73,38 +72,30 @@ export default function MealPlan() {
             >
               <Tab eventKey="mealPlan" title="Current Meal Plan">
                 {/* <CurrentMealPlan /> */}
-                <CurrentMealPlanV2 
+                <CurrentMealPlanV2
                   currMealPlan={currMealPlan}
                   currDisplayMealPlan={currDisplayMealPlan}
                   shoppingCart={shoppingCart}
                 />
-
               </Tab>
               <Tab eventKey="cart" title="Shopping Cart">
-                <ShoppingCart 
+                <ShoppingCart
                   // props= {prop}
                   shoppingCart={shoppingCart}
                 />
               </Tab>
               <Tab eventKey="Completed" title="Completed Meals">
                 <h1>Completed Meals</h1>
-                <Row xs={1} md={2} lg={3} >
-                  <CompletedMeals 
-                    completed={completed}
-                  />
+                <Row xs={1} md={2} lg={3}>
+                  <CompletedMeals completed={completed} />
                 </Row>
               </Tab>
-
             </Tabs>
-
-
           </Container>
         ) : (
           <>
             <h1>Create A Meal Plan With Us First!</h1>
-            <Button onClick={navChoose}>
-              Create Meal Plan!
-            </Button>
+            <Button onClick={navChoose}>Create Meal Plan!</Button>
           </>
         )}
       </ErrorBoundary>

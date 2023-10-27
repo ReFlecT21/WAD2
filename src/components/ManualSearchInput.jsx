@@ -13,13 +13,22 @@ import {
   Image,
 } from "react-bootstrap";
 import { fetcher, fetcherGET, fetcherPOST } from "../middleware/Fetcher";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 // CONFIRM MODAL
-function ConfirmModal() {
-  const [searchData, setSearchData] = useState(null);
+function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
   const [ConfirmModalopen, setConfirmModalOpen] = useState(false);
   const handleClose = () => {
     setConfirmModalOpen(false);
+  };
+
+  const handleAdd = async () => {
+    let res = await dbFoodMethods.completeMeal(
+      day_Index,
+      Meal_Type,
+      foodDetails
+    );
+    return res;
   };
 
   // user to manual select meal type
@@ -54,7 +63,7 @@ function ConfirmModal() {
             <Button className="buttonPrimary" onClick={handleClose}>
               Back
             </Button>
-            <Button className="buttonPrimary" onClick={null}>
+            <Button className="buttonPrimary" onClick={handleAdd}>
               Add
             </Button>
             <Button className="buttonPrimary" onClick={null}>
@@ -80,69 +89,48 @@ function ConfirmModal() {
 
 // CHILD MODAL
 
-function ChildModal(foodArray) {
+function ChildModal({ food_Array, dayIndex, MealType }) {
   const [searchData, setSearchData] = useState({});
   const [ChildModalopen, setChildModalOpen] = useState(false);
+  const [foodDetailsArrays, setFoodDetailsArrays] = useState([]);
+
   const handleClose = () => {
     setChildModalOpen(false);
   };
   const [added, setAdded] = useState([]);
 
-
-
-  // if (Object.keys(searchData).length !== 0) {
-  //   console.log(searchData);
-  //   const tempData = [];
-  //   Object.keys(searchData).forEach((key) => {
-  //     searchData[key]["foods"].forEach((food) => {
-  //       const tempArray = [];
-  //       tempArray.push(food.photo.highres);
-  //       tempArray.push(food["food_name"]);
-  //       tempArray.push(food["nf_calories"]);
-  //       tempArray.push(food["nf_protein"]);
-  //       tempArray.push(food["nf_total_fat"]);
-  //       tempArray.push(food["nf_total_carbohydrate"]);
-  //       tempArray.push(food["nf_cholesterol"]);
-  //       tempData.push(tempArray);
-  //       APIres.push(
-  //         <>
-  //           <Row>
-  //             <Col>
-  //               <img
-  //                 style={{ width: "100%" }}
-  //                 src={food.photo.highres}
-  //                 alt=""
-  //               />
-  //             </Col>
-  //             <Col>
-  //               <h2>{food["food_name"]}</h2>
-  //               <p>Calories: {food["nf_calories"]}</p>
-  //               <p>Total Protein: {food["nf_protein"]}</p>
-  //               <p>Total Fats: {food["nf_total_fat"]}</p>
-  //               <p>Total Carbohydrates: {food["nf_total_carbohydrate"]}</p>
-  //               <p>Cholesterol: {food["nf_cholesterol"]}</p>
-  //             </Col>
-  //           </Row>
-  //         </>
-  //       );
-  //     });
-  //   });
-  //   setAdded(tempData);
-  // }
-
-
   useEffect(() => {
-    console.log(added);
-  }, [added]);
+    if (searchData) {
+      let newFoodDetailsArrays = []; // Initialize an empty array to store the arrays of food details
+      Object.keys(searchData).forEach((key) => {
+        searchData[key]["foods"].forEach((food) => {
+          let foodDetails = []; // Initialize an array for each set of food details
+          // Add the food details to the array in the order you specified
+          foodDetails.push(food.photo.highres);
+          foodDetails.push(food["food_name"]);
+          foodDetails.push(food["nf_calories"]);
+          foodDetails.push(food["nf_protein"]);
+          foodDetails.push(food["nf_total_fat"]);
+          foodDetails.push(food["nf_total_carbohydrate"]);
+          foodDetails.push(food["nf_cholesterol"]);
+          // Add the array of food details to the new array
+          newFoodDetailsArrays.push(foodDetails);
+        });
+      });
+      setFoodDetailsArrays(newFoodDetailsArrays);
+      console.log(dayIndex); // Update the state with the new array of arrays
+    }
+  }, [searchData]);
+
   return (
     <React.Fragment>
       <Button
         className="buttonPrimary"
         onClick={() => {
           setChildModalOpen(true);
-          const food_array = foodArray.food_Array;
-          console.log(food_array);
-          const fetchPromises = food_array.map((food) => {
+
+          console.log(food_Array);
+          const fetchPromises = food_Array.map((food) => {
             const body = {
               query: food,
               include_subrecipe: true,
@@ -158,15 +146,12 @@ function ChildModal(foodArray) {
           Promise.all(fetchPromises)
             .then((data) => {
               setSearchData((prevData) => ({ ...prevData, ...data }));
-              console.log(searchData);
             })
             .catch((error) => console.error(error));
-          
         }}
       >
         confirm
       </Button>
-
 
       <Modal open={ChildModalopen} onClose={handleClose}>
         <Box className="popup">
@@ -175,7 +160,11 @@ function ChildModal(foodArray) {
               Back
             </Button>
             {/* <Button className="buttonPrimary" onClick={null}>Confirm</Button> */}
-            <ConfirmModal />
+            <ConfirmModal
+              foodDetails={foodDetailsArrays}
+              day_Index={dayIndex}
+              Meal_Type={MealType}
+            />
           </div>
           {/* <h2>Text in a child modal</h2> */}
           <div
@@ -190,10 +179,10 @@ function ChildModal(foodArray) {
                 {Object.keys(searchData).map((key) => {
                   return (
                     <div key={key}>
-                    {/* <h2>{key}</h2> */}
+                      {/* <h2>{key}</h2> */}
                       {searchData[key]["foods"].map((food) => {
                         return (
-                          <div key={food+key}>
+                          <div key={food + key}>
                             <Row>
                               <Col>
                                 <img
@@ -221,7 +210,9 @@ function ChildModal(foodArray) {
                   );
                 })}
               </div>
-            ) : <h2>loading</h2>}
+            ) : (
+              <h2>loading</h2>
+            )}
           </div>
         </Box>
       </Modal>
@@ -229,7 +220,7 @@ function ChildModal(foodArray) {
   );
 }
 
-export function ManualSearchComponent() {
+export function ManualSearchComponent(props) {
   const instantSearchRes = [];
   const [mealModalOpen, setMealModalOpen] = useState(true);
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
@@ -327,7 +318,7 @@ export function ManualSearchComponent() {
           <h1>Select a meal</h1>
           <Button
             onClick={() => {
-              setSelectedMeal("Breakfast");
+              setSelectedMeal("breakfast");
               setMealModalOpen(false);
             }}
           >
@@ -335,7 +326,7 @@ export function ManualSearchComponent() {
           </Button>
           <Button
             onClick={() => {
-              setSelectedMeal("Lunch");
+              setSelectedMeal("lunch");
               setMealModalOpen(false);
             }}
           >
@@ -343,7 +334,7 @@ export function ManualSearchComponent() {
           </Button>
           <Button
             onClick={() => {
-              setSelectedMeal("Dinner");
+              setSelectedMeal("dinner");
               setMealModalOpen(false);
             }}
           >
@@ -359,7 +350,11 @@ export function ManualSearchComponent() {
         <Box className="popup">
           <div className="text-center">
             <h1>This is manualSearch</h1>
-            <ChildModal food_Array={foodArray} />
+            <ChildModal
+              food_Array={foodArray}
+              dayIndex={props.currDay}
+              MealType={selectedMeal}
+            />
 
             <Form onSubmit={handleSubmit}>
               <InputGroup className="mb-3">
