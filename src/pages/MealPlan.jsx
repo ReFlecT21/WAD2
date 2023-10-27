@@ -25,7 +25,7 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
-import { ShoppingCart } from "../components/ShoppingCart";
+import { ShoppingCart, ShoppingCartMobile } from "../components/ShoppingCart";
 
 export default function MealPlan() {
   const navigate = useNavigate();
@@ -38,6 +38,24 @@ export default function MealPlan() {
   const [shoppingCart, setShoppingCart] = useState(null);
   const [overlayData, setOverlayData] = useState(null);
   const [trigger, setTrigger] = useState(false);
+
+  const [width, setWidth] = useState(window.innerWidth);
+  // window.onresize = () => {
+  //   width = window.innerWidth;
+  // }
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+  
+    window.addEventListener('resize', handleResize);
+  
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); 
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,10 +97,16 @@ export default function MealPlan() {
                 />
               </Tab>
               <Tab eventKey="cart" title="Shopping Cart">
-                <ShoppingCart
-                  // props= {prop}
-                  shoppingCart={shoppingCart}
-                />
+                {width > 767 ? (
+                  // <h1>Shopping Cart</h1>
+                  <ShoppingCart
+                    shoppingCart={shoppingCart}
+                  />
+                ) : (
+                  <ShoppingCartMobile
+                    shoppingCart={shoppingCart}
+                  />
+                )}
               </Tab>
               <Tab eventKey="Completed" title="Completed Meals">
                 <h1>Completed Meals</h1>

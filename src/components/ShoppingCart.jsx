@@ -209,3 +209,25 @@ export function ShoppingCart({shoppingCart}) {
     );
 }
 
+export function ShoppingCartMobile({shoppingCart}) {
+    console.log("ShoppingCartMobile")
+
+    const dayIndex = new Date(Date.now()).getDate() - new Date(shoppingCart.CreatedAt).getDate()+1; // +1 not suppose to be there  this is for testing
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const d = new Date(shoppingCart.CreatedAt);
+
+    const weekday = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+    ];
+
+    // use accordions similar to CurrentMealPlanV2 with the inner table inside the dropdown
+    
+
+}
+
