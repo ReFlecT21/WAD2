@@ -1,4 +1,4 @@
-import { Button, Container, Row, Col, Accordion, Tab, Tabs} from "react-bootstrap";
+import { Button, Container, Row, Col, Tab, Tabs} from "react-bootstrap";
 import { MealPlanCard } from "../components/MealPlanCard";
 import Fallback from "../pages/Fallback";
 
@@ -20,8 +20,9 @@ import getMealPlan from "../middleware/getMealPlan";
 import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
-import { ShoppingCartPopUp } from "./ShoppingCart";
-
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
+// import { ShoppingCartPopUp } from "./ShoppingCart";
 
 
 export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCart}) {
@@ -46,56 +47,59 @@ const weekday = [
 ];
 
 const [content, setContent] = useState(currDisplayMealPlan);
+const [accordionDisplay, setExpanded] = useState(dayIndex);
+
+// var accordionDisplay = dayIndex
+const changeAccordionDisplay = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
 
 return (
     <>
     {content ? (
-    <Accordion defaultActiveKey={[`${dayIndex}`]} alwaysOpen>
-        {Object.keys(content.DisplayMealPlan).map((day) => (
-        <Accordion.Item eventKey={day} key={day}>
-            <Accordion.Header>
-            <h3 style={{ margin: "0px" }}>
-                {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
-                .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
-                .getDay()]}
-            </h3>
-            </Accordion.Header>
-            <Accordion.Body>
-            <Row xs={1} md={2} lg={3}>
-                {["breakfast", "lunch", "dinner" ].map((mealType) => (
-                <div key={`${day}-${mealType}`}>
-                    {Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
-                    // console.log(recipe)
-                    // <p>{recipe}</p>
-                    <MealPlanCard 
-                        key={`${recipe.id}card`}
-                        recipe={recipe}
-                        render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
+        <div>
+            {Object.keys(content.DisplayMealPlan).map((day) => (
+                <Accordion key={day} expanded={accordionDisplay == day} onChange={changeAccordionDisplay(day)} >
+                    <AccordionSummary
+                        expandIcon={<ExpandMore />}
+                    >
+                    <h3>
+                        {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                        .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                        .getDay()]}
+                    </h3>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Row xs={1} md={2} lg={3}>
+                            {["breakfast", "lunch", "dinner" ].map((mealType) => (
+                            <div key={`${day}-${mealType}`}>
+                                {Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
+                                <MealPlanCard 
+                                    key={`${recipe.id}card`}
+                                    recipe={recipe}
+                                    render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
 
-                        day={day}
-                        mealType={mealType}
-                        dayIndex={dayIndex}
-                        currMealPlan={currMealPlan}
-                        
-                    />
-                    ))}  
-                    {/* 
-                    i need a card that can make API calls
-                    i need to check against display (0/1) to see if i should display disabled or enabled. 
-                    on click completed: call function as per before to update db
-                    
-                    */}
-                </div>
-                ))}
-            </Row>
-            {/* <ShoppingCartPopUp
-                shoppingCart={shoppingCart}
-            /> */}
-            </Accordion.Body>
-        </Accordion.Item>
-        ))}
-    </Accordion>  
+                                    day={day}
+                                    mealType={mealType}
+                                    dayIndex={dayIndex}
+                                    currMealPlan={currMealPlan}
+                                    
+                                />
+                                ))}  
+                            </div>
+                            ))}
+                        </Row>
+                        {/* <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                            malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        </Typography> */}
+                    </AccordionDetails>
+                </Accordion>
+                
+            ))}
+
+    </div>
     ) : (<p> error </p>)}
     </>
 )
