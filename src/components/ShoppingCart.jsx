@@ -1,21 +1,18 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
+import { 
+    Box, Collapse, IconButton, 
+    Paper, 
+    Table, TableBody, TableCell, 
+    TableContainer, 
+    TableHead,
+    TableRow,
+    Typography} from "@mui/material";
+import React, { useEffect, useState } from "react";
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { TotpMultiFactorGenerator } from 'firebase/auth';
+
 import { Button } from 'react-bootstrap';
 import { dbFoodMethods } from '../middleware/dbMethods';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
 function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppingCart, dayIndex}) {
@@ -86,8 +83,12 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <Box sx={{ margin: 1 }}>
-                        <Typography variant="h5" gutterBottom component="div">
+                        {/* <Typography variant="h5" gutterBottom component="div">
                             Cart for today
+                        </Typography> */}
+                        <Typography variant="h8" gutterBottom component="div">
+                            Check off what you have bought!
+                            You can uncheck if you have made a mistake.
                         </Typography>
                         <Table size="small" aria-label="purchases">
                             <TableHead>
@@ -100,7 +101,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {Object.keys(dayCart).map((ingreType)=>(
+                            {Object.keys(dayCart).sort().map((ingreType)=>(
                                  <React.Fragment key={dayIndex+ingreType}>
                                     {Object.keys(dayCart[ingreType]).map((ingre)=>(
                                         <CustomRow 
