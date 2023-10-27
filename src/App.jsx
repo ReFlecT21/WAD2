@@ -11,7 +11,7 @@ import {
   Fallback,
   InputPage,
   MealPlan,
-  ChooseMealsV2
+  ChooseMealsV2,
   AnalyticsPage,
 } from "./pages";
 import { useAtom } from "jotai";
