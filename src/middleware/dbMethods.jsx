@@ -187,17 +187,26 @@ export const dbFoodMethods = {
         const Completed = data.Completed;
         const Plan = data.Plan;
         const DisplayPlan = data.DisplayPlan;
+        let cal = data.Calories;
+        let updateCal = 0;
 
         // console.log(Plan);
         // console.log(Object.values(DisplayPlan[dayIndex].breakfast)[0]);
 
         // Make sure the day exists in the Completed array
         if (Array.isArray(food)) {
-          // Convert food into an array of objects
-          let foodObjectArray = food.map((innerArray, index) => ({
-            [`array${index}`]: innerArray,
-          }));
+          // Convert food into an array of objects and add the 3rd element of every inner array to updateCal
+          let foodObjectArray = food.map((innerArray, index) => {
+            updateCal += innerArray[2];
+
+            return { [`array${index}`]: innerArray };
+          });
+
           food = foodObjectArray; // Replace food with foodObjectArray
+          cal -= updateCal;
+        } else {
+          updateCal += Object.values(food)[0];
+          cal -= updateCal;
         }
 
         if (Object.keys(Completed).length == 0) {
@@ -226,10 +235,6 @@ export const dbFoodMethods = {
         // console.log(Completed);
         // console.log(Plan);
 
-        if (Completed[dayIndex] == undefined) {
-          Completed[dayIndex] = {};
-        }
-
         if (
           Completed[dayIndex][mealType] ||
           Plan[dayIndex][mealType] == undefined
@@ -250,6 +255,7 @@ export const dbFoodMethods = {
             Completed: Completed,
             Plan: Plan,
             DisplayPlan: DisplayPlan,
+            Calories: cal,
           });
 
           console.log("Document written");

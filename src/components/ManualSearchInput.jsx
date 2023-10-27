@@ -122,6 +122,18 @@ function ChildModal({ food_Array, dayIndex, MealType }) {
     }
   }, [searchData]);
 
+  function handleRemove(key, food) {
+    // Remove the food item from searchData
+    const newSearchData = { ...searchData };
+    const index = newSearchData[key]["foods"].indexOf(food);
+    if (index > -1) {
+      newSearchData[key]["foods"].splice(index, 1);
+    }
+
+    // Update the state with the new searchData
+    setSearchData(newSearchData);
+  }
+
   return (
     <React.Fragment>
       <Button
@@ -203,6 +215,10 @@ function ChildModal({ food_Array, dayIndex, MealType }) {
                                 <p>Cholesterol: {food["nf_cholesterol"]}</p>
                               </Col>
                             </Row>
+                            {/* Add a remove button */}
+                            <button onClick={() => handleRemove(key, food)}>
+                              Remove
+                            </button>
                           </div>
                         );
                       })}

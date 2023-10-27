@@ -11,7 +11,8 @@ import {
   Fallback,
   InputPage,
   MealPlan,
-  ChooseMealsV2
+  ChooseMealsV2,
+  AnalyticsPage,
 } from "./pages";
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
@@ -42,7 +43,7 @@ function App() {
         <ErrorBoundary FallbackComponent={Fallback}>
           <Routes>
             {user && loggedIn ? (
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<AnalyticsPage />} />
             ) : (
               <>
                 <Route path="/home" element={<HomePage />} />
