@@ -253,4 +253,18 @@ export const dbFoodMethods = {
       console.error("Error updating document: ", e);
     }
   },
+  minusCal: async function (calories) {
+    try {
+      if (this.docSnap) {
+        const data = this.docSnap.data();
+        let cal = data.Calories;
+        cal = cal - calories;
+        await updateDoc(this.docRef, {
+          Calories: cal,
+        }).then(console.log("Document written"));
+      } else {
+        console.error("Document doesn't exist");
+      }
+    } catch {}
+  },
 };
