@@ -47,7 +47,7 @@ export const dbFoodMethods = {
   getMealPlan: async function () {
     console.log("getMealPlan");
     // console.log(this.docSnap)
-    this.init();
+    await this.init();
     try {
       // Get the current state of the document
       if (this.docSnap) {
@@ -234,10 +234,11 @@ export const dbFoodMethods = {
 
         // console.log(Completed);
         // console.log(Plan);
+        // console.log(dayIndex, mealType);
 
         if (
-          Completed[dayIndex][mealType] ||
-          Plan[dayIndex][mealType] == undefined
+          Plan[dayIndex][mealType] == undefined ||
+          Completed[dayIndex][mealType] != undefined
         ) {
           // console.log(dayIndex);
           // console.log(JSON.stringify(Completed, null, 2));

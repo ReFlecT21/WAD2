@@ -11,13 +11,22 @@ import { pageDataGetter } from "../components/pageDataGetter";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { useAtom } from "jotai";
 import { CreateMealPlanContentFinalise, CreateMealPlanContentv2 } from "../components/CreateMealPlanContentv2";
+import { RecalAtom } from "../atoms/recal";
 
 
 
 
-export default function ChooseMealsV2({recal = false}) {
+export default function ChooseMealsV2() {
+    const [recal, setRecal] = useAtom(RecalAtom);           // THINK ABOUT USING COOKIES
+    // console.log(recal);
+    
     const navigate = useNavigate();
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
+    useEffect(() => {
+        setOverlayData([]);
+        // setRecal(true);
+    }, []);
 
     const [activePage, setActivePage] = useState(1);
 
@@ -29,19 +38,19 @@ export default function ChooseMealsV2({recal = false}) {
     // ------------------------ api data on mount
     const [response, setResponse] = useState(null);
     const [apiData, setApiData] = useState({
-            1: {
-                hasFetched: false,
-                data: null,
-            },
-            2: {
-                hasFetched: false,
-                data: null,
-            },
-            3: {
-                hasFetched: false,
-                data: null,
-            },
-        });
+        1: {
+            hasFetched: false,
+            data: null,
+        },
+        2: {
+            hasFetched: false,
+            data: null,
+        },
+        3: {
+            hasFetched: false,
+            data: null,
+        },
+    });
     const paramList = {
         1:[["breakfast, morning meal, brunch"], localStorage.getItem("calories")*0.3 , "Breakfast", setBreakfastSelected, breakfastSelected],
         2:[["lunch, side dish, main course, main dish"], localStorage.getItem("calories")*0.4, "Lunch", setLunchSelected, lunchSelected],
@@ -63,11 +72,11 @@ export default function ChooseMealsV2({recal = false}) {
               paramList[data][1],
               (response) => {
                 setApiData((prevApiData) => ({
-                  ...prevApiData,
-                  [data]: {
-                    hasFetched: true,
-                    data: response,
-                  },
+                    ...prevApiData,
+                    [data]: {
+                        hasFetched: true,
+                        data: response,
+                    },
                 }));
               }
             );

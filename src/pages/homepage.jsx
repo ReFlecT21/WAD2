@@ -64,8 +64,7 @@ const HomePage = () => {
   if (currMealPlan?.DisplayMealPlan) {
     var currDay =
       new Date(Date.now()).getDate() -
-      new Date(currMealPlan.CreatedAt).getDate() +
-      1;
+      new Date(currMealPlan.CreatedAt).getDate();
 
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
 
