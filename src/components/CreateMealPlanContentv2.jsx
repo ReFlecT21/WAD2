@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { useNavigate } from "react-router-dom";
 import { fetcher, fetcherGET } from "../middleware/Fetcher";
+import { DotLoader } from 'react-spinner-overlay'
+
 
 export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recipes, selected, selectedSetter}) {
 
@@ -50,13 +52,10 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
 
 export function CreateMealPlanContentFinalise({info, recal}){
     const navigate = useNavigate();
+    const [loadFlag, setLoadFlag] = useState(false);
 
     const [mealPlan, setMealPlan] = useState({});
     const [mealPlanCopy, setMealPlanCopy] = useState({});
-    
-    // shopping cart content
-    // const [IDs, setIDs] = useState([]);
-    // const [response, setResponse] = useState(null);
     const [shoppingCart, setShoppingCart] = useState({});
     
     const [flag, setFlag] = useState(0);
@@ -70,6 +69,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
           Object.keys(shoppingCart).length !== 0
           ) {
               console.log("send to db");
+              setLoadFlag(true);
               dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart);
               localStorage.removeItem("calories");
               localStorage.removeItem("allergies");
@@ -212,6 +212,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
                     IDs = []
 
                 }
+                setLoadFlag(true);
 
                 
             } else {
@@ -226,40 +227,62 @@ export function CreateMealPlanContentFinalise({info, recal}){
 
 
     return (
-        <>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <h1>Finalise Meal Plan</h1>
-                <div style={{textAlign:"right"}}>
-                    <Button 
-                        className="buttonPrimary"
-                        onClick={async () => {
-                          await handleFinalise()
-                          // await createCart()
-                        }}
-                    >Finalise Plan</Button>
+        <>  
+            {loadFlag ? (
+                <div style={{display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "60vh",
+                  }}>
+                    <div style={{textAlign:"center"}}>
+                        <DotLoader
+                            loading={loadFlag} 
+                            color="#1F5E4B"
+                            size={40}
+                            between={50}
+                        />
+                        <h5 style={{display:"block", margin:"30px"}}>Creating Meal Plan...</h5>
+                    </div>
                 </div>
-            </div>
-            {["Breakfast", "Lunch", "Dinner"].map((mealType) => (
-                <div key={mealType}>
-                    <h3>{mealType}</h3>
-                    {Object.keys(info[mealType].data).length > 0 ? (
-                        <Row xs={1} md={2} lg={3}>
-                            {Object.keys(info[mealType].data).map((recipe) => (
-                                // console.log(recipe),
-                                <SelectedRecpieCardV2
-                                    
-                                    key={info[mealType].data[recipe].id} 
-                                    recipe={info[mealType].data[recipe]}
-                                    setter={info[mealType].setter}
-                                />
+            ) : (
+                <>
+                    <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <h1>Finalise Meal Plan</h1>
+                    <div style={{textAlign:"right"}}>
+                        <Button 
+                            className="buttonPrimary"
+                            onClick={async () => {
+                            await handleFinalise()
+                            // await createCart()
+                            }}
+                        >Finalise Plan</Button>
+                    </div>
+                    </div>
+                    {["Breakfast", "Lunch", "Dinner"].map((mealType) => (
+                        <div key={mealType}>
+                            <h3>{mealType}</h3>
+                            {Object.keys(info[mealType].data).length > 0 ? (
+                                <Row xs={1} md={2} lg={3}>
+                                    {Object.keys(info[mealType].data).map((recipe) => (
+                                        // console.log(recipe),
+                                        <SelectedRecpieCardV2
+                                            
+                                            key={info[mealType].data[recipe].id} 
+                                            recipe={info[mealType].data[recipe]}
+                                            setter={info[mealType].setter}
+                                        />
 
-                            ))}
-                        </Row>
-                    ) : (
-                        <p>Please select at least 1 dish for {mealType}!</p>
-                    )}
-                </div>
-            ))}
+                                    ))}
+                                </Row>
+                            ) : (
+                                <p>Please select at least 1 dish for {mealType}!</p>
+                            )}
+                        </div>
+                    ))}
+                </>
+            
+            )}
+            
         </>
     )
 }

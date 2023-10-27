@@ -15,10 +15,15 @@ import { Button } from 'react-bootstrap';
 import { dbFoodMethods } from '../middleware/dbMethods';
 
 
-function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppingCart, dayIndex}) {
+function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppingCart, setNumOutstanding, day}) {
     const [checked, setChecked] = React.useState(flag);
     const [buttonText, setButtonText] = React.useState(buttonTxt);
     const [selectStyle, setSelectStyle] = React.useState(rowStyle);
+
+    // setNumItems((prev) => prev + 1);
+    // if (!checked) {
+    //     setNumOutstanding((prev) => prev + 1);
+    // } 
 
     const completeItem = async() => {
         if (checked) {
@@ -26,14 +31,16 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
             setButtonText("Buy");
             setSelectStyle({});
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
-            shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed = false;
+            shoppingCart.shoppingCart[day][ingreType][ingreID].completed = false;
+            setNumOutstanding((prev) => prev + 1);
             await dbFoodMethods.updateShoppingCart(shoppingCart.shoppingCart);
         } else {
             setChecked(true);
             setButtonText("Bought");
             setSelectStyle({backgroundColor:"grey"});
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
-            shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed = true;
+            shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
+            setNumOutstanding((prev) => prev - 1);
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             await dbFoodMethods.updateShoppingCart(shoppingCart.shoppingCart);
         }
@@ -58,12 +65,35 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     )
 }
 
-function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
+function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
     const [open, setOpen] = React.useState(false);
+    const [numItems, setNumItems] = React.useState(0);
+    const [numOutstanding, setNumOutstanding] = React.useState(0);
+
+    useEffect(() => {
+        let tempNumItems = 0;
+        let tempNumOutstanding = 0;
+        for (const ingreType in dayCart) {
+            for (const ingre in dayCart[ingreType]) {
+                tempNumItems += 1;
+                if (!dayCart[ingreType][ingre].completed) {
+                    tempNumOutstanding += 1;
+                }
+            }
+        }
+        setNumItems(tempNumItems);
+        setNumOutstanding(tempNumOutstanding);
+
+    }, []);
 
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+                <TableCell component="th" scope="row" style={{fontSize:"30px"}}>
+                    {title}
+                </TableCell>
+                <TableCell >{numItems}</TableCell>
+                <TableCell >{numOutstanding}</TableCell>
                 <TableCell>
                     <IconButton
                     aria-label="expand row"
@@ -73,11 +103,6 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                     {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row" style={{fontSize:"30px"}}>
-                    {title}
-                </TableCell>
-                <TableCell align="right">#</TableCell>
-                <TableCell align="right">#</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -104,6 +129,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                             {Object.keys(dayCart).sort().map((ingreType)=>(
                                  <React.Fragment key={dayIndex+ingreType}>
                                     {Object.keys(dayCart[ingreType]).map((ingre)=>(
+                                        
                                         <CustomRow 
                                             key={dayIndex+ingreType+ingre}
                                             flag={dayCart[ingreType][ingre].completed}
@@ -113,7 +139,8 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                                             ingre = {dayCart[ingreType][ingre]}
                                             ingreID = {ingre}
                                             shoppingCart = {shoppingCart}
-                                            dayIndex = {dayIndex}
+                                            setNumOutstanding = {setNumOutstanding}
+                                            day = {day}
                                         />
                                     ))}
                                 </React.Fragment>
@@ -148,18 +175,20 @@ export function ShoppingCart({shoppingCart}) {
     ];
 
     return (
-        <TableContainer component={Paper}>
+        <>
+            {shoppingCart ? (<TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
                 <TableRow>
-                    <TableCell />
                     <TableCell>Day</TableCell>
-                    <TableCell align="right">Number of items</TableCell>
-                    <TableCell align="right">Number of outstanding items</TableCell>
+                    <TableCell >Number of items</TableCell>
+                    <TableCell >Number of outstanding items</TableCell>
+                    <TableCell />
                 </TableRow>
                 </TableHead>
                 <TableBody>
                 {Object.keys(shoppingCart.shoppingCart).map((day)=>(
+                    
                     <InnerTable 
                         key={day}
                         dayCart = {shoppingCart.shoppingCart[day]}
@@ -168,13 +197,15 @@ export function ShoppingCart({shoppingCart}) {
                             .getDay()]}`}
                         shoppingCart = {shoppingCart}
                         dayIndex = {dayIndex}
+                        day = {day}
                     />
 
                 ))}
 
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer>) : (<h1>Shopping Cart is empty</h1>)}
+        </>
     );
 }
 

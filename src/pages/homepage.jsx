@@ -115,7 +115,7 @@ const HomePage = () => {
 
             <Row xs={1} md={3} lg={3}>
               {/* {todayMealDisplay} */}
-              {console.log(currMealPlan)}
+              {/* {console.log(currMealPlan)} */}
               {/* {console.log(currMealPlan["DisplayMealPlan"]["1"]["breakfast"])} */}
 
               {currMealPlan ? (
