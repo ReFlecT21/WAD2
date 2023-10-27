@@ -31,7 +31,7 @@ const foodAPI = {
     params,
   ) {
     const url = `${this.APIRoot}recipes/complexSearch?addRecipeInformation=true&
-    addRecipeNutrition=true&number=6&sort=random`;
+    addRecipeNutrition=true&number=30&sort=random`;
     try {
       const response = await axios.get(url, params);
       // console.log(response.data);
@@ -89,7 +89,18 @@ const foodAPI = {
       console.error(error);
     }
   },
+  instantItem: async function(
+    params,
+  ) {
+    const url = `https://trackapi.nutritionix.com/v2/search/item/`;
+    try {
+      const response = await axios.get(url, params);
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 module.exports = foodAPI;
-

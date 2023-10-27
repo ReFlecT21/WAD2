@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useAtom } from "jotai";
 import { LoggedIn } from "../atoms/logInAtom";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +17,10 @@ const LoginComponent = () => {
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user);
       setLoggedIn(true);
+      
+      dbFoodMethods.init();
+
+      
     } catch (e) {
       console.log(password);
       console.log(email);
@@ -25,7 +30,7 @@ const LoginComponent = () => {
   return (
     <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }}>
       <Row style={{ margin: "0", height: "100vh" }}>
-        <Col className="backgroundLeft d-flex d-none d-md-block">
+        <Col className="backgroundLeft d-flex d-none d-md-block p-0 col-7">
           <Image src="/login.png" alt="" className="foodimg" />
         </Col>
         <Col className="backgroundRight d-flex ">
@@ -44,7 +49,6 @@ const LoginComponent = () => {
                 type="text"
                 placeholder="Email"
                 className="inputBox"
-                id="text-input"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Row>
@@ -58,12 +62,12 @@ const LoginComponent = () => {
             </Row>
             <Row className="d-flex justify-content-center">
               <Button onClick={login} type="submit" className="loginButton">
-                LOGIN
+                Login
               </Button>
             </Row>
             <Row className="d-flex justify-content-center">
               <p className="signupSmallText">
-                Do not have an account? <Link to="/signup">Sign up </Link>
+                Do not have an account? <Link className="link" to="/signup">Sign up</Link>
               </p>
             </Row>
           </Row>

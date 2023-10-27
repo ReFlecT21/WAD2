@@ -1,55 +1,21 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
-
-// const { onRequest } = require("firebase-functions/v2/https");
-// const logger = require("firebase-functions/logger");
-
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
-
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-// import functions from "firebase-functions"
-// import express from "express";
-// import cors from "cors";
+const telebot = require("./telebot");
 const functions = require("firebase-functions");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const foodAPI = require("./API");
-
+const admin = require("firebase-admin");
+admin.initializeApp();
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
+const firestore = admin.firestore();
 
+// express code
 app.get("/test", (req, res) => {
   res.send("lets go suck my ass ");
 });
-// testing api connections to the food API
-// app.get("/testAPIasync", async (req, res) => {
-//   console.log("connected to backend");
-//   const data = await foodAPI.getOne("716429");
-//   console.log("api fetch completed");
-//   res.json(data);
-// });
-// app.get("/testAPI", (req, res) => {
-//   foodAPI.getOne("716429")
-//     .then(data => {
-//       console.log(data);
-//       res.json(data);
-//     })
-//     .catch(err => console.log(err));
-// });
-// implementation of food API
 app.get("/getOne", async (req, res) => {
   console.log("connected to getOne");
   console.log(req.query);
@@ -96,6 +62,93 @@ app.get("/instantSearch", async (req, res) => {
   });
   console.log("api fetch completed");
   res.json(data);
+});
+app.get("/instantItem", async (req, res) => {
+  console.log("connected to instantItem");
+  const data = await foodAPI.instantItem({
+    params: req.query,
+  });
+  console.log("api fetch completed");
+  res.json(data);
+});
+
+// get meal plan for specific user
+
+app.get("/getMealPlan/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+
+  // Get the document
+  const doc = await docRef.get();
+
+  if (doc.exists) {
+    // Get the current mealPlan object
+    const mealPlan = doc.data().Plan;
+    const CreatedAt = doc.data().CreatedAt;
+
+    res.send({ mealPlan, CreatedAt });
+  } else {
+    res.send({ data: false });
+    // "No user found with the provided ID"
+  }
+});
+app.get("/getDisplayMealPlan/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+
+  // Get the document
+  const doc = await docRef.get();
+
+  if (doc.exists) {
+    // Get the current mealPlan object
+    const DisplayMealPlan = doc.data().DisplayPlan;
+    const CreatedAt = doc.data().CreatedAt;
+
+    res.send({ DisplayMealPlan, CreatedAt });
+  } else {
+    res.send({ data: false });
+    // "No user found with the provided ID"
+  }
+});
+
+app.get("/removeBreakfast/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+  const doc = await docRef.get();
+  // Get the current mealPlan object
+  const mealPlan = doc.data().Plan;
+
+  // Remove the first index breakfast item
+  delete mealPlan["0"]["breakfast"];
+
+  // Update the mealPlan object in Firestore
+  await doc.ref.update({ Plan: mealPlan });
+});
+app.get("/removeLunch/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+  const doc = await docRef.get();
+  // Get the current mealPlan object
+  const mealPlan = doc.data().Plan;
+
+  // Remove the first index breakfast item
+  delete mealPlan["0"]["lunch"];
+
+  // Update the mealPlan object in Firestore
+  await doc.ref.update({ Plan: mealPlan });
+});
+app.get("/removeDinner/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const docRef = firestore.collection("Food").doc(userId);
+  const doc = await docRef.get();
+  // Get the current mealPlan object
+  const mealPlan = doc.data().Plan;
+
+  // Remove the first index breakfast item
+  delete mealPlan["0"]["dinner"];
+
+  // Update the mealPlan object in Firestore
+  await doc.ref.update({ Plan: mealPlan });
 });
 
 exports.app = functions.https.onRequest(app);

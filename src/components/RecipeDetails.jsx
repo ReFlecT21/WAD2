@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { Modal, Box } from "@mui/material";
 import { useState } from "react";
-import { fetcher } from "./Fetcher";
+import { fetcher } from "../middleware/Fetcher";
 
 export function RecipeDetails(id) {
   let CardData = [];
@@ -27,34 +27,47 @@ export function RecipeDetails(id) {
     setResponse
   );
 
-  console.log(response);
+  // console.log(response);
 
   if (response?.length > 0) {
     response.forEach((recipe) => {
+      console.log(recipe);
+
+      let visited = [];
       let ingredients = [];
       let instructions = [];
 
-      recipe["extendedIngredients"].forEach((ingre) => {
-        ingredients.push(<li>{ingre["original"]}</li>);
+      recipe?.extendedIngredients.forEach((ingre) => {
+        if (visited.includes(`${recipe.id}${ingre.id}`) === false) {
+          ingredients.push(<li key={`${recipe.id}${ingre.id}`}>{ingre["original"]}</li>);
+          visited.push(`${recipe.id}${ingre.id}`);
+        };
       });
-
-      recipe["analyzedInstructions"][0]["steps"].forEach((steps) => {
-        instructions.push(<li>{steps["step"]}</li>);
+      // console.log(recipe);
+      
+      recipe?.analyzedInstructions[0]?.steps.forEach((steps) => {
+        // console.log(steps);
+        instructions.push(<li key={`${recipe.id}${steps.number}`}>{steps["step"]}</li>);
       });
 
       CardData.push(
-        <>
+        <div key={`${recipe.id}Details`}>
           <Row>
             <Col>
               <h1>{recipe["title"]}</h1>
             </Col>
-            <Col style={{ textAlign: "right" }}>
-              <h3>{recipe["nutrition"]["nutrients"][0]["name"]}</h3>
-              <h3>{recipe["nutrition"]["nutrients"][0]["amount"]}</h3>
-            </Col>
           </Row>
           <Row>
-            <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            <Col>
+              <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            </Col>
+            <Col >
+              <h4>{recipe["nutrition"]["nutrients"][0]["name"]}: {recipe["nutrition"]["nutrients"][0]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][8]["name"]}: {recipe["nutrition"]["nutrients"][8]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][1]["name"]}: {recipe["nutrition"]["nutrients"][1]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][3]["name"]}: {recipe["nutrition"]["nutrients"][3]["amount"]}</h4>
+
+            </Col>
           </Row>
           <Row>
             <h3>Ingredients</h3>
@@ -66,7 +79,7 @@ export function RecipeDetails(id) {
 
             <ol>{instructions}</ol>
           </Row>
-        </>
+        </div>
       );
     });
   }

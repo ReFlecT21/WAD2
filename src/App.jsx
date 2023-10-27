@@ -6,14 +6,17 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   LoginComponent,
   SignUpComponent,
-  ChooseMeals,
   SpinnerPage,
   HomePage,
   Fallback,
+  InputPage,
+  MealPlan,
+  ChooseMealsV2
   AnalyticsPage,
 } from "./pages";
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
+import { Loader } from "./components";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,7 +34,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <SpinnerPage />; // Or replace with your own loading component
+    return <Loader />; // Or replace with your own loading component
   }
 
   return (
@@ -44,9 +47,12 @@ function App() {
             ) : (
               <>
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/input" element={<InputPage />} />
                 <Route path="/" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
-                <Route path="/choose" element={<ChooseMeals />} />
+                {/* <Route path="/choose" element={<ChooseMeals />} /> */}
+                <Route path="/mealplan" element={<MealPlan />} />
+                <Route path="/choose" element={<ChooseMealsV2 />} />
               </>
             )}
           </Routes>

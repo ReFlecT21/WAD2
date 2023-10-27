@@ -1,0 +1,389 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Orelega+One");
+p {
+  font-family: "Nunito Sans";
+}
+
+.card {
+  width: 300px;
+  background: #F6FEFC;
+  padding: 0.4em;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+x .card:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+.card-category {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: "Nunito Sans";
+  color: #1F5E4B;
+  padding: 10px 7px 0;
+}
+
+.card-category:hover {
+  cursor: pointer;
+}
+
+.card-heading {
+  font-weight: normal;
+  font-size: 14px;
+  color: #1F5E4B;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  color: rgb(88, 87, 87);
+  padding: 10px;
+}
+
+.card button {
+  border-radius: 20px;
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  border: 0;
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+}
+.card button:hover {
+  background: #12382c;
+  transition: all 0.3s ease;
+}
+
+.neuphormicBox {
+  /* get the input from https://neumorphism.io/#e0e0e0  */
+  border-radius: 40px;
+  background: #F6FEFC;
+  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  padding: 5%;
+  margin: 5%;
+}
+
+body, html {
+  font-family: "Nunito Sans";
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #F6FEFC;
+}
+
+.logo {
+  height: 180px;
+  width: 200px;
+  margin: 20px;
+  margin-top: 30px;
+}
+
+.foodimg {
+  height: 500px;
+  width: 400;
+  margin: 0;
+}
+
+.backgroundRight {
+  background-color: #1F5E4B;
+}
+
+.backgroundLeft {
+  background-color: #1F5E4B;
+}
+
+.tagline {
+  font-family: "Orelega One";
+  font-size: 24px;
+  text-align: center;
+  color: #F6FEFC;
+}
+
+.inputBox {
+  font-family: "Nunito Sans";
+  border-radius: 80px;
+  width: 55vh;
+  height: 60px;
+  margin: 5px;
+  padding-left: 50px;
+  font-size: large;
+}
+
+.inputBox::-moz-placeholder {
+  color: #1F5E4B;
+}
+
+.inputBox::placeholder {
+  color: #1F5E4B;
+}
+
+.loginButton {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 18px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  width: 40vh;
+  height: 60px;
+  margin-top: 40px;
+}
+.loginButton:hover {
+  background: #319677;
+  transition: all 0.3s ease;
+}
+
+.signupSmallText {
+  text-align: center;
+  margin-top: 20px;
+  color: #F6FEFC;
+}
+
+.link {
+  color: #3EBC96;
+  font-style: italic;
+}
+
+.custom-navbar {
+  background-color: #1F5E4B;
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+}
+
+.homeNav h3 {
+  font-family: "Nunito Sans";
+  font-weight: bold;
+  color: #F6FEFC;
+  margin: 0;
+}
+
+.homeNav img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.createBtn {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  font-weight: bold;
+}
+.createBtn:hover {
+  background: #319677;
+  transition: all 0.3s ease;
+}
+
+.plusIcon {
+  color: #F6FEFC;
+  margin-right: 10px;
+}
+
+span {
+  color: #F6FEFC;
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+span:hover {
+  color: #3EBC96;
+  transition: 0.5s;
+}
+
+.profileIcon {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 30px;
+  width: 30px;
+}
+
+h1 {
+  color: #1F5E4B;
+  font-family: "Orelega One";
+}
+
+h2, h3, h4, h5 {
+  color: #1F5E4B;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+}
+
+.sideimg {
+  max-width: 100%; /* Ensure the image fits within its container */
+  height: 100%;
+  display: block; /* Remove any default inline spacing */
+  margin: 0 auto;
+}
+
+.inputButton {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 16px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  width: 30%;
+  margin-top: 20px;
+  margin-right: 15px;
+}
+.inputButton:hover {
+  background: #319677;
+  transition: all 0.3s ease;
+}
+
+.formInputBox {
+  font-family: "Nunito Sans";
+  border-radius: 80px;
+  height: 50px;
+  margin: 5px;
+  padding-left: 50px;
+  font-size: large;
+}
+
+.popup {
+  background-color: #F6FEFC;
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 70%;
+  height: 600px;
+  /* border: 2px solid #000; */
+  margin: auto;
+  overflow: auto;
+  padding: 2%;
+  /* padding-left: 2%; */
+  /* padding-right: 2%; */
+  border-radius: 50px;
+}
+
+.popupChild {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.card-title {
+  color: #F6FEFC;
+}
+
+.manualSelectBtn {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+}
+
+.manualSelectBtn:hover {
+  background: #12382c;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.popUpclass h2, .popUpclass p {
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 36px;
+}
+
+.popUpclass h2 {
+  padding-top: 5%;
+}
+
+.popUpclass button {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+}
+
+.popUpclass button:hover {
+  background: #12382c;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.manualSearchBar {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-overlay {
+  -webkit-filter: brightness(70%);
+          filter: brightness(70%);
+}
+
+.img-overlay-small {
+  -webkit-filter: brightness(75%);
+          filter: brightness(75%);
+  float: left;
+  width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.homePageBtn {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+  width: 70%;
+  height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.homePageBtn:hover {
+  background: #12382c;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/*# sourceMappingURL=indexa.css.map */

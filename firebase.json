@@ -25,9 +25,6 @@
         ".git",
         "firebase-debug.log",
         "firebase-debug.*.log"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
       ]
     }
   ],
@@ -45,6 +42,12 @@
     "ui": {
       "enabled": true
     },
-    "singleProjectMode": true
+    "singleProjectMode": true,
+    "firestore": {
+      "port": 8080
+    },
+    "pubsub": {
+      "port": 8085
+    }
   }
 }

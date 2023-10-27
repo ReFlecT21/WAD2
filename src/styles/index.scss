@@ -1,0 +1,84 @@
+$darkgreen:color 1F5E4B;
+$green: color 3EBC96;
+$white: color F6FEFC;
+$black: color 1B1B1B;
+
+$mainFont: font-family Inter;
+
+.darkGreenButton{
+    background-color: $darkgreen;
+    border-radius: 25px;
+    color: $white;
+
+
+    font-family: $mainFont;
+    width: 112px;
+    height: 50px;
+
+}
+
+.greenButton{
+    background-color: $green;
+    border-radius: 25px;
+    color: $white;
+
+    font-family: $mainFont;
+    width: 112px;
+    height: 50px;
+
+}
+
+
+.whiteButton{
+    background-color: $white;
+    border-radius: 25px;
+    color: $black;
+
+    font-family: $mainFont;
+    width: 112px;
+    height: 50px;
+
+}
+
+
+
+
+// fonts
+h1{
+    color: $white;
+font-family: Inter;
+font-size: 48px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+h2{
+color: $white;
+font-family: Inter;
+font-size: 35px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+
+.h1v2{
+color: $darkgreen;
+font-family: Futura;
+font-size: 48px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.h2v2{
+
+    color: $darkgreen;
+    font-family: Inter;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
