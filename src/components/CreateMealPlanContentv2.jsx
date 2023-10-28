@@ -86,7 +86,12 @@ export function CreateMealPlanContentFinalise({info, recal}){
             if (Cookies.get("allergies")){
                 Cookies.remove("allergies");
             }
+            
             navigate("/home");
+            // setTimeout(()=> {
+            //     navigate("/home");
+            //    }, 1500);
+       
         }
 
     // }, [shoppingCart]);

@@ -19,9 +19,9 @@ export const dbUserMethods = {
 
     init: async function () {
         if (this.docSnap == false) {
-        this.username = auth.currentUser.email;
-        this.docRef = doc(db, "BioData", this.username);
-        this.docSnap = await getDoc(this.docRef);
+            this.username = auth.currentUser.email;
+            this.docRef = doc(db, "BioData", this.username);
+            this.docSnap = await getDoc(this.docRef);
         }
     },
 
@@ -280,12 +280,41 @@ export const dbFoodMethods = {
 
     updateShoppingCart: async function(shoppingCart){
         console.log("updateShoppingCart")
-        console.log(shoppingCart)
+        // console.log(shoppingCart)
         await this.init();
         try {
             await updateDoc(this.docRef, {
                 shoppingCart: shoppingCart,
             });
+            console.log("Document written");
+        } catch (e) {
+            console.error("Error updating document: ", e);
+        }
+    },
+
+    oddManualInput: async function (food) {
+        console.log("oddManualInput");
+        await this.init();
+
+        try {
+            if (this.docSnap) {
+                const data = this.docSnap.data();
+                let cal = data.Calories;
+                let updateCal = 0;
+                let foodObjectArray = food.map((innerArray, index) => {
+                    updateCal += innerArray[2];
+        
+                    return { [`array${index}`]: innerArray };
+                });
+        
+                food = foodObjectArray; // Replace food with foodObjectArray
+                cal -= updateCal;
+
+                await updateDoc(this.docRef, {
+                    Calories: cal,
+                });
+            }
+
             console.log("Document written");
         } catch (e) {
             console.error("Error updating document: ", e);
@@ -306,7 +335,7 @@ export const dbFoodMethods = {
             let cal = data.Calories;
             let updateCal = 0;
 
-            console.log(food)
+            // console.log(food)
 
             // Make sure the day exists in the Completed array
             if (Array.isArray(food)) {
@@ -352,24 +381,26 @@ export const dbFoodMethods = {
             // console.log(dayIndex, mealType);
 
             if (
-            Plan[dayIndex][mealType] == undefined ||
-            Completed[dayIndex][mealType] != undefined
+                Plan[dayIndex][mealType] == undefined 
+                // Completed[dayIndex][mealType] != undefined
             ) {
             // console.log(dayIndex);
             // console.log(JSON.stringify(Completed, null, 2));
-            alert(`You cant have ${mealType} again`);
-            return false;
+                alert(`You cant have ${mealType} again`);
+                return false;
             } else {
-            Completed[dayIndex][mealType] = food;
+                Completed[dayIndex][mealType] = food;
 
             // console.log(JSON.stringify(Completed, null, 2));
             // Update the document in Firestore
 
             delete Plan[dayIndex][mealType];
 
+            console.log(Completed);
+
             await updateDoc(this.docRef, {
                 Completed: Completed,
-                MasterCopy: Plan,
+                // MasterCopy: Plan,
                 Plan: Plan,
                 DisplayPlan: DisplayPlan,
                 Calories: cal,

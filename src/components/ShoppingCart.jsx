@@ -171,7 +171,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
 export function ShoppingCart({shoppingCart}) {
     // console.log(shoppingCart)
 
-    const dayIndex = new Date(Date.now()).getDate() - new Date(shoppingCart.CreatedAt).getDate()+1; // +1 not suppose to be there  this is for testing
+    const dayIndex = new Date(Date.now()).getDate() - new Date(shoppingCart.CreatedAt).getDate(); // +1 not suppose to be there  this is for testing
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const d = new Date(shoppingCart.CreatedAt);
 
@@ -224,7 +224,7 @@ export function ShoppingCartMobile({shoppingCart}) {
     console.log("ShoppingCartMobile")
     console.log(shoppingCart)
 
-    const dayIndex = new Date(Date.now()).getDate() - new Date(shoppingCart.CreatedAt).getDate()+1; // +1 not suppose to be there  this is for testing
+    const dayIndex = new Date(Date.now()).getDate() - new Date(shoppingCart.CreatedAt).getDate(); // +1 not suppose to be there  this is for testing
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const d = new Date(shoppingCart.CreatedAt);
 
