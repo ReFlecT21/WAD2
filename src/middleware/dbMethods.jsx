@@ -10,6 +10,34 @@ serverTimestamp,
 updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
+import Cookies from "js-cookie";
+
+export const dbUserMethods = {
+    username: null,
+    docRef: null,
+    docSnap: false,
+
+    init: async function () {
+        if (this.docSnap == false) {
+        this.username = auth.currentUser.email;
+        this.docRef = doc(db, "BioData", this.username);
+        this.docSnap = await getDoc(this.docRef);
+        }
+    },
+
+    setUserData : async function (data) {
+        await this.init();
+        try {
+            await setDoc(this.docRef, {
+                data: data,
+            }).then(() => {
+                console.log("Document written");
+            });
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+    },
+}
 
 export const dbFoodMethods = {
     username: null,
@@ -114,6 +142,60 @@ export const dbFoodMethods = {
         }
     },
 
+    getRemainingCalories: async function () {
+        console.log("getCalories");
+        // console.log(this.username)
+
+        this.init();
+
+        try {
+        // Get the current state of the document
+        if (this.docSnap) {
+            const data = this.docSnap.data();
+            // console.log(data);
+            const mealPlan = data.Plan;
+            const calories = data.Calories;
+
+            let countMeals = 0;
+            for (const day in mealPlan) {
+                for (const mealType in mealPlan[day]) {
+                    countMeals += 1;
+                }
+            }
+
+            return calories/countMeals*3;
+        } else {
+            console.log("Document does not exist");
+            return null;
+        }
+        } catch (e) {
+        console.error("Error updating document: ", e);
+        }
+    },
+
+    getAllergies: async function () {
+        console.log("getAllergies");
+        // console.log(this.username)
+
+        this.init();
+
+        try {
+        // Get the current state of the document
+        if (this.docSnap) {
+            const data = this.docSnap.data();
+            // console.log(data);
+            const allergies = data.allergies;
+
+            return allergies;
+        } else {
+            console.log("Document does not exist");
+            return null;
+        }
+        } catch (e) {
+        console.error("Error updating document: ", e);
+        }
+    },
+
     createMealplan: async function (plan1, plan2, shoppingCart) {
         console.log("createMealplan");
         await this.init();
@@ -124,8 +206,9 @@ export const dbFoodMethods = {
             DisplayPlan: plan2, // this is for display (1 for compeleted, 0 for not completed)
             CreatedAt: Date.now(),
             Completed: {},
-            Calories: localStorage.getItem("calories") * 7,
+            Calories: Cookies.get("calories") * 7,
             shoppingCart: shoppingCart,
+            allergies: Cookies.get("allergies"),
             // Added: [],
         }).then(() => {
             console.log("Document written");

@@ -3,18 +3,18 @@ import { fetcher, fetcherGET } from "../middleware/Fetcher";
 import { useAtom } from "jotai";
 import { Allergies } from "../atoms/allergiesAtom";
 import Cookies from "js-cookie";
+import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 
 export async function pageDataGetter(type, mealCals, setter) {
-  // mealType (string, comma separated); "breakfast", "lunch, main course"
-  // const [allergies, setAllergies] = useAtom(Allergies);
-  const allergies= JSON.parse(Cookies.get("allergies") ? Cookies.get("allergies") : "[]" );
-  // useEffect(() => {
-  //   const storedAllergies = localStorage.getItem('allergies');
-  //   if (storedAllergies) {
-  //     setAllergies(JSON.parse(storedAllergies));
-  //   }
-  // }, [setAllergies]);
 
+  var allergies= [];
+
+  if (Cookies.get("allergies")){
+    allergies = JSON.parse(Cookies.get("allergies"))
+  } else {
+    // allergies = await dbUserMethods.getAllergies();
+    // allergies=[]
+  }
 
   let allergyString = ""
   if (allergies.length > 0){

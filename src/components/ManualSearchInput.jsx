@@ -47,10 +47,18 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
             Meal_Type,
             foodDetails
         );
-        Cookies.set("recal", true, { expires: expirationDate });
+        
+        let remainingCal = await dbFoodMethods.getRemainingCalories();
+        
+        if (remainingCal > 999){
+            Cookies.set("recal", true, { expires: expirationDate });
+            Cookies.set("calories", remainingCal, { expires: expirationDate });
+            navigate("/choose");
+        } else {
+            alert("You can only recalculate if you have at least 1000 calories per day left")
+        }
         // setRecal(true);
         
-        navigate("/input");
 
         
     };

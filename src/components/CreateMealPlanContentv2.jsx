@@ -78,9 +78,12 @@ export function CreateMealPlanContentFinalise({info, recal}){
             }
 
             Cookies.remove("calories");
-            Cookies.remove("allergies");
+            
             if (recal){
                 Cookies.remove("recal");
+            } 
+            if (Cookies.get("allergies")){
+                Cookies.remove("allergies");
             }
 
             navigate("/home");

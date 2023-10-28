@@ -13,22 +13,26 @@ import { useAtom } from "jotai";
 import { CreateMealPlanContentFinalise, CreateMealPlanContentv2 } from "../components/CreateMealPlanContentv2";
 import { RecalAtom } from "../atoms/recal";
 import Cookies from "js-cookie";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 
 export default function ChooseMealsV2() {
-    const [recal, setRecal] = useState(Cookies.get("recal") ? (true) : (false) );           // THINK ABOUT USING COOKIES
+    const [recal, setRecal] = useState(Cookies.get("recal") ? (true) : (false) );
+    const [calories, setCalories] = useState(0);
     // console.log(recal);
     
     const navigate = useNavigate();
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
     useEffect(() => {
+        
         if (!Cookies.get("calories")) {
             navigate("/input");
         } else {
+            setCalories(Cookies.get("calories"));
             setOverlayData([]);
         }
-        // setRecal(true);
+
     }, []);
 
     const [activePage, setActivePage] = useState(1);
@@ -55,9 +59,9 @@ export default function ChooseMealsV2() {
         },
     });
     const paramList = {
-        1:[["breakfast, morning meal, brunch"], Cookies.get("calories")*0.3 , "Breakfast", setBreakfastSelected, breakfastSelected],
-        2:[["lunch, side dish, main course, main dish"], localStorage.getItem("calories")*0.4, "Lunch", setLunchSelected, lunchSelected],
-        3:[["dinner, main course"], Cookies.get("calories")*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
+        1:[["breakfast, morning meal, brunch"], calories*0.3 , "Breakfast", setBreakfastSelected, breakfastSelected],
+        2:[["lunch, side dish, main course, main dish"], calories*0.4, "Lunch", setLunchSelected, lunchSelected],
+        3:[["dinner, main course"], calories*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
     }
     
 
