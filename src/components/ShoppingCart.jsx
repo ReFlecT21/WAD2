@@ -62,7 +62,6 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
                     className='ShoppingCardBtn'
                     onClick={completeItem} 
                     style={{width:"80px"}}
-
                 >{buttonText}</Button>
             </TableCell>
         </TableRow>
@@ -263,22 +262,28 @@ export function ShoppingCartMobile({shoppingCart}) {
                             </TableHead>
 
                             <TableBody>
-                                {Object.keys(shoppingCart.shoppingCart[day]).map((ingreType)=>(
-                                    Object.keys(shoppingCart.shoppingCart[day][ingreType]).map((ingre)=>(
-                                        <CustomRow 
-                                            key={dayIndex+ingreType+ingre}
-                                            flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
-                                            buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}
-                                            rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"#1F5E4B"} : {}}
-                                            ingreType={ingreType}
-                                            ingre = {shoppingCart.shoppingCart[day][ingreType][ingre]}
-                                            ingreID = {ingre}
-                                            shoppingCart = {shoppingCart}
-                                            day = {day}
-                                            isMobile = {true}
-                                        />
-                                    ))
-                                ))}
+                                {Object.keys(shoppingCart.shoppingCart[day]).length >0 ? (
+                                    <>
+                                        {Object.keys(shoppingCart.shoppingCart[day]).map((ingreType)=>(
+                                            Object.keys(shoppingCart.shoppingCart[day][ingreType]).map((ingre)=>(
+                                                <CustomRow 
+                                                    key={dayIndex+ingreType+ingre}
+                                                    flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
+                                                    buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}
+                                                    rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"#1F5E4B"} : {}}
+                                                    ingreType={ingreType}
+                                                    ingre = {shoppingCart.shoppingCart[day][ingreType][ingre]}
+                                                    ingreID = {ingre}
+                                                    shoppingCart = {shoppingCart}
+                                                    day = {day}
+                                                    isMobile = {true}
+                                                />
+                                            ))
+                                        ))}
+                                    </>
+                                ) : (<TableRow>No items for today</TableRow>)}
+
+
 
                                 {/* <CustomRow 
                                     key={dayIndex+ingreType+ingre}
