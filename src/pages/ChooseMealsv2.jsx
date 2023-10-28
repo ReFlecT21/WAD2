@@ -17,7 +17,7 @@ import { dbFoodMethods } from "../middleware/dbMethods";
 
 
 export default function ChooseMealsV2() {
-    const [recal, setRecal] = useState(Cookies.get("recal") ? (true) : (false) );
+    const [recal, setRecal] = useState(Cookies.get("recal"));
     const [calories, setCalories] = useState(Cookies.get("calories"));
     // console.log(recal);
     
@@ -111,7 +111,7 @@ export default function ChooseMealsV2() {
             {overlayData}
             <Container>
                 <Row style={{textAlign:"center"}}>
-                    {recal ? (
+                    {recal == 1 ? (
                         <>
                             <h2>You are recalculating an old plan</h2>
                             <p>You have 1 hour to replace your old plan</p>

@@ -146,7 +146,7 @@ const InputPage = () => {
         // await setCalories(calculatedCalories);
         Cookies.set("calories", calculatedCalories, { expires: expirationDate });
         Cookies.set("allergies", JSON.stringify(allergies), { expires: expirationDate });
-        Cookies.set("recal", false, { expires: expirationDate });
+        Cookies.set("recal", 0, { expires: expirationDate });
 
         await dbUserMethods.setUserData(formData, allergies)
         // localStorage.setItem("calories", calculatedCalories);

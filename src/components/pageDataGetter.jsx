@@ -15,7 +15,7 @@ export async function pageDataGetter(type, mealCals, setter) {
     if (allergies.length > 0){
       allergyString = allergies.join(', ');
     }
-    console.log(allergyString);
+    // console.log(allergyString);
     
     fetcherGET(
       "/foodAPI/search/?",

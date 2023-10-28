@@ -81,7 +81,7 @@ export default function MealPlan() {
     console.log(remainingCal);
     
     if (remainingCal > 999){
-        Cookies.set("recal", true, { expires: expirationDate });
+        Cookies.set("recal", 1, { expires: expirationDate });
         Cookies.set("calories", remainingCal, { expires: expirationDate });
         navigate("/choose");
     } else {
