@@ -83,10 +83,12 @@ const HomePage = () => {
           {/* <Stack gap={2} >  */}
           <div className="neuphormicBox">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h1>{currDay === 0 ? "Tomorrow's" : "Today's"} Meal</h1>
-              <Button className="buttonPrimary" href="/mealplan">
-                See meal plan
-              </Button>
+              <h1>{currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
+              <div>
+                <Button className="buttonPrimary" href="/mealplan">
+                  See meal plan
+                </Button>
+              </div>
             </div>
 
             <Row xs={1} md={3} lg={3}>
@@ -113,28 +115,32 @@ const HomePage = () => {
                     </>
                   ) : (
                     <>
-                      {["breakfast", "lunch", "dinner"].map((mealType) => (
-                        <Col key={`${mealType}home`}>
-                          {currMealPlan.DisplayMealPlan[currDay+1][mealType][
-                            Object.keys(
-                              currMealPlan.DisplayMealPlan[currDay+1][mealType]
-                            )[0]
-                          ] ? (
-                            <h4>{mealType} completed!</h4>
-                          ) : (
-                            <h4>{mealType}</h4>
-                          )}
-                          <MealPlanCardHome
-                            recipe={
-                              Object.keys(
-                                currMealPlan.DisplayMealPlan[currDay + 1][
-                                  mealType
-                                ]
-                              )[0]
-                            }
-                          />
-                        </Col>
-                      ))}
+                          {Object.keys(currMealPlan.DisplayMealPlan[currDay+1]).length >0 ? (
+                            <>
+                              {["breakfast", "lunch", "dinner"].map((mealType) => (
+                                <Col key={`${mealType}home`}>
+
+                                  {currMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                    Object.keys(currMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
+                                  ] ? (
+                                    <h4>{mealType} completed!</h4>
+                                  ) : (
+                                    <h4>{mealType}</h4>
+                                  )}
+                                  <MealPlanCardHome
+                                    recipe={
+                                      Object.keys(
+                                        currMealPlan.DisplayMealPlan[currDay + 1][
+                                          mealType
+                                        ]
+                                      )[0]
+                                    }
+                                  />
+
+                                </Col>
+                              ))}
+                            </>
+                            ) : (<p>No meals planned</p>)}
                     </>
                   )}
                 </>
@@ -142,26 +148,10 @@ const HomePage = () => {
                 <h4>No Meal Plan</h4>
               )}
 
-              {/* {currMealPlan?.DisplayMealPlan ? (
-                  <>
-                    {["breakfast", "lunch", "dinner"].map((mealType)=>(
-                      <Col key={`${mealType}home`}>
-                        {Object.keys(currMealPlan.DisplayMealPlan[currDay][mealType])[0] ? (
-                          <h4>{mealType} completed!</h4>
-                        ):(<h4>{mealType}</h4>)}
-                        <MealPlanCardHome recipe={Object.keys(currMealPlan.DisplayMealPlan[currDay][mealType])[0]} />
-                      </Col>
-
-                    ))}
-                  </>
-                ):(<></>)} */}
             </Row>
-            {/* <h3>Breakfast</h3>
-              <h3>Lunch</h3>
-              <h3>Dinner</h3>
-              <p>LOREM ipsum</p> */}
+
           </div>
-          {/* </Stack> */}
+
         </Col>
         <Col>
           <div className="neuphormicBox">
