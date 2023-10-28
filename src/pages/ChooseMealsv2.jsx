@@ -12,19 +12,22 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { useAtom } from "jotai";
 import { CreateMealPlanContentFinalise, CreateMealPlanContentv2 } from "../components/CreateMealPlanContentv2";
 import { RecalAtom } from "../atoms/recal";
-
-
+import Cookies from "js-cookie";
 
 
 export default function ChooseMealsV2() {
-    const [recal, setRecal] = useAtom(RecalAtom);           // THINK ABOUT USING COOKIES
+    const [recal, setRecal] = useState(Cookies.get("recal") ? (true) : (false) );           // THINK ABOUT USING COOKIES
     // console.log(recal);
     
     const navigate = useNavigate();
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
     useEffect(() => {
-        setOverlayData([]);
+        if (!Cookies.get("calories")) {
+            navigate("/input");
+        } else {
+            setOverlayData([]);
+        }
         // setRecal(true);
     }, []);
 
@@ -52,16 +55,11 @@ export default function ChooseMealsV2() {
         },
     });
     const paramList = {
-        1:[["breakfast, morning meal, brunch"], localStorage.getItem("calories")*0.3 , "Breakfast", setBreakfastSelected, breakfastSelected],
+        1:[["breakfast, morning meal, brunch"], Cookies.get("calories")*0.3 , "Breakfast", setBreakfastSelected, breakfastSelected],
         2:[["lunch, side dish, main course, main dish"], localStorage.getItem("calories")*0.4, "Lunch", setLunchSelected, lunchSelected],
-        3:[["dinner, main course"], localStorage.getItem("calories")*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
+        3:[["dinner, main course"], Cookies.get("calories")*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
     }
-
-    // console.log(localStorage.getItem("calories"));
-
-    if (!localStorage.getItem("calories")) {
-        navigate("/input");
-    }
+    
 
     useEffect(() => {
         for (const data in apiData) {
@@ -93,6 +91,15 @@ export default function ChooseMealsV2() {
             <NavBar />
             {overlayData}
             <Container>
+                <Row style={{textAlign:"center"}}>
+                    {recal ? (
+                        <>
+                            <h2>You are recalculating an old plan</h2>
+                            <p>You have 1 hour to replace your old plan</p>
+                        </>
+                    ) 
+                    : (<h2>You are creating a new plan!</h2>)}
+                </Row>
                 <Row>
                 <StepProgressBar
                     page={activePage}

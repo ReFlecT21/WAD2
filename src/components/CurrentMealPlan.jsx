@@ -71,23 +71,27 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                         </h3>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Row xs={1} md={2} lg={3}>
-                                {["breakfast", "lunch", "dinner" ].map((mealType) => (
-                                <div key={`${day}-${mealType}`}>
-                                    {content.DisplayMealPlan[day]?.[mealType] && Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
-                                    <MealPlanCard 
-                                        key={`${recipe.id}card`}
-                                        recipe={recipe}
-                                        render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
-                                        day={day}
-                                        mealType={mealType}
-                                        dayIndex={dayIndex}
-                                        currMealPlan={currMealPlan}
-                                    />
-                                    ))}  
-                                </div>
-                                ))}
-                            </Row>
+                            {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
+                                <p> No meals planned for this day </p>
+                            ) :(
+                                <Row xs={1} md={2} lg={3}>
+                                    {["breakfast", "lunch", "dinner" ].map((mealType) => (
+                                    <div key={`${day}-${mealType}`}>
+                                        {content.DisplayMealPlan[day]?.[mealType] && Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
+                                        <MealPlanCard 
+                                            key={`${recipe.id}card`}
+                                            recipe={recipe}
+                                            render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
+                                            day={day}
+                                            mealType={mealType}
+                                            dayIndex={dayIndex}
+                                            currMealPlan={currMealPlan}
+                                        />
+                                        ))}  
+                                    </div>
+                                    ))}
+                                </Row>
+                            )}
                             {/* <Typography>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
                                 malesuada lacus ex, sit amet blandit leo lobortis eget.

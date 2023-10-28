@@ -20,12 +20,18 @@ import getMealPlan from "../middleware/getMealPlan";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
+import Cookies from "js-cookie";
 
 const InputPage = () => {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
   const navChoose = () => navigate("/choose");
   const navChoose2 = () => navigate("/choose");
+
+  const expirationTimeInHours = 1;
+  const expirationDate = new Date(
+  new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+  );
 
   const [formData, setFormData] = useState({
     age: 0,
@@ -37,7 +43,6 @@ const InputPage = () => {
   });
 
   const [allergies, setAllergies] = useAtom(Allergies);
-
   const [calories, setCalories] = useAtom(Kcal);
 
   const mifflin = (gender, age, height, weight) => {
@@ -130,25 +135,15 @@ const InputPage = () => {
 
     const calculatedCalories = calculateCalories();
     // await setCalories(calculatedCalories);
-    localStorage.setItem("calories", calculatedCalories);
-    localStorage.setItem("allergies", JSON.stringify(allergies));
+    Cookies.set("calories", calculatedCalories, { expires: expirationDate });
+    Cookies.set("allergies", JSON.stringify(allergies), { expires: expirationDate });
+    // localStorage.setItem("calories", calculatedCalories);
+    // localStorage.setItem("allergies", JSON.stringify(allergies));
     // console.log(calories);
 
     // navChoose();
     navChoose2();
   };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const userId = auth.currentUser.email;
-  //     const mealPlan = await getMealPlan(userId);               // why do we need this? called but not used.
-  //     // dbFoodMethods.init();
-  //     // const mealPlan = await dbFoodMethods.getMealPlan();     // why do we need this? called but not used.
-  //     // console.log(mealPlan);
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <>
@@ -164,7 +159,9 @@ const InputPage = () => {
       >
         <Row>
           <Col md={7}>
-            <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" />
+            {/* <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" /> */}
+
+            {/* <dotlottie-player src="https://lottie.host/968cf6ca-7065-45cf-8a86-6e3d756f6536/QvIyMTi2sW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
           </Col>
 
           <Col
@@ -210,7 +207,7 @@ const InputPage = () => {
                   name="age"
                   placeholder="Enter your age"
                   className="inputBox"
-                  id="text-input"
+                  id="age"
                   onChange={handleChange}
                 />
               </Col>
@@ -227,7 +224,7 @@ const InputPage = () => {
                   name="height"
                   placeholder="Enter your height"
                   className="inputBox"
-                  id="text-input"
+                  id="height"
                   onChange={handleChange}
                 />
               </Col>
@@ -242,7 +239,7 @@ const InputPage = () => {
                   name="weight"
                   placeholder="Enter your weight"
                   className="inputBox"
-                  id="text-input"
+                  id="weight"
                   onChange={handleChange}
                 />
               </Col>
@@ -256,6 +253,7 @@ const InputPage = () => {
                 <h5>Select your activity level</h5>
 
                 <Form.Select
+                  id="exercise"
                   onChange={handleChange}
                   aria-label="Default select example"
                   name="activityLevel"
@@ -287,6 +285,7 @@ const InputPage = () => {
                 <h5>Goal</h5>
 
                 <Form.Select
+                  id="goal"
                   onChange={handleAllergies}
                   aria-label="Default select example"
                   name="goal"
@@ -320,6 +319,7 @@ const InputPage = () => {
                   "Wheat",
                 ].map((item) => (
                   <Form.Check
+                    id={item}
                     key={item} // Make sure to add a unique key when mapping over an array in React
                     type="checkbox"
                     label={item}
@@ -350,6 +350,7 @@ const InputPage = () => {
             <Row style={{}}>
               <Col>
                 <Button
+                  id="submit"
                   onClick={handleSubmit}
                   type="submit"
                   className="buttonPrimary"

@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { fetcher, fetcherGET } from "../middleware/Fetcher";
 import { useAtom } from "jotai";
 import { Allergies } from "../atoms/allergiesAtom";
+import Cookies from "js-cookie";
 
 export async function pageDataGetter(type, mealCals, setter) {
   // mealType (string, comma separated); "breakfast", "lunch, main course"
   // const [allergies, setAllergies] = useAtom(Allergies);
-  const allergies= JSON.parse(localStorage.getItem("allergies"))
+  const allergies= JSON.parse(Cookies.get("allergies") ? Cookies.get("allergies") : "[]" );
   // useEffect(() => {
   //   const storedAllergies = localStorage.getItem('allergies');
   //   if (storedAllergies) {

@@ -16,11 +16,12 @@ import { fetcher, fetcherGET, fetcherPOST } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { useNavigate } from "react-router-dom";
 import { RecalAtom } from "../atoms/recal";
+import Cookies from "js-cookie";
 
 // CONFIRM MODAL
 function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
     const navigate = useNavigate();
-    const [recal, setRecal] = useAtom(RecalAtom);
+    // const [recal, setRecal] = useAtom(RecalAtom);
 
     const [ConfirmModalopen, setConfirmModalOpen] = useState(false);
     const handleClose = () => {
@@ -36,13 +37,18 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
         return res;
     };
     const handleRecal = async () => {
+        const expirationTimeInHours = 1;
+        const expirationDate = new Date(
+        new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+        );
+
         let res = await dbFoodMethods.completeMeal(
             day_Index,
             Meal_Type,
             foodDetails
         );
-        // localStorage.setItem("recal", true);
-        setRecal(true);
+        Cookies.set("recal", true, { expires: expirationDate });
+        // setRecal(true);
         
         navigate("/input");
 

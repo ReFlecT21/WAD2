@@ -1,4 +1,6 @@
 import { 
+    Accordion,
+    AccordionSummary,
     Box, Collapse, IconButton, 
     Paper, 
     Table, TableBody, TableCell, 
@@ -13,6 +15,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import { Button } from 'react-bootstrap';
 import { dbFoodMethods } from '../middleware/dbMethods';
+import { ExpandMore } from "@mui/icons-material";
 
 
 function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppingCart, setNumOutstanding, day}) {
@@ -37,7 +40,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"grey"});
+            setSelectStyle({backgroundColor:"#1F5E4B", });
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
             setNumOutstanding((prev) => prev - 1);
@@ -113,7 +116,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                         </Typography> */}
                         <Typography variant="h8" gutterBottom component="div">
                             Check off what you have bought!
-                            You can uncheck if you have made a mistake.
+                            You can click the button again if you have made a mistake.
                         </Typography>
                         <Table size="small" aria-label="purchases">
                             <TableHead>
@@ -126,26 +129,34 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                            {Object.keys(dayCart).sort().map((ingreType)=>(
-                                 <React.Fragment key={dayIndex+ingreType}>
-                                    {Object.keys(dayCart[ingreType]).map((ingre)=>(
-                                        
-                                        <CustomRow 
-                                            key={dayIndex+ingreType+ingre}
-                                            flag={dayCart[ingreType][ingre].completed}
-                                            buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                            rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
-                                            ingreType={ingreType}
-                                            ingre = {dayCart[ingreType][ingre]}
-                                            ingreID = {ingre}
-                                            shoppingCart = {shoppingCart}
-                                            setNumOutstanding = {setNumOutstanding}
-                                            day = {day}
-                                        />
-                                    ))}
-                                </React.Fragment>
+                                {Object.keys(dayCart).length > 0 ? (
+                                    <>
+                                        {Object.keys(dayCart).sort().map((ingreType)=>(
+                                            <React.Fragment key={dayIndex+ingreType}>
+                                                {Object.keys(dayCart[ingreType]).map((ingre)=>(
+                                                    
+                                                    <CustomRow 
+                                                        key={dayIndex+ingreType+ingre}
+                                                        flag={dayCart[ingreType][ingre].completed}
+                                                        buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
+                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                                        ingreType={ingreType}
+                                                        ingre = {dayCart[ingreType][ingre]}
+                                                        ingreID = {ingre}
+                                                        shoppingCart = {shoppingCart}
+                                                        setNumOutstanding = {setNumOutstanding}
+                                                        day = {day}
+                                                    />
+                                                ))}
+                                            </React.Fragment>
+            
+                                        ))}
+                                    
+                                    </>
 
-                            ))}
+                                ) : (
+                                    <TableRow><TableCell>No items for today</TableCell></TableRow>
+                                )}
                             </TableBody>
                         </Table>
                     </Box>
@@ -211,6 +222,7 @@ export function ShoppingCart({shoppingCart}) {
 
 export function ShoppingCartMobile({shoppingCart}) {
     console.log("ShoppingCartMobile")
+    console.log(shoppingCart)
 
     const dayIndex = new Date(Date.now()).getDate() - new Date(shoppingCart.CreatedAt).getDate()+1; // +1 not suppose to be there  this is for testing
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -227,7 +239,30 @@ export function ShoppingCartMobile({shoppingCart}) {
     ];
 
     // use accordions similar to CurrentMealPlanV2 with the inner table inside the dropdown
+    const [accordionDisplay, setExpanded] = useState(dayIndex);
+
+    // var accordionDisplay = dayIndex
+    const changeAccordionDisplay = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+      };
     
+    return (
+        <React.Fragment>
+            {Object.keys(shoppingCart.shoppingCart).map((day)=>(
+                <Accordion key={day} expanded={accordionDisplay == day} onChange={changeAccordionDisplay(day)} > 
+                    <AccordionSummary
+                            expandIcon={<ExpandMore />}
+                        >
+                        <h3>
+                            {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                            .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                            .getDay()]}
+                        </h3>
+                        </AccordionSummary>
+                </Accordion>
+            ))}
+        </React.Fragment>
+    )    
 
 }
 
