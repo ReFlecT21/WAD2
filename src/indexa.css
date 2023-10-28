@@ -547,4 +547,8 @@ RecipeTitle {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+
+.shade {
+  background-color: #3EBC96;
+}
 /*# sourceMappingURL=indexa.css.map */

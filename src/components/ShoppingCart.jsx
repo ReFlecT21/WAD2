@@ -31,7 +31,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"grey"});
+            setSelectStyle({backgroundColor:"#3EBC96"});
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed = true;
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
@@ -108,7 +108,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                                             key={dayIndex+ingreType+ingre}
                                             flag={dayCart[ingreType][ingre].completed}
                                             buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                            rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                            rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"#3EBC96"} : {}}
                                             ingreType={ingreType}
                                             ingre = {dayCart[ingreType][ingre]}
                                             ingreID = {ingre}
