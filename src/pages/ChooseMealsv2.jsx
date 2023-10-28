@@ -18,19 +18,21 @@ import { dbFoodMethods } from "../middleware/dbMethods";
 
 export default function ChooseMealsV2() {
     const [recal, setRecal] = useState(Cookies.get("recal") ? (true) : (false) );
-    const [calories, setCalories] = useState(0);
+    const [calories, setCalories] = useState(Cookies.get("calories"));
     // console.log(recal);
     
     const navigate = useNavigate();
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
+    console.log(`Calories: ${calories}`, `Recal: ${recal}`);
+    
+
     useEffect(() => {
-        
+
         if (!Cookies.get("calories")) {
             navigate("/input");
         } else {
-            setCalories(Cookies.get("calories"));
-            setOverlayData([]);
+            // setOverlayData([]);
         }
 
     }, []);
@@ -64,7 +66,19 @@ export default function ChooseMealsV2() {
         3:[["dinner, main course"], calories*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
     }
     
+    const test = (response) => {
+        console.log(response);
 
+        setApiData((prevApiData) => ({
+            ...prevApiData,
+            [data]: {
+                hasFetched: true,
+                data: response,
+            },
+        }));
+    }
+    // console.log(apiData)
+    // console.log(paramList)
     useEffect(() => {
         for (const data in apiData) {
           if (!apiData[data].hasFetched) {
@@ -73,6 +87,7 @@ export default function ChooseMealsV2() {
               paramList[data][0],
               paramList[data][1],
               (response) => {
+                // console.log(response);
                 setApiData((prevApiData) => ({
                     ...prevApiData,
                     [data]: {
@@ -112,14 +127,16 @@ export default function ChooseMealsV2() {
                 </Row>
                 <Row>
                     {/* <h1>Choose Meals v2</h1> */}
-                    {activePage <4 ? (<CreateMealPlanContentv2 
-                        pageNum={activePage} 
-                        mealType={paramList[activePage][2]}
-                        setActivePage={setActivePage}
-                        recipes={apiData[activePage].data}
-                        selected={paramList[activePage][4]}
-                        selectedSetter={paramList[activePage][3]}
-                    />)
+                    {activePage <4 ? (
+                        <CreateMealPlanContentv2 
+                            pageNum={activePage} 
+                            mealType={paramList[activePage][2]}
+                            setActivePage={setActivePage}
+                            recipes={apiData[activePage].data}
+                            selected={paramList[activePage][4]}
+                            selectedSetter={paramList[activePage][3]}
+                        />
+                    )
                     :  (<CreateMealPlanContentFinalise 
                             info={{
                                 "Breakfast": {data: breakfastSelected, setter: setBreakfastSelected},

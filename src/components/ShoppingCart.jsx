@@ -140,7 +140,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                                                         key={dayIndex+ingreType+ingre}
                                                         flag={dayCart[ingreType][ingre].completed}
                                                         buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"#1F5E4B"} : {}}
                                                         ingreType={ingreType}
                                                         ingre = {dayCart[ingreType][ingre]}
                                                         ingreID = {ingre}
@@ -279,7 +279,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                                             key={dayIndex+ingreType+ingre}
                                             flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
                                             buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}
-                                            rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                            rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"#1F5E4B"} : {}}
                                             ingreType={ingreType}
                                             ingre = {shoppingCart.shoppingCart[day][ingreType][ingre]}
                                             ingreID = {ingre}

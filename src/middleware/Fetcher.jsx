@@ -57,6 +57,7 @@ export async function fetcherGET(endpoint, params, setter, dayIdx = null) {
     .then((res) => res.json())
     .then(async (data) => {
       if (endpoint === "/foodAPI/search/?") {
+        // console.log(data["results"])
         setter(data["results"]);
       } else {
         // console.log(data)

@@ -7,31 +7,53 @@ import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 
 export async function pageDataGetter(type, mealCals, setter) {
 
-  var allergies= [];
+  var allergies = [];
+  var allergyString = ""
 
   if (Cookies.get("allergies")){
     allergies = JSON.parse(Cookies.get("allergies"))
+    if (allergies.length > 0){
+      allergyString = allergies.join(', ');
+    }
+    console.log(allergyString);
+    
+    fetcherGET(
+      "/foodAPI/search/?",
+      {
+        type: type,
+        minCalories: mealCals*0.90,
+        maxCalories: mealCals*1.1,
+        intolerances: allergyString,
+      },
+      setter
+    );
+
+
   } else {
-    // allergies = await dbUserMethods.getAllergies();
-    // allergies=[]
+    dbUserMethods.getAllergies().then((res) => { 
+      if (res) {
+
+        if (res.length > 0){
+          allergyString = res.join(', ');
+        }
+
+
+        fetcherGET(
+          "/foodAPI/search/?",
+          {
+            type: type,
+            minCalories: mealCals*0.90,
+            maxCalories: mealCals*1.1,
+            intolerances: allergyString,
+          },
+          setter
+        );
+      }
+    });
   }
-
-  let allergyString = ""
-  if (allergies.length > 0){
-    allergyString = allergies.join(', ');
-  }
-  // console.log(allergies);
+  
 
 
-  fetcherGET(
-    "/foodAPI/search/?",
-    {
-      type: type,
-      minCalories: mealCals*0.90,
-      maxCalories: mealCals*1.1,
-      intolerances: allergyString,
-    },
-    setter
-  );
+  
   
 }

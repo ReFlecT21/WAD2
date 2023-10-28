@@ -142,7 +142,7 @@ export function SelectedRecpieCardV2({recipe, setter}) {
   )
 }
 
-export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealType, dayIndex, currMealPlan}) {
+export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan}) {
 
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
@@ -162,12 +162,20 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
     if(dayIndex === 0){
       alert("You can only start completing meals from tomorrow onwards!")
     } else {
-      let res = await dbFoodMethods.completeMeal(
-        dayIndex,
-        mealType,
-        currMealPlan.mealPlan[day][mealType]
-      );
-      return res
+
+
+      if (currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]]){
+        alert(`You cant have ${mealType} again`)
+      } else {
+        let res = await dbFoodMethods.completeMeal(
+          dayIndex,
+          mealType,
+          currMealPlan.mealPlan[day][mealType]
+        );
+        return res
+
+      }
+
 
     }
 

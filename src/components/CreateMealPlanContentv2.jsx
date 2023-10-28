@@ -11,6 +11,8 @@ import Cookies from "js-cookie";
 
 export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recipes, selected, selectedSetter}) {
 
+    // console.log(recipes);
+
     return (
         <>
         {/* {pageNum} */}
@@ -58,7 +60,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
     const [mealPlanCopy, setMealPlanCopy] = useState({});
     const [shoppingCart, setShoppingCart] = useState({});
     
-    // const [flag, setFlag] = useState(0);
+    const [flag, setFlag] = useState(0);
 
     useEffect(() => {
         if (
@@ -71,10 +73,11 @@ export function CreateMealPlanContentFinalise({info, recal}){
             // console.log(mealPlan);
             // console.log(mealPlanCopy);
             // console.log(shoppingCart);
+            console.log(Cookies.get("calories"));
             if (!recal){
-                let x =  dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart);
+                let x =  dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart, Cookies.get("calories"));
             } else {
-                let x =  dbFoodMethods.recalMealplan(mealPlan, mealPlanCopy, shoppingCart);
+                let x =  dbFoodMethods.recalMealplan(mealPlan, mealPlanCopy, shoppingCart, Cookies.get("calories"));
             }
 
             Cookies.remove("calories");
@@ -85,11 +88,16 @@ export function CreateMealPlanContentFinalise({info, recal}){
             if (Cookies.get("allergies")){
                 Cookies.remove("allergies");
             }
-
             navigate("/home");
         }
 
-    }, [shoppingCart]);
+    // }, [shoppingCart]);
+    }, [flag]);
+    
+    // useEffect(() => {
+    //     if (flag >0){
+    //         navigate("/home");
+    //     }
     // }, [flag]);
 
 
@@ -128,6 +136,11 @@ export function CreateMealPlanContentFinalise({info, recal}){
                 return updated;
             });
         });
+
+        if (dayIdx == 7){
+            setFlag((prev) => (prev + 1));
+            // navigate("/home");
+        }
     }
 
     const handleFinalise = async () => {
@@ -186,7 +199,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
                             ids: IDs.join(",")
                         },
                         handleShoppingCart,
-                        i
+                        i, 7
                     );
                     IDs = []
                 }
@@ -194,6 +207,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
             } else {
                 console.log("recal process");
                 let exisitingMealPlan = await dbFoodMethods.getMealPlan();
+                console.log(exisitingMealPlan);
 
                 if (exisitingMealPlan){
                     for (let i in exisitingMealPlan["mealPlan"]){
@@ -310,7 +324,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
                             onClick={async () => {
                                 setLoadFlag(true);
                                 await handleFinalise()
-
+                                // navigate("/home");
                             }}
                         >Finalise Plan</Button>
                     </div>

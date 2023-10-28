@@ -7,7 +7,7 @@ import { FinaliseRecipeCard, HomeRecipeCard, RecpieCard, RecpieCardMealPlan, Rec
 import { isMobile } from "react-device-detect";
 import Loader from "./Loader";
 
-export function MealPlanCard({ recipe, setter = null, render=true, day, mealType, dayIndex, currMealPlan }) {
+export function MealPlanCard({ recipe, setter = null, render=true, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan }) {
     // console.log(setTrigger)
     const [response, setResponse] = useState(null);
     // console.log(recipe)
@@ -39,6 +39,7 @@ export function MealPlanCard({ recipe, setter = null, render=true, day, mealType
                     mealType={mealType}
                     dayIndex={dayIndex}
                     currMealPlan={currMealPlan}
+                    currDisplayMealPlan={currDisplayMealPlan}
                     
                 />
               </div>

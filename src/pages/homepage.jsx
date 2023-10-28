@@ -65,33 +65,10 @@ const HomePage = () => {
     var currDay =
       new Date(Date.now()).getDate() -
       new Date(currMealPlan.CreatedAt).getDate();
+      // FOR TESTING PURPOSES ONLY (NEED TO +1 )
 
-    // FOR TESTING PURPOSES ONLY (NEED TO +1 )
 
-    // console.log(currDay)
-    // console.log(new Date(currMealPlan.CreatedAt).getDate())
 
-    //   todayMeal = currMealPlan["DisplayMealPlan"][currDay];
-    //   // console.log(todayMeal)
-
-    //   for (const mealType in todayMeal){
-    //     // console.log(todayMeal[mealType])
-    //     todayMealDisplay.push(
-    //       <div key={mealType}>
-    //         <MealPlanCardHome recipe={Object.keys(todayMeal[mealType])[0]} />
-    //         {/* <div>
-    //           <h3>{mealType}</h3>
-    //           <p>{todayMeal[mealType]}</p>
-    //         </div> */}
-    //       </div>
-    //     )
-    //   }
-    // } else {
-    //   todayMealDisplay.push(
-    //     <div key="noMeal">
-    //       <h3>No Meal Plan</h3>
-    //     </div>
-    //   )
   }
 
   return (
@@ -123,16 +100,7 @@ const HomePage = () => {
                     <>
                       {["breakfast", "lunch", "dinner"].map((mealType) => (
                         <Col key={`${mealType}home`}>
-                          {currMealPlan.DisplayMealPlan[currDay][mealType][
-                            Object.keys(
-                              currMealPlan.DisplayMealPlan[currDay][mealType]
-                            )[0]
-                          ] ? (
-                            <h4>{mealType} completed!</h4>
-                          ) : (
-                            <h4>{mealType}</h4>
-                          )}
-                          {/* {console.log(currMealPlan.DisplayMealPlan[currDay][mealType][Object.keys(currMealPlan.DisplayMealPlan[currDay][mealType])[0]])} */}
+                          <h4>{mealType}</h4>
                           <MealPlanCardHome
                             recipe={
                               Object.keys(
@@ -147,14 +115,14 @@ const HomePage = () => {
                     <>
                       {["breakfast", "lunch", "dinner"].map((mealType) => (
                         <Col key={`${mealType}home`}>
-                          {currMealPlan.DisplayMealPlan[currDay][mealType][
+                          {currMealPlan.DisplayMealPlan[currDay+1][mealType][
                             Object.keys(
-                              currMealPlan.DisplayMealPlan[currDay][mealType]
+                              currMealPlan.DisplayMealPlan[currDay+1][mealType]
                             )[0]
                           ] ? (
-                            <h4>{mealType}</h4>
-                          ) : (
                             <h4>{mealType} completed!</h4>
+                          ) : (
+                            <h4>{mealType}</h4>
                           )}
                           <MealPlanCardHome
                             recipe={

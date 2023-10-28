@@ -26,6 +26,7 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { ShoppingCart, ShoppingCartMobile } from "../components/ShoppingCart";
+import Cookies from "js-cookie";
 
 export default function MealPlan() {
   const navigate = useNavigate();
@@ -47,10 +48,7 @@ export default function MealPlan() {
     const handleResize = () => {
       setWidth(window.innerWidth);
     };
-  
     window.addEventListener('resize', handleResize);
-  
-    // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -73,6 +71,28 @@ export default function MealPlan() {
     fetchData();
   }, []);
 
+  const handleRecal = async () => {
+    const expirationTimeInHours = 1;
+    const expirationDate = new Date(
+    new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+    );
+    
+    let remainingCal = await dbFoodMethods.getRemainingCalories();
+    console.log(remainingCal);
+    
+    if (remainingCal > 999){
+        Cookies.set("recal", true, { expires: expirationDate });
+        Cookies.set("calories", remainingCal, { expires: expirationDate });
+        navigate("/choose");
+    } else {
+        alert("You can only recalculate if you have at least 1000 calories per day left")
+    }
+    // setRecal(true);
+    
+
+    
+};
+
   // console.log(shoppingCart)
   return (
     <>
@@ -90,6 +110,13 @@ export default function MealPlan() {
             >
               <Tab eventKey="mealPlan" title="Current Meal Plan">
                 {/* <CurrentMealPlan /> */}
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                  <h2>Your current meal plan</h2>
+                  <Button onClick={handleRecal}>
+                    Recalculate
+                  </Button>
+
+                </div>
                 <CurrentMealPlanV2
                   currMealPlan={currMealPlan}
                   currDisplayMealPlan={currDisplayMealPlan}

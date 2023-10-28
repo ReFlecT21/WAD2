@@ -86,6 +86,7 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                                             mealType={mealType}
                                             dayIndex={dayIndex}
                                             currMealPlan={currMealPlan}
+                                            currDisplayMealPlan={currDisplayMealPlan}
                                         />
                                         ))}  
                                     </div>
