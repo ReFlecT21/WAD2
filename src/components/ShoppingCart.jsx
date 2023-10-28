@@ -41,7 +41,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"grey"});
+            setSelectStyle({backgroundColor:"#3EBC96"});
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
             setNumOutstanding((prev) => prev - 1);
