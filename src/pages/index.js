@@ -7,3 +7,4 @@ export { default as Fallback } from "./Fallback";
 export { default as InputPage } from "./InputPage";
 export { default as MealPlan } from "./MealPlan";
 export { default as ChooseMealsV2 } from "./ChooseMealsv2";
+export { default as AnalyticsPage } from "./AnalyticsPage";
