@@ -157,18 +157,6 @@ const InputPage = () => {
         navChoose2();
     };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const userId = auth.currentUser.email;
-  //     const mealPlan = await getMealPlan(userId);               // why do we need this? called but not used.
-  //     // dbFoodMethods.init();
-  //     // const mealPlan = await dbFoodMethods.getMealPlan();     // why do we need this? called but not used.
-  //     // console.log(mealPlan);
-  //   };
-
-  //   fetchData();
-  // }, []);
-
     return (
         <>
         <NavBar />
