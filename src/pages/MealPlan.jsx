@@ -65,13 +65,13 @@ export default function MealPlan() {
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       setShoppingCart(await dbFoodMethods.getShoppingCart());
       // console.log(shoppingCart)
-      // console.log(completed)
-      // console.log(currMealPlan)
-      // console.log(currDisplayMealPlan)
     };
-
+    
     fetchData();
   }, []);
+  // console.log(completed)
+  // console.log(currMealPlan)
+  // console.log(currDisplayMealPlan)
 
   const handleRecal = async () => {
     const expirationTimeInHours = 1;

@@ -221,8 +221,8 @@ export function ShoppingCart({shoppingCart}) {
 }
 
 export function ShoppingCartMobile({shoppingCart}) {
-    console.log("ShoppingCartMobile")
-    console.log(shoppingCart)
+    // console.log("ShoppingCartMobile")
+    // console.log(shoppingCart)
 
     const dayIndex = new Date(Date.now()).getDate() - new Date(shoppingCart.CreatedAt).getDate(); // +1 not suppose to be there  this is for testing
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -291,7 +291,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                                             ))
                                         ))}
                                     </>
-                                ) : (<TableRow>No items for today</TableRow>)}
+                                ) : (<TableRow><TableCell>No items for today</TableCell></TableRow>)}
 
 
 

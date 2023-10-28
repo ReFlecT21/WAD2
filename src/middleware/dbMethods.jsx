@@ -196,7 +196,7 @@ export const dbFoodMethods = {
             }
 
             const remainingCal = parseInt(Math.floor((calories / countMeals) * 3))
-            // console.log(calories, remainingCal, countMeals);
+
 
             return remainingCal;
         } else {
@@ -228,10 +228,6 @@ export const dbFoodMethods = {
             // Added: [],
         }).then(() => {
             console.log("Document written");
-            // console.log(this.docSnap.data());
-            // this.addMealPlanToHistory(plan1, username);
-            // addMealPLanToHistory only when 7 days is up , sends completed & added calories to addMealPLanToHistory
-            // navigate("/home");
         });
         } catch (e) {
         console.error("Error adding document: ", e);
@@ -335,11 +331,10 @@ export const dbFoodMethods = {
             let cal = data.Calories;
             let updateCal = 0;
 
-            // console.log(food)
 
             // Make sure the day exists in the Completed array
             if (Array.isArray(food)) {
-            // Convert food into an array of objects and add the 3rd element of every inner array to updateCal
+
                 let foodObjectArray = food.map((innerArray, index) => {
                     updateCal += innerArray[2];
 
@@ -353,65 +348,40 @@ export const dbFoodMethods = {
                 cal -= updateCal;
             }
 
-            if (Object.keys(Completed).length == 0) {
+            if ( !Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
                 Completed[dayIndex] = {};
-                console.log(Completed);
             }
+            
             if (Object.values(DisplayPlan[dayIndex][mealType])[0] == 0) {
                 const key = Object.keys(DisplayPlan[dayIndex][mealType])[0];
                 DisplayPlan[dayIndex][mealType][key] = 1;
             }
-            // if (
-            //     Completed[dayIndex].breakfast &&
-            //     Completed[dayIndex].lunch &&
-            //     Completed[dayIndex].dinner
-            // ) {
-            //     // setDayIndex((prevDayIndex) => {
-            //     //   const newDayIndex = prevDayIndex + 1;
-            //     //   Completed[newDayIndex] = {};
-            //     //   Completed[newDayIndex][mealType] = food;
-            //     //   return newDayIndex;
-            //     // });
-            //     // console.log(Completed);
-            //     // should use formula instead of hardcoding
-            // } else {
-
-            // console.log(Completed);
-            // console.log(Plan);
-            // console.log(dayIndex, mealType);
 
             if (
                 Plan[dayIndex][mealType] == undefined 
                 // Completed[dayIndex][mealType] != undefined
             ) {
-            // console.log(dayIndex);
-            // console.log(JSON.stringify(Completed, null, 2));
                 alert(`You cant have ${mealType} again`);
                 return false;
             } else {
                 Completed[dayIndex][mealType] = food;
 
-            // console.log(JSON.stringify(Completed, null, 2));
-            // Update the document in Firestore
+                delete Plan[dayIndex][mealType];
 
-            delete Plan[dayIndex][mealType];
+                await updateDoc(this.docRef, {
+                    Completed: Completed,
+                    // MasterCopy: Plan,
+                    Plan: Plan,
+                    DisplayPlan: DisplayPlan,
+                    Calories: cal,
+                });
 
-            console.log(Completed);
+                console.log("Document written");
+                return true;
 
-            await updateDoc(this.docRef, {
-                Completed: Completed,
-                // MasterCopy: Plan,
-                Plan: Plan,
-                DisplayPlan: DisplayPlan,
-                Calories: cal,
-            });
 
-            console.log("Document written");
-            return true;
-
-            // return {DisplayMealPlan, CreatedAt};
             }
-            // }
+
         } else {
             console.error(
             "Document does not exist or Completed field is not an array"

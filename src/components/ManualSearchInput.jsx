@@ -20,9 +20,10 @@ import Cookies from "js-cookie";
 
 // CONFIRM MODAL
 function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
+    const [recal, setRecal] = useState(false);
+    const [reload, setReload] = useState(false);
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
     const navigate = useNavigate();
-    // const [recal, setRecal] = useAtom(RecalAtom);
 
     const [ConfirmModalopen, setConfirmModalOpen] = useState(false);
     const handleClose = () => {
@@ -40,15 +41,13 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
                 Meal_Type,
                 foodDetails
             );
+            setReload(true);
             return res;
         }
 
     };
     const handleRecal = async () => {
-        const expirationTimeInHours = 1;
-        const expirationDate = new Date(
-        new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
-        );
+        
         // console.log(day_Index);
 
         if (day_Index == 0) {
@@ -60,28 +59,57 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
                 Meal_Type,
                 foodDetails
             );
-            
-            if(res){
-                let remainingCal = await dbFoodMethods.getRemainingCalories();
-                
-                if (remainingCal > 999){
-                    Cookies.set("recal", 1, { expires: expirationDate });
-                    Cookies.set("calories", remainingCal, { expires: expirationDate });
-                    setOverlayData([]);
-                    navigate("/choose");
-                } else {
-                    alert("You can only recalculate if you have at least 1000 calories per day left")
-                }
+            return res;
+        }
 
+        setRecal(true);
+    };
+
+    const recalRedirect = async () => {
+        const expirationTimeInHours = 1;
+            const expirationDate = new Date(
+            new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+            );
+            let remainingCal = await dbFoodMethods.getRemainingCalories();
+                
+            if (remainingCal > 999){
+                Cookies.set("recal", 1, { expires: expirationDate });
+                Cookies.set("calories", remainingCal, { expires: expirationDate });
+                setOverlayData([]);
+                navigate("/choose");
+            } else {
+                alert("You can only recalculate if you have at least 1000 calories per day left")
+            }
+    }
+
+    useEffect(() => {
+        if (reload) {
+            window.location.reload();
+        }
+    }, [reload]);
+
+    useEffect(() => {
+        const callback = async () => {
+            const expirationTimeInHours = 1;
+            const expirationDate = new Date(
+            new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+            );
+            let remainingCal = await dbFoodMethods.getRemainingCalories();
+                
+            if (remainingCal > 999){
+                Cookies.set("recal", 1, { expires: expirationDate });
+                Cookies.set("calories", remainingCal, { expires: expirationDate });
+                setOverlayData([]);
+                navigate("/choose");
+            } else {
+                alert("You can only recalculate if you have at least 1000 calories per day left")
             }
         }
 
-        
-        // setRecal(true);
-        
-
-        
-    };
+        if (recal) {
+            callback();
+        }
+    }, [recal]);
 
 // user to manual select meal type
 // check whether plan still exists
@@ -118,7 +146,10 @@ return (
             <Button className="buttonPrimary" onClick={handleAdd}>
             Add
             </Button>
-            <Button className="buttonPrimary" onClick={handleRecal}>
+            <Button className="buttonPrimary" onClick={async ()=>{
+                await handleRecal()
+                await recalRedirect()
+                }}>
             Recal
             </Button>
         </div>
