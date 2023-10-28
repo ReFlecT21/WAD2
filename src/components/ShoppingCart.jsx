@@ -48,7 +48,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
             <TableCell align="right">{ingre.unit}</TableCell>
             <TableCell align="right">
                 <Button 
-                    className='buttonPrimary'
+                    className='ShoppingCardBtn'
                     onClick={completeItem} 
                     style={{width:"80px"}}
 
@@ -63,7 +63,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
 
     return (
         <React.Fragment>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+            <TableRow  sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell>
                     <IconButton
                     aria-label="expand row"
@@ -74,7 +74,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row" style={{fontSize:"30px"}}>
-                    {title}
+                    <h1>{title}</h1>
                 </TableCell>
                 <TableCell align="right">#</TableCell>
                 <TableCell align="right">#</TableCell>
@@ -86,25 +86,25 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex}) {
                         {/* <Typography variant="h5" gutterBottom component="div">
                             Cart for today
                         </Typography> */}
-                        <Typography variant="h8" gutterBottom component="div">
+                        <Typography style={{fontSize:"20px", fontFamily:"Nunito Sans"}} variant="h8" gutterBottom component="div">
                             Check off what you have bought!
                             You can uncheck if you have made a mistake.
                         </Typography>
                         <Table size="small" aria-label="purchases">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{fontSize:"20px"}}>Aisle</TableCell>
-                                    <TableCell style={{fontSize:"20px"}}>Item name</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Quantity</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Unit</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Bought?</TableCell>
+                            <TableHead >
+                                <TableRow  style={{ backgroundColor:"#1F5E4B"}} >
+                                    <TableCell className="fff" style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Aisle</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Item name</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Quantity</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Unit</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Bought?</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            <TableBody  >
                             {Object.keys(dayCart).sort().map((ingreType)=>(
                                  <React.Fragment key={dayIndex+ingreType}>
                                     {Object.keys(dayCart[ingreType]).map((ingre)=>(
-                                        <CustomRow 
+                                        <CustomRow  
                                             key={dayIndex+ingreType+ingre}
                                             flag={dayCart[ingreType][ingre].completed}
                                             buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}

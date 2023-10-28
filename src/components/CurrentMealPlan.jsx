@@ -64,11 +64,11 @@ return (
                     <AccordionSummary
                         expandIcon={<ExpandMore />}
                     >
-                    <h3>
+                    <h1 >
                         {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                         .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                         .getDay()]}
-                    </h3>
+                    </h1>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Row xs={1} md={2} lg={3}>

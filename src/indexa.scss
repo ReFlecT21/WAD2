@@ -445,4 +445,30 @@ RecipeTitle{
 .img-overlay{
     filter: brightness(70%);
   }
+
+.accordionFont{
+    font-family: $headerFont;
+
+}
+
+.fff{
+    font-family: "Orlegano One";
+
+}
+
+.ShoppingCardBtn{
+
+    @include whiteText();
+    @include button($primaryCol, 14px);
+    border-radius: 20px;
+    width: 20px;
+    height: 40px;
+    padding: 0px;
+    // text-align: center;
+    // display: flex;
+    // justify-content: center;
+
+}
+
+
     /////////////////////////////Anan stuff end
