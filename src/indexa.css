@@ -424,16 +424,17 @@ h2, h3, h4, h5 {
   color: #F6FEFC;
   border: 0px;
   border-radius: 50px;
-  font-size: 14px;
+  font-size: 18px;
   padding: 10px 28px;
   text-align: center;
   font-family: "Nunito Sans";
   border-radius: 20px;
-  width: 40%;
+  width: 45%;
   height: 50px;
   margin-right: auto;
   margin-left: auto;
   text-align: center;
+  padding: 0px;
   margin-top: 35px;
 }
 
@@ -550,5 +551,34 @@ RecipeTitle {
 
 .shade {
   background-color: #3EBC96;
+}
+
+.RecalBtn {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 17px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+  width: 120px;
+  height: 50px;
+  padding: 0px;
+  margin: 20px;
+}
+
+.RecalBtn:hover {
+  background: #12382c;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.tryy {
+  -moz-border-radius: 0 0 5px 0 !important;
 }
 /*# sourceMappingURL=indexa.css.map */

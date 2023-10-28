@@ -8,7 +8,8 @@ import {
     TableContainer, 
     TableHead,
     TableRow,
-    Typography} from "@mui/material";
+    Typography,
+    colors} from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -41,7 +42,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"#3EBC96"});
+            setSelectStyle({backgroundColor:"#bcddd5"});
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
             setNumOutstanding((prev) => prev - 1);
@@ -101,8 +102,10 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                     {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row" style={{fontSize:"30px"}}>
+                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Orelega One"}}>
+                    <h1>
                     {title}
+                    </h1>
                 </TableCell>
                 <TableCell align="right">#</TableCell>
                 <TableCell align="right">#</TableCell>
@@ -114,21 +117,21 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                         {/* <Typography variant="h5" gutterBottom component="div">
                             Cart for today
                         </Typography> */}
-                        <Typography style={{fontSize:"20px", fontFamily:"Nunito Sans"}} variant="h8" gutterBottom component="div">
+                        <Typography style={{fontSize:"20px", fontFamily:"Nunito Sans" ,textAlign:"center"}} variant="h8" gutterBottom component="div">
                             Check off what you have bought!
                             You can click the button again if you have made a mistake.
                         </Typography>
-                        <Table size="small" aria-label="purchases">
-                            <TableHead >
-                                <TableRow  style={{ backgroundColor:"#1F5E4B"}} >
-                                    <TableCell className="fff" style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Aisle</TableCell>
-                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Item name</TableCell>
-                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Quantity</TableCell>
-                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Unit</TableCell>
-                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Bought?</TableCell>
+                        <Table size="small" aria-label="purchases" >
+                            <TableHead  >
+                                <TableRow  style={{ backgroundColor:"#1F5E4B", height:"60px" }} >
+                                    <TableCell className="fff" style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white" , width:"20%"}}>Aisle</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white" , width:"10%"}}>Item Name</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Quantity</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Unit</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Bought?</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            <TableBody  style={{ backgroundColor:"#e4f3ef", fontFamily:"Nunito Sans" }}>
                             {Object.keys(dayCart).sort().map((ingreType)=>(
                                  <React.Fragment key={dayIndex+ingreType}>
                                     {Object.keys(dayCart[ingreType]).map((ingre)=>(
@@ -180,10 +183,10 @@ export function ShoppingCart({shoppingCart}) {
             {shoppingCart ? (<TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
-                <TableRow>
-                    <TableCell>Day</TableCell>
-                    <TableCell >Number of items</TableCell>
-                    <TableCell >Number of outstanding items</TableCell>
+                <TableRow  >
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Day</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Number of items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Number of outstanding items</TableCell>
                     <TableCell />
                 </TableRow>
                 </TableHead>
@@ -243,7 +246,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                     <AccordionSummary
                             expandIcon={<ExpandMore />}
                         >
-                        <h3>
+                        <h3 >
                             {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .getDay()]}

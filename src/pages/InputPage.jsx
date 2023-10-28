@@ -170,7 +170,7 @@ const InputPage = () => {
             }}
         >
             <Row>
-            <Col md={7}>
+            <Col md={5}>
                 {/* <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" /> */}
 
                 {/* <dotlottie-player src="https://lottie.host/968cf6ca-7065-45cf-8a86-6e3d756f6536/QvIyMTi2sW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
@@ -178,17 +178,18 @@ const InputPage = () => {
 
             <Col
                 style={{
-                padding: "20px",
+                padding: "20px", paddingTop:"100px"
                 }}
             >
-                <Row>
+                <Row style={{ marginTop: "0" }}>
                 <h2>Getting to know you!</h2>
                 </Row>
 
-                <Row style={{ marginTop: "20px" }}>
+                <Row style={{ marginTop: "" }}>
                 <Col
                     style={{
                     paddingLeft: "20px",
+                    marginTop: "35px"
                     }}
                 >
                     <h5>Gender</h5>
@@ -208,9 +209,10 @@ const InputPage = () => {
                     />
                     </div>
                 </Col>
-                <Col
+                <Col md={6}
                     style={{
                     paddingLeft: "20px",
+                    marginTop: "35px"
                     }}
                 >
                     <h5>Age</h5>{" "}
@@ -218,17 +220,18 @@ const InputPage = () => {
                     type="number"
                     name="age"
                     placeholder="Enter your age"
-                    className="inputBox"
+                    className=" round"
                     id="age"
                     onChange={handleChange}
                     value={formData.age}
                     />
                 </Col>
                 </Row>
-                <Row style={{ marginTop: "20px" }}>
-                <Col
+                <Row style={{ marginTop: "" }}>
+                <Col md={6}
                     style={{
                     paddingLeft: "20px",
+                    marginTop: "35px" 
                     }}
                 >
                     <h5>Height</h5>{" "}
@@ -236,15 +239,16 @@ const InputPage = () => {
                     type="number"
                     name="height"
                     placeholder="Enter your height"
-                    className="inputBox"
+                    className=" round"
                     id="height"
                     onChange={handleChange}
                     value={formData.height}
                     />
                 </Col>
-                <Col
+                <Col  md={6}
                     style={{
                     paddingLeft: "20px",
+                    marginTop: "35px" 
                     }}
                 >
                     <h5>Weight</h5>{" "}
@@ -252,22 +256,24 @@ const InputPage = () => {
                     type="number"
                     name="weight"
                     placeholder="Enter your weight"
-                    className="inputBox"
+                    className=" round"
                     id="weight"
                     onChange={handleChange}
                     value={formData.weight}
                     />
                 </Col>
                 </Row>
-                <Row style={{ marginTop: "20px" }}>
-                <Col
+                <Row style={{ marginTop: "" }}>
+                <Col md={6} 
                     style={{
                     paddingLeft: "20px",
+                    marginTop: "35px"
                     }}
                 >
-                    <h5>Select your activity level</h5>
+                    <h5>Activity level</h5>
 
                     <Form.Select
+                    className="round"
                     id="exercise"
                     onChange={handleChange}
                     aria-label="Default select example"
@@ -293,15 +299,17 @@ const InputPage = () => {
                     </Form.Select>
                 </Col>
                 <Col
-                    xs={4}
+                    md={6}
                     style={{
                     paddingLeft: "20px",
+                    marginTop: "35px"
                     }}
                 >
                     <h5>Goal</h5>
 
                     <Form.Select
                     id="goal"
+                    className="round"
                     onChange={handleAllergies}
                     aria-label="Default select example"
                     name="goal"
@@ -313,10 +321,11 @@ const InputPage = () => {
                     </Form.Select>
                 </Col>
                 </Row>
-                <Row style={{ marginTop: "20px" }}>
+                <Row style={{ marginTop: "" }}>
                 <Col
                     style={{
                     paddingLeft: "20px",
+                    marginTop: "35px"
                     }}
                 >
                     <h5>Allergies</h5>
@@ -363,16 +372,18 @@ const InputPage = () => {
                     <option value="eggs">Eggs</option>
                     <option value="none">None</option>
                     </Form.Select> */}
-                </Col>
+                </Col >
                 </Row>
                 <Row style={{}}>
-                <Col>
+                <Col style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                      }}>
                     <Button
                     id="submit"
                     onClick={handleSubmit}
                     type="submit"
-                    className="buttonPrimary"
-                    style={{ width: "100%" }}
+                    className="CreateMealBtn"
                     >
                     Create Meal
                     </Button>

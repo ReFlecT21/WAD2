@@ -74,7 +74,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
             // console.log(mealPlanCopy);
             // console.log(shoppingCart);
 
-            if (recal == 0){
+            if (!recal){
                 let x =  dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart, Cookies.get("calories"));
             } else {
                 let x =  dbFoodMethods.recalMealplan(mealPlan, mealPlanCopy, shoppingCart, Cookies.get("calories"));
@@ -150,7 +150,7 @@ export function CreateMealPlanContentFinalise({info, recal}){
         ){
             let IDs = [];
             
-            if (recal == 0){
+            if (!recal){
                 console.log("finalise meal plan");
                 for (let i=1; i<8; i++){
                     ["Breakfast", "Lunch", "Dinner"].forEach(async (meal) => {

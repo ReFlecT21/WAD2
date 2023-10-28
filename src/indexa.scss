@@ -382,13 +382,14 @@ h2,h3,h4,h5{
 .CreateMealBtn{
 
     @include whiteText();
-    @include button($primaryCol, 14px);
+    @include button($primaryCol, 18px);
     border-radius: 20px;
-    width: 40%;
+    width: 45%;
     height: 50px;
     margin-right: auto;
     margin-left: auto;
    text-align: center;
+    padding: 0px;
     margin-top: 35px
 }
 
@@ -474,5 +475,32 @@ RecipeTitle{
     background-color: $secondaryCol;
 }
 
+
+///finalise meal plan
+.RecalBtn{
+
+    @include whiteText();
+    @include button($primaryCol, 17px);
+    border-radius: 20px;
+    width: 120px;
+    height: 50px;
+    padding: 0px;
+    margin: 20px;
+    // text-align: center;
+    // display: flex;
+    // justify-content: center;
+
+}
+
+// .extracolour{
+//     color:#bcddd5;
+// $C:#e4f3ef
+// }
+
+
+.tryy{
+    -moz-border-radius: 0 0 5px 0 !important;
+
+}
 
     /////////////////////////////Anan stuff end
