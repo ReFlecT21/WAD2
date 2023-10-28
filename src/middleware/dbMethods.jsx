@@ -215,7 +215,6 @@ export const dbFoodMethods = {
         await this.init();
 
         let currCals = parseInt(parseInt(dayCal) * 7)
-        console.log(currCals);
 
         try {
         await setDoc(this.docRef, {
