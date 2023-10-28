@@ -1,5 +1,6 @@
 import { 
     Accordion,
+    AccordionDetails,
     AccordionSummary,
     Box, Collapse, IconButton, 
     Paper, 
@@ -18,7 +19,7 @@ import { dbFoodMethods } from '../middleware/dbMethods';
 import { ExpandMore } from "@mui/icons-material";
 
 
-function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppingCart, setNumOutstanding, day}) {
+function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppingCart, setNumOutstanding=null, day, isMobile=false}) {
     const [checked, setChecked] = React.useState(flag);
     const [buttonText, setButtonText] = React.useState(buttonTxt);
     const [selectStyle, setSelectStyle] = React.useState(rowStyle);
@@ -52,7 +53,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
 
     return (
         <TableRow key={ingreType+ingre} style={selectStyle}>
-            <TableCell >{ingreType}</TableCell>
+            {isMobile ? (<></>) : (<TableCell >{ingreType}</TableCell>)}
             <TableCell >{ingre.name}</TableCell>
             <TableCell align="right">{ingre.amount}</TableCell>
             <TableCell align="right">{ingre.unit}</TableCell>
@@ -258,7 +259,52 @@ export function ShoppingCartMobile({shoppingCart}) {
                             .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .getDay()]}
                         </h3>
-                        </AccordionSummary>
+                    </AccordionSummary>
+
+                    <AccordionDetails>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell >Item name</TableCell>
+                                    <TableCell  align="right">Quantity</TableCell>
+                                    <TableCell  align="right">Unit</TableCell>
+                                    <TableCell >Bought?</TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody>
+                                {Object.keys(shoppingCart.shoppingCart[day]).map((ingreType)=>(
+                                    Object.keys(shoppingCart.shoppingCart[day][ingreType]).map((ingre)=>(
+                                        <CustomRow 
+                                            key={dayIndex+ingreType+ingre}
+                                            flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
+                                            buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}
+                                            rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                            ingreType={ingreType}
+                                            ingre = {shoppingCart.shoppingCart[day][ingreType][ingre]}
+                                            ingreID = {ingre}
+                                            shoppingCart = {shoppingCart}
+                                            day = {day}
+                                            isMobile = {true}
+                                        />
+                                    ))
+                                ))}
+
+                                {/* <CustomRow 
+                                    key={dayIndex+ingreType+ingre}
+                                    flag={dayCart[ingreType][ingre].completed}
+                                    buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
+                                    rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                    ingreType={ingreType}
+                                    ingre = {dayCart[ingreType][ingre]}
+                                    ingreID = {ingre}
+                                    shoppingCart = {shoppingCart}
+                                    setNumOutstanding = {setNumOutstanding}
+                                    day = {day}
+                                /> */}
+                            </TableBody>
+                        </Table>
+                    </AccordionDetails>
                 </Accordion>
             ))}
         </React.Fragment>

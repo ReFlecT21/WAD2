@@ -71,7 +71,11 @@ export function CreateMealPlanContentFinalise({info, recal}){
             // console.log(mealPlan);
             // console.log(mealPlanCopy);
             // console.log(shoppingCart);
-            let x =  dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart);
+            if (!recal){
+                let x =  dbFoodMethods.createMealplan(mealPlan, mealPlanCopy, shoppingCart);
+            } else {
+                let x =  dbFoodMethods.recalMealplan(mealPlan, mealPlanCopy, shoppingCart);
+            }
 
             Cookies.remove("calories");
             Cookies.remove("allergies");
