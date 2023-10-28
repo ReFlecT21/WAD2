@@ -51,7 +51,7 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
         let remainingCal = await dbFoodMethods.getRemainingCalories();
         
         if (remainingCal > 999){
-            Cookies.set("recal", true, { expires: expirationDate });
+            Cookies.set("recal", 1, { expires: expirationDate });
             Cookies.set("calories", remainingCal, { expires: expirationDate });
             navigate("/choose");
         } else {
