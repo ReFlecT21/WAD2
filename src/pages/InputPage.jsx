@@ -21,7 +21,6 @@ import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
 import Cookies from "js-cookie";
-import { FormDetails } from "../atoms/formAtom";
 
 const InputPage = () => {
   const navigate = useNavigate();
@@ -34,7 +33,14 @@ const InputPage = () => {
     new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
   );
 
-  const [formData, setFormData] = useAtom(FormDetails);
+  const [formData, setFormData] = useState({
+    age: 0,
+    gender: "female",
+    height: 0,
+    weight: 0,
+    activityLevel: "sedentary",
+    goal: "maintain",
+  });
 
   const [allergies, setAllergies] = useAtom(Allergies);
   const [calories, setCalories] = useAtom(Kcal);
@@ -193,7 +199,7 @@ const InputPage = () => {
                     style={{ color: "white" }}
                     className="p"
                     name="gender"
-                    checked={formData.gender === "male"}
+                    checked={formData && formData.gender === "male"}
                     onChange={handleChangeGender}
                     id="flexSwitchCheckChecked"
                     label="Male"
@@ -213,7 +219,7 @@ const InputPage = () => {
                   className="inputBox"
                   id="age"
                   onChange={handleChange}
-                  value={formData.age}
+                  value={formData && formData.age}
                 />
               </Col>
             </Row>
@@ -231,7 +237,7 @@ const InputPage = () => {
                   className="inputBox"
                   id="height"
                   onChange={handleChange}
-                  value={formData.height}
+                  value={formData && formData.height}
                 />
               </Col>
               <Col
@@ -247,7 +253,7 @@ const InputPage = () => {
                   className="inputBox"
                   id="weight"
                   onChange={handleChange}
-                  value={formData.weight}
+                  value={formData && formData.weight}
                 />
               </Col>
             </Row>
@@ -295,7 +301,7 @@ const InputPage = () => {
                   onChange={handleAllergies}
                   aria-label="Default select example"
                   name="goal"
-                  value={formData.goal}
+                  value={formData && formData.goal}
                 >
                   <option value="maintain">Maintain</option>
                   <option value="lose">Lose</option>
@@ -335,7 +341,7 @@ const InputPage = () => {
                     onChange={handleAllergies}
                     inline
                     style={{ color: "#1F5E4B" }}
-                    checked={allergies.includes(item)}
+                    checked={allergies && allergies.includes(item)}
                   />
                 ))}
 

@@ -9,7 +9,6 @@ import { DotLoader } from "react-spinner-overlay";
 import { FormDetails } from "../atoms/formAtom";
 import { useAtom } from "jotai";
 import Cookies from "js-cookie";
-import Cookies from "js-cookie";
 
 export function CreateMealPlanContentv2({
   pageNum,
