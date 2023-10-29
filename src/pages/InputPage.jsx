@@ -20,6 +20,7 @@ import getMealPlan from "../middleware/getMealPlan";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
+import { FormDetails } from "../atoms/formAtom";
 
 const InputPage = () => {
   const navigate = useNavigate();
@@ -27,14 +28,7 @@ const InputPage = () => {
   const navChoose = () => navigate("/choose");
   const navChoose2 = () => navigate("/choose");
 
-  const [formData, setFormData] = useState({
-    age: 0,
-    gender: "female",
-    height: 0,
-    weight: 0,
-    activityLevel: "sedentary",
-    goal: "maintain",
-  });
+  const [formData, setFormData] = useAtom(FormDetails);
 
   const [allergies, setAllergies] = useAtom(Allergies);
 
@@ -49,7 +43,21 @@ const InputPage = () => {
     }
     return Math.ceil(bmr);
   };
-
+  // const getDetails = async () => {
+  //   await dbFoodMethods.init();
+  //   const Details = await dbFoodMethods.getDetails();
+  //   if (Details != null) {
+  //     console.log(Details);
+  //     setFormData(Object.values(Details)[0]); // update the atom
+  //   }
+  // };
+  // useEffect(() => {
+  //   getDetails();
+  // }, []);
+  // put in analytics
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
   const computeMaintenance = (BMR, activityLevel) => {
     if (activityLevel === "sedentary") {
       return (BMR *= 1.2);
@@ -107,15 +115,11 @@ const InputPage = () => {
       setAllergies((prevAllergies) =>
         prevAllergies.filter((item) => item !== e.target.value)
       );
-
-
     } else {
       // If the allergy is not in the array, add it
       setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
-
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -208,7 +212,11 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="age"
-                  placeholder="Enter your age"
+                  placeholder={
+                    formData["age"] === 0
+                      ? "Please enter your age"
+                      : formData["age"]
+                  }
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -225,7 +233,11 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder="Enter your height"
+                  placeholder={
+                    formData["height"] === 0
+                      ? "Please enter your height"
+                      : formData["height"]
+                  }
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -240,7 +252,11 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder="Enter your weight"
+                  placeholder={
+                    formData["weight"] === 0
+                      ? "Please enter your weight"
+                      : formData["weight"]
+                  }
                   className="inputBox"
                   id="text-input"
                   onChange={handleChange}
@@ -259,6 +275,7 @@ const InputPage = () => {
                   onChange={handleChange}
                   aria-label="Default select example"
                   name="activityLevel"
+                  value={formData["activityLevel"]}
                 >
                   <option value="sedentary">Do not exercise</option>
                   <option value="light">
@@ -290,6 +307,7 @@ const InputPage = () => {
                   onChange={handleAllergies}
                   aria-label="Default select example"
                   name="goal"
+                  value={formData["goal"]}
                 >
                   <option value="maintain">Maintain</option>
                   <option value="lose">Lose</option>

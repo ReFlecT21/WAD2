@@ -65,6 +65,27 @@ export const dbFoodMethods = {
       console.error("Error updating document: ", e);
     }
   },
+  getDetails: async function () {
+    console.log("getDetails");
+    // console.log(this.docSnap)
+    this.init();
+    try {
+      // Get the current state of the document
+      if (this.docSnap) {
+        const data = this.docSnap.data();
+        // console.log(data);
+        const Details = data.Details;
+
+        // console.log(mealPlan);
+        return { Details };
+      } else {
+        console.error("Document does not exist");
+        return null;
+      }
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+  },
 
   getDisplayMealPlan: async function () {
     console.log("getDisplayMealPlan");
@@ -114,7 +135,7 @@ export const dbFoodMethods = {
     }
   },
 
-  createMealplan: async function (plan1, plan2, shoppingCart) {
+  createMealplan: async function (plan1, plan2, shoppingCart, formData) {
     console.log("createMealplan");
     await this.init();
     // console.log(a == undefined)
@@ -126,6 +147,7 @@ export const dbFoodMethods = {
         Completed: {},
         Calories: localStorage.getItem("calories") * 7,
         shoppingCart: shoppingCart,
+        Details: formData,
         // Added: [],
       }).then(() => {
         console.log("Document written");
@@ -162,19 +184,19 @@ export const dbFoodMethods = {
     });
   },
 
-  updateShoppingCart: async function(shoppingCart){
-    console.log("updateShoppingCart")
-    console.log(shoppingCart)
+  updateShoppingCart: async function (shoppingCart) {
+    console.log("updateShoppingCart");
+    console.log(shoppingCart);
     await this.init();
     try {
-        await updateDoc(this.docRef, {
-            shoppingCart: shoppingCart,
-        });
-        console.log("Document written");
+      await updateDoc(this.docRef, {
+        shoppingCart: shoppingCart,
+      });
+      console.log("Document written");
     } catch (e) {
-        console.error("Error updating document: ", e);
+      console.error("Error updating document: ", e);
     }
-},
+  },
 
   completeMeal: async function (dayIndex, mealType, food) {
     try {
