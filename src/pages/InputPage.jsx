@@ -17,9 +17,10 @@ import { LoggedIn } from "../atoms/logInAtom";
 import { NavBar } from "../components";
 import { MDBSwitch } from "mdb-react-ui-kit";
 import getMealPlan from "../middleware/getMealPlan";
-import { dbFoodMethods } from "../middleware/dbMethods";
+import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
+import Cookies from "js-cookie";
 import { FormDetails } from "../atoms/formAtom";
 
 const InputPage = () => {
@@ -28,11 +29,24 @@ const InputPage = () => {
   const navChoose = () => navigate("/choose");
   const navChoose2 = () => navigate("/choose");
 
+  const expirationTimeInHours = 1;
+  const expirationDate = new Date(
+    new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+  );
+
   const [formData, setFormData] = useAtom(FormDetails);
 
   const [allergies, setAllergies] = useAtom(Allergies);
-
   const [calories, setCalories] = useAtom(Kcal);
+
+  useEffect(() => {
+    dbUserMethods.getUserData().then((res) => {
+      if (res.formInput !== null && res.allergies !== null) {
+        setFormData(res.formInput);
+        setAllergies(res.allergies);
+      }
+    });
+  }, []);
 
   const mifflin = (gender, age, height, weight) => {
     let bmr;
@@ -43,21 +57,7 @@ const InputPage = () => {
     }
     return Math.ceil(bmr);
   };
-  // const getDetails = async () => {
-  //   await dbFoodMethods.init();
-  //   const Details = await dbFoodMethods.getDetails();
-  //   if (Details != null) {
-  //     console.log(Details);
-  //     setFormData(Object.values(Details)[0]); // update the atom
-  //   }
-  // };
-  // useEffect(() => {
-  //   getDetails();
-  // }, []);
-  // put in analytics
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+
   const computeMaintenance = (BMR, activityLevel) => {
     if (activityLevel === "sedentary") {
       return (BMR *= 1.2);
@@ -123,7 +123,7 @@ const InputPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     // Check if all fields are filled out
     for (let key in formData) {
       if (formData[key] === "" || formData[key] === null) {
@@ -134,25 +134,20 @@ const InputPage = () => {
 
     const calculatedCalories = calculateCalories();
     // await setCalories(calculatedCalories);
-    localStorage.setItem("calories", calculatedCalories);
-    localStorage.setItem("allergies", JSON.stringify(allergies));
+    Cookies.set("calories", calculatedCalories, { expires: expirationDate });
+    Cookies.set("allergies", JSON.stringify(allergies), {
+      expires: expirationDate,
+    });
+    Cookies.set("recal", 0, { expires: expirationDate });
+
+    await dbUserMethods.setUserData(formData, allergies);
+    // localStorage.setItem("calories", calculatedCalories);
+    // localStorage.setItem("allergies", JSON.stringify(allergies));
     // console.log(calories);
 
     // navChoose();
     navChoose2();
   };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const userId = auth.currentUser.email;
-  //     const mealPlan = await getMealPlan(userId);               // why do we need this? called but not used.
-  //     // dbFoodMethods.init();
-  //     // const mealPlan = await dbFoodMethods.getMealPlan();     // why do we need this? called but not used.
-  //     // console.log(mealPlan);
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <>
@@ -168,7 +163,9 @@ const InputPage = () => {
       >
         <Row>
           <Col md={7}>
-            <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" />
+            {/* <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" /> */}
+
+            {/* <dotlottie-player src="https://lottie.host/968cf6ca-7065-45cf-8a86-6e3d756f6536/QvIyMTi2sW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
           </Col>
 
           <Col
@@ -212,14 +209,11 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="age"
-                  placeholder={
-                    formData["age"] === 0
-                      ? "Please enter your age"
-                      : formData["age"]
-                  }
+                  placeholder="Enter your age"
                   className="inputBox"
-                  id="text-input"
+                  id="age"
                   onChange={handleChange}
+                  value={formData.age}
                 />
               </Col>
             </Row>
@@ -233,14 +227,11 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder={
-                    formData["height"] === 0
-                      ? "Please enter your height"
-                      : formData["height"]
-                  }
+                  placeholder="Enter your height"
                   className="inputBox"
-                  id="text-input"
+                  id="height"
                   onChange={handleChange}
+                  value={formData.height}
                 />
               </Col>
               <Col
@@ -252,14 +243,11 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder={
-                    formData["weight"] === 0
-                      ? "Please enter your weight"
-                      : formData["weight"]
-                  }
+                  placeholder="Enter your weight"
                   className="inputBox"
-                  id="text-input"
+                  id="weight"
                   onChange={handleChange}
+                  value={formData.weight}
                 />
               </Col>
             </Row>
@@ -275,7 +263,6 @@ const InputPage = () => {
                   onChange={handleChange}
                   aria-label="Default select example"
                   name="activityLevel"
-                  value={formData["activityLevel"]}
                 >
                   <option value="sedentary">Do not exercise</option>
                   <option value="light">
@@ -304,10 +291,11 @@ const InputPage = () => {
                 <h5>Goal</h5>
 
                 <Form.Select
+                  id="goal"
                   onChange={handleAllergies}
                   aria-label="Default select example"
                   name="goal"
-                  value={formData["goal"]}
+                  value={formData.goal}
                 >
                   <option value="maintain">Maintain</option>
                   <option value="lose">Lose</option>
@@ -338,6 +326,7 @@ const InputPage = () => {
                   "Wheat",
                 ].map((item) => (
                   <Form.Check
+                    id={item}
                     key={item} // Make sure to add a unique key when mapping over an array in React
                     type="checkbox"
                     label={item}
@@ -346,28 +335,30 @@ const InputPage = () => {
                     onChange={handleAllergies}
                     inline
                     style={{ color: "#1F5E4B" }}
+                    checked={allergies.includes(item)}
                   />
                 ))}
 
                 {/* <Form.Select
-                  onChange={handleChange}
-                  aria-label="Default select example"
-                  name="allergies"
-                  multiple
-                >
-                  <option value="soy">Soy</option>
-                  <option value="nuts">Nuts</option>
-                  <option value="wheat">Wheat</option>
-                  <option value="dairy">Dairy</option>
-                  <option value="seafood">Seafood</option>
-                  <option value="eggs">Eggs</option>
-                  <option value="none">None</option>
-                </Form.Select> */}
+                    onChange={handleChange}
+                    aria-label="Default select example"
+                    name="allergies"
+                    multiple
+                    >
+                    <option value="soy">Soy</option>
+                    <option value="nuts">Nuts</option>
+                    <option value="wheat">Wheat</option>
+                    <option value="dairy">Dairy</option>
+                    <option value="seafood">Seafood</option>
+                    <option value="eggs">Eggs</option>
+                    <option value="none">None</option>
+                    </Form.Select> */}
               </Col>
             </Row>
             <Row style={{}}>
               <Col>
                 <Button
+                  id="submit"
                   onClick={handleSubmit}
                   type="submit"
                   className="buttonPrimary"

@@ -10,6 +10,65 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "../../firebase";
+import Cookies from "js-cookie";
+
+export const dbUserMethods = {
+  username: null,
+  docRef: null,
+  docSnap: false,
+
+  init: async function () {
+    if (this.docSnap == false) {
+      this.username = auth.currentUser.email;
+      this.docRef = doc(db, "BioData", this.username);
+      this.docSnap = await getDoc(this.docRef);
+    }
+  },
+
+  setUserData: async function (data, allergies) {
+    console.log("setUserData");
+    console.log(data);
+    console.log(allergies);
+    await this.init();
+
+    try {
+      await setDoc(this.docRef, {
+        formInput: data,
+        allergies: allergies,
+      }).then(() => {
+        console.log("Document written");
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  },
+
+  getUserData: async function () {
+    await this.init();
+
+    if (this.docSnap) {
+      const data = this.docSnap.data();
+      const formInput = data?.formInput;
+      const allergies = data?.allergies;
+      return { formInput, allergies };
+    } else {
+      console.error("Document does not exist");
+    }
+  },
+
+  getAllergies: async function () {
+    await this.init();
+
+    if (this.docSnap) {
+      const data = this.docSnap.data();
+      // const formInput = data?.formInput;
+      const allergies = data?.allergies;
+      return allergies;
+    } else {
+      console.error("Document does not exist");
+    }
+  },
+};
 
 export const dbFoodMethods = {
   username: null,
@@ -47,7 +106,7 @@ export const dbFoodMethods = {
   getMealPlan: async function () {
     console.log("getMealPlan");
     // console.log(this.docSnap)
-    this.init();
+    await this.init();
     try {
       // Get the current state of the document
       if (this.docSnap) {
@@ -135,28 +194,83 @@ export const dbFoodMethods = {
     }
   },
 
-  createMealplan: async function (plan1, plan2, shoppingCart, formData) {
+  getRemainingCalories: async function () {
+    console.log("getCalories");
+    // console.log(this.username)
+
+    this.init();
+
+    try {
+      // Get the current state of the document
+      if (this.docSnap) {
+        const data = this.docSnap.data();
+        // console.log(data);
+        const mealPlan = data.Plan;
+        const calories = data.Calories;
+
+        let countMeals = 0;
+        for (const day in mealPlan) {
+          for (const mealType in mealPlan[day]) {
+            countMeals += 1;
+          }
+        }
+
+        const remainingCal = parseInt(Math.floor((calories / countMeals) * 3));
+
+        return remainingCal;
+      } else {
+        console.log("Document does not exist");
+        return null;
+      }
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+  },
+
+  createMealplan: async function (
+    plan1,
+    plan2,
+    shoppingCart,
+    dayCal,
+    formData
+  ) {
     console.log("createMealplan");
     await this.init();
-    // console.log(a == undefined)
+
+    let currCals = parseInt(parseInt(dayCal) * 7);
+
     try {
       await setDoc(this.docRef, {
         Plan: plan1, // this is for recal
         DisplayPlan: plan2, // this is for display (1 for compeleted, 0 for not completed)
         CreatedAt: Date.now(),
         Completed: {},
-        Calories: localStorage.getItem("calories") * 7,
+        Calories: currCals,
         shoppingCart: shoppingCart,
         Details: formData,
+        // allergies: Cookies.get("allergies"),
         // Added: [],
       }).then(() => {
         console.log("Document written");
-        // this.addMealPlanToHistory(plan1, username);
-        // addMealPLanToHistory only when 7 days is up , sends completed & added calories to addMealPLanToHistory
-        // navigate("/home");
       });
     } catch (e) {
       console.error("Error adding document: ", e);
+    }
+  },
+
+  recalMealplan: async function (plan1, plan2, shoppingCart) {
+    console.log("recalMealplan");
+    await this.init();
+
+    try {
+      await updateDoc(this.docRef, {
+        Plan: plan1, // this is for recal
+        DisplayPlan: plan2, // this is for display (1 for compeleted, 0 for not completed)
+        shoppingCart: shoppingCart,
+      });
+      console.log("Document written");
+    } catch (e) {
+      console.error("Error updating document: ", e);
     }
   },
 
@@ -212,12 +326,8 @@ export const dbFoodMethods = {
         let cal = data.Calories;
         let updateCal = 0;
 
-        // console.log(Plan);
-        // console.log(Object.values(DisplayPlan[dayIndex].breakfast)[0]);
-
         // Make sure the day exists in the Completed array
         if (Array.isArray(food)) {
-          // Convert food into an array of objects and add the 3rd element of every inner array to updateCal
           let foodObjectArray = food.map((innerArray, index) => {
             updateCal += innerArray[2];
 
@@ -231,50 +341,29 @@ export const dbFoodMethods = {
           cal -= updateCal;
         }
 
-        if (Object.keys(Completed).length == 0) {
+        if (!Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
           Completed[dayIndex] = {};
-          console.log(Completed);
         }
+
         if (Object.values(DisplayPlan[dayIndex][mealType])[0] == 0) {
           const key = Object.keys(DisplayPlan[dayIndex][mealType])[0];
           DisplayPlan[dayIndex][mealType][key] = 1;
         }
-        // if (
-        //     Completed[dayIndex].breakfast &&
-        //     Completed[dayIndex].lunch &&
-        //     Completed[dayIndex].dinner
-        // ) {
-        //     // setDayIndex((prevDayIndex) => {
-        //     //   const newDayIndex = prevDayIndex + 1;
-        //     //   Completed[newDayIndex] = {};
-        //     //   Completed[newDayIndex][mealType] = food;
-        //     //   return newDayIndex;
-        //     // });
-        //     // console.log(Completed);
-        //     // should use formula instead of hardcoding
-        // } else {
-
-        // console.log(Completed);
-        // console.log(Plan);
 
         if (
-          Completed[dayIndex][mealType] ||
           Plan[dayIndex][mealType] == undefined
+          // Completed[dayIndex][mealType] != undefined
         ) {
-          // console.log(dayIndex);
-          // console.log(JSON.stringify(Completed, null, 2));
-          alert(`you cant have ${mealType} again`);
+          alert(`You cant have ${mealType} again`);
           return false;
         } else {
           Completed[dayIndex][mealType] = food;
-
-          // console.log(JSON.stringify(Completed, null, 2));
-          // Update the document in Firestore
 
           delete Plan[dayIndex][mealType];
 
           await updateDoc(this.docRef, {
             Completed: Completed,
+            // MasterCopy: Plan,
             Plan: Plan,
             DisplayPlan: DisplayPlan,
             Calories: cal,
@@ -282,10 +371,7 @@ export const dbFoodMethods = {
 
           console.log("Document written");
           return true;
-
-          // return {DisplayMealPlan, CreatedAt};
         }
-        // }
       } else {
         console.error(
           "Document does not exist or Completed field is not an array"
