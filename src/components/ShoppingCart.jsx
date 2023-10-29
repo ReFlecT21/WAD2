@@ -264,12 +264,12 @@ export function ShoppingCartMobile({shoppingCart}) {
                                 </TableRow>
                             </TableHead>
 
-                            <TableBody>
+                            <TableBody  >
                                 {Object.keys(shoppingCart.shoppingCart[day]).length >0 ? (
                                     <>
                                         {Object.keys(shoppingCart.shoppingCart[day]).map((ingreType)=>(
                                             Object.keys(shoppingCart.shoppingCart[day][ingreType]).map((ingre)=>(
-                                                <CustomRow 
+                                                <CustomRow  
                                                     key={dayIndex+ingreType+ingre}
                                                     flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
                                                     buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}

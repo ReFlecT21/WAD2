@@ -553,6 +553,26 @@ RecipeTitle {
   background-color: #3EBC96;
 }
 
+table {
+  background-color: #F6FEFC;
+}
+
+th:first-of-type {
+  border-top-left-radius: 25px;
+}
+
+th:last-of-type {
+  border-top-right-radius: 25px;
+}
+
+tr:last-of-type td:first-of-type {
+  border-bottom-left-radius: 25px;
+}
+
+tr:last-of-type td:last-of-type {
+  border-bottom-right-radius: 25px;
+}
+
 .RecalBtn {
   color: #F6FEFC;
   font-weight: normal;
@@ -578,7 +598,7 @@ RecipeTitle {
   transition: all 0.3s ease;
 }
 
-.tryy {
-  -moz-border-radius: 0 0 5px 0 !important;
+.card {
+  margin-bottom: 15px;
 }
 /*# sourceMappingURL=indexa.css.map */

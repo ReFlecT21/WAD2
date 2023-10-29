@@ -52,8 +52,7 @@ p{
     background: $backgroundCol;
     padding: .4em;
     border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);    
 }   
     x
 .card:hover{
@@ -457,6 +456,7 @@ RecipeTitle{
 
 }
 
+/// shopping cart
 .ShoppingCardBtn{
 
     @include whiteText();
@@ -476,7 +476,34 @@ RecipeTitle{
 }
 
 
-///finalise meal plan
+
+
+// .extracolour{
+//     color:#bcddd5;
+// $C:#e4f3ef
+// }
+
+///table general stuff for shopping cart
+table{
+    background-color: $whiteTextCol;
+}
+
+th:first-of-type {
+    border-top-left-radius: 25px;
+
+  }
+  th:last-of-type {
+    border-top-right-radius: 25px;
+  }
+  tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 25px;
+  }
+  tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 25px;
+  }
+
+
+  ///finalise meal plan
 .RecalBtn{
 
     @include whiteText();
@@ -491,16 +518,12 @@ RecipeTitle{
     // justify-content: center;
 
 }
+  
 
-// .extracolour{
-//     color:#bcddd5;
-// $C:#e4f3ef
-// }
+///completed meals 
+.card{
+    margin-bottom: 15px; //I added this onto the .card class above
+}   
 
-
-.tryy{
-    -moz-border-radius: 0 0 5px 0 !important;
-
-}
 
     /////////////////////////////Anan stuff end

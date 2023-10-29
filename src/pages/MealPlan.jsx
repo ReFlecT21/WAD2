@@ -103,6 +103,7 @@ export default function MealPlan() {
         {currDisplayMealPlan != null ? (
           <Container>
             <Tabs
+            style={{backgroundColor:"", color:""}}
               defaultActiveKey="mealPlan"
               id="uncontrolled-tab-example"
               className="mb-3"
@@ -126,7 +127,7 @@ export default function MealPlan() {
               <Tab eventKey="cart" title="Shopping Cart">
                 {width > 767 ? (
                   // <h1>Shopping Cart</h1>
-                  <ShoppingCart
+                  <ShoppingCart 
                     shoppingCart={shoppingCart}
                   />
                 ) : (
