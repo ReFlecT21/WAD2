@@ -43,7 +43,7 @@ function App() {
         <ErrorBoundary FallbackComponent={Fallback}>
           <Routes>
             {user && loggedIn ? (
-              <Route path="/" element={<AnalyticsPage />} />
+              <Route path="/" element={<HomePage />} />
             ) : (
               <>
                 <Route path="/home" element={<HomePage />} />
