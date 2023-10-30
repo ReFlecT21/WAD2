@@ -60,26 +60,35 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
                 foodDetails
             ) .then(async (res) => {
                 // console.log(res);
-                if (res) {
+                if (res.Plan) {
                     const expirationTimeInHours = 1;
                     const expirationDate = new Date(
                     new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
                     );
-                    let remainingCal = await dbFoodMethods.getRemainingCalories(res);
+                    // let remainingCal = await dbFoodMethods.getRemainingCalories(res);
+                    let remainingCal = () => {
+                        let countMeals = 0;
+                        for (const day in res.Plan) {
+                            for (const mealType in res.Plan[day]) {
+                                countMeals += 1;
+                            }
+                        }
+                        // console.log(countMeals);
+
+                        return parseInt(Math.floor((res.cal / countMeals) * 3));
+                    }
+                    // console.log(remainingCal());
                         
-                    if (remainingCal > 999){
-                        Cookies.set("recal", JSON.stringify(res), { expires: expirationDate });
-                        Cookies.set("calories", remainingCal, { expires: expirationDate });
+                    if (remainingCal() > 999){
+                        Cookies.set("recal", JSON.stringify(res.Plan), { expires: expirationDate });
+                        Cookies.set("calories", remainingCal(), { expires: expirationDate });
                         setOverlayData([]);
                         navigate("/choose");
                     } else {
                         alert("You can only recalculate if you have at least 1000 calories per day left")
                     }
     
-    
-    
-                    // setRecal(true);
-                    // return res;
+
                 }
 
             });

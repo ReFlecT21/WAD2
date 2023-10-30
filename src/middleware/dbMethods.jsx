@@ -413,7 +413,7 @@ export const dbFoodMethods = {
             .then(() => {
               console.log("Document written");
               // return true;
-              resolve(Plan); 
+              resolve({Plan,cal}); 
             })
     
           }
