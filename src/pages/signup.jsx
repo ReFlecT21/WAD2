@@ -16,7 +16,7 @@ const SignUpComponent = () => {
   const [registerPassword2, setRegisterPassword2] = useState("");
   const register = async () => {
     if (registerPassword1 !== registerPassword2) {
-      alert("Passwords dont match bro");
+      alert("Passwords do not match");
     } else {
       try {
         const user = await createUserWithEmailAndPassword(
@@ -31,23 +31,22 @@ const SignUpComponent = () => {
     }
   };
   return (
-    <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }}>
-      <Row style={{ margin: "0", height: "100vh" }}>
-        <Col className="backgroundLeft d-flex d-none d-md-block p-0 col-7">
-          <Image src="/login.png" alt="" className="foodimg" />
+    <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }} xs={1} sm= {1} md={1} lg={1}>
+      <Row className="loginPage">
+        <Col className="backgroundLeft d-none d-lg-block col-lg-7">
+          <Image src="/foodimg.jpg" alt="" className="foodimg" />
         </Col>
-        <Col className="backgroundRight d-flex ">
+        <Col className="backgroundRight d-flex justify-content-center">
           <Row
-            className="justify-content-center"
-            style={{ margin: "0", padding: "0", width: "100%" }}
+            className="loginDetails"
           >
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Image src="/MenuMate.png" alt="" className="logo" />
             </Row>
-            <Row className="d-flex justify-content-center align-items-center mb-3">
+            <Row className="loginDetails mb-3">
               <h2 className="tagline">Your friend in every meal.</h2>
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Form.Control
                 type="text"
                 placeholder="Email"
@@ -55,7 +54,7 @@ const SignUpComponent = () => {
                 onChange={(e) => setRegisterEmail(e.target.value)}
               />
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -63,7 +62,7 @@ const SignUpComponent = () => {
                 onChange={(e) => setRegisterPassword1(e.target.value)}
               />
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Form.Control
                 type="password"
                 placeholder="Re-enter Password"
@@ -71,12 +70,12 @@ const SignUpComponent = () => {
                 onChange={(e) => setRegisterPassword2(e.target.value)}
               />
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Button type="submit" className="loginButton" onClick={register}>
                 Start your journey!
               </Button>
             </Row>  
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <p className="signupSmallText">
                 Already have an account? <Link className="link" to="/">Log in</Link>
               </p>

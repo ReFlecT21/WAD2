@@ -47,46 +47,45 @@ p{
 }
 
 //VERTICAL CARD
-.card{
-    width: 300px;
-    background: $backgroundCol;
-    padding: .4em;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    
-}   
-    x
-.card:hover{
-    transform: scale(1.05);
-    transition: 0.3s; 
-    }
+// .card{
+//     width: 300px;
+//     background: $backgroundCol;
+//     padding: .4em;
+//     border-radius: 6px;
+//     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);    
+// }   
+//     x
+// .card:hover{
+//     transform: scale(1.05);
+//     transition: 0.3s; 
+//     }
 
-.card-category { //Card titlea
-font-size: 26px;
-font-weight: bold;
-font-family: $primaryFont;
-color: $primaryCol;
-padding: 10px 7px 0;
-}
+// .card-category { //Card titlea
+// font-size: 26px;
+// font-weight: bold;
+// font-family: $primaryFont;
+// color: $primaryCol;
+// padding: 10px 7px 0;
+// }
 
-.card-category:hover {
-cursor: pointer;
-}
+// .card-category:hover {
+// cursor: pointer;
+// }
 
-.card-heading { //Card text
-font-weight: normal;
-font-size: 14px;
-@include bodyText();
-color: rgb(88, 87, 87);
-padding: 10px;
-}
+// .card-heading { //Card text
+// font-weight: normal;
+// font-size: 14px;
+// @include bodyText();
+// color: rgb(88, 87, 87);
+// padding: 10px;
+// }
 
-.card button{
-    border-radius: 20px;
-    @include whiteText();
-    border: 0;
-    @include button($primaryCol, 14px)
-}
+// .card button{
+//     border-radius: 20px;
+//     @include whiteText();
+//     border: 0;
+//     @include button($primaryCol, 14px)
+// }
 
 // <img src="./pic.jpg" style="width:100%"/> --> NEED TO ADD STYLE TO IMG SRC
 
@@ -238,7 +237,8 @@ h1{
 }
 
 h2,h3,h4,h5{
-    @include bodyText()
+    @include bodyText();
+    font-weight:bold
 }
 
   @mixin sideImage {
@@ -369,5 +369,176 @@ h2,h3,h4,h5{
     margin-right: auto;
     margin-left: auto;
 }
+
+
+/////INPUT PAGE
+
+
+
+.round{
+    border-radius: 20px;
+}
+
+.CreateMealBtn{
+
+    @include whiteText();
+    @include button($primaryCol, 18px);
+    border-radius: 20px;
+    width: 45%;
+    height: 50px;
+    margin-right: auto;
+    margin-left: auto;
+   text-align: center;
+    padding: 0px;
+    margin-top: 35px
+}
+
+.ttt{
+    height: 100px;
+    width: 300px;
+    
+
+}
+
+////Recipe card (for meal plan page)
+
+
+
+// .ReceipeCardBtn{
+
+//     @include whiteText();
+//     @include button($primaryCol, 10px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 35px;
+//     // margin-bottom: 30px;
+
+
+//     line-height: 0px;
+//     margin-right: 15px
+
+// }
+
+// .ReceipeCardBtnR{
+
+//     @include whiteText();
+//     @include button($primaryCol, 10px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 35px;
+//     margin-left: 15px;
+//     line-height: 0px;
+
+// }
+
+// RecipeTitle{
+//     margin-top: 20px;
+// }
+
+
+// .cntr{
+//     display: flex;
+//     justify-content: center;
+    
+// }
+
+
+// .img-overlay{
+//     filter: brightness(70%);
+//   }
+
+.accordionFont{
+    font-family: $headerFont;
+
+}
+
+.fff{
+    font-family: "Orlegano One";
+
+}
+
+/// shopping cart
+.ShoppingCardBtn{
+
+    @include whiteText();
+    @include button($primaryCol, 14px);
+    border-radius: 20px;
+    width: 20px;
+    height: 40px;
+    padding: 0px;
+    // text-align: center;
+    // display: flex;
+    // justify-content: center;
+
+}
+
+.shade{
+    background-color: $secondaryCol;
+}
+
+
+
+
+// .extracolour{
+//     color:#bcddd5;
+// $C:#e4f3ef
+// }
+
+///table general stuff for shopping cart
+table{
+    background-color: $whiteTextCol;
+}
+
+th:first-of-type {
+    border-top-left-radius: 25px;
+
+  }
+  th:last-of-type {
+    border-top-right-radius: 25px;
+  }
+  tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 25px;
+  }
+  tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 25px;
+  }
+
+
+  ///finalise meal plan
+.RecalBtn{
+
+    @include whiteText();
+    @include button($primaryCol, 17px);
+    border-radius: 20px;
+    width: 120px;
+    height: 50px;
+    padding: 0px;
+    margin: 20px;
+    // text-align: center;
+    // display: flex;
+    // justify-content: center;
+
+}
+  
+
+///completed meals 
+.card{
+    margin-bottom: 15px; //I added this onto the .card class above
+}   
+
+
+///current meal plan
+
+
+// tabs
+
+.custom-tab-title {
+    color: red; /* Change 'red' to the color you want */
+  }
+
+
+  .tabTitleStyle {
+    color: 'red', // Change 'blue' to the color you want
+  };
 
     /////////////////////////////Anan stuff end

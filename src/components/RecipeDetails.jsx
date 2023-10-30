@@ -52,9 +52,12 @@ export function RecipeDetails(id) {
 
       CardData.push(
         <div key={`${recipe.id}Details`}>
-          <Row>
-            <Col>
-              <h1>{recipe["title"]}</h1>
+          <Row style={{marginTop: "20px", marginBottom: "20px", marginLeft:"0px"}}>
+            <Col > 
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+              <h1 className="recipeTitle" style={{width: "80%"}}>{recipe["title"]}</h1>
+              <button style={{display:"flex", alignItems: "center", justifyContent: "start"}} className="cancelBtn" onClick={handleClose}>X</button>
+            </div>
             </Col>
           </Row>
           <Row>
@@ -69,15 +72,21 @@ export function RecipeDetails(id) {
 
             </Col>
           </Row>
-          <Row>
+          <Row className="recipeDetails">
             <h3>Ingredients</h3>
 
-            <ul>{ingredients}</ul>
+            <ul><p>{ingredients}</p></ul>
           </Row>
           <Row>
             <h3>Instructions</h3>
 
-            <ol>{instructions}</ol>
+            <ol><p>{instructions}</p></ol>
+          </Row>
+
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center">
+              <button className="chooseBtn" onClick={handleClose}>Done</button>
+            </Col>
           </Row>
         </div>
       );

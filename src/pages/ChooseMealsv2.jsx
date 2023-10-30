@@ -110,7 +110,7 @@ export default function ChooseMealsV2() {
             <NavBar />
             {overlayData}
             <Container>
-                <Row style={{textAlign:"center"}}>
+                <Row style={{marginTop: "50px",marginBottom: "10px", textAlign:"center"}}>
                     {recal == 1 ? (
                         <>
                             <h2>You are recalculating an old plan</h2>
@@ -119,7 +119,7 @@ export default function ChooseMealsV2() {
                     ) 
                     : (<h2>You are creating a new plan!</h2>)}
                 </Row>
-                <Row>
+                <Row style={{margin:"0px"}}>
                 <StepProgressBar
                     page={activePage}
                     onPageNumberClick={setActivePage}

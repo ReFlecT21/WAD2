@@ -27,8 +27,8 @@ export const dbUserMethods = {
 
   setUserData: async function (data, allergies) {
     console.log("setUserData");
-    console.log(data);
-    console.log(allergies);
+    // console.log(data);
+    // console.log(allergies);
     await this.init();
 
     try {

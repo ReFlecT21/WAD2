@@ -44,51 +44,8 @@ $headerFont: "Orelega One";
 
 p{
     font-family: $primaryFont;
+    color: $primaryCol;
 }
-
-//VERTICAL CARD
-.card{
-    width: 300px;
-    background: $backgroundCol;
-    padding: .4em;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    
-}   
-    x
-.card:hover{
-    transform: scale(1.05);
-    transition: 0.3s; 
-    }
-
-.card-category { //Card titlea
-font-size: 26px;
-font-weight: bold;
-font-family: $primaryFont;
-color: $primaryCol;
-padding: 10px 7px 0;
-}
-
-.card-category:hover {
-cursor: pointer;
-}
-
-.card-heading { //Card text
-font-weight: normal;
-font-size: 14px;
-@include bodyText();
-color: rgb(88, 87, 87);
-padding: 10px;
-}
-
-.card button{
-    border-radius: 20px;
-    @include whiteText();
-    border: 0;
-    @include button($primaryCol, 14px)
-}
-
-// <img src="./pic.jpg" style="width:100%"/> --> NEED TO ADD STYLE TO IMG SRC
 
 
 //stuff
@@ -100,6 +57,11 @@ padding: 10px;
                 -20px -20px 38px #ffffff;
     padding: 5%;
     margin: 5%;
+    position: relative;
+}
+
+.todayMealCards{
+    position: absolute;
 }
 
 //vertical card
@@ -114,16 +76,30 @@ body, html {
 
 // LOGIN + SIGNUP PAGE
 
+.loginPage{
+    margin: 0;
+    height: 100vh;
+}
+
+.loginDetails{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
 .logo{
     height: 180px;
     width: 200px;
     margin: 20px;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .foodimg{
-    height: 500px;
-    width: 400;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
     margin: 0;
 }
 
@@ -132,6 +108,8 @@ body, html {
 }
 .backgroundLeft{
     background-color: $primaryCol;
+    display: flex;
+    padding: 0;
 }
 
 .tagline{
@@ -179,6 +157,9 @@ body, html {
     border-bottom-right-radius: 40px;
     border-bottom-left-radius: 40px;
     box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 
 }
 
@@ -189,17 +170,37 @@ body, html {
     margin: 0;
 }
 
+.homeNav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .homeNav img{
     width: 50px;
     height: 50px;
     margin-right: 10px;
 }
 
+#basic-navbar-nav{
+    justify-content: end;
+}
 .createBtn{
     @include button($secondaryCol, 16px);
     font-weight: bold;
 }
 
+.btn-primary{
+    --bs-btn-active-color: $secondaryCol;
+    --bs-btn-active-bg: $secondaryCol;
+    --bs-btn-active-border-color: $secondaryCol;
+}
+
+.navItem{
+    display: flex;
+    align-items: center;
+
+}
 .plusIcon{
     color: $whiteTextCol;
     margin-right: 10px;
@@ -219,15 +220,14 @@ body, html {
     transition: 0.5s;
 }
 
-.profileIcon{
+.exitIcon{
     margin-left: 10px;
     margin-right: 10px;
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
 }
-
-//MAKE STICKY!!!!!!!!!!//
-
 
 //////////////////////////////Anan stuff below
 
@@ -238,7 +238,8 @@ h1{
 }
 
 h2,h3,h4,h5{
-    @include bodyText()
+    @include bodyText();
+    font-weight: bold;
 }
 
   @mixin sideImage {
@@ -270,3 +271,320 @@ h2,h3,h4,h5{
         font-size: large;
     }
     /////////////////////////////Anan stuff end
+    
+    /// CHOOSE MEALS
+    /// Step progress bar
+    /// 
+    .stickyRow {
+        position: sticky;
+        top: 0;
+        background-color: $backgroundCol; /* Add a background color or other styles as needed */
+        z-index: 1;
+        padding-top: 100px;
+    }
+
+    .indexedStep {
+        color: $primaryCol;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100px;
+        height: 40px;
+        background-color: white;
+        border-radius: 20px;
+        border: 1px solid $primaryCol;
+        font-family: $primaryFont;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+   
+    .indexedStep.accomplished {
+        background-color: $primaryCol;
+        color: $whiteTextCol;
+        font-family: $primaryFont;
+        border-style: none;
+    }
+    
+    .RSPBprogressBar {
+        height: 2px;
+        width: 60%;
+        line-height: 1;
+        border-radius: 10px;
+        position: relative;
+        background-color: rgb(207, 207, 207);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 0;
+        margin: 30px auto;
+        color: $primaryCol; 
+    }
+    
+    .RSPBprogressBar .RSPBstep {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+        position: absolute;
+        transform: translateX(-50%);
+        transition-property: all;
+        transition-timing-function: ease;
+    }
+    
+    .RSPBprogressBar .RSPBprogressBarText {
+        color: white;
+        font-size: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .RSPBprogressBar .RSPBprogression {
+        position: absolute;
+        transition: width 0.3s ease;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 10px;
+        background: $primaryCol;
+        z-index: -1;
+        background-color: $primaryCol;
+        color: $primaryCol;
+    }
+    
+    .bg-percentageBar{
+        color: $primaryCol;
+    }
+    
+    @media screen and (max-width: 480px) {
+        .indexedStep{
+            width: 15px;
+            height: 15px;
+            font-size: 6px;
+        }
+    }
+
+    .chooseMealsBtn{
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .chooseBtn{
+        @include button($secondaryCol, 20px)
+    }
+    .buttonPrimary{
+        @include button($primaryCol, 12px);
+        font-weight: bold;
+
+        &:disabled{
+            background-color: $secondaryCol;
+        }
+        &:focus{
+            background-color: $secondaryCol;
+        }
+
+
+    }
+
+    .mealCards{
+        display: flex;
+        justify-content: center;
+    }
+
+//FINALISE MEAL PLAN PAGE
+//RECIPE CARD 
+.card{
+    border: 0px;
+    margin: 10px;
+    background-color: transparent;
+    
+}
+
+.cardImg{
+    border-radius: 30px;
+    max-width: 100%;
+    max-height: 120%;
+    object-fit: cover;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    filter: brightness(70%);
+}
+
+
+.btnDiv{ //space between button
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardTitle{
+    margin-top: 10px;
+    font-family: $primaryFont;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 2);
+    text-transform: capitalize;
+}
+
+.finaliseBtn{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.finaliseType{
+    font-family: $primaryFont;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+//VIEW RECIPE POPUP
+
+.stickyBtn{
+    position: sticky;
+    top: 0;
+}
+.cancelBtn{
+    background-color: transparent; /* Make the button background transparent */
+    border: 0; /* Remove the button border */
+    font-size: 20px; /* Adjust the font size for the "X" */
+    cursor: pointer; /* Change the cursor to indicate it's clickable */
+    color: $primaryCol; /* Change the color to red or any other color you prefer */
+    // padding-left: 20px;
+    // padding-right: 20px;
+    // padding-top: 20px;
+    // padding-bottom: 20px;
+    // border-radius: 50%;  
+    font-family: $primaryFont;
+    font-weight: bold;
+    font-size: 26px;
+    
+}
+
+.recipeTitle{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.recipeTitle h1{
+    font-size: 50px;
+}
+
+.recipeCalories{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 200px;
+    height:50px;
+
+    border: 1px solid $secondaryCol;
+    border-radius: 50px;
+    background-color: $secondaryCol;
+    color: $whiteTextCol;
+
+    margin-right: 60px;
+    margin-left: 60px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.recipePic{
+    border-radius: 50px;
+    height: 80%;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.recipeDetails{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+//POPUP BOX
+//////for manual search
+/// 
+
+.popup {
+    background-color: $backgroundCol;
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 600px;
+    margin:auto;
+    overflow: auto;
+    padding-top: 3%;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 4%;
+    border: 0;
+    border-radius: 50px;
+  }
+  
+  .popupChild{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ 
+  }
+  
+  .card-title{
+    color: $whiteTextCol
+  }
+
+  .manualSelectBtn{
+      @include whiteText();
+      @include button($primaryCol, 14px);
+      border-radius: 20px;
+  }
+  
+
+  .popUpclass {
+        h2,p{
+            padding-bottom: 10px;
+            text-align: center;
+            font-size: 36px;
+        }
+
+        h2{
+            padding-top: 5%;
+        }
+
+        button{
+            @include whiteText();
+            @include button($primaryCol, 14px);
+            border-radius: 20px;
+        }
+        
+
+    }
+
+    .manualSearchBar{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    
+    .img-overlay{
+      filter: brightness(70%);
+    }
+    .img-overlay-small{
+      filter: brightness(75%);
+      float: left;
+      width:  100px;
+      height: 100px;
+      object-fit: cover;
+    }
+    
+
+
+//////END for manual search b 

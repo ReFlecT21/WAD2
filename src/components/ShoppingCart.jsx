@@ -30,25 +30,32 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     // } 
 
     const completeItem = async() => {
+        
         if (checked) {
             setChecked(false);
             setButtonText("Buy");
             setSelectStyle({});
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = false;
-            setNumOutstanding((prev) => prev + 1);
+            if (setNumOutstanding) {
+
+                setNumOutstanding((prev) => prev + 1);
+            }
             await dbFoodMethods.updateShoppingCart(shoppingCart.shoppingCart);
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"#1F5E4B", });
+            setSelectStyle({backgroundColor:"grey", });
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
-            setNumOutstanding((prev) => prev - 1);
+            if (setNumOutstanding) {
+
+                setNumOutstanding((prev) => prev - 1);
+            }
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             await dbFoodMethods.updateShoppingCart(shoppingCart.shoppingCart);
         }
-
+        
     }
 
     return (
@@ -92,11 +99,11 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell component="th" scope="row" style={{fontSize:"30px"}}>
+                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Nunito sans", color:"#205E4B"}}>
                     {title}
                 </TableCell>
-                <TableCell >{numItems}</TableCell>
-                <TableCell >{numOutstanding}</TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>{numItems}</TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>{numOutstanding}</TableCell>
                 <TableCell>
                     <IconButton
                     aria-label="expand row"
@@ -114,21 +121,21 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                         {/* <Typography variant="h5" gutterBottom component="div">
                             Cart for today
                         </Typography> */}
-                        <Typography variant="h8" gutterBottom component="div">
+                        <Typography variant="h8" gutterBottom component="div" style={{fontSize:"20px", fontFamily:"Nunito Sans" ,textAlign:"center"}}>
                             Check off what you have bought!
                             You can click the button again if you have made a mistake.
                         </Typography>
                         <Table size="small" aria-label="purchases">
                             <TableHead>
-                                <TableRow>
-                                    <TableCell style={{fontSize:"20px"}}>Aisle</TableCell>
-                                    <TableCell style={{fontSize:"20px"}}>Item name</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Quantity</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Unit</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Bought?</TableCell>
+                                <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px" }}>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Aisle</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Item name</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Quantity</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Unit</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Bought?</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
+                            <TableBody style={{ backgroundColor:"#e4f3ef", fontFamily:"Nunito Sans" }}>
                                 {Object.keys(dayCart).length > 0 ? (
                                     <>
                                         {Object.keys(dayCart).sort().map((ingreType)=>(
@@ -139,7 +146,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                                                         key={dayIndex+ingreType+ingre}
                                                         flag={dayCart[ingreType][ingre].completed}
                                                         buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"#1F5E4B"} : {}}
+                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
                                                         ingreType={ingreType}
                                                         ingre = {dayCart[ingreType][ingre]}
                                                         ingreID = {ingre}
@@ -185,15 +192,17 @@ export function ShoppingCart({shoppingCart}) {
         "Saturday",
     ];
 
+
+
     return (
         <>
             {shoppingCart ? (<TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
                 <TableRow>
-                    <TableCell>Day</TableCell>
-                    <TableCell >Number of items</TableCell>
-                    <TableCell >Number of outstanding items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B"}}>Day</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of outstanding items</TableCell>
                     <TableCell />
                 </TableRow>
                 </TableHead>
@@ -263,11 +272,11 @@ export function ShoppingCartMobile({shoppingCart}) {
                     <AccordionDetails>
                         <Table>
                             <TableHead>
-                                <TableRow>
-                                    <TableCell >Item name</TableCell>
-                                    <TableCell  align="right">Quantity</TableCell>
-                                    <TableCell  align="right">Unit</TableCell>
-                                    <TableCell >Bought?</TableCell>
+                                <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px" }}>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}}>Item name</TableCell>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}} align="right">Quantity</TableCell>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}} align="right">Unit</TableCell>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}}>Bought?</TableCell>
                                 </TableRow>
                             </TableHead>
 
@@ -280,7 +289,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                                                     key={dayIndex+ingreType+ingre}
                                                     flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
                                                     buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}
-                                                    rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"#1F5E4B"} : {}}
+                                                    rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
                                                     ingreType={ingreType}
                                                     ingre = {shoppingCart.shoppingCart[day][ingreType][ingre]}
                                                     ingreID = {ingre}
