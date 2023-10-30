@@ -248,6 +248,7 @@ export const dbFoodMethods = {
         Calories: currCals,
         shoppingCart: shoppingCart,
         Details: formData,
+        CurrCal: 0,
         // allergies: Cookies.get("allergies"),
         // Added: [],
       }).then(() => {
@@ -275,27 +276,56 @@ export const dbFoodMethods = {
   },
 
   countMealPlansInHistory: async function () {
-    const subcollectionRef = collection(this.docRef, "MealPlanHistory");
-    const Query = query(subcollectionRef);
-    const snapshot = await getDocs(Query);
-    return snapshot.size;
+    await this.init();
+    try {
+      const subcollectionRef = collection(this.docRef, "MealPlanHistory");
+      const Query = query(subcollectionRef);
+      const snapshot = await getDocs(Query);
+      return snapshot.size;
+    } catch (e) {
+      console.error("Error getting documents: ", e);
+      return null; // Return null or some other value to indicate an error occurred
+    }
   },
 
-  addMealPlanToHistory: async function (plan, username) {
-    const count = await this.countMealPlansInHistory(username);
+  addMealPlanToHistory: async function () {
+    if (!this.docRef) {
+      console.log("Document reference does not exist");
+      return false; // Return false or some other value to indicate an error occurred
+    }
 
-    // Add a new document to the `MealPlanHistory` subcollection with a sequential document ID.
-    const docRef = doc(
-      db,
-      "Food",
-      username,
-      "MealPlanHistory",
-      String(count + 1)
-    );
-    await setDoc(docRef, {
-      Plan: plan,
-      CreatedAt: Date.now(),
-    });
+    await this.init();
+    const count = await this.countMealPlansInHistory();
+
+    try {
+      // Get the current state of the document
+      if (this.docSnap) {
+        const data = this.docSnap.data();
+        const CurrCals = data.CurrCals;
+        const Details = data.Details;
+        const weight = Details["weight"];
+        const Date = data.CreatedAt;
+        const docRef = doc(
+          db,
+          "Food",
+          this.username,
+          "MealPlanHistory",
+          String(count + 1)
+        );
+        await setDoc(docRef, {
+          Cals: CurrCals,
+          Weight: weight,
+          Date: Date,
+        });
+        return true; // Return true to indicate the operation was successful
+      } else {
+        console.log("Document does not exist");
+        return false; // Return false or some other value to indicate an error occurred
+      }
+    } catch (e) {
+      console.error("Error updating document: ", e);
+      return false; // Return false or some other value to indicate an error occurred
+    }
   },
 
   updateShoppingCart: async function (shoppingCart) {
@@ -324,6 +354,7 @@ export const dbFoodMethods = {
         const Plan = data.Plan;
         const DisplayPlan = data.DisplayPlan;
         let cal = data.Calories;
+        let CurrCal = data.CurrCal;
         let updateCal = 0;
 
         // Make sure the day exists in the Completed array
@@ -336,9 +367,11 @@ export const dbFoodMethods = {
 
           food = foodObjectArray; // Replace food with foodObjectArray
           cal -= updateCal;
+          CurrCal += updateCal;
         } else {
           updateCal += Object.values(food)[0];
           cal -= updateCal;
+          CurrCal += updateCal;
         }
 
         if (!Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
@@ -379,6 +412,59 @@ export const dbFoodMethods = {
       }
     } catch (e) {
       console.error("Error updating document: ", e);
+    }
+  },
+  checkEnd: async function () {
+    await this.init();
+
+    try {
+      // Get the current state of the document
+      if (this.docSnap) {
+        const data = this.docSnap.data();
+        const MealPlan = data.Plan;
+
+        if (Object.keys(MealPlan[7]).length === 0) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        console.log("Document does not exist");
+      }
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+  },
+  getWeights: async function () {
+    const weights = [];
+    const Dates = [];
+    await this.init();
+    try {
+      const collectionRef = collection(
+        db,
+        "Food",
+        this.username,
+        "MealPlanHistory"
+      );
+
+      const querySnapshot = await getDocs(collectionRef);
+
+      // Convert the QuerySnapshot to an array of documents
+      const docs = querySnapshot.docs;
+
+      // Sort the array by document ID in ascending numerical order
+      docs.sort((doc1, doc2) => parseInt(doc1.id) - parseInt(doc2.id));
+
+      // Extract weights from sorted documents
+      docs.forEach((doc) => {
+        const data = doc.data();
+        weights.push(data.Weight);
+        Dates.push(data.Date);
+      });
+
+      return { weights, Dates };
+    } catch (e) {
+      console.error("Error getting document: ", e);
     }
   },
 };
