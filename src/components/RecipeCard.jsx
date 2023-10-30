@@ -142,36 +142,43 @@ export function SelectedRecpieCardV2({recipe, setter}) {
   )
 }
 
-export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealType, dayIndex, currMealPlan}) {
+export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan}) {
 
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
   const [buttonState, setButtonState] = useState(render);
   const [buttonText, setButtonText] = useState("Complete Meal");
 
-  useEffect(() => {
-    if (buttonState === true) {
-      setButtonText("Complete Meal");
-    } else {
-      setButtonText("Completed");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (buttonState === true) {
+  //     setButtonText("Complete Meal");
+  //   } else {
+  //     setButtonText("Completed");
+  //   }
+  // }, []);
   
   const handleButtonClick = async () => {
-    let res = await dbFoodMethods.completeMeal(
-      dayIndex,
-      mealType,
-      currMealPlan.mealPlan[day][mealType]
-    );
-    return res
-    // setTrigger((prev) => prev + 1);
-      // if (buttonState === true) {
-      //   setButtonState(false)
-      //   setButtonText("Completed");
 
-      // } else {
-      //   setButtonText("Complete Meal");
-      // }
+    if(dayIndex === 0){
+      alert("You can only start completing meals from tomorrow onwards!")
+    } else {
+
+
+      if (currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]]){
+        alert(`You cant have ${mealType} again`)
+      } else {
+        let res = await dbFoodMethods.completeMeal(
+          dayIndex,
+          mealType,
+          currMealPlan.mealPlan[day][mealType]
+        );
+        return res
+
+      }
+
+
+    }
+
   };
 
   return (
@@ -196,18 +203,20 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                   >
                     See Recipe
                   </Button>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={ async () =>{
-                      let res = await handleButtonClick()
-                      if (res) {
-                        window.location.reload(false)
-                      }
-                    }}
-                    disabled={!buttonState}
-                  >
-                    {buttonText}
-                  </Button>
+                  {/* {buttonState ? ( */}
+                    <Button
+                      className="buttonPrimary"
+                      onClick={ async () =>{
+                        let res = await handleButtonClick()
+                        if (res) {
+                          window.location.reload(false)
+                        }
+                      }}
+                      // disabled={!buttonState}
+                    >
+                      {buttonText}
+                    </Button>
+                  {/* ):(<></>)} */}
                 </div>
               </Col>
             </Row>

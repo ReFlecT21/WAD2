@@ -41,7 +41,7 @@ export async function fetcherPOST(endpoint, body) {
   }
 }
 
-export async function fetcherGET(endpoint, params, setter) {
+export async function fetcherGET(endpoint, params, setter, dayIdx = null) {
 
   // axios.get(endpoint + new URLSearchParams(params).toString())
   //     .then((res) => {
@@ -55,12 +55,17 @@ export async function fetcherGET(endpoint, params, setter) {
   //     .catch((error) => console.log(error));
   fetch(endpoint + new URLSearchParams(params).toString())
     .then((res) => res.json())
-    .then((data) => {
+    .then(async (data) => {
       if (endpoint === "/foodAPI/search/?") {
+        // console.log(data["results"])
         setter(data["results"]);
       } else {
         // console.log(data)
-        setter(data);
+        if (dayIdx != null) {
+          setter(data, dayIdx);
+        } else {
+          setter(data);
+        }
       }
     })
     .catch((error) => console.log(error));

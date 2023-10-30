@@ -1,14 +1,14 @@
-import { Button, Container, Row, Col, Accordion, Tab, Tabs} from "react-bootstrap";
+import { Button, Container, Row, Col, Tab, Tabs} from "react-bootstrap";
 import { MealPlanCard } from "../components/MealPlanCard";
 import Fallback from "../pages/Fallback";
 
 import { ErrorBoundary } from "react-error-boundary";
 import { useEffect, useState } from "react";
 import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
+BrowserRouter as Router,
+Route,
+Routes,
+useNavigate,
 } from "react-router-dom";
 
 
@@ -20,28 +20,23 @@ import getMealPlan from "../middleware/getMealPlan";
 import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { ExpandMore } from "@mui/icons-material";
+// import { ShoppingCartPopUp } from "./ShoppingCart";
 
 
+export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCart}) {
+const navigate = useNavigate();
+const navHome = () => navigate("/home");
+const navChoose = () => navigate("/choose");
 
+const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
+const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate(); // +1 not suppose to be there  this is for testing
+const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+const d = new Date(currDisplayMealPlan.CreatedAt);
 
-
-
-
-export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
-  const navigate = useNavigate();
-  const navHome = () => navigate("/home");
-  const navChoose = () => navigate("/choose");
-
-  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-  // const [currMealPlan, setCurrMealPlan] = useState(null);
-  // const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
-
-  const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() +2; // +1 not suppose to be there  this is for testing
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-  const d = new Date(currDisplayMealPlan.CreatedAt);
-
-  const weekday = [
+const weekday = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -49,67 +44,68 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
     "Thursday",
     "Friday",
     "Saturday",
-  ];
+];
 
-  const [content, setContent] = useState(currDisplayMealPlan);
+const [content, setContent] = useState(currDisplayMealPlan);
+const [accordionDisplay, setExpanded] = useState(dayIndex);
 
-  // useEffect(() => {
-  //   console.log("updates content")
-  //   setContent(currDisplayMealPlan)
-  // }, [currDisplayMealPlan]);
+// var accordionDisplay = dayIndex
+const changeAccordionDisplay = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
 
-  // console.log(content)
 
-  // console.log(currDisplayMealPlan);
-
-  return (
-    // <h1>v2 meal plan</h1>
-    <>
-    {content ? (
-      <Accordion defaultActiveKey={[`${dayIndex}`]} alwaysOpen>
-        {Object.keys(content.DisplayMealPlan).map((day) => (
-          <Accordion.Item eventKey={day} key={day}>
-            <Accordion.Header>
-              <h3 style={{ margin: "0px" }}>
-                {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000)).toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000)).getDay()]}
-              </h3>
-            </Accordion.Header>
-            <Accordion.Body>
-              <Row xs={1} md={2} lg={3}>
-                {["breakfast", "lunch", "dinner" ].map((mealType) => (
-                  <div key={`${day}-${mealType}`}>
-                    <h4>{mealType.charAt(0).toUpperCase()+ mealType.slice(1)}</h4>
-                    {Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
-                      // console.log(recipe)
-                      // <p>{recipe}</p>
-                      <MealPlanCard 
-                        key={`${recipe.id}card`}
-                        recipe={recipe}
-                        render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
-
-                        day={day}
-                        mealType={mealType}
-                        dayIndex={dayIndex}
-                        currMealPlan={currMealPlan}
-                        
-                      />
-                    ))}  
-                    {/* 
-                    i need a card that can make API calls
-                    i need to check against display (0/1) to see if i should display disabled or enabled. 
-                    on click completed: call function as per before to update db
+    return (
+        <>
+        {content ? (
+            <div>
+                {Object.keys(content.DisplayMealPlan).map((day) => (
+                    <Accordion key={day} expanded={accordionDisplay == day} onChange={changeAccordionDisplay(day)} >
+                        <AccordionSummary
+                            expandIcon={<ExpandMore />}
+                        >
+                        <h3>
+                            {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                            .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
+                            .getDay()]}
+                        </h3>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
+                                <p> No meals planned for this day </p>
+                            ) :(
+                                <Row xs={1} md={2} lg={3}>
+                                    {["breakfast", "lunch", "dinner" ].map((mealType) => (
+                                    <div key={`${day}-${mealType}`}>
+                                        {content.DisplayMealPlan[day]?.[mealType] && Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
+                                        <MealPlanCard 
+                                            key={`${recipe.id}card`}
+                                            recipe={recipe}
+                                            render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
+                                            day={day}
+                                            mealType={mealType}
+                                            dayIndex={dayIndex}
+                                            currMealPlan={currMealPlan}
+                                            currDisplayMealPlan={currDisplayMealPlan}
+                                        />
+                                        ))}  
+                                    </div>
+                                    ))}
+                                </Row>
+                            )}
+                            {/* <Typography>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                            </Typography> */}
+                        </AccordionDetails>
+                    </Accordion>
                     
-                    */}
-                  </div>
                 ))}
-              </Row>
-            </Accordion.Body>
-          </Accordion.Item>
-        ))}
-      </Accordion>  
-    ) : (<p> error </p>)}
-    </>
-  )
+
+        </div>
+        ) : (<p> error </p>)}
+        </>
+    )
 
 }
 
@@ -139,9 +135,9 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
 //     fetchData();
 //   }, []);
 
-  
+
 //   // after successfully retrieving current meal plan
-  
+
 //   const display = [];
 //   const weekday = [
 //     "Sunday",
@@ -202,7 +198,7 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
 //     )
 //   }
 
-  
+
 //   if (currDisplayMealPlan) {
 
 //     // console.log(currDisplayMealPlan)
@@ -215,7 +211,7 @@ export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan}) {
 
 //     for (const day in currDisplayMealPlan.DisplayMealPlan) {
 //       const dayData = [null, null, null];
-      
+    
 //       for (const mealType in currDisplayMealPlan.DisplayMealPlan[day]) {
 //         if (mealType == "breakfast") {
 //           dayData[0] = populateDisplay(day, mealType, dayIndex);

@@ -11,13 +11,31 @@ import { pageDataGetter } from "../components/pageDataGetter";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { useAtom } from "jotai";
 import { CreateMealPlanContentFinalise, CreateMealPlanContentv2 } from "../components/CreateMealPlanContentv2";
+import { RecalAtom } from "../atoms/recal";
+import Cookies from "js-cookie";
+import { dbFoodMethods } from "../middleware/dbMethods";
 
 
-
-
-export default function ChooseMealsV2({recal = false}) {
+export default function ChooseMealsV2() {
+    const [recal, setRecal] = useState(Cookies.get("recal"));
+    const [calories, setCalories] = useState(Cookies.get("calories"));
+    // console.log(recal);
+    
     const navigate = useNavigate();
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+
+    console.log(`Calories: ${calories}`, `Recal: ${recal}`);
+    
+
+    useEffect(() => {
+
+        if (!Cookies.get("calories")) {
+            navigate("/input");
+        } else {
+            // setOverlayData([]);
+        }
+
+    }, []);
 
     const [activePage, setActivePage] = useState(1);
 
@@ -29,31 +47,38 @@ export default function ChooseMealsV2({recal = false}) {
     // ------------------------ api data on mount
     const [response, setResponse] = useState(null);
     const [apiData, setApiData] = useState({
-            1: {
-                hasFetched: false,
-                data: null,
-            },
-            2: {
-                hasFetched: false,
-                data: null,
-            },
-            3: {
-                hasFetched: false,
-                data: null,
-            },
-        });
+        1: {
+            hasFetched: false,
+            data: null,
+        },
+        2: {
+            hasFetched: false,
+            data: null,
+        },
+        3: {
+            hasFetched: false,
+            data: null,
+        },
+    });
     const paramList = {
-        1:[["breakfast, morning meal, brunch"], localStorage.getItem("calories")*0.3 , "Breakfast", setBreakfastSelected, breakfastSelected],
-        2:[["lunch, side dish, main course, main dish"], localStorage.getItem("calories")*0.4, "Lunch", setLunchSelected, lunchSelected],
-        3:[["dinner, main course"], localStorage.getItem("calories")*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
+        1:[["breakfast, morning meal, brunch"], calories*0.3 , "Breakfast", setBreakfastSelected, breakfastSelected],
+        2:[["lunch, side dish, main course, main dish"], calories*0.4, "Lunch", setLunchSelected, lunchSelected],
+        3:[["dinner, main course"], calories*0.3 , "Dinner", setDinnerSelected, dinnerSelected]
     }
+    
+    const test = (response) => {
+        console.log(response);
 
-    // console.log(localStorage.getItem("calories"));
-
-    if (!localStorage.getItem("calories")) {
-        navigate("/input");
+        setApiData((prevApiData) => ({
+            ...prevApiData,
+            [data]: {
+                hasFetched: true,
+                data: response,
+            },
+        }));
     }
-
+    // console.log(apiData)
+    // console.log(paramList)
     useEffect(() => {
         for (const data in apiData) {
           if (!apiData[data].hasFetched) {
@@ -62,12 +87,13 @@ export default function ChooseMealsV2({recal = false}) {
               paramList[data][0],
               paramList[data][1],
               (response) => {
+                // console.log(response);
                 setApiData((prevApiData) => ({
-                  ...prevApiData,
-                  [data]: {
-                    hasFetched: true,
-                    data: response,
-                  },
+                    ...prevApiData,
+                    [data]: {
+                        hasFetched: true,
+                        data: response,
+                    },
                 }));
               }
             );
@@ -84,6 +110,15 @@ export default function ChooseMealsV2({recal = false}) {
             <NavBar />
             {overlayData}
             <Container>
+                <Row style={{textAlign:"center"}}>
+                    {recal == 1 ? (
+                        <>
+                            <h2>You are recalculating an old plan</h2>
+                            <p>You have 1 hour to replace your old plan</p>
+                        </>
+                    ) 
+                    : (<h2>You are creating a new plan!</h2>)}
+                </Row>
                 <Row>
                 <StepProgressBar
                     page={activePage}
@@ -92,14 +127,16 @@ export default function ChooseMealsV2({recal = false}) {
                 </Row>
                 <Row>
                     {/* <h1>Choose Meals v2</h1> */}
-                    {activePage <4 ? (<CreateMealPlanContentv2 
-                        pageNum={activePage} 
-                        mealType={paramList[activePage][2]}
-                        setActivePage={setActivePage}
-                        recipes={apiData[activePage].data}
-                        selected={paramList[activePage][4]}
-                        selectedSetter={paramList[activePage][3]}
-                    />)
+                    {activePage <4 ? (
+                        <CreateMealPlanContentv2 
+                            pageNum={activePage} 
+                            mealType={paramList[activePage][2]}
+                            setActivePage={setActivePage}
+                            recipes={apiData[activePage].data}
+                            selected={paramList[activePage][4]}
+                            selectedSetter={paramList[activePage][3]}
+                        />
+                    )
                     :  (<CreateMealPlanContentFinalise 
                             info={{
                                 "Breakfast": {data: breakfastSelected, setter: setBreakfastSelected},

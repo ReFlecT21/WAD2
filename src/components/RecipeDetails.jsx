@@ -31,6 +31,7 @@ export function RecipeDetails(id) {
 
   if (response?.length > 0) {
     response.forEach((recipe) => {
+      console.log(recipe);
 
       let visited = [];
       let ingredients = [];
@@ -42,7 +43,7 @@ export function RecipeDetails(id) {
           visited.push(`${recipe.id}${ingre.id}`);
         };
       });
-      // console.log(recipe?.analyzedInstructions[0]);
+      // console.log(recipe);
       
       recipe?.analyzedInstructions[0]?.steps.forEach((steps) => {
         // console.log(steps);
@@ -60,16 +61,18 @@ export function RecipeDetails(id) {
             <Col className="recipeTitle col-8"> 
               <h1>{recipe["title"]}</h1>
             </Col>
-            <Col className="recipeCalories col ">
-              {/* <div>
-                <h6>{recipe["nutrition"]["nutrients"][0]["name"]}</h6>
-              </div> */}
-                {recipe["nutrition"]["nutrients"][0]["amount"]} kCal
-                
-            </Col>
           </Row>
           <Row>
-            <Image className="recipePic" src={recipe["image"]}></Image>
+            <Col style={{}}>
+              <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            </Col>
+            <Col >
+              <h4>{recipe["nutrition"]["nutrients"][0]["name"]}: {recipe["nutrition"]["nutrients"][0]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][8]["name"]}: {recipe["nutrition"]["nutrients"][8]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][1]["name"]}: {recipe["nutrition"]["nutrients"][1]["amount"]}</h4>
+              <h4>{recipe["nutrition"]["nutrients"][3]["name"]}: {recipe["nutrition"]["nutrients"][3]["amount"]}</h4>
+
+            </Col>
           </Row>
           <Row className="recipeDetails">
             <h3>Ingredients</h3>

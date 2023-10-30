@@ -8,8 +8,7 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { Modal } from "@mui/material";
 import { ManualSearchComponent } from "../components/ManualSearchInput";
 
-
-import Spline from '@splinetool/react-spline';
+import Spline from "@splinetool/react-spline";
 import {
   collection,
   doc,
@@ -25,8 +24,8 @@ import getMealPlan from "../middleware/getMealPlan";
 import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
 import { isMobile } from "react-device-detect";
 import { dbFoodMethods } from "../middleware/dbMethods";
-
-
+import Cookies from "js-cookie";
+// import { useHistory } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -53,50 +52,35 @@ const HomePage = () => {
       // const userId = auth.currentUser.email;
       // setCurrMealPlan(await getMealPlan(userId));
       await dbFoodMethods.init();
-      
+
       setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
     };
 
     fetchData();
+
   }, []);
 
-  var todayMealDisplay = []
-  var todayMeal = []
-  // console.log(currMealPlan)
+  // const history = useHistory();
+
+  // useEffect(() => {
+  //   const unlisten = history.listen(() => {
+  //     window.location.reload();
+  //   });
+  //   return () => {
+  //     unlisten();
+  //   };
+  // }, [history]);
+
   
+  // console.log(currMealPlan)
+  var currDay = 0;
+
   if (currMealPlan?.DisplayMealPlan) {
-    
-    // FOR TESTING PURPOSES ONLY (NEED TO +1 )
-
-    var currDay = new Date(Date.now()).getDate() - new Date(currMealPlan.CreatedAt).getDate()+1;    
-    // console.log(currDay)
-    // console.log(new Date(currMealPlan.CreatedAt).getDate())
-    
-    
-    todayMeal = currMealPlan["DisplayMealPlan"][currDay];
-    // console.log(todayMeal)
-
-    for (const mealType in todayMeal){
-      // console.log(todayMeal[mealType])
-      todayMealDisplay.push(
-        <div key={mealType}>
-          <MealPlanCardHome recipe={Object.keys(todayMeal[mealType])[0]} />
-          {/* <div>
-            <h3>{mealType}</h3>
-            <p>{todayMeal[mealType]}</p>
-          </div> */}
-        </div>
-      )
-    }
-  } else {
-    todayMealDisplay.push(
-      <div key="noMeal">
-        <h3>No Meal Plan</h3>
-      </div>
-    )
+    var currDay =
+      new Date(Date.now()).getDate() -
+      new Date(currMealPlan.CreatedAt).getDate();
+      // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
-
-
 
   return (
     <>
@@ -108,29 +92,97 @@ const HomePage = () => {
         </Col> */}
         <Col md={8}>
           {/* <Stack gap={2} >  */}
-            <div className="neuphormicBox">
-              <h1>Today's Meal</h1>
-
-              <Row className="todayMealCards" xs={1} md={3} lg={3}>
-
-                {todayMealDisplay}
-              </Row >
-              {/* <h3>Breakfast</h3>
-              <h3>Lunch</h3>
-              <h3>Dinner</h3>
-              <p>LOREM ipsum</p> */}
+          <div className="neuphormicBox">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <h1>{currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
+              <div>
+                <Button className="buttonPrimary" href="/mealplan">
+                  See meal plan
+                </Button>
+              </div>
             </div>
-          {/* </Stack> */}
+
+            <Row xs={1} md={3} lg={3}>
+              {/* {todayMealDisplay} */}
+              {/* {console.log(currMealPlan)} */}
+              {/* {console.log(currMealPlan["DisplayMealPlan"]["1"]["breakfast"])} */}
+
+              {currMealPlan ? (
+                <>
+                  {currMealPlan.DisplayMealPlan[currDay] ? (
+                    <>
+                      {["breakfast", "lunch", "dinner"].map((mealType) => (
+                        <Col key={`${mealType}home`}>
+
+                          <h4>{mealType}</h4>
+                          {Object.keys(currMealPlan.DisplayMealPlan[currDay]).includes(mealType) ? (
+                            <MealPlanCardHome
+                              recipe={
+                                Object.keys(
+                                  currMealPlan.DisplayMealPlan[currDay][mealType]
+                                )[0]
+                              }
+                            />
+                          ):(<p>No Meal</p>)}
+                        </Col>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                          {Object.keys(currMealPlan.DisplayMealPlan[currDay+1]).length >0 ? (
+                            <>
+                              {["breakfast", "lunch", "dinner"].map((mealType) => (
+                                <Col key={`${mealType}home`}>
+
+                                  {currMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                    Object.keys(currMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
+                                  ] ? (
+                                    <h4>{mealType} completed!</h4>
+                                  ) : (
+                                    <h4>{mealType}</h4>
+                                  )}
+                                  <MealPlanCardHome
+                                    recipe={
+                                      Object.keys(
+                                        currMealPlan.DisplayMealPlan[currDay + 1][
+                                          mealType
+                                        ]
+                                      )[0]
+                                    }
+                                  />
+
+                                </Col>
+                              ))}
+                            </>
+                            ) : (<p>No meals planned</p>)}
+                    </>
+                  )}
+                </>
+              ) : (
+                <h4>No Meal Plan</h4>
+              )}
+
+            </Row>
+
+          </div>
+
         </Col>
-          <Col>
-            <div className="neuphormicBox">
-              <Stack gap={2}>
-                <Button className="homePageBtn">Scan</Button>
-                <Button className="homePageBtn" onClick={() => setOverlayData(<ManualSearchComponent />)}>Manual Search</Button>
-              </Stack>
-            </div>
-          </Col>
-      </Row> 
+        <Col>
+          <div className="neuphormicBox">
+            <Stack gap={2}>
+              <Button className="homePageBtn">Scan</Button>
+              <Button
+                className="homePageBtn"
+                onClick={() =>
+                  setOverlayData(<ManualSearchComponent currDay={currDay} />)
+                }
+              >
+                Manual Search
+              </Button>
+            </Stack>
+          </div>
+        </Col>
+      </Row>
     </>
   );
 };
