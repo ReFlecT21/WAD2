@@ -64,17 +64,17 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                         <AccordionSummary
                             expandIcon={<ExpandMore />}
                         >
-                        <h3>
+                        <h1>
                             {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .getDay()]}
-                        </h3>
+                        </h1>
                         </AccordionSummary>
                         <AccordionDetails>
                             {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                                 <p> No meals planned for this day </p>
                             ) :(
-                                <Row xs={1} md={2} lg={3}>
+                                <Row xs={1} md={2} lg={3}   >
                                     {["breakfast", "lunch", "dinner" ].map((mealType) => (
                                     <div key={`${day}-${mealType}`}>
                                         {content.DisplayMealPlan[day]?.[mealType] && Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (

@@ -9,7 +9,10 @@ p {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  -webkit-box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
+          box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
   position: relative;
@@ -84,7 +87,15 @@ body, html {
   font-size: large;
 }
 
-.inputBox::-moz-placeholder {
+.inputBox::-webkit-input-placeholder {
+  color: #1F5E4B;
+}
+
+.inputBox:-ms-input-placeholder {
+  color: #1F5E4B;
+}
+
+.inputBox::-ms-input-placeholder {
   color: #1F5E4B;
 }
 
@@ -105,8 +116,10 @@ body, html {
   height: 60px;
   margin-top: 40px;
 }
+
 .loginButton:hover {
   background: #319677;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -165,8 +178,10 @@ body, html {
   font-family: "Nunito Sans";
   font-weight: bold;
 }
+
 .createBtn:hover {
   background: #319677;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -191,6 +206,7 @@ body, html {
 
 .navText:hover {
   color: #3EBC96;
+  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
@@ -216,9 +232,11 @@ h2, h3, h4, h5 {
 }
 
 .sideimg {
-  max-width: 100%; /* Ensure the image fits within its container */
+  max-width: 100%;
+  /* Ensure the image fits within its container */
   height: 100%;
-  display: block; /* Remove any default inline spacing */
+  display: block;
+  /* Remove any default inline spacing */
   margin: 0 auto;
 }
 
@@ -235,8 +253,10 @@ h2, h3, h4, h5 {
   margin-top: 20px;
   margin-right: 15px;
 }
+
 .inputButton:hover {
   background: #319677;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
