@@ -47,18 +47,18 @@ p{
 }
 
 //VERTICAL CARD
-.card{
-    width: 300px;
-    background: $backgroundCol;
-    padding: .4em;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);    
-}   
-    x
-.card:hover{
-    transform: scale(1.05);
-    transition: 0.3s; 
-    }
+// .card{
+//     width: 300px;
+//     background: $backgroundCol;
+//     padding: .4em;
+//     border-radius: 6px;
+//     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);    
+// }   
+//     x
+// .card:hover{
+//     transform: scale(1.05);
+//     transition: 0.3s; 
+//     }
 
 // .card-category { //Card titlea
 // font-size: 26px;
@@ -404,48 +404,48 @@ h2,h3,h4,h5{
 
 
 
-.ReceipeCardBtn{
+// .ReceipeCardBtn{
 
-    @include whiteText();
-    @include button($primaryCol, 10px);
-    border-radius: 20px;
-    width: 120px;
-    height: 35px;
-    // margin-bottom: 30px;
-
-
-    line-height: 0px;
-    margin-right: 15px
-
-}
-
-.ReceipeCardBtnR{
-
-    @include whiteText();
-    @include button($primaryCol, 10px);
-    border-radius: 20px;
-    width: 120px;
-    height: 35px;
-    margin-left: 15px;
-    line-height: 0px;
-
-}
-
-RecipeTitle{
-    margin-top: 20px;
-}
+//     @include whiteText();
+//     @include button($primaryCol, 10px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 35px;
+//     // margin-bottom: 30px;
 
 
-.cntr{
-    display: flex;
-    justify-content: center;
+//     line-height: 0px;
+//     margin-right: 15px
+
+// }
+
+// .ReceipeCardBtnR{
+
+//     @include whiteText();
+//     @include button($primaryCol, 10px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 35px;
+//     margin-left: 15px;
+//     line-height: 0px;
+
+// }
+
+// RecipeTitle{
+//     margin-top: 20px;
+// }
+
+
+// .cntr{
+//     display: flex;
+//     justify-content: center;
     
-}
+// }
 
 
-.img-overlay{
-    filter: brightness(70%);
-  }
+// .img-overlay{
+//     filter: brightness(70%);
+//   }
 
 .accordionFont{
     font-family: $headerFont;

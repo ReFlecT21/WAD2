@@ -119,7 +119,7 @@ export default function ChooseMealsV2() {
                     ) 
                     : (<h2>You are creating a new plan!</h2>)}
                 </Row>
-                <Row>
+                <Row style={{margin:"0px"}}>
                 <StepProgressBar
                     page={activePage}
                     onPageNumberClick={setActivePage}

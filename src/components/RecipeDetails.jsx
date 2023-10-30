@@ -52,14 +52,12 @@ export function RecipeDetails(id) {
 
       CardData.push(
         <div key={`${recipe.id}Details`}>
-          <Row className="pt-0 ">
-            <Col className="d-flex justify-content-end">
-              <button className="cancelBtn" onClick={handleClose}>X</button>
-            </Col>
-          </Row>
-          <Row style={{marginTop: "20px", marginBottom: "20px"}}>
-            <Col className="recipeTitle col-8"> 
-              <h1>{recipe["title"]}</h1>
+          <Row style={{marginTop: "20px", marginBottom: "20px", marginLeft:"0px"}}>
+            <Col > 
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+              <h1 className="recipeTitle" style={{width: "80%"}}>{recipe["title"]}</h1>
+              <button style={{display:"flex", alignItems: "center", justifyContent: "start"}} className="cancelBtn" onClick={handleClose}>X</button>
+            </div>
             </Col>
           </Row>
           <Row>

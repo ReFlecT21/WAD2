@@ -4,29 +4,11 @@ p {
   font-family: "Nunito Sans";
 }
 
-.card {
-  width: 300px;
-  background: #F6FEFC;
-  padding: .4em;
-  border-radius: 6px;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-x
-.card:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
 .neuphormicBox {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
-          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
 }
@@ -77,15 +59,7 @@ body, html {
   font-size: large;
 }
 
-.inputBox::-webkit-input-placeholder {
-  color: #1F5E4B;
-}
-
-.inputBox:-ms-input-placeholder {
-  color: #1F5E4B;
-}
-
-.inputBox::-ms-input-placeholder {
+.inputBox::-moz-placeholder {
   color: #1F5E4B;
 }
 
@@ -106,10 +80,8 @@ body, html {
   height: 60px;
   margin-top: 40px;
 }
-
 .loginButton:hover {
   background: #319677;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -128,8 +100,7 @@ body, html {
   background-color: #1F5E4B;
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
-          box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
 }
 
 .homeNav h3 {
@@ -156,10 +127,8 @@ body, html {
   font-family: "Nunito Sans";
   font-weight: bold;
 }
-
 .createBtn:hover {
   background: #319677;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -179,7 +148,6 @@ span {
 
 span:hover {
   color: #3EBC96;
-  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
@@ -203,11 +171,9 @@ h2, h3, h4, h5 {
 }
 
 .sideimg {
-  max-width: 100%;
-  /* Ensure the image fits within its container */
+  max-width: 100%; /* Ensure the image fits within its container */
   height: 100%;
-  display: block;
-  /* Remove any default inline spacing */
+  display: block; /* Remove any default inline spacing */
   margin: 0 auto;
 }
 
@@ -224,10 +190,8 @@ h2, h3, h4, h5 {
   margin-top: 20px;
   margin-right: 15px;
 }
-
 .inputButton:hover {
   background: #319677;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -246,8 +210,7 @@ h2, h3, h4, h5 {
   display: inline-block;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 70%;
   height: 600px;
   /* border: 2px solid #000; */
@@ -263,8 +226,7 @@ h2, h3, h4, h5 {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .card-title {
@@ -285,10 +247,8 @@ h2, h3, h4, h5 {
   font-family: "Nunito Sans";
   border-radius: 20px;
 }
-
 .manualSelectBtn:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -297,11 +257,9 @@ h2, h3, h4, h5 {
   text-align: center;
   font-size: 36px;
 }
-
 .popUpclass h2 {
   padding-top: 5%;
 }
-
 .popUpclass button {
   color: #F6FEFC;
   font-weight: normal;
@@ -316,10 +274,8 @@ h2, h3, h4, h5 {
   font-family: "Nunito Sans";
   border-radius: 20px;
 }
-
 .popUpclass button:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -330,13 +286,11 @@ h2, h3, h4, h5 {
 }
 
 .img-overlay {
-  -webkit-filter: brightness(70%);
-          filter: brightness(70%);
+  filter: brightness(70%);
 }
 
 .img-overlay-small {
-  -webkit-filter: brightness(75%);
-          filter: brightness(75%);
+  filter: brightness(75%);
   float: left;
   width: 100px;
   height: 100px;
@@ -362,10 +316,8 @@ h2, h3, h4, h5 {
   margin-right: auto;
   margin-left: auto;
 }
-
 .homePageBtn:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -394,84 +346,14 @@ h2, h3, h4, h5 {
   padding: 0px;
   margin-top: 35px;
 }
-
 .CreateMealBtn:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
 .ttt {
   height: 100px;
   width: 300px;
-}
-
-.ReceipeCardBtn {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 10px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 120px;
-  height: 35px;
-  line-height: 0px;
-  margin-right: 15px;
-}
-
-.ReceipeCardBtn:hover {
-  background: #12382c;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
-.ReceipeCardBtnR {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 10px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 120px;
-  height: 35px;
-  margin-left: 15px;
-  line-height: 0px;
-}
-
-.ReceipeCardBtnR:hover {
-  background: #12382c;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
-RecipeTitle {
-  margin-top: 20px;
-}
-
-.cntr {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.img-overlay {
-  -webkit-filter: brightness(70%);
-          filter: brightness(70%);
 }
 
 .accordionFont {
@@ -499,10 +381,8 @@ RecipeTitle {
   height: 40px;
   padding: 0px;
 }
-
 .ShoppingCardBtn:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -548,10 +428,8 @@ tr:last-of-type td:last-of-type {
   padding: 0px;
   margin: 20px;
 }
-
 .RecalBtn:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -560,11 +438,9 @@ tr:last-of-type td:last-of-type {
 }
 
 .custom-tab-title {
-  color: red;
-  /* Change 'red' to the color you want */
+  color: red; /* Change 'red' to the color you want */
 }
 
 .tabTitleStyle {
   color: "red";
-}
-/*# sourceMappingURL=indexa.css.map */
+}/*# sourceMappingURL=indexa.css.map */
