@@ -53,12 +53,12 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     }
 
     return (
-        <TableRow key={ingreType+ingre} style={selectStyle}>
-            {isMobile ? (<></>) : (<TableCell >{ingreType}</TableCell>)}
-            <TableCell >{ingre.name}</TableCell>
-            <TableCell align="right">{ingre.amount}</TableCell>
-            <TableCell align="right">{ingre.unit}</TableCell>
-            <TableCell align="right">
+        <TableRow key={ingreType+ingre}  style={selectStyle}>
+            {isMobile ? (<></>) : (<TableCell style={{fontFamily:"Nunito Sans"}} >{ingreType}</TableCell>)}
+            <TableCell style={{fontFamily:"Nunito Sans"}}>{ingre.name}</TableCell>
+            <TableCell align="right" style={{fontFamily:"Nunito Sans"}}>{ingre.amount}</TableCell>
+            <TableCell align="right" style={{fontFamily:"Nunito Sans"}}>{ingre.unit}</TableCell>
+            <TableCell align="right" style={{fontFamily:"Nunito Sans"}}>
                 <Button 
                     className='ShoppingCardBtn'
                     onClick={completeItem} 
@@ -124,7 +124,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                         <Table size="small" aria-label="purchases" >
                             <TableHead  >
                                 <TableRow  style={{ backgroundColor:"#1F5E4B", height:"60px" }} >
-                                    <TableCell className="fff" style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white" , width:"20%"}}>Aisle</TableCell>
+                                    <TableCell className="fff" style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white" , width:"18%"}}>Aisle</TableCell>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white" , width:"10%"}}>Item Name</TableCell>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Quantity</TableCell>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Unit</TableCell>

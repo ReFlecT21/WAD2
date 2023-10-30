@@ -74,7 +74,7 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                             {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                                 <p> No meals planned for this day </p>
                             ) :(
-                                <Row xs={1} md={2} lg={3}>
+                                <Row xs={1} md={2} lg={3}   >
                                     {["breakfast", "lunch", "dinner" ].map((mealType) => (
                                     <div key={`${day}-${mealType}`}>
                                         {content.DisplayMealPlan[day]?.[mealType] && Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (

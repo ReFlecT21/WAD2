@@ -237,7 +237,8 @@ h1{
 }
 
 h2,h3,h4,h5{
-    @include bodyText()
+    @include bodyText();
+    font-weight:bold
 }
 
   @mixin sideImage {
@@ -525,5 +526,19 @@ th:first-of-type {
     margin-bottom: 15px; //I added this onto the .card class above
 }   
 
+
+///current meal plan
+
+
+// tabs
+
+.custom-tab-title {
+    color: red; /* Change 'red' to the color you want */
+  }
+
+
+  .tabTitleStyle {
+    color: 'red', // Change 'blue' to the color you want
+  };
 
     /////////////////////////////Anan stuff end

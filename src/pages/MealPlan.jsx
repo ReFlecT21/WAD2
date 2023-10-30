@@ -28,6 +28,19 @@ import { dbFoodMethods } from "../middleware/dbMethods";
 import { ShoppingCart, ShoppingCartMobile } from "../components/ShoppingCart";
 import Cookies from "js-cookie";
 
+
+///anan add start
+import styled from 'styled-components';
+
+const BlackTextTabTitle = styled.div`
+  color: black;
+`;
+
+// $primaryCol: #1F5E4B;
+// $secondaryCol: #3EBC96;
+/// anan add end
+
+
 export default function MealPlan() {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
@@ -109,9 +122,9 @@ export default function MealPlan() {
               className="mb-3"
               fill
             >
-              <Tab eventKey="mealPlan" title="Current Meal Plan">
+              <Tab eventKey="mealPlan" title={<BlackTextTabTitle>Current Meal Plan</BlackTextTabTitle>}>
                 {/* <CurrentMealPlan /> */}
-                <div style={{display:"flex", justifyContent:"space-between"}}>
+                <div style={{display:"flex", justifyContent:"space-between"} }>
                   <h2>Your current meal plan</h2>
                   <Button className="RecalBtn" onClick={handleRecal}>
                     Recalculate
@@ -124,7 +137,8 @@ export default function MealPlan() {
                   shoppingCart={shoppingCart}
                 />
               </Tab>
-              <Tab eventKey="cart" title="Shopping Cart">
+              
+              <Tab eventKey="cart"title={<BlackTextTabTitle>Shopping Cart</BlackTextTabTitle>}>
                 {width > 767 ? (
                   // <h1>Shopping Cart</h1>
                   <ShoppingCart 
@@ -136,7 +150,7 @@ export default function MealPlan() {
                   />
                 )}
               </Tab>
-              <Tab eventKey="Completed" title="Completed Meals">
+              <Tab eventKey="Completed" title={<BlackTextTabTitle>Completed Meals</BlackTextTabTitle>}>
                 <h1>Completed Meals</h1>
                 <Row xs={1} md={2} lg={3}>
                   <CompletedMeals completed={completed} />

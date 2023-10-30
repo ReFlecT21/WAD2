@@ -243,6 +243,7 @@ h2, h3, h4, h5 {
   color: #1F5E4B;
   font-weight: normal;
   font-family: "Nunito Sans";
+  font-weight: bold;
 }
 
 .sideimg {
@@ -600,5 +601,14 @@ tr:last-of-type td:last-of-type {
 
 .card {
   margin-bottom: 15px;
+}
+
+.custom-tab-title {
+  color: red;
+  /* Change 'red' to the color you want */
+}
+
+.tabTitleStyle {
+  color: "red";
 }
 /*# sourceMappingURL=indexa.css.map */
