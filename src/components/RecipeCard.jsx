@@ -199,12 +199,12 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                   <Button
                     className="ReceipeCardBtn"
                     onClick={() =>
-                      setOverlayData(<RecipeDetails key={`${recipe["id"]}popup`} id={recipe["id"]} />)
-                    }}
+                      setOverlayData(<RecipeDetails key={recipe["id"] + "popup"} id={recipe["id"]} />)
+                    }
                   >
                     Recipe
                   </Button>
-                  {/* {buttonState ? ( */}
+
                     <Button
                       className="ReceipeCardBtnR"
                       onClick={ async () =>{
@@ -217,7 +217,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                     >
                       {buttonText}
                     </Button>
-                  {/* ):(<></>)} */}
+
                 </div>
               </Col>
               </div>

@@ -272,12 +272,10 @@ const InputPage = () => {
                         <Form.Select
                     id="exercise"
                       className="round"
-                    id="exercise"
                     onChange={handleChange}
                       aria-label="Default select example"
                       name="activityLevel"
                     value={formData&&formData.activityLevel ? formData.activityLevel : ""}
-                        value={formData.activityLevel}
                     >
                       <option value="sedentary">Do not exercise</option>
                       <option value="light">
