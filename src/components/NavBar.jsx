@@ -33,8 +33,7 @@ function NavBar() {
               href="/input"
               style={{ marginLeft: "10px", marginRight: "10px" }}
             >
-              <Button className="createBtn"
-                variant="secondary"
+              <Button className="createBtn custom-clicked-button"
               >
                 {" "}
                 <FontAwesomeIcon className="plusIcon"
