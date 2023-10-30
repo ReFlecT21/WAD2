@@ -7,11 +7,11 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
   var stepPercentage = 0;
   
   if (page === 1) {
-    stepPercentage = 16;
+    stepPercentage = 2;
   } else if (page === 2) {
-    stepPercentage = 49.5;
+    stepPercentage = 32;
   } else if (page === 3) {
-    stepPercentage = 82.5;
+    stepPercentage = 70;
   } else if (page === 4) {
     stepPercentage = 100;
   } else {
@@ -20,7 +20,7 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
 
   return (
     <>
-    <ProgressBar style={{backGroundColor:'#205E4B'}} percent={stepPercentage}>
+    <ProgressBar className="progressBar" percent={stepPercentage}>
       <Step>
         {({ accomplished, index }) => (
           <div

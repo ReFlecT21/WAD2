@@ -110,7 +110,7 @@ export default function ChooseMealsV2() {
             <NavBar />
             {overlayData}
             <Container>
-                <Row style={{textAlign:"center"}}>
+                <Row style={{marginTop: "50px",marginBottom: "10px", textAlign:"center"}}>
                     {recal == 1 ? (
                         <>
                             <h2>You are recalculating an old plan</h2>

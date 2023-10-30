@@ -28,23 +28,22 @@ const LoginComponent = () => {
     }
   };
   return (
-    <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }}>
-      <Row style={{ margin: "0", height: "100vh" }}>
-        <Col className="backgroundLeft d-flex d-none d-md-block p-0 col-7">
-          <Image src="/login.png" alt="" className="foodimg" />
+    <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }} xs={1} sm= {1} md={1} lg={1}>
+      <Row className="loginPage">
+        <Col className="backgroundLeft d-none d-lg-block col-lg-7">
+          <Image src="/foodimg.jpg" alt="" className="foodimg"/>
         </Col>
-        <Col className="backgroundRight d-flex ">
+        <Col className="backgroundRight d-flex justify-content-center">
           <Row
-            className="justify-content-center"
-            style={{ margin: "0", padding: "0", width: "100%" }}
+            className="loginDetails"
           >
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Image src="/MenuMate.png" alt="" className="logo" />
             </Row>
-            <Row className="d-flex justify-content-center align-items-center mb-3">
+            <Row className="loginDetails mb-3">
               <h2 className="tagline">Your friend in every meal.</h2>
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Form.Control
                 type="text"
                 placeholder="Email"
@@ -52,7 +51,7 @@ const LoginComponent = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -60,12 +59,12 @@ const LoginComponent = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <Button onClick={login} type="submit" className="loginButton">
                 Login
               </Button>
             </Row>
-            <Row className="d-flex justify-content-center">
+            <Row className="loginDetails">
               <p className="signupSmallText">
                 Do not have an account? <Link className="link" to="/signup">Sign up</Link>
               </p>

@@ -8,7 +8,8 @@ import {
     TableContainer, 
     TableHead,
     TableRow,
-    Typography} from "@mui/material";
+    Typography,
+    colors} from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -41,7 +42,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"#1F5E4B", });
+            setSelectStyle({backgroundColor:"#bcddd5"});
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
             setNumOutstanding((prev) => prev - 1);
@@ -52,14 +53,14 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     }
 
     return (
-        <TableRow key={ingreType+ingre} style={selectStyle}>
-            {isMobile ? (<></>) : (<TableCell >{ingreType}</TableCell>)}
-            <TableCell >{ingre.name}</TableCell>
-            <TableCell align="right">{ingre.amount}</TableCell>
-            <TableCell align="right">{ingre.unit}</TableCell>
-            <TableCell align="right">
+        <TableRow key={ingreType+ingre}  style={selectStyle}>
+            {isMobile ? (<></>) : (<TableCell style={{fontFamily:"Nunito Sans"}} >{ingreType}</TableCell>)}
+            <TableCell style={{fontFamily:"Nunito Sans"}}>{ingre.name}</TableCell>
+            <TableCell align="right" style={{fontFamily:"Nunito Sans"}}>{ingre.amount}</TableCell>
+            <TableCell align="right" style={{fontFamily:"Nunito Sans"}}>{ingre.unit}</TableCell>
+            <TableCell align="right" style={{fontFamily:"Nunito Sans"}}>
                 <Button 
-                    className='buttonPrimary'
+                    className='ShoppingCardBtn'
                     onClick={completeItem} 
                     style={{width:"80px"}}
                 >{buttonText}</Button>
@@ -92,11 +93,6 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell component="th" scope="row" style={{fontSize:"30px"}}>
-                    {title}
-                </TableCell>
-                <TableCell >{numItems}</TableCell>
-                <TableCell >{numOutstanding}</TableCell>
                 <TableCell>
                     <IconButton
                     aria-label="expand row"
@@ -106,6 +102,13 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                     {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
+                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Orelega One"}}>
+                    <h1>
+                    {title}
+                    </h1>
+                </TableCell>
+                <TableCell align="right">#</TableCell>
+                <TableCell align="right">#</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -114,49 +117,39 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                         {/* <Typography variant="h5" gutterBottom component="div">
                             Cart for today
                         </Typography> */}
-                        <Typography variant="h8" gutterBottom component="div">
+                        <Typography style={{fontSize:"20px", fontFamily:"Nunito Sans" ,textAlign:"center"}} variant="h8" gutterBottom component="div">
                             Check off what you have bought!
                             You can click the button again if you have made a mistake.
                         </Typography>
-                        <Table size="small" aria-label="purchases">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell style={{fontSize:"20px"}}>Aisle</TableCell>
-                                    <TableCell style={{fontSize:"20px"}}>Item name</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Quantity</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Unit</TableCell>
-                                    <TableCell style={{fontSize:"20px"}} align="right">Bought?</TableCell>
+                        <Table size="small" aria-label="purchases" >
+                            <TableHead  >
+                                <TableRow  style={{ backgroundColor:"#1F5E4B", height:"60px" }} >
+                                    <TableCell className="fff" style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white" , width:"18%"}}>Aisle</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white" , width:"10%"}}>Item Name</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Quantity</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Unit</TableCell>
+                                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white", width:"20%"}} align="right">Bought?</TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
-                                {Object.keys(dayCart).length > 0 ? (
-                                    <>
-                                        {Object.keys(dayCart).sort().map((ingreType)=>(
-                                            <React.Fragment key={dayIndex+ingreType}>
-                                                {Object.keys(dayCart[ingreType]).map((ingre)=>(
-                                                    
-                                                    <CustomRow 
-                                                        key={dayIndex+ingreType+ingre}
-                                                        flag={dayCart[ingreType][ingre].completed}
-                                                        buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"#1F5E4B"} : {}}
-                                                        ingreType={ingreType}
-                                                        ingre = {dayCart[ingreType][ingre]}
-                                                        ingreID = {ingre}
-                                                        shoppingCart = {shoppingCart}
-                                                        setNumOutstanding = {setNumOutstanding}
-                                                        day = {day}
-                                                    />
-                                                ))}
-                                            </React.Fragment>
-            
-                                        ))}
-                                    
-                                    </>
+                            <TableBody  style={{ backgroundColor:"#e4f3ef", fontFamily:"Nunito Sans" }}>
+                            {Object.keys(dayCart).sort().map((ingreType)=>(
+                                 <React.Fragment key={dayIndex+ingreType}>
+                                    {Object.keys(dayCart[ingreType]).map((ingre)=>(
+                                        <CustomRow 
+                                            key={dayIndex+ingreType+ingre}
+                                            flag={dayCart[ingreType][ingre].completed}
+                                            buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
+                                            rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                            ingreType={ingreType}
+                                            ingre = {dayCart[ingreType][ingre]}
+                                            ingreID = {ingre}
+                                            shoppingCart = {shoppingCart}
+                                            dayIndex = {dayIndex}
+                                        />
+                                    ))}
+                                </React.Fragment>
 
-                                ) : (
-                                    <TableRow><TableCell>No items for today</TableCell></TableRow>
-                                )}
+                            ))}
                             </TableBody>
                         </Table>
                     </Box>
@@ -190,10 +183,10 @@ export function ShoppingCart({shoppingCart}) {
             {shoppingCart ? (<TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
-                <TableRow>
-                    <TableCell>Day</TableCell>
-                    <TableCell >Number of items</TableCell>
-                    <TableCell >Number of outstanding items</TableCell>
+                <TableRow  >
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Day</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Number of items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Number of outstanding items</TableCell>
                     <TableCell />
                 </TableRow>
                 </TableHead>
@@ -253,7 +246,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                     <AccordionSummary
                             expandIcon={<ExpandMore />}
                         >
-                        <h3>
+                        <h3 >
                             {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .getDay()]}
@@ -271,12 +264,12 @@ export function ShoppingCartMobile({shoppingCart}) {
                                 </TableRow>
                             </TableHead>
 
-                            <TableBody>
+                            <TableBody  >
                                 {Object.keys(shoppingCart.shoppingCart[day]).length >0 ? (
                                     <>
                                         {Object.keys(shoppingCart.shoppingCart[day]).map((ingreType)=>(
                                             Object.keys(shoppingCart.shoppingCart[day][ingreType]).map((ingre)=>(
-                                                <CustomRow 
+                                                <CustomRow  
                                                     key={dayIndex+ingreType+ingre}
                                                     flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
                                                     buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}

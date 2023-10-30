@@ -31,19 +31,19 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
 
   return (
     // <div>
-      <Card style={{ border: "0px", margin: "10px" }}>
+      <Card>
         <Card.Img
           variant="top"
           src={recipe["image"]}
-          className="img-overlay"
-          style={{ borderRadius: "20px" }}
+          className="cardImg"
+         
         />
         <Card.ImgOverlay>
           <Card.Body>
             <Row>
               <Col>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  className="btnDiv"
                 >
                   <Button
                     className="buttonPrimary"
@@ -51,7 +51,7 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
                       setOverlayData(<RecipeDetails id={recipe["id"]} />)
                     }
                   >
-                    See Recipe
+                    View Recipe
                   </Button>
                   <Button
                     className="buttonPrimary"
@@ -71,7 +71,7 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
                 </div>
               </Col>
             </Row>
-            <Card.Title style={{ marginTop: "10px" }}>
+            <Card.Title className="cardTitle">
               {recipe["title"]}
             </Card.Title>
             <Card.Text>
@@ -95,7 +95,7 @@ export function SelectedRecpieCardV2({recipe, setter}) {
           <Card.Img
             variant="top"
             src={recipe["image"]}
-            className="img-overlay"
+            className="img-overlay "
             style={{ borderRadius: "20px" }}
           />
           <Card.ImgOverlay>
@@ -147,7 +147,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
   const [buttonState, setButtonState] = useState(render);
-  const [buttonText, setButtonText] = useState("Complete Meal");
+  const [buttonText, setButtonText] = useState("Complete");
 
   // useEffect(() => {
   //   if (buttonState === true) {
@@ -183,31 +183,30 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
 
   return (
     // <div>
-      <Card style={{ border: "0px", margin: "10px" }}>
+      <Card >
         <Card.Img
           variant="top"
           src={recipe["image"]}
           className="img-overlay"
-          style={{ borderRadius: "20px" }}
         />
-        <Card.ImgOverlay>
-          <Card.Body>
-            <Row>
+        <Card.ImgOverlay   >
+          <Card.Body  >
+            <Row >
+              <div className="cntr">
               <Col>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Button
-                    className="buttonPrimary"
-                    onClick={() =>{
+                    className="ReceipeCardBtn"
+                    onClick={() =>
                       setOverlayData(<RecipeDetails key={`${recipe["id"]}popup`} id={recipe["id"]} />)
                     }}
                   >
-                    See Recipe
+                    Recipe
                   </Button>
                   {/* {buttonState ? ( */}
                     <Button
-                      className="buttonPrimary"
+                      className="ReceipeCardBtnR"
                       onClick={ async () =>{
                         let res = await handleButtonClick()
                         if (res) {
@@ -221,8 +220,9 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                   {/* ):(<></>)} */}
                 </div>
               </Col>
+              </div>
             </Row>
-            <Card.Title style={{ marginTop: "10px" }}>
+            <Card.Title>
               {recipe["title"]}
             </Card.Title>
             <Card.Text>
@@ -244,11 +244,11 @@ export function RecpieCard({ recipe, setter = null }) {
 
   return (
     <Col key={recipe["id"]}>
-      <Card style={{ border: "0px", margin: "10px" }}>
+      <Card  style={{ border: "0px", margin: "10px" }}>
         <Card.Img
           variant="top"
           src={recipe["image"]}
-          className="img-overlay"
+          className="img-overlay "
           style={{ borderRadius: "20px" }}
         />
         <Card.ImgOverlay>
@@ -273,6 +273,7 @@ export function RecpieCard({ recipe, setter = null }) {
                         ...prev,
                         [recipe["id"]]: recipe["nutrition"]["nutrients"][0]["amount"]
                       }))
+
                     }
                   >
                     Select Meal
@@ -315,7 +316,7 @@ export function SelectedMealCard ({recipe, selected=null, setter=null, mealType}
               <Card.Img
               variant="top"
               src={recipe["image"]}
-              className="img-overlay"
+              className="img-overlay "
               style={{ borderRadius: "20px" }}
               />
               <Card.ImgOverlay>
@@ -382,7 +383,7 @@ export function FinaliseRecipeCard({ recipe, selected=null }) {
   return (
     <Col key={recipe["id"]}>
       <Card>
-        <Card.Img variant="top" src={recipe["image"]} className="img-overlay" />
+        <Card.Img variant="top" src={recipe["image"]} className="img-overlay " />
         <Card.ImgOverlay>
           <Card.Body>
             <Row>
@@ -391,6 +392,7 @@ export function FinaliseRecipeCard({ recipe, selected=null }) {
                   className="buttonPrimary"
                   onClick={() =>
                     setOverlayData(<RecipeDetails id={recipe["id"]} />)
+
                   }
                 >
                   See Recipe
