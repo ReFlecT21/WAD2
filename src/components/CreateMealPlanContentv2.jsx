@@ -24,7 +24,7 @@ export function CreateMealPlanContentv2({
     <>
       {/* {pageNum} */}
       <Container>
-        <Row className="">
+        <Row className="stickyRow">
           <Col>
             <h1 style={{marginBottom: "20px", textAlign:"center"}}>Pick Your {mealType} Items!</h1>
           </Col>
