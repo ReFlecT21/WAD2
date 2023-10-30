@@ -52,7 +52,7 @@ export default function MealPlan() {
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [shoppingCart, setShoppingCart] = useState(null);
-  const [overlayData, setOverlayData] = useState(null);
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [trigger, setTrigger] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);

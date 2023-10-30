@@ -25,6 +25,7 @@ import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
 import { isMobile } from "react-device-detect";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import Cookies from "js-cookie";
+import { Scan } from "../components/scan";
 // import { useHistory } from 'react-router-dom';
 
 
@@ -170,7 +171,8 @@ const HomePage = () => {
         <Col>
           <div className="neuphormicBox">
             <Stack gap={2}>
-              <Button className="homePageBtn">Scan</Button>
+              {/* <Button className="homePageBtn">Scan</Button> */}
+              <Scan />
               <Button
                 className="homePageBtn"
                 onClick={() =>

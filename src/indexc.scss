@@ -190,6 +190,12 @@ body, html {
     font-weight: bold;
 }
 
+.btn-primary{
+    --bs-btn-active-color: $secondaryCol;
+    --bs-btn-active-bg: $secondaryCol;
+    --bs-btn-active-border-color: $secondaryCol;
+}
+
 .navItem{
     display: flex;
     align-items: center;
@@ -311,7 +317,7 @@ h2,h3,h4,h5{
         justify-content: space-between;
         align-items: center;
         z-index: 0;
-        margin: 50px auto;
+        margin: 30px auto;
         color: $primaryCol; 
     }
     
@@ -394,6 +400,8 @@ h2,h3,h4,h5{
     border: 0px;
     margin: 10px;
     background-color: transparent;
+    height: 100%;
+    width: 50vh;
     
 }
 
@@ -438,17 +446,14 @@ h2,h3,h4,h5{
     top: 0;
 }
 .cancelBtn{
-    background-color: $primaryCol; /* Make the button background transparent */
-    border: 1px solid $primaryCol; /* Remove the button border */
+    background-color: transparent; /* Make the button background transparent */
+    border: 0; /* Remove the button border */
     font-size: 20px; /* Adjust the font size for the "X" */
     cursor: pointer; /* Change the cursor to indicate it's clickable */
-    color: $whiteTextCol; /* Change the color to red or any other color you prefer */
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-radius: 50%;
+    color: $primaryCol; /* Change the color to red or any other color you prefer */ 
     font-family: $primaryFont;
+    font-weight: bold;
+    font-size: 26px;
     
 }
 
@@ -456,11 +461,8 @@ h2,h3,h4,h5{
     display: flex;
     justify-content: start;
     align-items: center;
-    margin-left: 60px;
-}
+    margin-bottom: 70px;
 
-.recipeTitle h1{
-    font-size: 50px;
 }
 
 .recipeCalories{
@@ -488,9 +490,9 @@ h2,h3,h4,h5{
 
 .recipePic{
     border-radius: 50px;
-    height: 80%;
-    width: 100%;
     margin-bottom: 20px;
+    margin-right: 10px;
+    padding: 0;
 }
 
 .recipeDetails{
@@ -513,7 +515,7 @@ h2,h3,h4,h5{
     height: 600px;
     margin:auto;
     overflow: auto;
-    padding-top: 3%;
+    padding-top: 2%;
     padding-left: 4%;
     padding-right: 4%;
     padding-bottom: 4%;
