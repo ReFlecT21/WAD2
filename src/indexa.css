@@ -69,8 +69,10 @@ x
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
-          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  -webkit-box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
+          box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
 }
@@ -290,8 +292,7 @@ h2, h3, h4, h5 {
   display: inline-block;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 70%;
   height: 600px;
   /* border: 2px solid #000; */
@@ -307,8 +308,7 @@ h2, h3, h4, h5 {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .card-title {
@@ -329,10 +329,8 @@ h2, h3, h4, h5 {
   font-family: "Nunito Sans";
   border-radius: 20px;
 }
-
 .manualSelectBtn:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -341,11 +339,9 @@ h2, h3, h4, h5 {
   text-align: center;
   font-size: 36px;
 }
-
 .popUpclass h2 {
   padding-top: 5%;
 }
-
 .popUpclass button {
   color: #F6FEFC;
   font-weight: normal;
@@ -360,10 +356,8 @@ h2, h3, h4, h5 {
   font-family: "Nunito Sans";
   border-radius: 20px;
 }
-
 .popUpclass button:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -374,13 +368,11 @@ h2, h3, h4, h5 {
 }
 
 .img-overlay {
-  -webkit-filter: brightness(70%);
-          filter: brightness(70%);
+  filter: brightness(70%);
 }
 
 .img-overlay-small {
-  -webkit-filter: brightness(75%);
-          filter: brightness(75%);
+  filter: brightness(75%);
   float: left;
   width: 100px;
   height: 100px;
@@ -406,10 +398,8 @@ h2, h3, h4, h5 {
   margin-right: auto;
   margin-left: auto;
 }
-
 .homePageBtn:hover {
   background: #12382c;
-  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 

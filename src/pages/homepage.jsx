@@ -24,6 +24,9 @@ import getMealPlan from "../middleware/getMealPlan";
 import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
 import { isMobile } from "react-device-detect";
 import { dbFoodMethods } from "../middleware/dbMethods";
+import Cookies from "js-cookie";
+// import { useHistory } from 'react-router-dom';
+
 
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
@@ -54,10 +57,21 @@ const HomePage = () => {
     };
 
     fetchData();
+
   }, []);
 
-  var todayMealDisplay = [];
-  var todayMeal = [];
+  // const history = useHistory();
+
+  // useEffect(() => {
+  //   const unlisten = history.listen(() => {
+  //     window.location.reload();
+  //   });
+  //   return () => {
+  //     unlisten();
+  //   };
+  // }, [history]);
+
+  
   // console.log(currMealPlan)
   var currDay = 0;
 
@@ -66,9 +80,6 @@ const HomePage = () => {
       new Date(Date.now()).getDate() -
       new Date(currMealPlan.CreatedAt).getDate();
       // FOR TESTING PURPOSES ONLY (NEED TO +1 )
-
-
-
   }
 
   return (
@@ -102,14 +113,17 @@ const HomePage = () => {
                     <>
                       {["breakfast", "lunch", "dinner"].map((mealType) => (
                         <Col key={`${mealType}home`}>
+
                           <h4>{mealType}</h4>
-                          <MealPlanCardHome
-                            recipe={
-                              Object.keys(
-                                currMealPlan.DisplayMealPlan[currDay][mealType]
-                              )[0]
-                            }
-                          />
+                          {Object.keys(currMealPlan.DisplayMealPlan[currDay]).includes(mealType) ? (
+                            <MealPlanCardHome
+                              recipe={
+                                Object.keys(
+                                  currMealPlan.DisplayMealPlan[currDay][mealType]
+                                )[0]
+                              }
+                            />
+                          ):(<p>No Meal</p>)}
                         </Col>
                       ))}
                     </>

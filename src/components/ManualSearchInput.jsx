@@ -20,8 +20,10 @@ import Cookies from "js-cookie";
 
 // CONFIRM MODAL
 function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
+    const [recal, setRecal] = useState(false);
+    const [reload, setReload] = useState(false);
+    const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
     const navigate = useNavigate();
-    // const [recal, setRecal] = useAtom(RecalAtom);
 
     const [ConfirmModalopen, setConfirmModalOpen] = useState(false);
     const handleClose = () => {
@@ -29,39 +31,85 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
     };
 
     const handleAdd = async () => {
-        let res = await dbFoodMethods.completeMeal(
-            day_Index,
-            Meal_Type,
-            foodDetails
-        );
-        return res;
+
+        if (day_Index == 0) {
+            dbFoodMethods.oddManualInput(foodDetails)
+        } else {
+            
+            let res = await dbFoodMethods.completeMeal(
+                day_Index,
+                Meal_Type,
+                foodDetails
+            );
+            setReload(true);
+            return res;
+        }
+
     };
     const handleRecal = async () => {
-        const expirationTimeInHours = 1;
-        const expirationDate = new Date(
-        new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
-        );
+        
+        // console.log(day_Index);
 
-        let res = await dbFoodMethods.completeMeal(
-            day_Index,
-            Meal_Type,
-            foodDetails
-        );
-        
-        let remainingCal = await dbFoodMethods.getRemainingCalories();
-        
-        if (remainingCal > 999){
-            Cookies.set("recal", 1, { expires: expirationDate });
-            Cookies.set("calories", remainingCal, { expires: expirationDate });
-            navigate("/choose");
+        if (day_Index == 0) {
+            dbFoodMethods.oddManualInput(foodDetails)
+
         } else {
-            alert("You can only recalculate if you have at least 1000 calories per day left")
+            let res = await dbFoodMethods.completeMeal(
+                day_Index,
+                Meal_Type,
+                foodDetails
+            );
+            return res;
         }
-        // setRecal(true);
-        
 
-        
+        setRecal(true);
     };
+
+    const recalRedirect = async () => {
+        const expirationTimeInHours = 1;
+            const expirationDate = new Date(
+            new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+            );
+            let remainingCal = await dbFoodMethods.getRemainingCalories();
+                
+            if (remainingCal > 999){
+                Cookies.set("recal", 1, { expires: expirationDate });
+                Cookies.set("calories", remainingCal, { expires: expirationDate });
+                setOverlayData([]);
+                navigate("/choose");
+            } else {
+                alert("You can only recalculate if you have at least 1000 calories per day left")
+            }
+    }
+
+    useEffect(() => {
+        if (reload) {
+            window.location.reload();
+        }
+    }, [reload]);
+
+    useEffect(() => {
+        const callback = async () => {
+            const expirationTimeInHours = 1;
+            const expirationDate = new Date(
+            new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+            );
+            let remainingCal = await dbFoodMethods.getRemainingCalories();
+                
+            if (remainingCal > 999){
+                Cookies.set("recal", 1, { expires: expirationDate });
+                Cookies.set("calories", remainingCal, { expires: expirationDate });
+                setOverlayData([]);
+                navigate("/choose");
+            } else {
+                alert("You can only recalculate if you have at least 1000 calories per day left")
+            }
+        }
+
+        if (recal) {
+            callback();
+        }
+    }, [recal]);
 
 // user to manual select meal type
 // check whether plan still exists
@@ -98,7 +146,10 @@ return (
             <Button className="buttonPrimary" onClick={handleAdd}>
             Add
             </Button>
-            <Button className="buttonPrimary" onClick={handleRecal}>
+            <Button className="buttonPrimary" onClick={async ()=>{
+                await handleRecal()
+                await recalRedirect()
+                }}>
             Recal
             </Button>
         </div>
@@ -122,6 +173,7 @@ return (
 // CHILD MODAL
 
 function ChildModal({ food_Array, dayIndex, MealType }) {
+    // console.log(dayIndex );
 const [searchData, setSearchData] = useState({});
 const [ChildModalopen, setChildModalOpen] = useState(false);
 const [foodDetailsArrays, setFoodDetailsArrays] = useState([]);
@@ -137,7 +189,8 @@ useEffect(() => {
     Object.keys(searchData).forEach((key) => {
         searchData[key]["foods"].forEach((food) => {
         let foodDetails = []; // Initialize an array for each set of food details
-        // Add the food details to the array in the order you specified
+        
+
         foodDetails.push(food.photo.highres);
         foodDetails.push(food["food_name"]);
         foodDetails.push(food["nf_calories"]);
@@ -269,164 +322,174 @@ return (
 }
 
 export function ManualSearchComponent(props) {
-const instantSearchRes = [];
-const [mealModalOpen, setMealModalOpen] = useState(true);
-const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-const [selectedMeal, setSelectedMeal] = useState("");
-const [open, setOpen] = useState(true);
-const handleClose = () => {
-    setOpen(false);
-    setOverlayData([]);
-    setSelectedMeal("");
-};
 
-// FORM VALIDATION
+    console.log(props.currDay);
+    const instantSearchRes = [];
+    const [mealModalOpen, setMealModalOpen] = useState(true);
+    const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+    const [selectedMeal, setSelectedMeal] = useState("");
+    const [open, setOpen] = useState(true);
+    const handleClose = () => {
+        setOpen(false);
+        setOverlayData([]);
+        setSelectedMeal("");
+    };
 
-const [inputValue, setInputValue] = useState("");
-const [inputError, setInputError] = useState(null);
-const [instantData, setInstantData] = useState(null);
+    // FORM VALIDATION
 
-function handleInputChange(event) {
-    const value = event.target.value;
-    setInputValue(value);
+    const [inputValue, setInputValue] = useState("");
+    const [inputError, setInputError] = useState(null);
+    const [instantData, setInstantData] = useState(null);
 
-    fetcherGET(
-    "/foodAPI/instantSearch/?",
-    {
-        query: value,
-    },
-    setInstantData
-    );
-}
+    function handleInputChange(event) {
+        const value = event.target.value;
+        setInputValue(value);
 
-// console.log(inputValue)
-
-function handleSubmit(event) {
-    event.preventDefault();
-    if (inputValue.length >= 1) {
-    console.log(inputValue);
-    setInputError(null);
-
-    // API CALL FOR SEARCH INPUT
-    // getData()
-    } else {
-    setInputError("You must type something!");
+        fetcherGET(
+        "/foodAPI/instantSearch/?",
+        {
+            query: value,
+        },
+        setInstantData
+        );
     }
-}
-const [foodArray, setFoodArray] = useState([]);
-useEffect(() => {
-    // console.log(foodArray);
-}, [foodArray]);
-// ------------------------------------------------------------------------------------
-// this is handling instantSearch endpoint
-if (instantData != null) {
-    // console.log(instantData);
 
-    instantData["common"].forEach((food) => {
-    instantSearchRes.push(
-        <Col key={food.food_name}>
-        {/* <Card className="text-center" onClick={null} style={{ border: "0px", margin: "10px" }}> */}
-        <Stack
-            direction="horizontal"
-            style={{ border: "0px", margin: "10px", textAlign: "center" }}
-            onClick={null}
-        >
-            <Image
-            className="img-overlay-small"
-            style={{ margin: "5px" }}
-            src={food["photo"]["thumb"]}
-            rounded
-            />
-            <div>
-            <h5>{food["food_name"]}</h5>
-            {/* <ChildModal food_name={food["food_name"]} /> */}
+    // console.log(inputValue)
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (inputValue.length >= 1) {
+        console.log(inputValue);
+        setInputError(null);
+
+        // API CALL FOR SEARCH INPUT
+        // getData()
+        } else {
+        setInputError("You must type something!");
+        }
+    }
+    const [foodArray, setFoodArray] = useState([]);
+    useEffect(() => {
+        // console.log(foodArray);
+    }, [foodArray]);
+    // ------------------------------------------------------------------------------------
+    // this is handling instantSearch endpoint
+    if (instantData != null) {
+        // console.log(instantData);
+
+        instantData["common"].forEach((food) => {
+        instantSearchRes.push(
+            <Col key={food.food_name}>
+            {/* <Card className="text-center" onClick={null} style={{ border: "0px", margin: "10px" }}> */}
+            <Stack
+                direction="horizontal"
+                style={{ border: "0px", margin: "10px", textAlign: "center" }}
+                onClick={null}
+            >
+                <Image
+                className="img-overlay-small"
+                style={{ margin: "5px" }}
+                src={food["photo"]["thumb"]}
+                rounded
+                />
+                <div>
+                <h5>{food["food_name"]}</h5>
+                {/* <ChildModal food_name={food["food_name"]} /> */}
+                <Button
+                    className="buttonPrimary"
+                    onClick={() => {
+                    setFoodArray((prevFoodArray) => [
+                        ...prevFoodArray,
+                        food["food_name"],
+                    ]);
+                    }}
+                >
+                    {" "}
+                    select{" "}
+                </Button>
+                </div>
+            </Stack>
+            </Col>
+        );
+        });
+    }
+
+    return (
+        <div>
+        <Modal open={mealModalOpen} onClose={() => setMealModalOpen(false)}>
+            <Box className="popup">
+            <h1>Select a meal</h1>
             <Button
-                className="buttonPrimary"
                 onClick={() => {
-                setFoodArray((prevFoodArray) => [
-                    ...prevFoodArray,
-                    food["food_name"],
-                ]);
+                setSelectedMeal("breakfast");
+                setMealModalOpen(false);
                 }}
             >
-                {" "}
-                select{" "}
+                Breakfast
             </Button>
-            </div>
-        </Stack>
-        </Col>
-    );
-    });
-}
-
-return (
-    <div>
-    <Modal open={mealModalOpen} onClose={() => setMealModalOpen(false)}>
-        <Box className="popup">
-        <h1>Select a meal</h1>
-        <Button
-            onClick={() => {
-            setSelectedMeal("breakfast");
-            setMealModalOpen(false);
-            }}
+            <Button
+                onClick={() => {
+                setSelectedMeal("lunch");
+                setMealModalOpen(false);
+                }}
+            >
+                Lunch
+            </Button>
+            <Button
+                onClick={() => {
+                setSelectedMeal("dinner");
+                setMealModalOpen(false);
+                }}
+            >
+                Dinner
+            </Button>
+            {/* <Button
+                onClick={() => {
+                setSelectedMeal("snack");
+                setMealModalOpen(false);
+                }}
+            >
+                Snack
+            </Button> */}
+            </Box>
+        </Modal>
+        <Modal
+            open={selectedMeal !== ""}
+            onClose={handleClose}
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
         >
-            Breakfast
-        </Button>
-        <Button
-            onClick={() => {
-            setSelectedMeal("lunch");
-            setMealModalOpen(false);
-            }}
-        >
-            Lunch
-        </Button>
-        <Button
-            onClick={() => {
-            setSelectedMeal("dinner");
-            setMealModalOpen(false);
-            }}
-        >
-            Dinner
-        </Button>
-        </Box>
-    </Modal>
-    <Modal
-        open={selectedMeal !== ""}
-        onClose={handleClose}
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-    >
-        <Box className="popup">
-        <div className="text-center">
-            <h1>This is manualSearch</h1>
-            <ChildModal
-            food_Array={foodArray}
-            dayIndex={props.currDay}
-            MealType={selectedMeal}
-            />
-
-            <Form onSubmit={handleSubmit}>
-            <InputGroup className="mb-3">
-                <Form.Control
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
-                value={inputValue}
-                onChange={handleInputChange}
-                placeholder="type something!"
+            <Box className="popup">
+            <div className="text-center">
+                <h1>This is manualSearch</h1>
+                <ChildModal
+                food_Array={foodArray}
+                dayIndex={props.currDay}
+                MealType={selectedMeal}
                 />
-            </InputGroup>
 
-            {inputError && <div style={{ color: "red" }}>{inputError}</div>}
-            </Form>
-            {/* <Stack direction="vertical" gap={2}> */}
-            {instantSearchRes && (
-            <Row xs={1} md={3} className="g-4">
-                {instantSearchRes}
-            </Row>
-            )}
-            {/* </Stack> */}
+                <Form onSubmit={handleSubmit}>
+                <InputGroup className="mb-3">
+                    <Form.Control
+                    aria-label="Default"
+                    aria-describedby="inputGroup-sizing-default"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    placeholder="type something!"
+                    />
+                </InputGroup>
+
+                {inputError && <div style={{ color: "red" }}>{inputError}</div>}
+                </Form>
+                {/* <Stack direction="vertical" gap={2}> */}
+                {instantSearchRes && (
+                <Row xs={1} md={3} className="g-4">
+                    {instantSearchRes}
+                </Row>
+                )}
+                {/* </Stack> */}
+            </div>
+            </Box>
+        </Modal>
         </div>
-        </Box>
-    </Modal>
-    </div>
-);
+    );
 }

@@ -7,8 +7,9 @@ import {
   Tab,
   Tabs,
 } from "react-bootstrap";
-import { CompletedMeals, NavBar } from "../components";
+import { NavBar } from "../components";
 import { CurrentMealPlanV2 } from "../components/CurrentMealPlan";
+
 
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
@@ -26,6 +27,7 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { ShoppingCart, ShoppingCartMobile } from "../components/ShoppingCart";
+import { CompletedMeals, CompletedMealsV2 } from "../components/CompletedMeals";
 import Cookies from "js-cookie";
 
 
@@ -76,13 +78,13 @@ export default function MealPlan() {
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       setShoppingCart(await dbFoodMethods.getShoppingCart());
       // console.log(shoppingCart)
-      // console.log(completed)
-      // console.log(currMealPlan)
-      // console.log(currDisplayMealPlan)
     };
-
+    
     fetchData();
   }, []);
+  // console.log(completed)
+  // console.log(currMealPlan)
+  // console.log(currDisplayMealPlan)
 
   const handleRecal = async () => {
     const expirationTimeInHours = 1;
@@ -154,6 +156,7 @@ export default function MealPlan() {
                 <h1>Completed Meals</h1>
                 <Row xs={1} md={2} lg={3}>
                   <CompletedMeals completed={completed} />
+                  {/* <CompletedMealsV2 completed={completed} /> */}
                 </Row>
               </Tab>
             </Tabs>

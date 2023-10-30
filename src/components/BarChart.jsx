@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 
-const BarChart = () => {
+const BarChart = ({ Weights, Dates }) => {
+  console.log(Weights);
+  console.log(Dates);
   return (
     <VictoryChart theme={VictoryTheme.material}>
       <VictoryLine

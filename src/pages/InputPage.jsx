@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { Kcal } from "../atoms/KcalAtom";
 import {
-    Container,
-    Row,
-    Col,
-    Image,
-    Form,
-    Button,
-    Dropdown,
+  Container,
+  Row,
+  Col,
+  Image,
+  Form,
+  Button,
+  Dropdown,
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
@@ -23,139 +23,137 @@ import Spline from "@splinetool/react-spline";
 import Cookies from "js-cookie";
 
 const InputPage = () => {
-    const navigate = useNavigate();
-    const navHome = () => navigate("/home");
-    const navChoose = () => navigate("/choose");
-    const navChoose2 = () => navigate("/choose");
+  const navigate = useNavigate();
+  const navHome = () => navigate("/home");
+  const navChoose = () => navigate("/choose");
+  const navChoose2 = () => navigate("/choose");
 
-    const expirationTimeInHours = 1;
-    const expirationDate = new Date(
-    new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000);
+  const expirationTimeInHours = 1;
+  const expirationDate = new Date(
+    new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+  );
 
-    const [formData, setFormData] = useState({
-        age: 0,
-        gender: "female",
-        height: 0,
-        weight: 0,
-        activityLevel: "sedentary",
-        goal: "maintain",
+  const [formData, setFormData] = useState({
+    age: 0,
+    gender: "female",
+    height: 0,
+    weight: 0,
+    activityLevel: "sedentary",
+    goal: "maintain",
+  });
+
+  const [allergies, setAllergies] = useAtom(Allergies);
+  const [calories, setCalories] = useAtom(Kcal);
+
+  useEffect(() => {
+    dbUserMethods.getUserData().then((res) => {
+      if (res.formInput !== null && res.allergies !== null) {
+        setFormData(res.formInput);
+        setAllergies(res.allergies);
+      }
     });
+  }, []);
 
-    const [allergies, setAllergies] = useAtom(Allergies);
-    const [calories, setCalories] = useAtom(Kcal);
+  const mifflin = (gender, age, height, weight) => {
+    let bmr;
+    if (gender === "male") {
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else if (gender === "female") {
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+    return Math.ceil(bmr);
+  };
 
-    useEffect(() => {
-        dbUserMethods.getUserData().then((res) => {
-            if (res.formInput !== null && res.allergies !== null){
-                setFormData(res.formInput);
-                setAllergies(res.allergies);
-            }
-        });
-    }, []);
+  const computeMaintenance = (BMR, activityLevel) => {
+    if (activityLevel === "sedentary") {
+      return (BMR *= 1.2);
+    } else if (activityLevel === "light") {
+      return (BMR *= 1.35);
+    } else if (activityLevel === "moderate") {
+      return (BMR *= 1.5);
+    } else if (activityLevel === "active") {
+      return (BMR *= 1.65);
+    } else if (activityLevel === "very-active") {
+      return (BMR *= 1.8);
+    } else if (activityLevel === "extra-active") {
+      return (BMR *= 1.95);
+    }
+  };
+  const calculateCalories = () => {
+    const { age, gender, height, weight, activityLevel, goal } = formData;
 
+    // Convert inputs
+    const IntHeight = Number(height);
+    const IntWeight = Number(weight);
 
-    const mifflin = (gender, age, height, weight) => {
-        let bmr;
-        if (gender === "male") {
-        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-        } else if (gender === "female") {
-        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-        }
-        return Math.ceil(bmr);
-    };
+    // Calculate and round BMR
+    const BMR = mifflin(gender, age, IntHeight, IntWeight);
 
-    const computeMaintenance = (BMR, activityLevel) => {
-        if (activityLevel === "sedentary") {
-        return (BMR *= 1.2);
-        } else if (activityLevel === "light") {
-        return (BMR *= 1.35);
-        } else if (activityLevel === "moderate") {
-        return (BMR *= 1.5);
-        } else if (activityLevel === "active") {
-        return (BMR *= 1.65);
-        } else if (activityLevel === "very-active") {
-        return (BMR *= 1.8);
-        } else if (activityLevel === "extra-active") {
-        return (BMR *= 1.95);
-        }
-    };
-    const calculateCalories = () => {
-        const { age, gender, height, weight, activityLevel, goal } = formData;
+    // Calculate maintenance based on BMR and activityLevel
+    const maintenanceCals = Math.ceil(computeMaintenance(BMR, activityLevel));
+    if (goal == "maintain") {
+      return maintenanceCals;
+    } else if (goal == "lose") {
+      return maintenanceCals - 500;
+    } else {
+      return maintenanceCals + 500;
+    }
+  };
 
-        // Convert inputs
-        const IntHeight = Number(height);
-        const IntWeight = Number(weight);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-        // Calculate and round BMR
-        const BMR = mifflin(gender, age, IntHeight, IntWeight);
+  const handleChangeGender = (e) => {
+    let value = e.target.checked ? "male" : "female";
+    setFormData({
+      ...formData,
+      [e.target.name]: value,
+    });
+  };
 
-        // Calculate maintenance based on BMR and activityLevel
-        const maintenanceCals = Math.ceil(computeMaintenance(BMR, activityLevel));
-        if (goal == "maintain") {
-        return maintenanceCals;
-        } else if (goal == "lose") {
-        return maintenanceCals - 500;
-        } else {
-        return maintenanceCals + 500;
-        }
-    };
+  const handleAllergies = (e) => {
+    if (allergies.includes(e.target.value)) {
+      // If the allergy is already in the array, remove it
+      setAllergies((prevAllergies) =>
+        prevAllergies.filter((item) => item !== e.target.value)
+      );
+    } else {
+      // If the allergy is not in the array, add it
+      setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
+    }
+  };
 
-    const handleChange = (e) => {
-        setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-        });
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(formData);
+    // Check if all fields are filled out
+    for (let key in formData) {
+      if (formData[key] === "" || formData[key] === null) {
+        alert("Please fill out all fields.");
+        return;
+      }
+    }
 
-    const handleChangeGender = (e) => {
-        let value = e.target.checked ? "male" : "female";
-        setFormData({
-        ...formData,
-        [e.target.name]: value,
-        });
-    };
+    const calculatedCalories = calculateCalories();
+    // await setCalories(calculatedCalories);
+    Cookies.set("calories", calculatedCalories, { expires: expirationDate });
+    Cookies.set("allergies", JSON.stringify(allergies), {
+      expires: expirationDate,
+    });
+    Cookies.set("recal", 0, { expires: expirationDate });
 
-    const handleAllergies = (e) => {
-        if (allergies.includes(e.target.value)) {
-        // If the allergy is already in the array, remove it
-        setAllergies((prevAllergies) =>
-            prevAllergies.filter((item) => item !== e.target.value)
-        );
+    await dbUserMethods.setUserData(formData, allergies);
+    // localStorage.setItem("calories", calculatedCalories);
+    // localStorage.setItem("allergies", JSON.stringify(allergies));
+    // console.log(calories);
 
-
-        } else {
-        // If the allergy is not in the array, add it
-        setAllergies((prevAllergies) => [...prevAllergies, e.target.value]);
-
-        }
-    };
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // console.log(formData);
-        // Check if all fields are filled out
-        for (let key in formData) {
-        if (formData[key] === "" || formData[key] === null) {
-            alert("Please fill out all fields.");
-            return;
-        }
-        }
-
-        const calculatedCalories = calculateCalories();
-        // await setCalories(calculatedCalories);
-        Cookies.set("calories", calculatedCalories, { expires: expirationDate });
-        Cookies.set("allergies", JSON.stringify(allergies), { expires: expirationDate });
-        Cookies.set("recal", 0, { expires: expirationDate });
-
-        await dbUserMethods.setUserData(formData, allergies)
-        // localStorage.setItem("calories", calculatedCalories);
-        // localStorage.setItem("allergies", JSON.stringify(allergies));
-        // console.log(calories);
-
-        // navChoose();
-        navChoose2();
-    };
+    // navChoose();
+    navChoose2();
+  };
 
     return (
         <>
@@ -173,8 +171,8 @@ const InputPage = () => {
             <Col md={5}>
                 {/* <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" /> */}
 
-                {/* <dotlottie-player src="https://lottie.host/968cf6ca-7065-45cf-8a86-6e3d756f6536/QvIyMTi2sW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
-            </Col>
+            {/* <dotlottie-player src="https://lottie.host/968cf6ca-7065-45cf-8a86-6e3d756f6536/QvIyMTi2sW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
+          </Col>
 
             <Col
                 style={{
@@ -330,35 +328,35 @@ const InputPage = () => {
                 >
                     <h5>Allergies</h5>
 
-                    {[
-                    "Dairy",
-                    "Egg",
-                    "Gluten",
-                    "Grain",
-                    "Peanut",
-                    "Seafood",
-                    "Sesame",
-                    "Shellfish",
-                    "Soy",
-                    "Sulfite",
-                    "Tree Nut",
-                    "Wheat",
-                    ].map((item) => (
-                    <Form.Check
-                        id={item}
-                        key={item} // Make sure to add a unique key when mapping over an array in React
-                        type="checkbox"
-                        label={item}
-                        name="allergies"
-                        value={item}
-                        onChange={handleAllergies}
-                        inline
-                        style={{ color: "#1F5E4B" }}
-                        checked={allergies.includes(item)}
-                    />
-                    ))}
+                {[
+                  "Dairy",
+                  "Egg",
+                  "Gluten",
+                  "Grain",
+                  "Peanut",
+                  "Seafood",
+                  "Sesame",
+                  "Shellfish",
+                  "Soy",
+                  "Sulfite",
+                  "Tree Nut",
+                  "Wheat",
+                ].map((item) => (
+                  <Form.Check
+                    id={item}
+                    key={item} // Make sure to add a unique key when mapping over an array in React
+                    type="checkbox"
+                    label={item}
+                    name="allergies"
+                    value={item}
+                    onChange={handleAllergies}
+                    inline
+                    style={{ color: "#1F5E4B" }}
+                    checked={allergies && allergies.includes(item)}
+                  />
+                ))}
 
-                    {/* <Form.Select
+                {/* <Form.Select
                     onChange={handleChange}
                     aria-label="Default select example"
                     name="allergies"

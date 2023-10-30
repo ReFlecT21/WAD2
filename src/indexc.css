@@ -2,77 +2,24 @@
 @import url("https://fonts.googleapis.com/css?family=Orelega+One");
 p {
   font-family: "Nunito Sans";
-}
-
-.card {
-  width: 300px;
-  background: #F6FEFC;
-  padding: .4em;
-  border-radius: 6px;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-x
-.card:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
-.card-category {
-  font-size: 26px;
-  font-weight: bold;
-  font-family: "Nunito Sans";
   color: #1F5E4B;
-  padding: 10px 7px 0;
-}
-
-.card-category:hover {
-  cursor: pointer;
-}
-
-.card-heading {
-  font-weight: normal;
-  font-size: 14px;
-  color: #1F5E4B;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  color: #585757;
-  padding: 10px;
-}
-
-.card button {
-  border-radius: 20px;
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  border: 0;
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 14px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-}
-
-.card button:hover {
-  background: #12382c;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
 }
 
 .neuphormicBox {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
-          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  -webkit-box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
+          box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
+  position: relative;
+}
+
+.todayMealCards {
+  position: absolute;
 }
 
 body, html {
@@ -83,16 +30,33 @@ body, html {
   background-color: #F6FEFC;
 }
 
+.loginPage {
+  margin: 0;
+  height: 100vh;
+}
+
+.loginDetails {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
 .logo {
   height: 180px;
   width: 200px;
   margin: 20px;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 .foodimg {
-  height: 500px;
-  width: 400;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   margin: 0;
 }
 
@@ -102,6 +66,8 @@ body, html {
 
 .backgroundLeft {
   background-color: #1F5E4B;
+  display: flex;
+  padding: 0;
 }
 
 .tagline {
@@ -172,8 +138,10 @@ body, html {
   background-color: #1F5E4B;
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
-          box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .homeNav h3 {
@@ -183,10 +151,20 @@ body, html {
   margin: 0;
 }
 
+.homeNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .homeNav img {
   width: 50px;
   height: 50px;
   margin-right: 10px;
+}
+
+#basic-navbar-nav {
+  justify-content: end;
 }
 
 .createBtn {
@@ -205,6 +183,11 @@ body, html {
   background: #319677;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
 }
 
 .plusIcon {
@@ -227,11 +210,13 @@ body, html {
   transition: 0.5s;
 }
 
-.profileIcon {
+.exitIcon {
   margin-left: 10px;
   margin-right: 10px;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
 }
 
 h1 {
@@ -243,6 +228,7 @@ h2, h3, h4, h5 {
   color: #1F5E4B;
   font-weight: normal;
   font-family: "Nunito Sans";
+  font-weight: bold;
 }
 
 .sideimg {
@@ -282,4 +268,328 @@ h2, h3, h4, h5 {
   padding-left: 50px;
   font-size: large;
 }
-/*# sourceMappingURL=indexc.css.map */
+
+.indexedStep {
+  color: #1F5E4B;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100px;
+  height: 40px;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid #1F5E4B;
+  font-family: "Nunito Sans";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.indexedStep.accomplished {
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  font-family: "Nunito Sans";
+  border-style: none;
+}
+
+.RSPBprogressBar {
+  height: 2px;
+  width: 60%;
+  line-height: 1;
+  border-radius: 10px;
+  position: relative;
+  background-color: rgb(207, 207, 207);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 0;
+  margin: 50px auto;
+  color: #1F5E4B;
+}
+
+.RSPBprogressBar .RSPBstep {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  position: absolute;
+  transform: translateX(-50%);
+  transition-property: all;
+  transition-timing-function: ease;
+}
+
+.RSPBprogressBar .RSPBprogressBarText {
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.RSPBprogressBar .RSPBprogression {
+  position: absolute;
+  transition: width 0.3s ease;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 10px;
+  background: #1F5E4B;
+  z-index: -1;
+  background-color: #1F5E4B;
+  color: #1F5E4B;
+}
+
+.bg-percentageBar {
+  color: #1F5E4B;
+}
+
+@media screen and (max-width: 480px) {
+  .indexedStep {
+    width: 15px;
+    height: 15px;
+    font-size: 6px;
+  }
+}
+.chooseMealsBtn {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.chooseBtn {
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 20px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+}
+.chooseBtn:hover {
+  background: #319677;
+  transition: all 0.3s ease;
+}
+
+.buttonPrimary {
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 12px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  font-weight: bold;
+}
+.buttonPrimary:hover {
+  background: #12382c;
+  transition: all 0.3s ease;
+}
+.buttonPrimary:disabled {
+  background-color: #3EBC96;
+}
+.buttonPrimary:focus {
+  background-color: #3EBC96;
+}
+
+.mealCards {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  border: 0px;
+  margin: 10px;
+  background-color: transparent;
+}
+
+.cardImg {
+  border-radius: 30px;
+  max-width: 100%;
+  max-height: 120%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  filter: brightness(70%);
+}
+
+.btnDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  margin-top: 10px;
+  font-family: "Nunito Sans";
+  text-shadow: 2px 2px 4px rgb(0, 0, 0);
+  text-transform: capitalize;
+}
+
+.finaliseBtn {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.finaliseType {
+  font-family: "Nunito Sans";
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.stickyBtn {
+  position: sticky;
+  top: 0;
+}
+
+.cancelBtn {
+  background-color: #1F5E4B; /* Make the button background transparent */
+  border: 1px solid #1F5E4B; /* Remove the button border */
+  font-size: 20px; /* Adjust the font size for the "X" */
+  cursor: pointer; /* Change the cursor to indicate it's clickable */
+  color: #F6FEFC; /* Change the color to red or any other color you prefer */
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 50%;
+  font-family: "Nunito Sans";
+}
+
+.recipeTitle {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-left: 60px;
+}
+
+.recipeTitle h1 {
+  font-size: 50px;
+}
+
+.recipeCalories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  border: 1px solid #3EBC96;
+  border-radius: 50px;
+  background-color: #3EBC96;
+  color: #F6FEFC;
+  margin-right: 60px;
+  margin-left: 60px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.recipePic {
+  border-radius: 50px;
+  height: 80%;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.recipeDetails {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.popup {
+  background-color: #F6FEFC;
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 600px;
+  margin: auto;
+  overflow: auto;
+  padding-top: 3%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-bottom: 4%;
+  border: 0;
+  border-radius: 50px;
+}
+
+.popupChild {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-title {
+  color: #F6FEFC;
+}
+
+.manualSelectBtn {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+}
+.manualSelectBtn:hover {
+  background: #12382c;
+  transition: all 0.3s ease;
+}
+
+.popUpclass h2, .popUpclass p {
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 36px;
+}
+.popUpclass h2 {
+  padding-top: 5%;
+}
+.popUpclass button {
+  color: #F6FEFC;
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  background-color: #1F5E4B;
+  color: #F6FEFC;
+  border: 0px;
+  border-radius: 50px;
+  font-size: 14px;
+  padding: 10px 28px;
+  text-align: center;
+  font-family: "Nunito Sans";
+  border-radius: 20px;
+}
+.popUpclass button:hover {
+  background: #12382c;
+  transition: all 0.3s ease;
+}
+
+.manualSearchBar {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-overlay {
+  filter: brightness(70%);
+}
+
+.img-overlay-small {
+  filter: brightness(75%);
+  float: left;
+  width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=indexc.css.map */
