@@ -9,7 +9,7 @@ const StepProgressBar = ({ page, onPageNumberClick }) => {
   if (page === 1) {
     stepPercentage = 2;
   } else if (page === 2) {
-    stepPercentage = 32;
+    stepPercentage = 35;
   } else if (page === 3) {
     stepPercentage = 70;
   } else if (page === 4) {
