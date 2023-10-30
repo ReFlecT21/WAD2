@@ -99,11 +99,11 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Nunito sans"}}>
+                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Nunito sans", color:"#205E4B"}}>
                     {title}
                 </TableCell>
-                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>{numItems}</TableCell>
-                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>{numOutstanding}</TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>{numItems}</TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>{numOutstanding}</TableCell>
                 <TableCell>
                     <IconButton
                     aria-label="expand row"
@@ -200,9 +200,9 @@ export function ShoppingCart({shoppingCart}) {
             <Table aria-label="collapsible table">
                 <TableHead>
                 <TableRow>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Day</TableCell>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Number of items</TableCell>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans"}}>Number of outstanding items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B"}}>Day</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of outstanding items</TableCell>
                     <TableCell />
                 </TableRow>
                 </TableHead>

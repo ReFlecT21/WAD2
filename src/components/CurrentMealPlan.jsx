@@ -64,7 +64,7 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                         <AccordionSummary
                             expandIcon={<ExpandMore />}
                         >
-                        <h1>
+                        <h1 style={{color:"#205E4B",fontFamily:"Nunito sans"}}>
                             {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .getDay()]}
