@@ -291,6 +291,14 @@ h2, h3, h4, h5 {
   font-size: large;
 }
 
+.stickyRow {
+  position: sticky;
+  top: 0;
+  background-color: #F6FEFC; /* Add a background color or other styles as needed */
+  z-index: 1;
+  padding-top: 100px;
+}
+
 .indexedStep {
   color: #1F5E4B;
   font-size: 16px;

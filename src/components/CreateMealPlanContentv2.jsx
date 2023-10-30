@@ -24,9 +24,9 @@ export function CreateMealPlanContentv2({
     <>
       {/* {pageNum} */}
       <Container>
-        <Row className="">
+        <Row className="stickyRow">
           <Col>
-            <h1>Pick Your {mealType} Items!</h1>
+            <h1 style={{marginBottom: "20px", textAlign:"center"}}>Pick Your {mealType} Items!</h1>
           </Col>
           <Col>
             <div style={{ textAlign: "right" }}>
@@ -46,7 +46,7 @@ export function CreateMealPlanContentv2({
           </Col>
         </Row>
 
-        <Row xs={1} md={2} lg={3}>
+        <Row className="mealCards" xs={2} md={4} lg={4}>
           {recipes ? (
             recipes.map((recipe) => (
               <RecpieCardV2
