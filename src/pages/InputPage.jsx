@@ -200,8 +200,7 @@ const InputPage = () => {
                         style={{ color: "white" }}
                         className="p"
                         name="gender"
-                        checked={formData.gender === "male"}
-                        onChange={handleChangeGender}
+                        checked={formData && formData.gender === "male"}                        onChange={handleChangeGender}
                         id="flexSwitchCheckChecked"
                         label="Male"
                     />
@@ -221,7 +220,7 @@ const InputPage = () => {
                     className=" round"
                     id="age"
                     onChange={handleChange}
-                    value={formData.age}
+                    value={formData && formData.age}
                     />
                 </Col>
                 </Row>
@@ -240,7 +239,7 @@ const InputPage = () => {
                     className=" round"
                     id="height"
                     onChange={handleChange}
-                    value={formData.height}
+                    value={formData && formData.height}
                     />
                 </Col>
                 <Col  md={6}
@@ -257,8 +256,7 @@ const InputPage = () => {
                     className=" round"
                     id="weight"
                     onChange={handleChange}
-                    value={formData.weight}
-                    />
+                    value={formData && formData.weight}                    />
                 </Col>
                 </Row>
                 <Row style={{ marginTop: "" }}>
@@ -311,7 +309,7 @@ const InputPage = () => {
                     onChange={handleAllergies}
                     aria-label="Default select example"
                     name="goal"
-                    value={formData.goal}
+                    value={formData && formData.goal}
                     >
                     <option value="maintain">Maintain</option>
                     <option value="lose">Lose</option>
