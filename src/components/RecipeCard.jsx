@@ -199,9 +199,9 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                 >
                   <Button
                     className="buttonPrimary"
-                    onClick={() =>
+                    onClick={() =>{
                       setOverlayData(<RecipeDetails key={`${recipe["id"]}popup`} id={recipe["id"]} />)
-                    }
+                    }}
                   >
                     See Recipe
                   </Button>
