@@ -47,7 +47,7 @@ const InputPage = () => {
 
   useEffect(() => {
     dbUserMethods.getUserData().then((res) => {
-      if (res.formInput !== null && res.allergies !== null) {
+      if (res.formInput  && res.allergies ) {
         setFormData(res.formInput);
         setAllergies(res.allergies);
       }
@@ -103,7 +103,7 @@ const InputPage = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value !== undefined ? e.target.value : "" // Provide a default value (empty string)
     });
   };
 
@@ -155,6 +155,7 @@ const InputPage = () => {
     navChoose2();
   };
 
+
   return (
     <>
       <NavBar />
@@ -199,7 +200,7 @@ const InputPage = () => {
                         style={{ color: "white" }}
                         className="p"
                         name="gender"
-                        checked={formData&&formData.gender === "male"}
+                        checked={formData.gender === "male" }
                         onChange={handleChangeGender}
                         id="flexSwitchCheckChecked"
                         label="Male"
@@ -219,7 +220,7 @@ const InputPage = () => {
                     className="inputBox"
                     id="age"
                     onChange={handleChange}
-                    value={formData&&formData.age}
+                    value={formData&&formData.age ? formData.age : ""}
                     />
                 </Col>
                 </Row>
@@ -237,7 +238,7 @@ const InputPage = () => {
                     className="inputBox"
                     id="height"
                     onChange={handleChange}
-                    value={formData&&formData.height}
+                    value={formData&&formData.height ? formData.height : ""}
                     />
                 </Col>
                 <Col
@@ -253,7 +254,7 @@ const InputPage = () => {
                     className="inputBox"
                     id="weight"
                     onChange={handleChange}
-                    value={formData&&formData.weight}
+                    value={formData&&formData.weight ? formData.weight : ""}
                     />
                 </Col>
                 </Row>
@@ -270,7 +271,7 @@ const InputPage = () => {
                     onChange={handleChange}
                     aria-label="Default select example"
                     name="activityLevel"
-                    value={formData&&formData.activityLevel}
+                    value={formData&&formData.activityLevel ? formData.activityLevel : ""}
                     >
                     <option value="sedentary">Do not exercise</option>
                     <option value="light">
@@ -303,7 +304,7 @@ const InputPage = () => {
                     onChange={handleAllergies}
                     aria-label="Default select example"
                     name="goal"
-                    value={formData&&formData.goal}
+                    value={formData&&formData.goal ? formData.goal : ""}
                     >
                     <option value="maintain">Maintain</option>
                     <option value="lose">Lose</option>
