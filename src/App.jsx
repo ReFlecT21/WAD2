@@ -53,6 +53,7 @@ function App() {
                 {/* <Route path="/choose" element={<ChooseMeals />} /> */}
                 <Route path="/mealplan" element={<MealPlan />} />
                 <Route path="/choose" element={<ChooseMealsV2 />} />
+                <Route path="/analytics" element={<AnalyticsPage />} />
               </>
             )}
           </Routes>

@@ -1,28 +1,37 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
+import {
+  VictoryLine,
+  VictoryChart,
+  VictoryScatter,
+  VictoryTheme,
+  VictoryVoronoiContainer,
+  VictoryTooltip,
+} from "victory";
 
 const BarChart = ({ Weights, Dates }) => {
-  console.log(Weights);
-  console.log(Dates);
+  // Create data array
+  const data = Dates.map((date, index) => {
+    return { x: date, y: Number(Weights[index]) };
+  });
+
   return (
-    <VictoryChart theme={VictoryTheme.material}>
+    <VictoryChart
+      containerComponent={<VictoryVoronoiContainer voronoiDimension="x" />}
+    >
       <VictoryLine
         style={{
           data: { stroke: "#c43a31" },
           parent: { border: "1px solid #ccc" },
         }}
-        data={[
-          { x: 1, y: 2 },
-          { x: 2, y: 3 },
-          { x: 3, y: 5 },
-          { x: 4, y: 4 },
-          { x: 5, y: 7 },
-        ]}
-        animate={{
-          duration: 2000,
-          onLoad: { duration: 1000 },
-        }}
+        data={data}
+      />
+      <VictoryScatter
+        style={{ data: { fill: "#c43a31" } }}
+        size={5}
+        data={data}
+        labels={({ datum }) => `Weight:${datum.y}kg`}
+        labelComponent={<VictoryTooltip />}
       />
     </VictoryChart>
   );
