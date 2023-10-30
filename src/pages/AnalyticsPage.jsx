@@ -7,7 +7,8 @@ import { dbFoodMethods } from "../middleware/dbMethods";
 const AnalyticsPage = () => {
   const dayIndex = 7;
   const [weights, setWeight] = useState([]);
-  const [dates, setDates] = useState([]);
+  const [avgCal, setAvgCal] = useState("");
+  const [diffWeight, setDiffWeight] = useState("");
   const [formattedDates, setFormattedDates] = useState([]);
 
   console.log(dayIndex);
@@ -27,65 +28,81 @@ const AnalyticsPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await dbFoodMethods.getWeights();
+      const result = await dbFoodMethods.getAnalytics();
       setWeight(result.weights);
-      setDates(result.Dates);
+      setAvgCal(result.Cals);
+      setDiffWeight(result.diffWeight);
+      let dates = result.Dates;
+
+      const newFormattedDates = dates.map((timestamp) => {
+        // Convert the timestamp to a Date object
+        const date = new Date(timestamp);
+
+        // Extract the date and month
+        const day = date.getDate(); // Day of the month (1-31)
+        const month = date.getMonth() + 1; // Month number (0-11, so we add 1)
+
+        // Format the date and month
+        return `${day}/${month}`;
+      });
+
+      setFormattedDates(newFormattedDates); // Update the state with the new array
     };
     fetchData();
   }, []);
-  useEffect(() => {
-    const newFormattedDates = dates.map((timestamp) => {
-      // Convert the timestamp to a Date object
-      const date = new Date(timestamp);
 
-      // Extract the date and month
-      const day = date.getDate(); // Day of the month (1-31)
-      const month = date.getMonth() + 1; // Month number (0-11, so we add 1)
-
-      // Format the date and month
-      return `${day}/${month}`;
-    });
-
-    setFormattedDates(newFormattedDates); // Update the state with the new array
-  }, []);
   return (
     <>
-      <NavBar />
-      <Container
-        fluid
-        style={{
-          padding: "0",
-          width: "100%",
-          height: "100vh",
-        }}
-      >
-        <Row>
-          <Col>
-            {formattedDates.length > 0 ? (
-              <BarChart Weights={weights} Dates={formattedDates} />
-            ) : (
-              <BarChart Weights={weights} />
-            )}
-          </Col>
-          <Col style={{ marginTop: "70px" }}>
+      {formattedDates.length > 0 && (
+        <>
+          <NavBar />
+          <Container
+            fluid
+            style={{
+              padding: "0",
+              width: "100%",
+              height: "100vh",
+            }}
+          >
             <Row>
               <Col>
-                <h1>Why you skip breakfast ah</h1>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Card>
-                  <ProgressBar />
-                </Card>
+                <BarChart Weights={weights} Dates={formattedDates} />
               </Col>
               <Col>
-                <Card body>2100</Card>
+                <Row>
+                  <Col>
+                    <Card>
+                      <Card.Body>
+                        <Card.Title style={{ color: "black" }}>
+                          {avgCal}
+                        </Card.Title>
+
+                        <Card.Text>Avg. Cals Per Day</Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+
+                  <Col>
+                    <Card>
+                      <Card.Body>
+                        <Card.Title style={{ color: "black" }}>
+                          {diffWeight} kg
+                        </Card.Title>
+
+                        <Card.Text>
+                          {diffWeight < 0
+                            ? "Total Weight Gain"
+                            : "Total Weight Loss"}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
               </Col>
             </Row>
-          </Col>
-        </Row>
-      </Container>
+          </Container>
+        </>
+      )}
     </>
   );
 };

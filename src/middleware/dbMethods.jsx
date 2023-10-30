@@ -435,9 +435,12 @@ export const dbFoodMethods = {
       console.error("Error updating document: ", e);
     }
   },
-  getWeights: async function () {
+  getAnalytics: async function () {
     const weights = [];
+    let startWeight = 0;
+    let endWeight = 0;
     const Dates = [];
+    let Cals = 0;
     await this.init();
     try {
       const collectionRef = collection(
@@ -460,9 +463,14 @@ export const dbFoodMethods = {
         const data = doc.data();
         weights.push(data.Weight);
         Dates.push(data.Date);
+        Cals += data.Cals / 7;
       });
-
-      return { weights, Dates };
+      const count = await this.countMealPlansInHistory();
+      Cals = Math.floor(Cals / count);
+      startWeight = weights[0];
+      endWeight = weights[weights.length - 1];
+      const diffWeight = startWeight - endWeight;
+      return { weights, Dates, Cals, diffWeight };
     } catch (e) {
       console.error("Error getting document: ", e);
     }
