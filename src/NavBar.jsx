@@ -71,7 +71,7 @@ function NavBar() {
           </Nav>
           <Image
             style={{ marginLeft: "10px", marginRight: "10px" }}
-            src="holder.js/100x100"
+            src="exit.png"
             roundedCircle
           />
         </Navbar.Collapse>

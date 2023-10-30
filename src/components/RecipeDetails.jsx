@@ -51,27 +51,41 @@ export function RecipeDetails(id) {
 
       CardData.push(
         <div key={`${recipe.id}Details`}>
-          <Row>
-            <Col>
+          <Row className="pt-0 ">
+            <Col className="d-flex justify-content-end">
+              <button className="cancelBtn" onClick={handleClose}>X</button>
+            </Col>
+          </Row>
+          <Row style={{marginTop: "20px", marginBottom: "20px"}}>
+            <Col className="recipeTitle col-8"> 
               <h1>{recipe["title"]}</h1>
             </Col>
-            <Col style={{ textAlign: "right" }}>
-              <h3>{recipe["nutrition"]["nutrients"][0]["name"]}</h3>
-              <h3>{recipe["nutrition"]["nutrients"][0]["amount"]}</h3>
+            <Col className="recipeCalories col ">
+              {/* <div>
+                <h6>{recipe["nutrition"]["nutrients"][0]["name"]}</h6>
+              </div> */}
+                {recipe["nutrition"]["nutrients"][0]["amount"]} kCal
+                
             </Col>
           </Row>
           <Row>
-            <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            <Image className="recipePic" src={recipe["image"]}></Image>
           </Row>
-          <Row>
+          <Row className="recipeDetails">
             <h3>Ingredients</h3>
 
-            <ul>{ingredients}</ul>
+            <ul><p>{ingredients}</p></ul>
           </Row>
           <Row>
             <h3>Instructions</h3>
 
-            <ol>{instructions}</ol>
+            <ol><p>{instructions}</p></ol>
+          </Row>
+
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center">
+              <button className="chooseBtn" onClick={handleClose}>Done</button>
+            </Col>
           </Row>
         </div>
       );

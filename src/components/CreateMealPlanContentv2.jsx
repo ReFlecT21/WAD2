@@ -11,29 +11,13 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
         <>
         {/* {pageNum} */}
           <Container>
-            <Row className="">
+            <Row>
               <Col>
-                <h1>Pick Your {mealType} Items!</h1>
-              </Col>
-              <Col>
-                <div style={{ textAlign: "right" }}>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={() => setActivePage(pageNum - 1)}
-                  >
-                    Prev Page
-                  </Button>
-                  <Button
-                    className="buttonPrimary"
-                    onClick={() => setActivePage(pageNum + 1)}
-                  >
-                    Next Page
-                  </Button>
-                </div>
+                <h1 style={{marginBottom: "20px", textAlign:"center"}}>Pick Your {mealType} Items!</h1>
               </Col>
             </Row>
 
-            <Row xs={1} md={2} lg={3}>
+            <Row className="mealCards" xs={2} md={4} lg={4}>
                 {recipes ? (
                     recipes.map((recipe) => (
                         // console.log(recipe),
@@ -43,6 +27,25 @@ export function CreateMealPlanContentv2({pageNum, mealType, setActivePage, recip
                     )))
                 :(<Loader />)}
                 {/* <Loader /> */}
+            </Row>
+
+            <Row>
+              <Col>
+                <div className="chooseMealsBtn" >
+                  <Button
+                    className="chooseBtn" style={{marginRight: "300px"}}
+                    onClick={() => setActivePage(pageNum - 1)}
+                  >
+                    Previous Section
+                  </Button>
+                  <Button
+                    className="chooseBtn"
+                    onClick={() => setActivePage(pageNum + 1)}
+                  >
+                    Next Section
+                  </Button>
+                </div>
+              </Col>
             </Row>
           </Container>
         </>
@@ -153,20 +156,15 @@ export function CreateMealPlanContentFinalise({info, recal}){
 
     return (
         <>
-            <div style={{display:"flex", justifyContent:"space-between"}}>
-                <h1>Finalise Meal Plan</h1>
-                <div style={{textAlign:"right"}}>
-                    <Button 
-                        className="buttonPrimary"
-                        onClick={handleFinalise}
-                    >Finalise Plan</Button>
-                </div>
+            <div>
+                <h1>Finalise Your Meal Plan!</h1>
+                
             </div>
             {["Breakfast", "Lunch", "Dinner"].map((mealType) => (
                 <div key={mealType}>
-                    <h3>{mealType}</h3>
+                    <h3 className="finaliseType">{mealType}</h3>
                     {Object.keys(info[mealType].data).length > 0 ? (
-                        <Row xs={1} md={2} lg={3}>
+                        <Row xs={2} md={4} lg={4}>
                             {Object.keys(info[mealType].data).map((recipe) => (
                                 // console.log(recipe),
                                 <SelectedRecpieCardV2
@@ -182,7 +180,16 @@ export function CreateMealPlanContentFinalise({info, recal}){
                         <p>Please select at least 1 dish for {mealType}!</p>
                     )}
                 </div>
+                
+                
             ))}
+
+                <div className="finaliseBtn">
+                    <Button 
+                        className="chooseBtn"
+                        onClick={handleFinalise}
+                    >Finalise Plan</Button>
+                </div>
         </>
     )
 }

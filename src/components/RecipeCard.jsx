@@ -31,19 +31,19 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
 
   return (
     // <div>
-      <Card style={{ border: "0px", margin: "10px" }}>
+      <Card>
         <Card.Img
           variant="top"
           src={recipe["image"]}
-          className="img-overlay"
-          style={{ borderRadius: "20px" }}
+          className="cardImg"
+         
         />
         <Card.ImgOverlay>
           <Card.Body>
             <Row>
               <Col>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  className="btnDiv"
                 >
                   <Button
                     className="buttonPrimary"
@@ -51,7 +51,7 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
                       setOverlayData(<RecipeDetails id={recipe["id"]} />)
                     }
                   >
-                    See Recipe
+                    View Recipe
                   </Button>
                   <Button
                     className="buttonPrimary"
@@ -71,7 +71,7 @@ export function RecpieCardV2({ recipe, setter = null , render}) {
                 </div>
               </Col>
             </Row>
-            <Card.Title style={{ marginTop: "10px" }}>
+            <Card.Title className="cardTitle">
               {recipe["title"]}
             </Card.Title>
             <Card.Text>
@@ -176,19 +176,17 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
 
   return (
     // <div>
-      <Card style={{ border: "0px", margin: "10px" }}>
+      <Card >
         <Card.Img
           variant="top"
           src={recipe["image"]}
           className="img-overlay"
-          style={{ borderRadius: "20px" }}
         />
         <Card.ImgOverlay>
           <Card.Body>
             <Row>
               <Col>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Button
                     className="buttonPrimary"
@@ -213,7 +211,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                 </div>
               </Col>
             </Row>
-            <Card.Title style={{ marginTop: "10px" }}>
+            <Card.Title>
               {recipe["title"]}
             </Card.Title>
             <Card.Text>

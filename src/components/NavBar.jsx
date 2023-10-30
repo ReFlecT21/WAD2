@@ -15,7 +15,7 @@ function NavBar() {
       <Container>
         <Navbar.Brand
           href="/home"
-          className="homeNav d-flex align-items-center justify-content-center"
+          className="homeNav"
         >
           <img
             alt=""
@@ -27,7 +27,7 @@ function NavBar() {
           </h3>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+        <Navbar.Collapse id="basic-navbar-nav" >
           <Nav style={{ marginRight: "10px" }}>
             <Nav.Link
               href="/input"
@@ -45,21 +45,21 @@ function NavBar() {
             </Nav.Link>
             <Nav.Link
               style={{ marginLeft: "10px", marginRight: "10px" }}
-              className="d-flex align-items-center"
+              className="navItem"
               href="/mealplan"
             >
               <span className="navText">My Plan</span>
             </Nav.Link>
             <Nav.Link
-              className="d-flex align-items-center"
+              className="navItem"
               href="#insights"
             >
               <span className="navText">Insights</span>
             </Nav.Link>
           </Nav>
-          <Image className="profileIcon"
-            src="holder.js/100x100"
-            roundedCircle
+          <Image className="exitIcon"
+            src="exit.png"
+            href="#"
           />
         </Navbar.Collapse>
       </Container>
