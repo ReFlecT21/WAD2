@@ -56,9 +56,7 @@ export default function MealPlan() {
   const [trigger, setTrigger] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);
-  // window.onresize = () => {
-  //   width = window.innerWidth;
-  // }
+  
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);

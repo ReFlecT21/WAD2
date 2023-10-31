@@ -355,13 +355,13 @@ export const dbFoodMethods = {
           let cal = data.Calories;
           let CurrCal = data.CurrCal;
           let updateCal = 0;
-    
+
           // Make sure the day exists in the Completed array
           if (Array.isArray(food)) {
             let foodObjectArray = food.map((innerArray, index) => {
-              updateCal += innerArray[2];
+              updateCal += innerArray["calories"] * innerArray["quantity"];
     
-              return { [`array${index}`]: innerArray };
+              return innerArray ;
             });
     
             food = foodObjectArray; // Replace food with foodObjectArray
@@ -376,7 +376,7 @@ export const dbFoodMethods = {
           if (!Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
             Completed[dayIndex] = {};
           }
-          
+
 
           if (!DisplayPlan[dayIndex][mealType]){
             alert (`You cant have ${mealType} again`);
@@ -400,7 +400,7 @@ export const dbFoodMethods = {
     
             delete Plan[dayIndex][mealType];
     
-            console.log(Plan);
+            // console.log(Plan);
             // console.log(DisplayPlan);
     
             await updateDoc(this.docRef, {

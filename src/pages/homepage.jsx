@@ -26,6 +26,8 @@ import { isMobile } from "react-device-detect";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import Cookies from "js-cookie";
 import { Scan } from "../components/scan";
+import PageNotification from "../components/PageNotification";
+import currDayCalculator from "../middleware/currDayCalculator";
 // import { useHistory } from 'react-router-dom';
 
 
@@ -33,25 +35,19 @@ const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [currMealPlan, setCurrMealPlan] = useState(null);
 
-  // const body = {
-  //   query: "prata",
-  //   include_subrecipe: true,
-  //   use_raw_foods: false,
-  //   line_delimited: true,
-  //   claims: true,
-  //   taxonomy: true,
-  //   ingredient_statement: true,
-  // };
-  // const [data, setData] = useState(null);
+  const [notiMessage, setNotiMessage] = useState("");
+  const [notiRender, setNotiRender] = useState(false);
+  
+  function showNotification(message) {
+    console.log("showing notification")
+    setNotiMessage(message);
+    setNotiRender(true);
+  }
 
-  // fetcherPOST("/foodAPI/manualSearch", body, setData);
-
-  // console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
-      // const userId = auth.currentUser.email;
-      // setCurrMealPlan(await getMealPlan(userId));
+
       await dbFoodMethods.init();
 
       setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
@@ -61,31 +57,17 @@ const HomePage = () => {
 
   }, []);
 
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   const unlisten = history.listen(() => {
-  //     window.location.reload();
-  //   });
-  //   return () => {
-  //     unlisten();
-  //   };
-  // }, [history]);
-
-  
-  // console.log(currMealPlan)
   var currDay = 0;
 
   if (currMealPlan?.DisplayMealPlan) {
-    var currDay =
-      new Date(Date.now()).getDate() -
-      new Date(currMealPlan.CreatedAt).getDate();
+    currDay = currDayCalculator(currMealPlan.CreatedAt)
       // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
   return (
     <>
       <NavBar />
+      <PageNotification message={notiMessage} render={notiRender}/>
       {overlayData}
       <Row xs={1} md={3}>
         {/* <Col>
@@ -130,38 +112,40 @@ const HomePage = () => {
                     </>
                   ) : (
                     <>
-                          {Object.keys(currMealPlan.DisplayMealPlan[currDay+1]).length >0 ? (
-                            <>
-                              {["breakfast", "lunch", "dinner"].map((mealType) => (
-                                <Col key={`${mealType}home`}>
+                      {console.log(currMealPlan.DisplayMealPlan)}
+                      {console.log(currDay)}
+                      {Object.keys(currMealPlan.DisplayMealPlan[currDay+1]).length >0 ? (
+                        <>
+                          {["breakfast", "lunch", "dinner"].map((mealType) => (
+                            <Col key={`${mealType}home`}>
 
-                                  {currMealPlan.DisplayMealPlan[currDay+1][mealType] ? (
-                                    <>
-                                    {currMealPlan.DisplayMealPlan[currDay+1][mealType][
-                                      Object.keys(currMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
-                                    ] ? (
-                                      <h4>{mealType} completed!</h4>
-                                    ) : (
-                                      <h4>{mealType}</h4>
-                                    )}
-                                    <MealPlanCardHome
-                                      recipe={Object.keys(currMealPlan.DisplayMealPlan[currDay + 1][mealType])[0]}
-                                    />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <h4>{mealType}</h4>
-                                      <p>No meals planned</p>
-                                    </>
-                                  )}
+                              {currMealPlan.DisplayMealPlan[currDay+1][mealType] ? (
+                                <>
+                                {currMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                  Object.keys(currMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
+                                ] ? (
+                                  <h4>{mealType} completed!</h4>
+                                ) : (
+                                  <h4>{mealType}</h4>
+                                )}
+                                <MealPlanCardHome
+                                  recipe={Object.keys(currMealPlan.DisplayMealPlan[currDay + 1][mealType])[0]}
+                                />
+                                </>
+                              ) : (
+                                <>
+                                  <h4>{mealType}</h4>
+                                  <p>No meals planned</p>
+                                </>
+                              )}
 
-                                  
-                                  
+                              
+                              
 
-                                </Col>
-                              ))}
-                            </>
-                            ) : (<p>No meals planned</p>)}
+                            </Col>
+                          ))}
+                        </>
+                        ) : (<p>No meals planned</p>)}
                     </>
                   )}
                 </>
@@ -180,9 +164,9 @@ const HomePage = () => {
               {/* <Button className="homePageBtn">Scan</Button> */}
               <Button
                 className="homePageBtn"
-                onClick={() =>
-                  setOverlayData(<ManualSearchComponent currDay={currDay+2} />)
-                }
+                onClick={() =>{
+                  setOverlayData(<ManualSearchComponent currDay={currDay+1} showNotification={showNotification} />)
+                }}
               >
                 Manual Search
               </Button>
