@@ -27,7 +27,7 @@ import { dbFoodMethods } from "../middleware/dbMethods";
 import Cookies from "js-cookie";
 import { Scan } from "../components/scan";
 // import { useHistory } from 'react-router-dom';
-
+import BarChart from "../components/BarChart";
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [currMealPlan, setCurrMealPlan] = useState(null);
