@@ -4,23 +4,6 @@ p {
   font-family: "Nunito Sans";
 }
 
-.card {
-  width: 300px;
-  background: #F6FEFC;
-  padding: .4em;
-  border-radius: 6px;
-  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-x
-.card:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-}
-
 .neuphormicBox {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
@@ -267,10 +250,6 @@ h2, h3, h4, h5 {
           transform: translate(-50%, -50%);
 }
 
-.card-title {
-  color: #F6FEFC;
-}
-
 .manualSelectBtn {
   color: #F6FEFC;
   font-weight: normal;
@@ -406,56 +385,6 @@ h2, h3, h4, h5 {
   width: 300px;
 }
 
-.ReceipeCardBtn {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 10px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 120px;
-  height: 35px;
-  line-height: 0px;
-  margin-right: 15px;
-}
-
-.ReceipeCardBtn:hover {
-  background: #12382c;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
-.ReceipeCardBtnR {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 10px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 120px;
-  height: 35px;
-  margin-left: 15px;
-  line-height: 0px;
-}
-
-.ReceipeCardBtnR:hover {
-  background: #12382c;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
 RecipeTitle {
   margin-top: 20px;
 }
@@ -476,10 +405,6 @@ RecipeTitle {
 
 .accordionFont {
   font-family: "Orelega One";
-}
-
-.fff {
-  font-family: "Orlegano One";
 }
 
 .ShoppingCardBtn {
@@ -553,10 +478,6 @@ tr:last-of-type td:last-of-type {
   background: #12382c;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
-}
-
-.card {
-  margin-bottom: 15px;
 }
 
 .custom-tab-title {

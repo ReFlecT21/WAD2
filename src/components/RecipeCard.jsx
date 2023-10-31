@@ -187,7 +187,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
         <Card.Img
           variant="top"
           src={recipe["image"]}
-          className="img-overlay"
+          className="cardImg"
         />
         <Card.ImgOverlay   >
           <Card.Body  >
@@ -195,9 +195,10 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
               <div className="cntr">
               <Col>
                 <div
+                class="btnDiv"
                 >
                   <Button
-                    className="ReceipeCardBtn"
+                    className="buttonPrimary"
                     onClick={() =>
                       setOverlayData(<RecipeDetails key={`${recipe["id"]}popup`} id={recipe["id"]} />)
                     }
@@ -206,7 +207,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
                   </Button>
                   {/* {buttonState ? ( */}
                     <Button
-                      className="ReceipeCardBtnR"
+                      className="buttonPrimary"
                       onClick={ async () =>{
                         let res = await handleButtonClick()
                         if (res) {
@@ -222,7 +223,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
               </Col>
               </div>
             </Row>
-            <Card.Title>
+            <Card.Title className="cardTitle">
               {recipe["title"]}
             </Card.Title>
             <Card.Text>

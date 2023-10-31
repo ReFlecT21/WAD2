@@ -103,7 +103,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Orelega One"}}>
-                    <h1>
+                    <h1 style={{ fontFamily:"Orelega One"}}>
                     {title}
                     </h1>
                 </TableCell>

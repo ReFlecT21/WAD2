@@ -47,18 +47,18 @@ p{
 }
 
 //VERTICAL CARD
-.card{
-    width: 300px;
-    background: $backgroundCol;
-    padding: .4em;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);    
-}   
-    x
-.card:hover{
-    transform: scale(1.05);
-    transition: 0.3s; 
-    }
+// .card{
+//     width: 300px;
+//     background: $backgroundCol;
+//     padding: .4em;
+//     border-radius: 6px;
+//     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);    
+// }   
+//     x
+// .card:hover{
+//     transform: scale(1.05);
+//     transition: 0.3s; 
+//     }
 
 // .card-category { //Card titlea
 // font-size: 26px;
@@ -303,9 +303,9 @@ h2,h3,h4,h5{
  
   }
   
-  .card-title{
-    color: $whiteTextCol
-  }
+//   .card-title{
+//     color: $whiteTextCol
+//   }
 
   .manualSelectBtn{
       @include whiteText();
@@ -404,32 +404,32 @@ h2,h3,h4,h5{
 
 
 
-.ReceipeCardBtn{
+// .ReceipeCardBtn{
 
-    @include whiteText();
-    @include button($primaryCol, 10px);
-    border-radius: 20px;
-    width: 120px;
-    height: 35px;
-    // margin-bottom: 30px;
+//     @include whiteText();
+//     @include button($primaryCol, 10px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 35px;
+//     // margin-bottom: 30px;
 
 
-    line-height: 0px;
-    margin-right: 15px
+//     line-height: 0px;
+//     margin-right: 15px
 
-}
+// }
 
-.ReceipeCardBtnR{
+// .ReceipeCardBtnR{
 
-    @include whiteText();
-    @include button($primaryCol, 10px);
-    border-radius: 20px;
-    width: 120px;
-    height: 35px;
-    margin-left: 15px;
-    line-height: 0px;
+//     @include whiteText();
+//     @include button($primaryCol, 10px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 35px;
+//     margin-left: 15px;
+//     line-height: 0px;
 
-}
+// }
 
 RecipeTitle{
     margin-top: 20px;
@@ -452,10 +452,7 @@ RecipeTitle{
 
 }
 
-.fff{
-    font-family: "Orlegano One";
 
-}
 
 /// shopping cart
 .ShoppingCardBtn{
@@ -522,9 +519,9 @@ th:first-of-type {
   
 
 ///completed meals 
-.card{
-    margin-bottom: 15px; //I added this onto the .card class above
-}   
+// .card{
+//     margin-bottom: 15px; //I added this onto the .card class above
+// }   
 
 
 ///current meal plan
