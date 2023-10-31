@@ -11,12 +11,18 @@ Card,
 Row,
 Col,
 Image,
+Tabs,
+Tab,
 } from "react-bootstrap";
 import { fetcher, fetcherGET, fetcherPOST } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { useNavigate } from "react-router-dom";
 import { RecalAtom } from "../atoms/recal";
 import Cookies from "js-cookie";
+
+import styled from 'styled-components';
+
+
 
 // CONFIRM MODAL
 function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
@@ -459,6 +465,7 @@ export function ManualSearchComponent(props) {
         });
     }
 
+
     return (
         <div>
         <Modal open={mealModalOpen} onClose={() => setMealModalOpen(false)}>
@@ -502,33 +509,50 @@ export function ManualSearchComponent(props) {
         >
             <Box className="popup">
             <div className="text-center">
-                <h1>This is manualSearch</h1>
-                <ChildModal
-                food_Array={foodArray}
-                dayIndex={props.currDay}
-                MealType={selectedMeal}
-                />
 
-                <Form onSubmit={handleSubmit}>
-                <InputGroup className="mb-3">
-                    <Form.Control
-                    aria-label="Default"
-                    aria-describedby="inputGroup-sizing-default"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    placeholder="type something!"
+
+                <Tabs
+                style={{backgroundColor:"", color:""}}
+                defaultActiveKey="search"
+                id="uncontrolled-tab-example"
+                className="mb-3"
+                fill
+                >
+                <Tab eventKey="search" title={"Manual Search"} className="custom-tab-title">
+                    <h1>This is manualSearch</h1>
+                    <ChildModal
+                    food_Array={foodArray}
+                    dayIndex={props.currDay}
+                    MealType={selectedMeal}
                     />
-                </InputGroup>
 
-                {inputError && <div style={{ color: "red" }}>{inputError}</div>}
-                </Form>
-                {/* <Stack direction="vertical" gap={2}> */}
-                {instantSearchRes && (
-                <Row xs={1} md={3} className="g-4">
-                    {instantSearchRes}
-                </Row>
-                )}
-                {/* </Stack> */}
+                    <Form onSubmit={handleSubmit}>
+                    <InputGroup className="mb-3">
+                        <Form.Control
+                        aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        placeholder="type something!"
+                        />
+                    </InputGroup>
+
+                    {inputError && <div style={{ color: "red" }}>{inputError}</div>}
+                    </Form>
+                    {/* <Stack direction="vertical" gap={2}> */}
+                    {instantSearchRes && (
+                    <Row xs={1} md={3} className="g-4">
+                        {instantSearchRes}
+                    </Row>
+                    )}
+                </Tab>
+                <Tab eventKey="scan" title={"Scan Nutrition"}>
+
+                </Tab>
+                </Tabs>
+                {/* <Scan /> */}
+
+
             </div>
             </Box>
         </Modal>

@@ -178,11 +178,10 @@ const HomePage = () => {
           <div className="neuphormicBox">
             <Stack gap={2}>
               {/* <Button className="homePageBtn">Scan</Button> */}
-              <Scan />
               <Button
                 className="homePageBtn"
                 onClick={() =>
-                  setOverlayData(<ManualSearchComponent currDay={currDay+1} />)
+                  setOverlayData(<ManualSearchComponent currDay={currDay+2} />)
                 }
               >
                 Manual Search
