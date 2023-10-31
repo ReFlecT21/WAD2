@@ -225,32 +225,35 @@ useEffect(() => {
     if (searchData) {
     let newFoodDetailsArrays = []; // Initialize an empty array to store the arrays of food details
     Object.keys(searchData).forEach((key) => {
-        searchData[key]["foods"].forEach((food) => {
+        // searchData[key].forEach((food) => {
         let foodDetails = []; // Initialize an array for each set of food details
         
 
-        foodDetails.push(food.photo.highres);
-        foodDetails.push(food["food_name"]);
-        foodDetails.push(food["nf_calories"]);
-        foodDetails.push(food["nf_protein"]);
-        foodDetails.push(food["nf_total_fat"]);
-        foodDetails.push(food["nf_total_carbohydrate"]);
-        foodDetails.push(food["nf_cholesterol"]);
+        foodDetails.push(searchData[key].photo.highres);
+        foodDetails.push(searchData[key]["food_name"]);
+        foodDetails.push(searchData[key]["nf_calories"]);
+        foodDetails.push(searchData[key]["nf_protein"]);
+        foodDetails.push(searchData[key]["nf_total_fat"]);
+        foodDetails.push(searchData[key]["nf_total_carbohydrate"]);
+        foodDetails.push(searchData[key]["nf_cholesterol"]);
         // Add the array of food details to the new array
         newFoodDetailsArrays.push(foodDetails);
-        });
+        // });
     });
     setFoodDetailsArrays(newFoodDetailsArrays);
-    console.log(dayIndex); // Update the state with the new array of arrays
+    // console.log(dayIndex); // Update the state with the new array of arrays
     }
 }, [searchData]);
 
 function handleRemove(key, food) {
     // Remove the food item from searchData
     const newSearchData = { ...searchData };
-    const index = newSearchData[key]["foods"].indexOf(food);
-    if (index > -1) {
-    newSearchData[key]["foods"].splice(index, 1);
+    // console.log(key);
+    // console.log(newSearchData);
+    // const index = newSearchData[key].indexOf(food);
+    if (key > -1) {
+        // newSearchData[key].splice(index, 1);
+        delete newSearchData[key];
     }
 
     // Update the state with the new searchData
@@ -264,23 +267,33 @@ return (
         onClick={() => {
         setChildModalOpen(true);
 
-        console.log(food_Array);
+        // console.log(food_Array);
         const fetchPromises = food_Array.map((food) => {
-            const body = {
-            query: food,
-            include_subrecipe: true,
-            use_raw_foods: false,
-            line_delimited: true,
-            claims: true,
-            taxonomy: true,
-            ingredient_statement: true,
-            };
+            if (Array.isArray(food)) {
 
-            return fetcherPOST("/foodAPI/manualSearch", body);
+            } else {
+
+                const body = {
+                    query: food,
+                    include_subrecipe: true,
+                    use_raw_foods: false,
+                    line_delimited: true,
+                    claims: true,
+                    taxonomy: true,
+                    ingredient_statement: true,
+                };
+    
+                return fetcherPOST("/foodAPI/manualSearch", body);
+            }
         });
         Promise.all(fetchPromises)
             .then((data) => {
-            setSearchData((prevData) => ({ ...prevData, ...data }));
+                // console.log(data);
+                data.forEach((food) => {
+                    // console.log(food);
+                    setSearchData((prevData) => ({ ...prevData, ...food.foods }));
+
+                });
             })
             .catch((error) => console.error(error));
         }}
@@ -311,40 +324,41 @@ return (
         >
             {searchData ? (
             <div>
+                {/* {console.log(searchData)} */}
                 {Object.keys(searchData).map((key) => {
+                    
                 return (
-                    <div key={key}>
+                    <div key={searchData[key]["food_name"]}>
                     {/* <h2>{key}</h2> */}
-                    {searchData[key]["foods"].map((food) => {
-                        return (
-                        <div key={food + key}>
+                    {/* {Object.keys(searchData[key]).map((food) => { */}
+
+
                             <Row>
                             <Col>
                                 <img
                                 style={{ width: "100%" }}
-                                src={food.photo.highres}
+                                src={searchData[key].photo.highres}
                                 alt=""
                                 />
                             </Col>
                             <Col>
-                                <h2>{food["food_name"]}</h2>
-                                <p>Calories: {food["nf_calories"]}</p>
-                                <p>Total Protein: {food["nf_protein"]}</p>
-                                <p>Total Fats: {food["nf_total_fat"]}</p>
+                                <h2>{searchData[key]["food_name"]}</h2>
+                                <p>Calories: {searchData[key]["nf_calories"]}</p>
+                                <p>Total Protein: {searchData[key]["nf_protein"]}</p>
+                                <p>Total Fats: {searchData[key]["nf_total_fat"]}</p>
                                 <p>
                                 Total Carbohydrates:{" "}
-                                {food["nf_total_carbohydrate"]}
+                                {searchData[key]["nf_total_carbohydrate"]}
                                 </p>
-                                <p>Cholesterol: {food["nf_cholesterol"]}</p>
+                                <p>Cholesterol: {searchData[key]["nf_cholesterol"]}</p>
                             </Col>
                             </Row>
                             {/* Add a remove button */}
-                            <button onClick={() => handleRemove(key, food)}>
+                            <button onClick={() => handleRemove(key, searchData[key])}>
                             Remove
                             </button>
-                        </div>
-                        );
-                    })}
+
+
                     </div>
                 );
                 })}
