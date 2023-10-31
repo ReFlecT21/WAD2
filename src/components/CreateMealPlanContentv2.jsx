@@ -103,6 +103,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
           Cookies.get("calories")
         );
       }
+      // console.log(mealPlan);
+      // console.log(mealPlanCopy);
 
       Cookies.remove("calories");
       Cookies.remove("recal");
@@ -226,14 +228,17 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
         }
       } else {
         console.log("recal process");
-        let exisitingMealPlan = await dbFoodMethods.getMealPlan();
+        let exisitingMealPlan = JSON.parse(recal);
         console.log(exisitingMealPlan);
+        console.log(typeof exisitingMealPlan);
 
         if (exisitingMealPlan) {
-          for (let i in exisitingMealPlan["mealPlan"]) {
+          for (const i in exisitingMealPlan) {
+            // console.log(i);
             // check length of day in currMealPlan
-            if (Object.keys(exisitingMealPlan["mealPlan"][i]).length > 0) {
-              for (let meal in exisitingMealPlan["mealPlan"][i]) {
+            if (Object.keys(exisitingMealPlan[i]).length > 0) {
+              for (const meal in exisitingMealPlan[i]) {
+                // console.log(meal);
                 let randomDish = Object.keys(
                   info[`${meal.charAt(0).toUpperCase() + meal.slice(1)}`].data
                 )[

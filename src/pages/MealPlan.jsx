@@ -82,9 +82,9 @@ export default function MealPlan() {
     
     fetchData();
   }, []);
-  // console.log(completed)
-  // console.log(currMealPlan)
-  // console.log(currDisplayMealPlan)
+  console.log(completed)
+  console.log(currMealPlan)
+  console.log(currDisplayMealPlan)
 
   const handleRecal = async () => {
     const expirationTimeInHours = 1;
@@ -124,7 +124,7 @@ export default function MealPlan() {
               className="mb-3"
               fill
             >
-              <Tab eventKey="mealPlan" title={<BlackTextTabTitle>Current Meal Plan</BlackTextTabTitle>}>
+              <Tab eventKey="mealPlan" title={"Current Meal Plan"}>
                 {/* <CurrentMealPlan /> */}
                 <div style={{display:"flex", justifyContent:"space-between"} }>
                   <h2>Your current meal plan</h2>
@@ -140,7 +140,7 @@ export default function MealPlan() {
                 />
               </Tab>
               
-              <Tab eventKey="cart"title={<BlackTextTabTitle>Shopping Cart</BlackTextTabTitle>}>
+              <Tab eventKey="cart"title={"Shopping Cart"}>
                 {width > 767 ? (
                   // <h1>Shopping Cart</h1>
                   <ShoppingCart 
@@ -152,7 +152,7 @@ export default function MealPlan() {
                   />
                 )}
               </Tab>
-              <Tab eventKey="Completed" title={<BlackTextTabTitle>Completed Meals</BlackTextTabTitle>}>
+              <Tab eventKey="Completed" title={"Completed Meals"}>
                 <h1>Completed Meals</h1>
                 <Row xs={1} md={2} lg={3}>
                   <CompletedMeals completed={completed} />
