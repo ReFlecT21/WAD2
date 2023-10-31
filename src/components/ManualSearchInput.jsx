@@ -21,6 +21,7 @@ import { RecalAtom } from "../atoms/recal";
 import Cookies from "js-cookie";
 
 import styled from 'styled-components';
+import { Scan } from "./scan";
 
 
 
@@ -547,10 +548,9 @@ export function ManualSearchComponent(props) {
                     )}
                 </Tab>
                 <Tab eventKey="scan" title={"Scan Nutrition"}>
-
+                    <Scan /> 
                 </Tab>
                 </Tabs>
-                {/* <Scan /> */}
 
 
             </div>

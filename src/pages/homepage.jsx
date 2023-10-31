@@ -175,9 +175,10 @@ const HomePage = () => {
 
         </Col>
         <Col>
-          <div className="neuphormicBox">
+          <div className="neuphormicBox" style={{textAlign:"center"}}>
             <Stack gap={2}>
               {/* <Button className="homePageBtn">Scan</Button> */}
+              <h3>Manual Add</h3>
               <Button
                 className="homePageBtn"
                 onClick={() =>
