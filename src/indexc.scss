@@ -400,6 +400,8 @@ h2,h3,h4,h5{
     border: 0px;
     margin: 10px;
     background-color: transparent;
+    height: 100%;
+    width: 50vh;
     
 }
 
@@ -448,12 +450,7 @@ h2,h3,h4,h5{
     border: 0; /* Remove the button border */
     font-size: 20px; /* Adjust the font size for the "X" */
     cursor: pointer; /* Change the cursor to indicate it's clickable */
-    color: $primaryCol; /* Change the color to red or any other color you prefer */
-    // padding-left: 20px;
-    // padding-right: 20px;
-    // padding-top: 20px;
-    // padding-bottom: 20px;
-    // border-radius: 50%;  
+    color: $primaryCol; /* Change the color to red or any other color you prefer */ 
     font-family: $primaryFont;
     font-weight: bold;
     font-size: 26px;
@@ -464,10 +461,8 @@ h2,h3,h4,h5{
     display: flex;
     justify-content: start;
     align-items: center;
-}
+    margin-bottom: 70px;
 
-.recipeTitle h1{
-    font-size: 50px;
 }
 
 .recipeCalories{
@@ -495,9 +490,9 @@ h2,h3,h4,h5{
 
 .recipePic{
     border-radius: 50px;
-    height: 80%;
-    width: 100%;
     margin-bottom: 20px;
+    margin-right: 10px;
+    padding: 0;
 }
 
 .recipeDetails{
@@ -520,7 +515,7 @@ h2,h3,h4,h5{
     height: 600px;
     margin:auto;
     overflow: auto;
-    padding-top: 3%;
+    padding-top: 2%;
     padding-left: 4%;
     padding-right: 4%;
     padding-bottom: 4%;

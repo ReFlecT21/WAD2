@@ -54,32 +54,64 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
             dbFoodMethods.oddManualInput(foodDetails)
 
         } else {
-            let res = await dbFoodMethods.completeMeal(
+            dbFoodMethods.completeMeal(
                 day_Index,
                 Meal_Type,
                 foodDetails
-            );
-            return res;
+            ) .then(async (res) => {
+                // console.log(res);
+                if (res.Plan) {
+                    const expirationTimeInHours = 1;
+                    const expirationDate = new Date(
+                    new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+                    );
+                    // let remainingCal = await dbFoodMethods.getRemainingCalories(res);
+                    let remainingCal = () => {
+                        let countMeals = 0;
+                        for (const day in res.Plan) {
+                            for (const mealType in res.Plan[day]) {
+                                countMeals += 1;
+                            }
+                        }
+                        // console.log(countMeals);
+
+                        return parseInt(Math.floor((res.cal / countMeals) * 3));
+                    }
+                    // console.log(remainingCal());
+                        
+                    if (remainingCal() > 999){
+                        Cookies.set("recal", JSON.stringify(res.Plan), { expires: expirationDate });
+                        Cookies.set("calories", remainingCal(), { expires: expirationDate });
+                        setOverlayData([]);
+                        navigate("/choose");
+                    } else {
+                        alert("You can only recalculate if you have at least 1000 calories per day left")
+                    }
+    
+
+                }
+
+            });
+
         }
 
-        setRecal(true);
     };
 
     const recalRedirect = async () => {
         const expirationTimeInHours = 1;
-            const expirationDate = new Date(
-            new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
-            );
-            let remainingCal = await dbFoodMethods.getRemainingCalories();
-                
-            if (remainingCal > 999){
-                Cookies.set("recal", 1, { expires: expirationDate });
-                Cookies.set("calories", remainingCal, { expires: expirationDate });
-                setOverlayData([]);
-                navigate("/choose");
-            } else {
-                alert("You can only recalculate if you have at least 1000 calories per day left")
-            }
+        const expirationDate = new Date(
+        new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
+        );
+        let remainingCal = await dbFoodMethods.getRemainingCalories();
+            
+        if (remainingCal > 999){
+            Cookies.set("recal", 1, { expires: expirationDate });
+            Cookies.set("calories", remainingCal, { expires: expirationDate });
+            setOverlayData([]);
+            navigate("/choose");
+        } else {
+            alert("You can only recalculate if you have at least 1000 calories per day left")
+        }
     }
 
     useEffect(() => {
@@ -148,7 +180,7 @@ return (
             </Button>
             <Button className="buttonPrimary" onClick={async ()=>{
                 await handleRecal()
-                await recalRedirect()
+                // await recalRedirect()
                 }}>
             Recal
             </Button>
@@ -368,6 +400,19 @@ export function ManualSearchComponent(props) {
         setInputError("You must type something!");
         }
     }
+
+    async function checkValidMeal (mealType){
+        let res = await dbFoodMethods.getMealPlan();
+
+        // console.log(res.mealPlan[props.currDay][mealType]);
+        if (res.mealPlan[props.currDay][mealType] != undefined){
+            setSelectedMeal(mealType);
+            setMealModalOpen(false);
+        } else {
+            alert(`You cannot add ${mealType} again!`)
+        }
+    }
+    
     const [foodArray, setFoodArray] = useState([]);
     useEffect(() => {
         // console.log(foodArray);
@@ -421,24 +466,21 @@ export function ManualSearchComponent(props) {
             <h1>Select a meal</h1>
             <Button
                 onClick={() => {
-                setSelectedMeal("breakfast");
-                setMealModalOpen(false);
+                    checkValidMeal("breakfast")
                 }}
             >
                 Breakfast
             </Button>
             <Button
                 onClick={() => {
-                setSelectedMeal("lunch");
-                setMealModalOpen(false);
+                    checkValidMeal("lunch")
                 }}
             >
                 Lunch
             </Button>
             <Button
                 onClick={() => {
-                setSelectedMeal("dinner");
-                setMealModalOpen(false);
+                    checkValidMeal("dinner")
                 }}
             >
                 Dinner

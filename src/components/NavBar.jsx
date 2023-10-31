@@ -51,7 +51,7 @@ function NavBar() {
             </Nav.Link>
             <Nav.Link
               className="navItem"
-              href="#insights"
+              href="/analytics"
             >
               <span className="navText">Insights</span>
             </Nav.Link>

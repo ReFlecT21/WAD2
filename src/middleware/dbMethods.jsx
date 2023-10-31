@@ -194,27 +194,27 @@ export const dbFoodMethods = {
     }
   },
 
-  getRemainingCalories: async function () {
+  getRemainingCalories: async function (incomingPlan) {
     console.log("getCalories");
     // console.log(this.username)
 
-    this.init();
+    // await this.init();
 
     try {
       // Get the current state of the document
       if (this.docSnap) {
         const data = this.docSnap.data();
         // console.log(data);
-        const mealPlan = data.Plan;
         const calories = data.Calories;
+        // console.log(mealPlan);
 
         let countMeals = 0;
-        for (const day in mealPlan) {
-          for (const mealType in mealPlan[day]) {
+        for (const day in incomingPlan) {
+          for (const mealType in incomingPlan[day]) {
             countMeals += 1;
           }
         }
-
+        // console.log(countMeals);
         const remainingCal = parseInt(Math.floor((calories / countMeals) * 3));
 
         return remainingCal;
@@ -249,8 +249,6 @@ export const dbFoodMethods = {
         shoppingCart: shoppingCart,
         Details: formData,
         CurrCal: 0,
-        // allergies: Cookies.get("allergies"),
-        // Added: [],
       }).then(() => {
         console.log("Document written");
       });
@@ -343,77 +341,96 @@ export const dbFoodMethods = {
   },
 
   completeMeal: async function (dayIndex, mealType, food) {
-    try {
-      // Get the current state of the document
+    return new Promise(async (resolve, reject) => {
+      try {
+        // Get the current state of the document
+    
+        if (this.docSnap) {
+          const data = this.docSnap.data();
+          // console.log(data);
+    
+          const Completed = data.Completed;
+          const Plan = data.Plan;
+          const DisplayPlan = data.DisplayPlan;
+          let cal = data.Calories;
+          let CurrCal = data.CurrCal;
+          let updateCal = 0;
+    
+          // Make sure the day exists in the Completed array
+          if (Array.isArray(food)) {
+            let foodObjectArray = food.map((innerArray, index) => {
+              updateCal += innerArray[2];
+    
+              return { [`array${index}`]: innerArray };
+            });
+    
+            food = foodObjectArray; // Replace food with foodObjectArray
+            cal -= updateCal;
+            CurrCal += updateCal;
+          } else {
+            updateCal += Object.values(food)[0];
+            cal -= updateCal;
+            CurrCal += updateCal;
+          }
+    
+          if (!Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
+            Completed[dayIndex] = {};
+          }
+          
 
-      if (this.docSnap) {
-        const data = this.docSnap.data();
-        // console.log(data);
+          if (!DisplayPlan[dayIndex][mealType]){
+            alert (`You cant have ${mealType} again`);
+            resolve (false);
+          }
+          if (Object.values(DisplayPlan[dayIndex][mealType])[0] == 0) {
+            const key = Object.keys(DisplayPlan[dayIndex][mealType])[0];
+            DisplayPlan[dayIndex][mealType][key] = 1;
+          }
+    
 
-        const Completed = data.Completed;
-        const Plan = data.Plan;
-        const DisplayPlan = data.DisplayPlan;
-        let cal = data.Calories;
-        let CurrCal = data.CurrCal;
-        let updateCal = 0;
 
-        // Make sure the day exists in the Completed array
-        if (Array.isArray(food)) {
-          let foodObjectArray = food.map((innerArray, index) => {
-            updateCal += innerArray[2];
-
-            return { [`array${index}`]: innerArray };
-          });
-
-          food = foodObjectArray; // Replace food with foodObjectArray
-          cal -= updateCal;
-          CurrCal += updateCal;
+          if (
+            Plan[dayIndex][mealType] == undefined
+            // Completed[dayIndex][mealType] != undefined
+          ) {
+            alert(`You cant have ${mealType} again`);
+            resolve(false);
+          } else {
+            Completed[dayIndex][mealType] = food;
+    
+            delete Plan[dayIndex][mealType];
+    
+            console.log(Plan);
+            // console.log(DisplayPlan);
+    
+            await updateDoc(this.docRef, {
+              Completed: Completed,
+              // MasterCopy: Plan,
+              Plan: Plan,
+              DisplayPlan: DisplayPlan,
+              Calories: cal,
+            })
+            .then(() => {
+              console.log("Document written");
+              // return true;
+              resolve({Plan,cal}); 
+            })
+    
+          }
         } else {
-          updateCal += Object.values(food)[0];
-          cal -= updateCal;
-          CurrCal += updateCal;
+          console.error(
+            "Document does not exist or Completed field is not an array"
+          );
         }
-
-        if (!Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
-          Completed[dayIndex] = {};
-        }
-
-        if (Object.values(DisplayPlan[dayIndex][mealType])[0] == 0) {
-          const key = Object.keys(DisplayPlan[dayIndex][mealType])[0];
-          DisplayPlan[dayIndex][mealType][key] = 1;
-        }
-
-        if (
-          Plan[dayIndex][mealType] == undefined
-          // Completed[dayIndex][mealType] != undefined
-        ) {
-          alert(`You cant have ${mealType} again`);
-          return false;
-        } else {
-          Completed[dayIndex][mealType] = food;
-
-          delete Plan[dayIndex][mealType];
-
-          await updateDoc(this.docRef, {
-            Completed: Completed,
-            // MasterCopy: Plan,
-            Plan: Plan,
-            DisplayPlan: DisplayPlan,
-            Calories: cal,
-          });
-
-          console.log("Document written");
-          return true;
-        }
-      } else {
-        console.error(
-          "Document does not exist or Completed field is not an array"
-        );
+      } catch (e) {
+        console.error("Error updating document: ", e);
+        reject(e); 
       }
-    } catch (e) {
-      console.error("Error updating document: ", e);
-    }
+
+    });
+
   },
+
   checkEnd: async function () {
     await this.init();
 
@@ -435,6 +452,7 @@ export const dbFoodMethods = {
       console.error("Error updating document: ", e);
     }
   },
+
   getAnalytics: async function () {
     const weights = [];
     let startWeight = 0;

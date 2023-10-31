@@ -161,26 +161,37 @@ const HomePage = () => {
                             <Col key={`${mealType}home`}>
                               {currMealPlan.DisplayMealPlan[currDay + 1][
                                 mealType
-                              ][
-                                Object.keys(
-                                  currMealPlan.DisplayMealPlan[currDay + 1][
-                                    mealType
-                                  ]
-                                )[0]
                               ] ? (
-                                <h4>{mealType} completed!</h4>
+                                <>
+                                  {currMealPlan.DisplayMealPlan[currDay + 1][
+                                    mealType
+                                  ][
+                                    Object.keys(
+                                      currMealPlan.DisplayMealPlan[currDay + 1][
+                                        mealType
+                                      ]
+                                    )[0]
+                                  ] ? (
+                                    <h4>{mealType} completed!</h4>
+                                  ) : (
+                                    <h4>{mealType}</h4>
+                                  )}
+                                  <MealPlanCardHome
+                                    recipe={
+                                      Object.keys(
+                                        currMealPlan.DisplayMealPlan[
+                                          currDay + 1
+                                        ][mealType]
+                                      )[0]
+                                    }
+                                  />
+                                </>
                               ) : (
-                                <h4>{mealType}</h4>
+                                <>
+                                  <h4>{mealType}</h4>
+                                  <p>No meals planned</p>
+                                </>
                               )}
-                              <MealPlanCardHome
-                                recipe={
-                                  Object.keys(
-                                    currMealPlan.DisplayMealPlan[currDay + 1][
-                                      mealType
-                                    ]
-                                  )[0]
-                                }
-                              />
                             </Col>
                           ))}
                         </>
@@ -204,7 +215,9 @@ const HomePage = () => {
               <Button
                 className="homePageBtn"
                 onClick={() =>
-                  setOverlayData(<ManualSearchComponent currDay={currDay} />)
+                  setOverlayData(
+                    <ManualSearchComponent currDay={currDay + 1} />
+                  )
                 }
               >
                 Manual Search
