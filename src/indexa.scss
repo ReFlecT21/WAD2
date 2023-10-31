@@ -431,21 +431,21 @@ h2,h3,h4,h5{
 
 // }
 
-RecipeTitle{
-    margin-top: 20px;
-}
+// RecipeTitle{
+//     margin-top: 20px;
+// }
 
 
-.cntr{
-    display: flex;
-    justify-content: center;
+// .cntr{
+//     display: flex;
+//     justify-content: center;
     
-}
+// }
 
 
-.img-overlay{
-    filter: brightness(70%);
-  }
+// .img-overlay{
+//     filter: brightness(70%);
+//   }
 
 .accordionFont{
     font-family: $headerFont;
@@ -530,12 +530,19 @@ th:first-of-type {
 // tabs
 
 .custom-tab-title {
-    color: red; /* Change 'red' to the color you want */
+    color: rgb(42, 28, 28); /* Change 'red' to the color you want */
   }
 
 
-  .tabTitleStyle {
+.tabTitleStyle {
     color: 'red', // Change 'blue' to the color you want
-  };
+};
+
+.nav-link{
+    color: #3EBC96;
+    font-family: "Nunito Sans";
+    font-weight: bold;
+    font-size: 18px;
+  }
 
     /////////////////////////////Anan stuff end

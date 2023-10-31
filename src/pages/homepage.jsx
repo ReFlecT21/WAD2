@@ -25,6 +25,7 @@ import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
 import { isMobile } from "react-device-detect";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import Cookies from "js-cookie";
+import { Scan } from "../components/scan";
 // import { useHistory } from 'react-router-dom';
 
 
@@ -134,22 +135,28 @@ const HomePage = () => {
                               {["breakfast", "lunch", "dinner"].map((mealType) => (
                                 <Col key={`${mealType}home`}>
 
-                                  {currMealPlan.DisplayMealPlan[currDay+1][mealType][
-                                    Object.keys(currMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
-                                  ] ? (
-                                    <h4>{mealType} completed!</h4>
+                                  {currMealPlan.DisplayMealPlan[currDay+1][mealType] ? (
+                                    <>
+                                    {currMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                      Object.keys(currMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
+                                    ] ? (
+                                      <h4>{mealType} completed!</h4>
+                                    ) : (
+                                      <h4>{mealType}</h4>
+                                    )}
+                                    <MealPlanCardHome
+                                      recipe={Object.keys(currMealPlan.DisplayMealPlan[currDay + 1][mealType])[0]}
+                                    />
+                                    </>
                                   ) : (
-                                    <h4>{mealType}</h4>
+                                    <>
+                                      <h4>{mealType}</h4>
+                                      <p>No meals planned</p>
+                                    </>
                                   )}
-                                  <MealPlanCardHome
-                                    recipe={
-                                      Object.keys(
-                                        currMealPlan.DisplayMealPlan[currDay + 1][
-                                          mealType
-                                        ]
-                                      )[0]
-                                    }
-                                  />
+
+                                  
+                                  
 
                                 </Col>
                               ))}
@@ -170,11 +177,11 @@ const HomePage = () => {
         <Col>
           <div className="neuphormicBox">
             <Stack gap={2}>
-              <Button className="homePageBtn">Scan</Button>
+              {/* <Button className="homePageBtn">Scan</Button> */}
               <Button
                 className="homePageBtn"
                 onClick={() =>
-                  setOverlayData(<ManualSearchComponent currDay={currDay} />)
+                  setOverlayData(<ManualSearchComponent currDay={currDay+2} />)
                 }
               >
                 Manual Search

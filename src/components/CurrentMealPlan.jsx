@@ -64,7 +64,7 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                         <AccordionSummary
                             expandIcon={<ExpandMore />}
                         >
-                        <h1>
+                        <h1 style={{color:"#205E4B",fontFamily:"Nunito sans"}}>
                             {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
                             .getDay()]}
@@ -77,7 +77,7 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                                 <Row xs={1} md={2} lg={3}   >
                                     {["breakfast", "lunch", "dinner" ].map((mealType) => (
                                     <div key={`${day}-${mealType}`}>
-                                        {content.DisplayMealPlan[day]?.[mealType] && Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
+                                        {content.DisplayMealPlan[day]?.[mealType] ? Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
                                         <MealPlanCard 
                                             key={`${recipe.id}card`}
                                             recipe={recipe}
@@ -88,7 +88,12 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
                                             currMealPlan={currMealPlan}
                                             currDisplayMealPlan={currDisplayMealPlan}
                                         />
-                                        ))}  
+                                        )) : (
+                                            <>
+                                                <h4>{mealType}</h4>
+                                                <p>No meals planned</p>
+                                            </>
+                                        )}  
                                     </div>
                                     ))}
                                 </Row>

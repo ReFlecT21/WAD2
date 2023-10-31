@@ -33,8 +33,7 @@ function NavBar() {
               href="/input"
               style={{ marginLeft: "10px", marginRight: "10px" }}
             >
-              <Button className="createBtn"
-                variant="secondary"
+              <Button className="createBtn custom-clicked-button"
               >
                 {" "}
                 <FontAwesomeIcon className="plusIcon"
@@ -52,7 +51,7 @@ function NavBar() {
             </Nav.Link>
             <Nav.Link
               className="navItem"
-              href="#insights"
+              href="/analytics"
             >
               <span className="navText">Insights</span>
             </Nav.Link>

@@ -52,25 +52,26 @@ export function RecipeDetails(id) {
 
       CardData.push(
         <div key={`${recipe.id}Details`}>
-          <Row className="pt-0 ">
-            <Col className="d-flex justify-content-end">
-              <button className="cancelBtn" onClick={handleClose}>X</button>
-            </Col>
-          </Row>
-          <Row style={{marginTop: "20px", marginBottom: "20px"}}>
-            <Col className="recipeTitle col-8"> 
-              <h1>{recipe["title"]}</h1>
+          <Row style={{marginTop: "20px", marginBottom: "20px", marginLeft:"0px"}}>
+            <Col > 
+            <div style={{display:"flex", justifyContent:"end"}}>
+              
+              <button style={{display:"flex", alignItems: "center"}} className="cancelBtn" onClick={handleClose}>X</button>
+            </div>
             </Col>
           </Row>
           <Row>
-            <Col style={{}}>
-              <Image style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            <Col>
+              <Image className="recipePic" style={{ padding: "0px" }} src={recipe["image"]}></Image>
             </Col>
-            <Col >
-              <h4>{recipe["nutrition"]["nutrients"][0]["name"]}: {recipe["nutrition"]["nutrients"][0]["amount"]}</h4>
-              <h4>{recipe["nutrition"]["nutrients"][8]["name"]}: {recipe["nutrition"]["nutrients"][8]["amount"]}</h4>
-              <h4>{recipe["nutrition"]["nutrients"][1]["name"]}: {recipe["nutrition"]["nutrients"][1]["amount"]}</h4>
-              <h4>{recipe["nutrition"]["nutrients"][3]["name"]}: {recipe["nutrition"]["nutrients"][3]["amount"]}</h4>
+            <Col>
+              <h2 className="recipeTitle" style={{width: "80%"}}>{recipe["title"]}</h2>
+              <h5>{recipe["nutrition"]["nutrients"][0]["name"]}: {recipe["nutrition"]["nutrients"][0]["amount"]} {recipe["nutrition"]["nutrients"][0]["unit"]}</h5>
+
+              {recipe["nutrition"]["nutrients"][8]["name"] == "Protein" ? <h5>{recipe["nutrition"]["nutrients"][8]["name"]}: {recipe["nutrition"]["nutrients"][8]["amount"]} {recipe["nutrition"]["nutrients"][1]["unit"]}</h5> : <></>}
+
+              <h5>{recipe["nutrition"]["nutrients"][1]["name"]}: {recipe["nutrition"]["nutrients"][1]["amount"]} {recipe["nutrition"]["nutrients"][1]["unit"]}</h5>
+              <h5>{recipe["nutrition"]["nutrients"][3]["name"]}: {recipe["nutrition"]["nutrients"][3]["amount"]} {recipe["nutrition"]["nutrients"][3]["unit"]}</h5>
 
             </Col>
           </Row>
