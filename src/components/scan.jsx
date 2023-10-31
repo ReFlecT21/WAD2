@@ -4,34 +4,34 @@ import Tesseract from 'tesseract.js';
 export function Scan() {
     useEffect(() => {
         const inputElement = document.getElementById("input-file");
-    const inputFile = inputElement; // Create a reference to the file input element
+        const inputFile = inputElement; // Create a reference to the file input element
 
-    const handleChange = async (event) => {
-        const imageFile = event.target.files[0];
-        if (!imageFile) return;
+        const handleChange = async (event) => {
+            const imageFile = event.target.files[0];
+            if (!imageFile) return;
 
-        // Recognize text from the uploaded image
-        const { data: { text } } = await Tesseract.recognize(imageFile, 'eng');
+            // Recognize text from the uploaded image
+            const { data: { text } } = await Tesseract.recognize(imageFile, 'eng');
 
-        // Output the recognized text to the console
-        // console.log(text);
-        // console.log(typeof text);
+            // Output the recognized text to the console
+            // console.log(text);
+            // console.log(typeof text);
 
-        // Split the text into lines
-        const lines = text.split('\n');
+            // Split the text into lines
+            const lines = text.split('\n');
 
-        // Iterate through each line
-        for (const line of lines) {
-            console.log(line);
-        }
-    };
+            // Iterate through each line
+            for (const line of lines) {
+                console.log(line);
+            }
+        };
 
-    inputElement.addEventListener("change", handleChange);
+        inputElement.addEventListener("change", handleChange);
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-        inputElement.removeEventListener("change", handleChange);
-    };
+        // Clean up the event listener when the component unmounts
+        return () => {
+            inputElement.removeEventListener("change", handleChange);
+        };
 
     }, []);
 
