@@ -55,16 +55,16 @@ const AnalyticsPage = () => {
     <>
       {formattedDates.length > 0 && (
         <>
-          <NavBar />
           <Container
             fluid
             style={{
               padding: "0",
               width: "100%",
               height: "100vh",
+              overflow: "hidden", // This will disable scrolling
             }}
           >
-            <Row>
+            <Row style={{ height: "100%" }}>
               <Col>
                 <BarChart Weights={weights} Dates={formattedDates} />
               </Col>
