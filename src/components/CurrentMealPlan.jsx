@@ -22,6 +22,7 @@ import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import currDayCalculator from "../middleware/currDayCalculator";
 // import { ShoppingCartPopUp } from "./ShoppingCart";
 
 
@@ -32,7 +33,7 @@ const navChoose = () => navigate("/choose");
 
 const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-const dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate(); // +1 not suppose to be there  this is for testing
+const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt)
 const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 const d = new Date(currDisplayMealPlan.CreatedAt);
 
