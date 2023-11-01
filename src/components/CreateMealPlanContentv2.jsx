@@ -26,7 +26,9 @@ export function CreateMealPlanContentv2({
       <Container>
         <Row className="stickyRow">
           <Col>
-            <h1 style={{marginBottom: "20px", textAlign:"center"}}>Pick Your {mealType} Items!</h1>
+            <h1 style={{ marginBottom: "20px", textAlign: "center" }}>
+              Pick Your {mealType} Items!
+            </h1>
           </Col>
           <Col>
             <div style={{ textAlign: "right" }}>
@@ -72,8 +74,13 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
   const [mealPlan, setMealPlan] = useState({});
   const [mealPlanCopy, setMealPlanCopy] = useState({});
   const [shoppingCart, setShoppingCart] = useState({});
-
   const [flag, setFlag] = useState(0);
+  const handleNavigation = (path) => {
+    navigate(path);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000); // waits for 1 second before reloading
+  };
 
   useEffect(() => {
     if (
@@ -113,7 +120,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
         Cookies.remove("allergies");
       }
 
-      navigate("/home");
+      handleNavigation("/home");
       // setTimeout(()=> {
       //     navigate("/home");
       //    }, 1500);

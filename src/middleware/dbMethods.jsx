@@ -355,30 +355,30 @@ export const dbFoodMethods = {
           const DisplayPlan = data.DisplayPlan;
           let cal = data.Calories;
           let CurrCal = data.CurrCal;
+          let DailyCal = data.DayCal;
           let updateCal = 0;
-          let updateDailyCal = 0;
+
           // Make sure the day exists in the Completed array
           if (Array.isArray(food)) {
-            let foodObjectArray = food.map((innerArray, index) => {
-              updateCal += innerArray[2];
+            let foodObjectArray = food.map((innerArray) => {
+              updateCal += innerArray["calories"] * innerArray["quantity"];
 
-              return { [`array${index}`]: innerArray };
+              return innerArray;
             });
 
             food = foodObjectArray; // Replace food with foodObjectArray
             cal -= updateCal;
-            updateDailyCal += updateCal;
+            DailyCal += updateCal;
             CurrCal += updateCal;
           } else {
             updateCal += Object.values(food)[0];
             cal -= updateCal;
             CurrCal += updateCal;
-            updateDailyCal += updateCal;
+            DailyCal += updateCal;
           }
 
           if (!Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
             Completed[dayIndex] = {};
-            updateDailyCal = 0;
           }
 
           if (!DisplayPlan[dayIndex][mealType]) {
@@ -401,7 +401,7 @@ export const dbFoodMethods = {
 
             delete Plan[dayIndex][mealType];
 
-            console.log(Plan);
+            // console.log(Plan);
             // console.log(DisplayPlan);
 
             await updateDoc(this.docRef, {
@@ -410,7 +410,7 @@ export const dbFoodMethods = {
               Plan: Plan,
               DisplayPlan: DisplayPlan,
               Calories: cal,
-              DayCal: updateDailyCal,
+              DayCal: DailyCal,
             }).then(() => {
               console.log("Document written");
               // return true;
@@ -489,6 +489,21 @@ export const dbFoodMethods = {
       return { weights, Dates, Cals, diffWeight };
     } catch (e) {
       console.error("Error getting document: ", e);
+    }
+  },
+  updateDailyCal: async function () {
+    await this.init();
+    try {
+      if (this.docSnap) {
+        const data = this.docSnap.data();
+        let DailyCal = data.DayCal;
+        DailyCal = 0;
+        await updateDoc(this.docRef, {
+          DayCal: DailyCal,
+        });
+      }
+    } catch (e) {
+      console.error("Error", e);
     }
   },
 };

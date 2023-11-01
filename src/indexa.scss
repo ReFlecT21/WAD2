@@ -533,12 +533,19 @@ th:first-of-type {
 // tabs
 
 .custom-tab-title {
-    color: red; /* Change 'red' to the color you want */
+    color: rgb(42, 28, 28); /* Change 'red' to the color you want */
   }
 
 
-  .tabTitleStyle {
+.tabTitleStyle {
     color: 'red', // Change 'blue' to the color you want
-  };
+};
+
+.nav-link{
+    color: #3EBC96;
+    font-family: "Nunito Sans";
+    font-weight: bold;
+    font-size: 18px;
+  }
 
     /////////////////////////////Anan stuff end

@@ -26,35 +26,30 @@ import { isMobile } from "react-device-detect";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import Cookies from "js-cookie";
 import { Scan } from "../components/scan";
+import PageNotification from "../components/PageNotification";
+import currDayCalculator from "../middleware/currDayCalculator";
 // import { useHistory } from 'react-router-dom';
 import BarChart from "../components/BarChart";
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [currMealPlan, setCurrMealPlan] = useState(null);
+  const [completedPlan, setCompletedPlan] = useState(null);
   const dayIndex = 7;
   const [weights, setWeight] = useState([]);
   const [avgCal, setAvgCal] = useState("");
   const [diffWeight, setDiffWeight] = useState("");
   const [formattedDates, setFormattedDates] = useState([]);
-  // const body = {
-  //   query: "prata",
-  //   include_subrecipe: true,
-  //   use_raw_foods: false,
-  //   line_delimited: true,
-  //   claims: true,
-  //   taxonomy: true,
-  //   ingredient_statement: true,
-  // };
-  // const [data, setData] = useState(null);
+  const [notiMessage, setNotiMessage] = useState("");
+  const [notiRender, setNotiRender] = useState(false);
 
-  // fetcherPOST("/foodAPI/manualSearch", body, setData);
-
-  // console.log(data);
+  function showNotification(message) {
+    console.log("showing notification");
+    setNotiMessage(message);
+    setNotiRender(true);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      // const userId = auth.currentUser.email;
-      // setCurrMealPlan(await getMealPlan(userId));
       await dbFoodMethods.init();
       const result = await dbFoodMethods.getAnalytics();
       setWeight(result.weights);
@@ -76,35 +71,34 @@ const HomePage = () => {
 
       setFormattedDates(newFormattedDates); // Update the state with the new array
       setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
+      setCompletedPlan(await dbFoodMethods.getCompleted());
     };
 
     fetchData();
   }, []);
 
-  // const history = useHistory();
-
-  // useEffect(() => {
-  //   const unlisten = history.listen(() => {
-  //     window.location.reload();
-  //   });
-  //   return () => {
-  //     unlisten();
-  //   };
-  // }, [history]);
-
-  // console.log(currMealPlan)
   var currDay = 0;
 
   if (currMealPlan?.DisplayMealPlan) {
-    var currDay =
-      new Date(Date.now()).getDate() -
-      new Date(currMealPlan.CreatedAt).getDate();
+    currDay = currDayCalculator(currMealPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
+  const checkDaily = async () => {
+    if (completedPlan?.Completed) {
+      let completed = completedPlan.Completed;
+      if (Object.keys(completed).length > 0) {
+        if (completed[currDay].length == 3) {
+          await dbFoodMethods.updateDailyCal();
+        }
+      }
+    }
+  };
 
+  checkDaily();
   return (
     <>
       <NavBar />
+      <PageNotification message={notiMessage} render={notiRender} />
       {overlayData}
       <Row xs={1} md={3}>
         {/* <Col>
@@ -154,6 +148,8 @@ const HomePage = () => {
                     </>
                   ) : (
                     <>
+                      {console.log(currMealPlan.DisplayMealPlan)}
+                      {console.log(currDay)}
                       {Object.keys(currMealPlan.DisplayMealPlan[currDay + 1])
                         .length > 0 ? (
                         <>
@@ -208,17 +204,20 @@ const HomePage = () => {
           </div>
         </Col>
         <Col>
-          <div className="neuphormicBox">
+          <div className="neuphormicBox" style={{ textAlign: "center" }}>
             <Stack gap={2}>
               {/* <Button className="homePageBtn">Scan</Button> */}
-              <Scan />
+              <h3>Manual Add</h3>
               <Button
                 className="homePageBtn"
-                onClick={() =>
+                onClick={() => {
                   setOverlayData(
-                    <ManualSearchComponent currDay={currDay + 1} />
-                  )
-                }
+                    <ManualSearchComponent
+                      currDay={currDay + 1}
+                      showNotification={showNotification}
+                    />
+                  );
+                }}
               >
                 Manual Search
               </Button>

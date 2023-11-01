@@ -201,7 +201,8 @@ const InputPage = () => {
                             style={{ color: "white" }}
                             className="p"
                             name="gender"
-                            checked={formData.gender === "male" }                            onChange={handleChangeGender}
+                            checked={formData.gender === "male" }
+                            onChange={handleChangeGender}
                             id="flexSwitchCheckChecked"
                             label="Male"
                       />
@@ -215,13 +216,13 @@ const InputPage = () => {
                   >
                         <h5>Age</h5>{" "}
                         <Form.Control
-                      type="number"
-                      name="age"
-                      placeholder="Enter your age"
-                      className=" round"
-                      id="age"
-                      onChange={handleChange}
-                      value={formData&&formData.age ? formData.age : ""}
+                          type="number"
+                          name="age"
+                          placeholder="Enter your age"
+                          className=" round"
+                          id="age"
+                          onChange={handleChange}
+                          value={formData&&formData.age ? formData.age : ""}
                         />
                   </Col>
                     </Row>
