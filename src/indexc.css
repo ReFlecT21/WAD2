@@ -179,6 +179,7 @@ body, html {
 .navItem {
   display: flex;
   align-items: center;
+  margin-left: 20px;
 }
 
 .plusIcon {
@@ -189,10 +190,10 @@ body, html {
 .navText {
   color: #F6FEFC;
   font-family: "Nunito Sans";
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .navText:hover {
@@ -201,12 +202,26 @@ body, html {
 }
 
 .exitIcon {
-  margin-left: 10px;
-  margin-right: 10px;
   height: 25px;
   width: 25px;
   display: flex;
   align-items: center;
+  color: #F6FEFC;
+  cursor: pointer;
+}
+.exitIcon:hover {
+  color: #3EBC96;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler {
+  color: transparent;
+  border: 0;
+}
+
+.navbar-toggler-icon {
+  width: 40px;
+  height: 40px;
 }
 
 h1 {
@@ -214,7 +229,7 @@ h1 {
   font-family: "Orelega One";
 }
 
-h2, h3, h4, h5 {
+h2, h3, h4, h5, h6 {
   color: #1F5E4B;
   font-weight: normal;
   font-family: "Nunito Sans";
@@ -260,7 +275,7 @@ h2, h3, h4, h5 {
   top: 0;
   background-color: #F6FEFC; /* Add a background color or other styles as needed */
   z-index: 1;
-  padding-top: 100px;
+  padding-top: 90px;
 }
 
 .indexedStep {
@@ -271,7 +286,7 @@ h2, h3, h4, h5 {
   height: 40px;
   background-color: white;
   border-radius: 20px;
-  border: 1px solid #1F5E4B;
+  border: 1px solid rgb(210, 220, 211);
   font-family: "Nunito Sans";
   display: flex;
   justify-content: center;
@@ -287,12 +302,12 @@ h2, h3, h4, h5 {
 }
 
 .RSPBprogressBar {
-  height: 2px;
+  height: 4px;
   width: 60%;
   line-height: 1;
   border-radius: 10px;
   position: relative;
-  background-color: rgb(207, 207, 207);
+  background-color: rgb(210, 220, 211);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -309,11 +324,10 @@ h2, h3, h4, h5 {
   position: absolute;
   transform: translateX(-50%);
   transition-property: all;
-  transition-timing-function: ease;
 }
 
 .RSPBprogressBar .RSPBprogressBarText {
-  color: white;
+  color: rgb(210, 220, 211);
   font-size: 10px;
   position: absolute;
   top: 50%;
@@ -323,32 +337,13 @@ h2, h3, h4, h5 {
 
 .RSPBprogressBar .RSPBprogression {
   position: absolute;
-  transition: width 0.3s ease;
+  transition: width 0.7s ease;
   left: 0;
   top: 0;
   bottom: 0;
   border-radius: 10px;
   background: #1F5E4B;
   z-index: -1;
-  background-color: #1F5E4B;
-  color: #1F5E4B;
-}
-
-.bg-percentageBar {
-  color: #1F5E4B;
-}
-
-@media screen and (max-width: 480px) {
-  .indexedStep {
-    width: 15px;
-    height: 15px;
-    font-size: 6px;
-  }
-}
-.chooseMealsBtn {
-  text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
 }
 
 .chooseBtn {
@@ -356,7 +351,7 @@ h2, h3, h4, h5 {
   color: #F6FEFC;
   border: 0px;
   border-radius: 50px;
-  font-size: 20px;
+  font-size: 18px;
   padding: 10px 28px;
   text-align: center;
   font-family: "Nunito Sans";
@@ -443,7 +438,7 @@ h2, h3, h4, h5 {
 .cancelBtn {
   background-color: transparent; /* Make the button background transparent */
   border: 0; /* Remove the button border */
-  font-size: 20px; /* Adjust the font size for the "X" */
+  font-size: 18px; /* Adjust the font size for the "X" */
   cursor: pointer; /* Change the cursor to indicate it's clickable */
   color: #1F5E4B; /* Change the color to red or any other color you prefer */
   font-family: "Nunito Sans";
@@ -455,37 +450,48 @@ h2, h3, h4, h5 {
   display: flex;
   justify-content: start;
   align-items: center;
-  margin-bottom: 70px;
-}
-
-.recipeCalories {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 50px;
-  border: 1px solid #3EBC96;
-  border-radius: 50px;
-  background-color: #3EBC96;
-  color: #F6FEFC;
-  margin-right: 60px;
-  margin-left: 60px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .recipePic {
   border-radius: 50px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  -o-object-fit: cover;
+     object-fit: cover; /* Preserve aspect ratio and cover the container */
   margin-bottom: 20px;
   margin-right: 10px;
-  padding: 0;
+}
+
+.recipeInfo {
+  border: 1px solid #3EBC96;
+  background-color: #3EBC96;
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+.recipeInfo h6 {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #F6FEFC;
 }
 
 .recipeDetails {
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.recipeDetails h3 {
+  margin-bottom: 20px;
+}
+.recipeDetails ol, .recipeDetails ul {
+  font-family: "Nunito Sans";
+  color: #1F5E4B;
+}
+.recipeDetails li {
+  margin-bottom: 10px;
 }
 
 .popup {

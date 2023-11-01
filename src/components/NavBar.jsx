@@ -6,6 +6,8 @@ import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
+
 import { app, db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -28,10 +30,10 @@ function NavBar() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
-          <Nav style={{ marginRight: "10px" }}>
+          <Nav style={{ marginRight: "20px" }}>
             <Nav.Link
               href="/input"
-              style={{ marginLeft: "10px", marginRight: "10px" }}
+
             >
               <Button className="createBtn custom-clicked-button"
               >
@@ -43,23 +45,32 @@ function NavBar() {
               </Button>{" "}
             </Nav.Link>
             <Nav.Link
-              style={{ marginLeft: "10px", marginRight: "10px" }}
               className="navItem"
               href="/mealplan"
             >
               <span className="navText">My Plan</span>
             </Nav.Link>
-            <Nav.Link
+            {/* <Nav.Link
               className="navItem"
               href="/analytics"
             >
               <span className="navText">Insights</span>
+            </Nav.Link> */}
+            <Nav.Link
+            className="navItem"
+            href="/">
+              <FontAwesomeIcon className="exitIcon"
+                    icon={faSignOut}
+                  />
             </Nav.Link>
           </Nav>
-          <Image className="exitIcon"
+          {/* <Image className="exitIcon"
             src="exit.png"
             href="#"
-          />
+          /> */}
+          {/* <FontAwesomeIcon className="exitIcon"
+                  icon={faSignOut}
+                /> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

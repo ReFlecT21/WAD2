@@ -170,11 +170,8 @@ const InputPage = () => {
         >
             <Row>
             <Col md={5}>
-                {/* <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" /> */}
-
-            {/* <dotlottie-player src="https://lottie.host/968cf6ca-7065-45cf-8a86-6e3d756f6536/QvIyMTi2sW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
-          </Col>
-
+                {/* <dotlottie-player src="https://lottie.host/cddb178f-9d3a-4d71-bc53-777a1785ec6c/2ziPhq78p9.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
+            </Col>
             <Col
                 style={{
                 padding: "20px", paddingTop:"100px"
@@ -184,7 +181,7 @@ const InputPage = () => {
                 <h2>Getting to know you!</h2>
                 </Row>
 
-                <Row style={{ marginTop: "" }}>
+                <Row>
                 <Col
                     style={{
                     paddingLeft: "20px",
