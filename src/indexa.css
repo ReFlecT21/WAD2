@@ -21,29 +21,8 @@ body, html {
   background-color: #F6FEFC;
 }
 
-.logo {
-  height: 180px;
-  width: 200px;
-  margin: 20px;
-  margin-top: 30px;
-}
-
-.foodimg {
-  height: 500px;
-  width: 400;
-  margin: 0;
-}
-
-.backgroundRight {
-  background-color: #1F5E4B;
-}
-
-.backgroundLeft {
-  background-color: #1F5E4B;
-}
-
 .tagline {
-  font-family: "Orelega One";
+  font-family: "Nunito Sans";
   font-size: 24px;
   text-align: center;
   color: #F6FEFC;
@@ -438,9 +417,16 @@ tr:last-of-type td:last-of-type {
 }
 
 .custom-tab-title {
-  color: red; /* Change 'red' to the color you want */
+  color: rgb(42, 28, 28); /* Change 'red' to the color you want */
 }
 
 .tabTitleStyle {
   color: "red";
+}
+
+.nav-link {
+  color: #3EBC96;
+  font-family: "Nunito Sans";
+  font-weight: bold;
+  font-size: 18px;
 }/*# sourceMappingURL=indexa.css.map */

@@ -113,28 +113,9 @@ body, html {
 
 // LOGIN + SIGNUP PAGE
 
-.logo{
-    height: 180px;
-    width: 200px;
-    margin: 20px;
-    margin-top: 30px;
-}
-
-.foodimg{
-    height: 500px;
-    width: 400;
-    margin: 0;
-}
-
-.backgroundRight{
-    background-color: $primaryCol;
-}
-.backgroundLeft{
-    background-color: $primaryCol;
-}
 
 .tagline{
-    font-family: $headerFont;
+    font-family: $primaryFont;
     font-size: 24px;
     text-align: center;
     color: $whiteTextCol;
