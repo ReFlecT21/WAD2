@@ -166,7 +166,7 @@ const HomePage = () => {
               <Button
                 className="homePageBtn"
                 onClick={() =>{
-                  setOverlayData(<ManualSearchComponent currDay={currDay+1} showNotification={showNotification} />)
+                  setOverlayData(<ManualSearchComponent currDay={currDay+4} showNotification={showNotification} />)
                 }}
               >
                 Manual Search

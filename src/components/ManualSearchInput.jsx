@@ -32,7 +32,7 @@ import PageNotification from "./PageNotification";
 
 // CONFIRM MODAL
 function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
-    console.log(foodDetails);
+    // console.log(foodDetails);
     const [recal, setRecal] = useState(false);
     const [reload, setReload] = useState(false);
     const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
@@ -199,7 +199,7 @@ return (
             Recal
             </Button>
         </div>
-
+        
         <div
             style={{
             display: "flex",
@@ -351,7 +351,7 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
         >
             confirm
         </Button>
-
+        {/* {console.log(searchData)} */}
         <Modal open={ChildModalopen} onClose={handleClose}>
             <Box className="popup">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -722,7 +722,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                         </Row>
                         
                     </InputGroup>
-
+                    <Scan/>
                     <Button
                         // type="submit"
                         className="buttonPrimary"
