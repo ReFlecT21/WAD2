@@ -226,9 +226,6 @@ const HomePage = () => {
           </div>
         </Col>
       </Row>
-      <Row>
-        <AnalyticsPage></AnalyticsPage>
-      </Row>
     </>
   );
 };

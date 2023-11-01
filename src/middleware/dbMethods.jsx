@@ -249,6 +249,7 @@ export const dbFoodMethods = {
         shoppingCart: shoppingCart,
         Details: formData,
         CurrCal: 0,
+        DayCal: 0,
       }).then(() => {
         console.log("Document written");
       });
@@ -344,50 +345,50 @@ export const dbFoodMethods = {
     return new Promise(async (resolve, reject) => {
       try {
         // Get the current state of the document
-    
+
         if (this.docSnap) {
           const data = this.docSnap.data();
           // console.log(data);
-    
+
           const Completed = data.Completed;
           const Plan = data.Plan;
           const DisplayPlan = data.DisplayPlan;
           let cal = data.Calories;
           let CurrCal = data.CurrCal;
           let updateCal = 0;
-    
+          let updateDailyCal = 0;
           // Make sure the day exists in the Completed array
           if (Array.isArray(food)) {
             let foodObjectArray = food.map((innerArray, index) => {
               updateCal += innerArray[2];
-    
+
               return { [`array${index}`]: innerArray };
             });
-    
+
             food = foodObjectArray; // Replace food with foodObjectArray
             cal -= updateCal;
+            updateDailyCal += updateCal;
             CurrCal += updateCal;
           } else {
             updateCal += Object.values(food)[0];
             cal -= updateCal;
             CurrCal += updateCal;
+            updateDailyCal += updateCal;
           }
-    
+
           if (!Completed?.[dayIndex] || Object.keys(Completed).length == 0) {
             Completed[dayIndex] = {};
+            updateDailyCal = 0;
           }
-          
 
-          if (!DisplayPlan[dayIndex][mealType]){
-            alert (`You cant have ${mealType} again`);
-            resolve (false);
+          if (!DisplayPlan[dayIndex][mealType]) {
+            alert(`You cant have ${mealType} again`);
+            resolve(false);
           }
           if (Object.values(DisplayPlan[dayIndex][mealType])[0] == 0) {
             const key = Object.keys(DisplayPlan[dayIndex][mealType])[0];
             DisplayPlan[dayIndex][mealType][key] = 1;
           }
-    
-
 
           if (
             Plan[dayIndex][mealType] == undefined
@@ -397,25 +398,24 @@ export const dbFoodMethods = {
             resolve(false);
           } else {
             Completed[dayIndex][mealType] = food;
-    
+
             delete Plan[dayIndex][mealType];
-    
+
             console.log(Plan);
             // console.log(DisplayPlan);
-    
+
             await updateDoc(this.docRef, {
               Completed: Completed,
               // MasterCopy: Plan,
               Plan: Plan,
               DisplayPlan: DisplayPlan,
               Calories: cal,
-            })
-            .then(() => {
+              DayCal: updateDailyCal,
+            }).then(() => {
               console.log("Document written");
               // return true;
-              resolve({Plan,cal}); 
-            })
-    
+              resolve({ Plan, cal });
+            });
           }
         } else {
           console.error(
@@ -424,11 +424,9 @@ export const dbFoodMethods = {
         }
       } catch (e) {
         console.error("Error updating document: ", e);
-        reject(e); 
+        reject(e);
       }
-
     });
-
   },
 
   checkEnd: async function () {

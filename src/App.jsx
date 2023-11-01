@@ -17,7 +17,7 @@ import {
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
 import { Loader } from "./components";
-
+import AnalyticsHomePage from "./components/analyticsHomepage";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -54,6 +54,7 @@ function App() {
                 <Route path="/mealplan" element={<MealPlan />} />
                 <Route path="/choose" element={<ChooseMealsV2 />} />
                 <Route path="/analytics" element={<AnalyticsPage />} />
+                <Route path="/analytic" element={<AnalyticsHomePage />} />
               </>
             )}
           </Routes>
