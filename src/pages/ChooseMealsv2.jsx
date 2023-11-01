@@ -110,23 +110,22 @@ export default function ChooseMealsV2() {
             <NavBar />
             {overlayData}
             <Container>
-                <Row style={{marginTop: "50px",marginBottom: "10px", textAlign:"center"}}>
+                <Row style={{marginTop: "50px",marginBottom: "30px", textAlign:"center"}}>
                     {recal == 1 ? (
                         <>
-                            <h2>You are recalculating an old plan</h2>
+                            <h3>You are recalculating an old plan</h3>
                             <p>You have 1 hour to replace your old plan</p>
                         </>
                     ) 
-                    : (<h2>You are creating a new plan!</h2>)}
+                    : (<h3>You are creating a new plan!</h3>)}
                 </Row>
-                <Row style={{margin:"0px"}}>
+                <Row>
                 <StepProgressBar
                     page={activePage}
                     onPageNumberClick={setActivePage}
                 />
                 </Row>
                 <Row>
-                    {/* <h1>Choose Meals v2</h1> */}
                     {activePage <4 ? (
                         <CreateMealPlanContentv2 
                             pageNum={activePage} 

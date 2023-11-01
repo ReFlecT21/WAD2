@@ -61,13 +61,13 @@ function NavBar() {
             >
               <span>My Plan</span>
             </Nav.Link>
-            <Nav.Link
+            {/* <Nav.Link
               style={{ marginLeft: "10px", marginRight: "10px" }}
               className="d-flex align-items-center"
               href="#insights"
             >
               <span>Insights</span>
-            </Nav.Link>
+            </Nav.Link> */}
           </Nav>
           <Image
             style={{ marginLeft: "10px", marginRight: "10px" }}

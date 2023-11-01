@@ -199,8 +199,9 @@ body, html {
 .navItem{
     display: flex;
     align-items: center;
-
+    margin-left: 20px;
 }
+
 .plusIcon{
     color: $whiteTextCol;
     margin-right: 10px;
@@ -209,10 +210,10 @@ body, html {
 .navText{
     color: $whiteTextCol;
     font-family: $primaryFont;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 .navText:hover{
@@ -221,14 +222,31 @@ body, html {
 }
 
 .exitIcon{
-    margin-left: 10px;
-    margin-right: 10px;
+    // margin-right: 10px;
     height: 25px;
     width: 25px;
     display: flex;
     align-items: center;
+    color: $whiteTextCol;
+    cursor: pointer;
+
+    &:hover{
+        color:$secondaryCol;
+        transition: all 0.3s ease;
+    }
 }
 
+.navbar-toggler{
+    color: transparent;
+    border: 0; 
+    
+}
+
+.navbar-toggler-icon{
+    width: 40px;
+    height: 40px;
+
+}
 //////////////////////////////Anan stuff below
 
 
@@ -237,7 +255,7 @@ h1{
     @include headerText()
 }
 
-h2,h3,h4,h5{
+h2,h3,h4,h5,h6{
     @include bodyText();
     font-weight: bold;
 }
@@ -280,10 +298,10 @@ h2,h3,h4,h5{
         top: 0;
         background-color: $backgroundCol; /* Add a background color or other styles as needed */
         z-index: 1;
-        padding-top: 100px;
+        padding-top: 90px;
     }
 
-    .indexedStep {
+    .indexedStep { //textbox
         color: $primaryCol;
         font-size: 16px;
         font-weight: bold;
@@ -291,7 +309,7 @@ h2,h3,h4,h5{
         height: 40px;
         background-color: white;
         border-radius: 20px;
-        border: 1px solid $primaryCol;
+        border: 1px solid rgb(210, 220, 211);
         font-family: $primaryFont;
         display: flex;
         justify-content: center;
@@ -299,20 +317,20 @@ h2,h3,h4,h5{
         cursor: pointer;
     }
    
-    .indexedStep.accomplished {
+    .indexedStep.accomplished { 
         background-color: $primaryCol;
         color: $whiteTextCol;
         font-family: $primaryFont;
         border-style: none;
     }
     
-    .RSPBprogressBar {
-        height: 2px;
+    .RSPBprogressBar { //line
+        height: 4px;
         width: 60%;
         line-height: 1;
         border-radius: 10px;
         position: relative;
-        background-color: rgb(207, 207, 207);
+        background-color: rgb(210, 220, 211);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -329,11 +347,11 @@ h2,h3,h4,h5{
         position: absolute;
         transform: translateX(-50%);
         transition-property: all;
-        transition-timing-function: ease;
+        
     }
     
     .RSPBprogressBar .RSPBprogressBarText {
-        color: white;
+        color: rgb(210, 220, 211);;
         font-size: 10px;
         position: absolute;
         top: 50%;
@@ -343,37 +361,32 @@ h2,h3,h4,h5{
     
     .RSPBprogressBar .RSPBprogression {
         position: absolute;
-        transition: width 0.3s ease;
+        transition: width 0.7s ease;
         left: 0;
         top: 0;
         bottom: 0;
         border-radius: 10px;
         background: $primaryCol;
         z-index: -1;
-        background-color: $primaryCol;
-        color: $primaryCol;
-    }
-    
-    .bg-percentageBar{
-        color: $primaryCol;
-    }
-    
-    @media screen and (max-width: 480px) {
-        .indexedStep{
-            width: 15px;
-            height: 15px;
-            font-size: 6px;
-        }
     }
 
-    .chooseMealsBtn{
-        text-align: center;
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
+    
+    // @media screen and (max-width: 480px) {
+    //     .indexedStep{
+    //         width: 15px;
+    //         height: 15px;
+    //         font-size: 6px;
+    //     }
+    // }
+
+    // .chooseMealsBtn{
+    //     text-align: center;
+    //     margin-top: 50px;
+    //     margin-bottom: 50px;
+    // }
 
     .chooseBtn{
-        @include button($secondaryCol, 20px)
+        @include button($secondaryCol, 18px);
     }
     .buttonPrimary{
         @include button($primaryCol, 12px);
@@ -448,7 +461,7 @@ h2,h3,h4,h5{
 .cancelBtn{
     background-color: transparent; /* Make the button background transparent */
     border: 0; /* Remove the button border */
-    font-size: 20px; /* Adjust the font size for the "X" */
+    font-size: 18px; /* Adjust the font size for the "X" */
     cursor: pointer; /* Change the cursor to indicate it's clickable */
     color: $primaryCol; /* Change the color to red or any other color you prefer */ 
     font-family: $primaryFont;
@@ -461,43 +474,52 @@ h2,h3,h4,h5{
     display: flex;
     justify-content: start;
     align-items: center;
-    margin-bottom: 70px;
-
-}
-
-.recipeCalories{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 200px;
-    height:50px;
-
-    border: 1px solid $secondaryCol;
-    border-radius: 50px;
-    background-color: $secondaryCol;
-    color: $whiteTextCol;
-
-    margin-right: 60px;
-    margin-left: 60px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-
-}
-
-.recipePic{
-    border-radius: 50px;
     margin-bottom: 20px;
-    margin-right: 10px;
-    padding: 0;
+
+}
+
+.recipePic {
+        border-radius: 50px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        object-fit: cover; /* Preserve aspect ratio and cover the container */
+        margin-bottom: 20px;
+        margin-right: 10px;
+      }
+
+.recipeInfo{
+    border: 1px solid $secondaryCol;
+    background-color: $secondaryCol;
+    border-radius: 20px;
+    margin-bottom: 40px;
+
+    h6{
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: $whiteTextCol;  
+    }
 }
 
 .recipeDetails{
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    h3{
+        margin-bottom: 20px;
+    }
+
+    ol, ul{
+        font-family: $primaryFont;
+        color: $primaryCol;
+    }
+
+    li{
+        margin-bottom: 10px;
+    }
 }
 
 //POPUP BOX

@@ -4,6 +4,10 @@ import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { Modal, Box } from "@mui/material";
 import { useState } from "react";
 import { fetcher } from "../middleware/Fetcher";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBowlFood } from "@fortawesome/free-solid-svg-icons";
+import { faListOl } from "@fortawesome/free-solid-svg-icons";
+
 
 export function RecipeDetails(id) {
   let CardData = [];
@@ -52,38 +56,51 @@ export function RecipeDetails(id) {
 
       CardData.push(
         <div key={`${recipe.id}Details`}>
-          <Row style={{marginTop: "20px", marginBottom: "20px", marginLeft:"0px"}}>
+          <Row style={{ padding: "0", marginTop: "5px", marginBottom: "20px", marginLeft:"0px", marginRight:"0px"}}>
             <Col > 
             <div style={{display:"flex", justifyContent:"end"}}>
-              
               <button style={{display:"flex", alignItems: "center"}} className="cancelBtn" onClick={handleClose}>X</button>
             </div>
             </Col>
           </Row>
           <Row>
-            <Col>
-              <Image className="recipePic" style={{ padding: "0px" }} src={recipe["image"]}></Image>
+            <Col  md={12} lg={7}>
+              <div>
+                <Image className="recipePic" src={recipe["image"]}></Image>
+              </div>
             </Col>
-            <Col>
-              <h2 className="recipeTitle" style={{width: "80%"}}>{recipe["title"]}</h2>
-              <h5>{recipe["nutrition"]["nutrients"][0]["name"]}: {recipe["nutrition"]["nutrients"][0]["amount"]} {recipe["nutrition"]["nutrients"][0]["unit"]}</h5>
+            <Col md={12} lg={5}>
+            <div>
+              <h3 className="recipeTitle">{recipe["title"]}</h3>
 
-              {recipe["nutrition"]["nutrients"][8]["name"] == "Protein" ? <h5>{recipe["nutrition"]["nutrients"][8]["name"]}: {recipe["nutrition"]["nutrients"][8]["amount"]} {recipe["nutrition"]["nutrients"][1]["unit"]}</h5> : <></>}
+              <div className="recipeInfo">
 
-              <h5>{recipe["nutrition"]["nutrients"][1]["name"]}: {recipe["nutrition"]["nutrients"][1]["amount"]} {recipe["nutrition"]["nutrients"][1]["unit"]}</h5>
-              <h5>{recipe["nutrition"]["nutrients"][3]["name"]}: {recipe["nutrition"]["nutrients"][3]["amount"]} {recipe["nutrition"]["nutrients"][3]["unit"]}</h5>
+                <h6>{recipe["nutrition"]["nutrients"][0]["name"]}: {recipe["nutrition"]["nutrients"][0]["amount"]} {recipe["nutrition"]["nutrients"][0]["unit"]}</h6>
 
+                {recipe["nutrition"]["nutrients"][8]["name"] == "Protein" ? <h6>{recipe["nutrition"]["nutrients"][8]["name"]}: {recipe["nutrition"]["nutrients"][8]["amount"]} {recipe["nutrition"]["nutrients"][1]["unit"]}</h6> : <></>}
+
+                <h6>{recipe["nutrition"]["nutrients"][1]["name"]}: {recipe["nutrition"]["nutrients"][1]["amount"]} {recipe["nutrition"]["nutrients"][1]["unit"]}</h6>
+                <h6>{recipe["nutrition"]["nutrients"][3]["name"]}: {recipe["nutrition"]["nutrients"][3]["amount"]} {recipe["nutrition"]["nutrients"][3]["unit"]}</h6>
+              </div>
+            </div>
             </Col>
+             
           </Row>
           <Row className="recipeDetails">
-            <h3>Ingredients</h3>
+  
+            <h3><FontAwesomeIcon
+                  icon={faBowlFood}
+                />  Ingredients</h3>
 
-            <ul><p>{ingredients}</p></ul>
+            <ul>{ingredients}</ul>
           </Row>
-          <Row>
-            <h3>Instructions</h3>
+         
+          <Row className="recipeDetails">
+            <h3><FontAwesomeIcon
+                  icon={faListOl}
+                />  Instructions</h3>
 
-            <ol><p>{instructions}</p></ol>
+            <ol>{instructions}</ol>
           </Row>
 
           <Row>
