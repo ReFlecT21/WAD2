@@ -59,12 +59,12 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     }
 
     return (
-        <TableRow key={ingreType+ingre} style={selectStyle}>
-            {isMobile ? (<></>) : (<TableCell >{ingreType}</TableCell>)}
-            <TableCell >{ingre.name}</TableCell>
-            <TableCell align="right">{ingre.amount}</TableCell>
-            <TableCell align="right">{ingre.unit}</TableCell>
-            <TableCell align="right">
+        <TableRow key={ingreType+ingre} style={selectStyle }>
+            {isMobile ? (<></>) : (<TableCell style={{fontFamily:"Nunito Sans"}} >{ingreType}</TableCell>)}
+            <TableCell style={{fontFamily:"Nunito Sans"}}>{ingre.name}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">{ingre.amount}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">{ingre.unit}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">
                 <Button 
                     className='buttonPrimary'
                     

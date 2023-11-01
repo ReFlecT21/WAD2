@@ -130,4 +130,8 @@ tr:last-of-type td:last-of-type {
   font-weight: bold;
   font-size: 18px;
 }
+
+.nav-link:hover {
+  color: #1F5E4B;
+}
 /*# sourceMappingURL=indexa.css.map */
