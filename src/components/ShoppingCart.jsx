@@ -69,7 +69,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
                     className='buttonPrimary'
                     
                     onClick={completeItem} 
-                    style={{width:"80px"}}
+                    style={{width:"80px",padding:"10px"}}
                 >{buttonText}</Button>
             </TableCell>
         </TableRow>
