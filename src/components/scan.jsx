@@ -1,7 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import Tesseract from 'tesseract.js';
+import { OCRextract } from '../middleware/OCRextract';
 
 export function Scan() {
+
+    // const [scanData, setScanData] = useState({});
+    var scanData = {};
+
+    const extractNutritionalInfo = (line) => {
+        // let updatedScanData = { ...scanData };
+        let updatedScanData = scanData;
+
+        if (scanData?.calories === undefined) {
+            let res = OCRextract.extractCalories(line);
+            if (res !== null) {
+                console.log(res);
+                updatedScanData.calories = res;
+                // setScanData({ ...scanData, calories: res });
+                // setScanData((prev)=>({...prev, calories: res}));
+                return updatedScanData;
+            }
+        } else if (scanData?.carbs === undefined) {
+            let res = OCRextract.extractCarbs(line);
+            if (res !== null) {
+                console.log(res);
+                updatedScanData.carbs = res;
+                // setScanData({ ...scanData, carbs: res });
+                // setScanData((prev)=>({...prev, carbs: res}));
+                return updatedScanData;
+            }
+        } else if (scanData?.fat === undefined) {
+            let res = OCRextract.extractFat(line);
+            if (res !== null) {
+                console.log(res);
+                updatedScanData.fat = res;
+                // setScanData({ ...scanData, fat: res });
+                // setScanData((prev)=>({...prev, fat: res}));
+                return updatedScanData;
+            }
+        } else if (scanData?.protein === undefined) {
+            let res = OCRextract.extractProtein(line);
+            if (res !== null) {
+                console.log(res);
+                updatedScanData.protein = res;
+                // setScanData({ ...scanData, protein: res });
+                // setScanData((prev)=>({...prev, protein: res}));
+                return updatedScanData;
+            }
+        }
+        // console.log(updatedScanData);
+
+        // setScanData(updatedScanData);
+        // console.log(scanData);
+        return updatedScanData
+    };
+
+
     useEffect(() => {
         const inputElement = document.getElementById("input-file");
         const inputFile = inputElement; // Create a reference to the file input element
@@ -21,9 +75,16 @@ export function Scan() {
             const lines = text.split('\n');
 
             // Iterate through each line
+            console.log("==========new scan==========");
             for (const line of lines) {
                 console.log(line);
+                let scanData = extractNutritionalInfo(line);
+                // console.log(res);
+                console.log(scanData);
+                // setScanData(res);
+
             }
+            // console.log(scanData)
         };
 
         inputElement.addEventListener("change", handleChange);
