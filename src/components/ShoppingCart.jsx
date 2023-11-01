@@ -45,7 +45,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"grey", });
+            setSelectStyle({backgroundColor:"#bcddd5", });
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
             if (setNumOutstanding) {
@@ -67,6 +67,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
             <TableCell align="right">
                 <Button 
                     className='buttonPrimary'
+                    
                     onClick={completeItem} 
                     style={{width:"80px"}}
                 >{buttonText}</Button>
