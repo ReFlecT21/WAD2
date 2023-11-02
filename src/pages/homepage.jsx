@@ -195,11 +195,6 @@ const HomePage = () => {
         </Carousel.Item>
 
     </Carousel>
-
-
-
-
-
       
       <Row xs={1} md={3}  id="homepage">
         {/* <Col>
