@@ -396,6 +396,7 @@ const InputPage = () => {
                 </Row>
                 <Row style={{}}>
                 <Col style={{
+                  marginTop:"30px",
                   display: 'flex',
                   justifyContent: 'center',
                       }}>
@@ -403,7 +404,7 @@ const InputPage = () => {
                     id="submit"
                     onClick={handleSubmit}
                     type="submit"
-                    className="CreateMealBtn"
+                    className="chooseBtn"
                     >
                     Choose my meals!
                     </Button>
