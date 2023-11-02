@@ -66,7 +66,7 @@ function NavBar() {
             className="navItem"
             href="/">
               <FontAwesomeIcon className="exitIcon"
-                    icon={faSignOut}
+                    icon={faSignOut} onClick={logout}
                   />
             </Nav.Link>
           </Nav>
