@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 
-const PlatesHomepage = ({ colors }) => {
-  console.log(colors);
+const PlatesHomepage = ({ currMealPlan }) => {
+  const [colorArray, setColorArray] = useState(null);
+  // console.log(currMealPlan);
+  useEffect(() => {
+    console.log("yes");
+    console.log(currMealPlan);
+    if (currMealPlan?.mealPlan) {
+      console.log("check 2");
+      const data = currMealPlan.mealPlan;
+
+      console.log(data);
+      const colors = Object.values(data).map((obj) => {
+        // Count the number of non-empty meals in the object
+        const nonEmptyMeals = Object.values(obj).filter(
+          (meal) => Object.keys(meal).length > 0
+        ).length;
+
+        if (nonEmptyMeals === 0) {
+          return "green";
+        } else if (nonEmptyMeals < 3) {
+          return "yellow";
+        } else {
+          return "grey";
+        }
+      });
+      setColorArray(colors);
+    }
+  }, []);
   return (
-    <div>
-      {colors &&
-        colors.map((color, i) => {
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      {colorArray &&
+        colorArray.map((color, i) => {
           let imgSrc = "";
           switch (color) {
             case "grey":
@@ -21,7 +47,16 @@ const PlatesHomepage = ({ colors }) => {
             default:
               imgSrc = "/greyPlate.png"; // Replace with your default image
           }
-          return <img key={i} src={imgSrc} alt={`${color} Plate`} />;
+          return (
+            <div
+              className="responsive-img"
+              // style={{ width: "100%", height: "auto" }}
+
+              key={i}
+            >
+              <img src={imgSrc} alt={`${color} Plate`} />
+            </div>
+          );
         })}
     </div>
   );

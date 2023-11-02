@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import { Kcal } from "../atoms/KcalAtom";
+import { FormDetails } from "../atoms/formAtom";
 import {
   Container,
   Row,
@@ -38,14 +39,7 @@ const InputPage = () => {
     new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
   );
 
-  const [formData, setFormData] = useState({
-    age: 0,
-    gender: "female",
-    height: 0,
-    weight: 0,
-    activityLevel: "sedentary",
-    goal: "maintain",
-  });
+  const [formData, setFormData] = useAtom(FormDetails);
 
   const [allergies, setAllergies] = useAtom(Allergies);
   const [calories, setCalories] = useAtom(Kcal);

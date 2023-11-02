@@ -47,10 +47,8 @@ import PlatesHomepage from "../components/platesHomepage";
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   // const [currMealPlan, setCurrMealPlan] = useState(null);
-
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
-
   const [completedPlan, setCompletedPlan] = useState(null);
   const [MealPlan, setMealPlan] = useState(null);
   const [DailyCal, setDailyCal] = useState(0);
@@ -62,15 +60,13 @@ const HomePage = () => {
   const [notiMessage, setNotiMessage] = useState("");
   const [notiRender, setNotiRender] = useState(false);
   const [exist, setExist] = useState(false);
-  const [colorArray, setColorArray] = useState(null);
+
   const isFirstRender = useRef(true);
   function showNotification(message) {
     console.log("showing notification");
     setNotiMessage(message);
     setNotiRender(true);
   }
-
-  const navigate = useNavigate();
 
   const fetchData = async () => {
     await dbFoodMethods.init();
@@ -109,14 +105,6 @@ const HomePage = () => {
     };
     checkUser();
   }, []);
-  useEffect(() => {
-    // Your effect here
-    console.log(exist);
-    if (exist) {
-      console.log("yes");
-      checkDaily();
-    }
-  }, [exist]);
 
   var currDay = 0;
 
@@ -126,7 +114,6 @@ const HomePage = () => {
   }
 
   const checkDaily = async () => {
-    console.log(currMealPlan);
     if (completedPlan?.Completed) {
       console.log("check 1");
       let completed = completedPlan.Completed;
@@ -148,28 +135,9 @@ const HomePage = () => {
       }
     }
     setDailyCal(await dbFoodMethods.getDayCal());
-    if (currMealPlan?.mealPlan) {
-      console.log("check 2");
-      const data = MealPlan.mealPlan;
-
-      console.log(data);
-      const colors = Object.values(data).map((obj) => {
-        // Count the number of non-empty meals in the object
-        const nonEmptyMeals = Object.values(obj).filter(
-          (meal) => Object.keys(meal).length > 0
-        ).length;
-
-        if (nonEmptyMeals === 0) {
-          return "green";
-        } else if (nonEmptyMeals < 3) {
-          return "yellow";
-        } else {
-          return "grey";
-        }
-      });
-      setColorArray(colors);
-    }
   };
+
+  checkDaily();
 
   return exist ? (
     <>
@@ -436,7 +404,8 @@ const HomePage = () => {
         <AnalyticsHomePage DayCal={DailyCal} />
       </Row> */}
       <Row>
-        <PlatesHomepage colors={colorArray} />
+        {/* <PlatesHomepage colors={colorArray} /> */}
+        {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
       </Row>
     </>
   ) : (
