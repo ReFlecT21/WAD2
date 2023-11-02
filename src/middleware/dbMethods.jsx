@@ -326,7 +326,7 @@ export const dbFoodMethods = {
       if (this.docSnap) {
         console.log("yes");
         const data = this.docSnap.data();
-        const CurrCals = data.CurrCals;
+        const CurrCals = data.CurrCal;
         const Details = data.Details;
         const weight = Details["weight"];
         const Date = data.CreatedAt;

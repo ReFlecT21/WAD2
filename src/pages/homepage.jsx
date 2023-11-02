@@ -125,13 +125,6 @@ const HomePage = () => {
         ) {
           await dbFoodMethods.updateDailyCal();
         }
-        if (Object.keys(completed[currDay]).length == 0) {
-          return "black";
-        } else if (Object.keys(completed[currDay]).length < 3) {
-          return "yellow";
-        } else {
-          return "green";
-        }
       }
     }
     setDailyCal(await dbFoodMethods.getDayCal());
