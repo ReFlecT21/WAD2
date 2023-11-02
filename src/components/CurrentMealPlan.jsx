@@ -1,43 +1,49 @@
-import { Button, Container, Row, Col, Tab, Tabs} from "react-bootstrap";
+import { Button, Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import { MealPlanCard } from "../components/MealPlanCard";
 import Fallback from "../pages/Fallback";
 
 import { ErrorBoundary } from "react-error-boundary";
 import { useEffect, useState } from "react";
 import {
-BrowserRouter as Router,
-Route,
-Routes,
-useNavigate,
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
 } from "react-router-dom";
-
 
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
-
 
 import getMealPlan from "../middleware/getMealPlan";
 import getDisplayMealPlan from "../middleware/getDisplayMealPlan";
 import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+} from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 import currDayCalculator from "../middleware/currDayCalculator";
 // import { ShoppingCartPopUp } from "./ShoppingCart";
 
+export function CurrentMealPlanV2({
+  currMealPlan,
+  currDisplayMealPlan,
+  shoppingCart,
+}) {
+  const navigate = useNavigate();
+  const navHome = () => navigate("/home");
+  const navChoose = () => navigate("/choose");
 
-export function CurrentMealPlanV2({currMealPlan, currDisplayMealPlan, shoppingCart}) {
-const navigate = useNavigate();
-const navHome = () => navigate("/home");
-const navChoose = () => navigate("/choose");
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt);
+  const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+  const d = new Date(currDisplayMealPlan.CreatedAt);
 
-const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt)
-const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-const d = new Date(currDisplayMealPlan.CreatedAt);
-
-const weekday = [
+  const weekday = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -45,77 +51,93 @@ const weekday = [
     "Thursday",
     "Friday",
     "Saturday",
-];
+  ];
 
-const [content, setContent] = useState(currDisplayMealPlan);
-const [accordionDisplay, setExpanded] = useState(dayIndex);
+  const [content, setContent] = useState(currDisplayMealPlan);
+  const [accordionDisplay, setExpanded] = useState(dayIndex);
 
-// var accordionDisplay = dayIndex
-const changeAccordionDisplay = (panel) => (event, isExpanded) => {
+  // var accordionDisplay = dayIndex
+  const changeAccordionDisplay = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-
-    return (
-        <>
-        {content ? (
-            <div>
-                {Object.keys(content.DisplayMealPlan).map((day) => (
-                    <Accordion key={day} expanded={accordionDisplay == day} onChange={changeAccordionDisplay(day)} >
-                        <AccordionSummary
-                            expandIcon={<ExpandMore />}
-                        >
-                        <h1 style={{color:"#205E4B",fontFamily:"Nunito sans"}}>
-                            {new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
-                            .toLocaleDateString('en-GB', options)}, {weekday[new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
-                            .getDay()]}
-                        </h1>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
-                                <p> No meals planned for this day </p>
-                            ) :(
-                                <Row xs={1} md={2} lg={3}   >
-                                    {["breakfast", "lunch", "dinner" ].map((mealType) => (
-                                    <div key={`${day}-${mealType}`}>
-                                        {content.DisplayMealPlan[day]?.[mealType] ? Object.keys(content.DisplayMealPlan[day][mealType]).map((recipe) => (
-                                        <MealPlanCard 
-                                            key={`${recipe.id}card`}
-                                            recipe={recipe}
-                                            render={content.DisplayMealPlan[day][mealType][recipe] == 0 ? true : false}
-                                            day={day}
-                                            mealType={mealType}
-                                            dayIndex={dayIndex}
-                                            currMealPlan={currMealPlan}
-                                            currDisplayMealPlan={currDisplayMealPlan}
-                                        />
-                                        )) : (
-                                            <>
-                                                <h4>{mealType}</h4>
-                                                <p>No meals planned</p>
-                                            </>
-                                        )}  
-                                    </div>
-                                    ))}
-                                </Row>
-                            )}
-                            {/* <Typography>
+  return (
+    <>
+      {content ? (
+        <div>
+          {Object.keys(content.DisplayMealPlan).map((day) => (
+            <Accordion
+              key={day}
+              expanded={accordionDisplay == day}
+              onChange={changeAccordionDisplay(day)}
+            >
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <h1 style={{ color: "#205E4B", fontFamily: "Nunito sans" }}>
+                  {new Date(
+                    d.getTime() + parseInt(day) * 24 * 60 * 60 * 1000
+                  ).toLocaleDateString("en-GB", options)}
+                  ,{" "}
+                  {
+                    weekday[
+                      new Date(
+                        d.getTime() + parseInt(day) * 24 * 60 * 60 * 1000
+                      ).getDay()
+                    ]
+                  }
+                </h1>
+              </AccordionSummary>
+              <AccordionDetails>
+                {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
+                  <p> No meals planned for this day </p>
+                ) : (
+                  <Row xs={1} md={2} lg={3}>
+                    {["breakfast", "lunch", "dinner"].map((mealType) => (
+                      <div key={`${day}-${mealType}`}>
+                        {content.DisplayMealPlan[day]?.[mealType] ? (
+                          Object.keys(
+                            content.DisplayMealPlan[day][mealType]
+                          ).map((recipe) => (
+                            <MealPlanCard
+                              key={`${recipe.id}card`}
+                              recipe={recipe}
+                              render={
+                                content.DisplayMealPlan[day][mealType][
+                                  recipe
+                                ] == 0
+                                  ? true
+                                  : false
+                              }
+                              day={day}
+                              mealType={mealType}
+                              dayIndex={dayIndex}
+                              currMealPlan={currMealPlan}
+                              currDisplayMealPlan={currDisplayMealPlan}
+                            />
+                          ))
+                        ) : (
+                          <>
+                            <h4>{mealType}</h4>
+                            <p>No meals planned</p>
+                          </>
+                        )}
+                      </div>
+                    ))}
+                  </Row>
+                )}
+                {/* <Typography>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
                                 malesuada lacus ex, sit amet blandit leo lobortis eget.
                             </Typography> */}
-                        </AccordionDetails>
-                    </Accordion>
-                    
-                ))}
-
+              </AccordionDetails>
+            </Accordion>
+          ))}
         </div>
-        ) : (<p> error </p>)}
-        </>
-    )
-
+      ) : (
+        <p> error </p>
+      )}
+    </>
+  );
 }
-
-
 
 // export function CurrentMealPlan() {
 
@@ -127,20 +149,18 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
 //   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
 //   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-
 //   var dayIndex = null;
 
 //   useEffect(() => {
-    
+
 //     const fetchData = async () => {
 //       await dbFoodMethods.init();
 //       setCurrMealPlan(await dbFoodMethods.getMealPlan());
 //       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
 //     };
-    
+
 //     fetchData();
 //   }, []);
-
 
 //   // after successfully retrieving current meal plan
 
@@ -190,7 +210,7 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
 //                 clickFunc();
 //               }}
 
-//               style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ? 
+//               style={ currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]] ?
 //                 {pointerEvents: 'none', cursor: 'not-allowed'} : {cursor: 'pointer'}}
 //             >
 //               Completed
@@ -204,7 +224,6 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
 //     )
 //   }
 
-
 //   if (currDisplayMealPlan) {
 
 //     // console.log(currDisplayMealPlan)
@@ -212,23 +231,21 @@ const changeAccordionDisplay = (panel) => (event, isExpanded) => {
 //     // dayIndex = Math.floor((Date.now() - currDisplayMealPlan.CreatedAt) / (1000 * 3600 * 24));
 //     dayIndex = new Date(Date.now()).getDate() - new Date(currDisplayMealPlan.CreatedAt).getDate() + 1; // +1 not suppose to be there  this is for testing
 
-
 //     // console.log(dayIndex);
 
 //     for (const day in currDisplayMealPlan.DisplayMealPlan) {
 //       const dayData = [null, null, null];
-    
+
 //       for (const mealType in currDisplayMealPlan.DisplayMealPlan[day]) {
 //         if (mealType == "breakfast") {
 //           dayData[0] = populateDisplay(day, mealType, dayIndex);
 //         }
 //         else if (mealType == "lunch") {
-//           dayData[1] = populateDisplay(day, mealType, dayIndex); 
+//           dayData[1] = populateDisplay(day, mealType, dayIndex);
 //         }
 //         else if (mealType == "dinner") {
 //           dayData[2] = populateDisplay(day, mealType, dayIndex);
 //         }
-
 
 //       }
 

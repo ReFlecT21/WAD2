@@ -23,17 +23,19 @@ import { db, auth } from "../../firebase";
 import getMealPlan from "../middleware/getMealPlan";
 import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
 import { isMobile } from "react-device-detect";
-import { dbFoodMethods } from "../middleware/dbMethods";
+import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 import Cookies from "js-cookie";
 import { Scan } from "../components/scan";
 import PageNotification from "../components/PageNotification";
 import currDayCalculator from "../middleware/currDayCalculator";
 // import { useHistory } from 'react-router-dom';
 import BarChart from "../components/BarChart";
+import AnalyticsHomePage from "../components/analyticsHomepage";
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [completedPlan, setCompletedPlan] = useState(null);
+  const [DailyCal, setDailyCal] = useState(0);
   const dayIndex = 7;
   const [weights, setWeight] = useState([]);
   const [avgCal, setAvgCal] = useState("");
@@ -41,40 +43,47 @@ const HomePage = () => {
   const [formattedDates, setFormattedDates] = useState([]);
   const [notiMessage, setNotiMessage] = useState("");
   const [notiRender, setNotiRender] = useState(false);
-
+  const [exist, setExist] = useState(false);
   function showNotification(message) {
     console.log("showing notification");
     setNotiMessage(message);
     setNotiRender(true);
   }
 
+  const fetchData = async () => {
+    await dbFoodMethods.init();
+    const result = await dbFoodMethods.getAnalytics();
+    setWeight(result.weights);
+    setAvgCal(result.Cals);
+    setDiffWeight(result.diffWeight);
+    let dates = result.Dates;
+
+    const newFormattedDates = dates.map((timestamp) => {
+      // Convert the timestamp to a Date object
+      const date = new Date(timestamp);
+
+      // Extract the date and month
+      const day = date.getDate(); // Day of the month (1-31)
+      const month = date.getMonth() + 1; // Month number (0-11, so we add 1)
+
+      // Format the date and month
+      return `${day}/${month}`;
+    });
+
+    setFormattedDates(newFormattedDates); // Update the state with the new array
+    setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
+    setCompletedPlan(await dbFoodMethods.getCompleted());
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      await dbFoodMethods.init();
-      const result = await dbFoodMethods.getAnalytics();
-      setWeight(result.weights);
-      setAvgCal(result.Cals);
-      setDiffWeight(result.diffWeight);
-      let dates = result.Dates;
-
-      const newFormattedDates = dates.map((timestamp) => {
-        // Convert the timestamp to a Date object
-        const date = new Date(timestamp);
-
-        // Extract the date and month
-        const day = date.getDate(); // Day of the month (1-31)
-        const month = date.getMonth() + 1; // Month number (0-11, so we add 1)
-
-        // Format the date and month
-        return `${day}/${month}`;
-      });
-
-      setFormattedDates(newFormattedDates); // Update the state with the new array
-      setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
-      setCompletedPlan(await dbFoodMethods.getCompleted());
+    const checkUser = async () => {
+      const result = await dbUserMethods.getUserData();
+      console.log(result.formInput);
+      if (result.formInput != undefined) {
+        fetchData();
+        setExist(true);
+      }
     };
-
-    fetchData();
+    checkUser();
   }, []);
 
   var currDay = 0;
@@ -83,18 +92,31 @@ const HomePage = () => {
     currDay = currDayCalculator(currMealPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
+
   const checkDaily = async () => {
     if (completedPlan?.Completed) {
       let completed = completedPlan.Completed;
       if (Object.keys(completed).length > 0) {
-        if (completed[currDay].length == 3) {
+        if (
+          completed[currDay - 1] &&
+          Object.keys(completed[currDay - 1]).length == 3
+        ) {
           await dbFoodMethods.updateDailyCal();
+        }
+        if (Object.keys(completed[currDay]).length == 0) {
+          return "black";
+        } else if (Object.keys(completed[currDay]).length < 3) {
+          return "yellow";
+        } else {
+          return "green";
         }
       }
     }
+    setDailyCal(await dbFoodMethods.getDayCal());
   };
-
-  checkDaily();
+  if (exist) {
+    checkDaily();
+  }
   return (
     <>
       <NavBar />
@@ -225,6 +247,9 @@ const HomePage = () => {
           </div>
         </Col>
       </Row>
+      {/* <Row>
+        <AnalyticsHomePage DayCal={DailyCal} />
+      </Row> */}
     </>
   );
 };
