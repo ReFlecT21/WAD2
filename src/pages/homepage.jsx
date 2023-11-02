@@ -46,8 +46,12 @@ import { useNavigate } from "react-router-dom/dist";
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   // const [currMealPlan, setCurrMealPlan] = useState(null);
+
+
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
+
+
   const [completedPlan, setCompletedPlan] = useState(null);
   const [DailyCal, setDailyCal] = useState(0);
   const dayIndex = 7;
@@ -105,8 +109,8 @@ const HomePage = () => {
 
   var currDay = 0;
 
-  if (currMealPlan?.DisplayMealPlan) {
-    currDay = currDayCalculator(currMealPlan.CreatedAt);
+  if (currDisplayMealPlan?.DisplayMealPlan) {
+    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt)+4;
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
