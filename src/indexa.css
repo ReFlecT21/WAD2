@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Orelega+One");
+@import url("https://fonts.googleapis.com/css?family=Inter");
 p {
   font-family: "Nunito Sans";
 }
@@ -228,7 +229,7 @@ body, html {
 }
 
 .accordionFont {
-  font-family: "Orelega One";
+  font-family: "Inter";
 }
 
 .fff {

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Orelega+One');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
 
 //variables
 $primaryCol: #1F5E4B;
@@ -7,12 +9,12 @@ $secondaryCol: #3EBC96;
 $whiteTextCol: #F6FEFC;
 $backgroundCol: #F6FEFC;
 $primaryFont: "Nunito Sans";
-$headerFont: "Orelega One";
+$headerFont: "Inter";
 
 //mixins
 @mixin headerText(){ //for all the h1,2,3...
     color: $primaryCol;
-    font-family: "Orelega One"
+    font-family: "Inter"
 }
 
 @mixin bodyText(){
