@@ -175,7 +175,7 @@ return (
     console.log(foodDetails),
     <React.Fragment>
     <Button
-        className="buttonPrimary"
+        className="chooseBtn"
         onClick={() => {
         setConfirmModalOpen(true);
         }}
@@ -186,13 +186,13 @@ return (
     <Modal open={ConfirmModalopen} onClose={handleClose}>
         <Box className="popup">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button className="buttonPrimary" onClick={handleClose}>
+            <Button className="chooseBtn" onClick={handleClose}>
             Back
             </Button>
-            <Button className="buttonPrimary" onClick={handleAdd}>
+            <Button className="chooseBtn" onClick={handleAdd}>
             Add
             </Button>
-            <Button className="buttonPrimary" onClick={async ()=>{
+            <Button className="chooseBtn" onClick={async ()=>{
                 await handleRecal()
                 // await recalRedirect()
                 }}>

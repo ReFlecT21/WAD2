@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Orelega+One");
+@import url("https://fonts.googleapis.com/css?family=Inter");
 p {
   font-family: "Nunito Sans";
 }
@@ -73,114 +74,6 @@ body, html {
 .link {
   color: #3EBC96;
   font-style: italic;
-}
-
-.custom-navbar {
-  background-color: #1F5E4B;
-  border-bottom-right-radius: 40px;
-  border-bottom-left-radius: 40px;
-  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
-}
-
-.homeNav h3 {
-  font-family: "Nunito Sans";
-  font-weight: bold;
-  color: #F6FEFC;
-  margin: 0;
-}
-
-.homeNav img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-
-.createBtn {
-  background-color: #3EBC96;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 16px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  font-weight: bold;
-}
-.createBtn:hover {
-  background: #319677;
-  transition: all 0.3s ease;
-}
-
-.plusIcon {
-  color: #F6FEFC;
-  margin-right: 10px;
-}
-
-span {
-  color: #F6FEFC;
-  font-family: "Nunito Sans";
-  font-size: 16px;
-  font-weight: bold;
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-span:hover {
-  color: #3EBC96;
-  transition: 0.5s;
-}
-
-.profileIcon {
-  margin-left: 10px;
-  margin-right: 10px;
-  height: 30px;
-  width: 30px;
-}
-
-h1 {
-  color: #1F5E4B;
-  font-family: "Orelega One";
-}
-
-h2, h3, h4, h5 {
-  color: #1F5E4B;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  font-weight: bold;
-}
-
-.sideimg {
-  max-width: 100%; /* Ensure the image fits within its container */
-  height: 100%;
-  display: block; /* Remove any default inline spacing */
-  margin: 0 auto;
-}
-
-.inputButton {
-  background-color: #3EBC96;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 16px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  width: 30%;
-  margin-top: 20px;
-  margin-right: 15px;
-}
-.inputButton:hover {
-  background: #319677;
-  transition: all 0.3s ease;
-}
-
-.formInputBox {
-  font-family: "Nunito Sans";
-  border-radius: 80px;
-  height: 50px;
-  margin: 5px;
-  padding-left: 50px;
-  font-size: large;
 }
 
 .popup {
@@ -336,7 +229,7 @@ h2, h3, h4, h5 {
 }
 
 .accordionFont {
-  font-family: "Orelega One";
+  font-family: "Inter";
 }
 
 .fff {

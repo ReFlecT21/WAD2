@@ -17,11 +17,11 @@ import {
 import { useAtom } from "jotai";
 import { LoggedIn } from "./atoms/logInAtom.js";
 import { Loader } from "./components";
-
+import AnalyticsHomePage from "./components/analyticsHomepage";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [loggedIn, setLoggedIn] = useAtom(LoggedIn);
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -42,18 +42,20 @@ function App() {
       <Router>
         <ErrorBoundary FallbackComponent={Fallback}>
           <Routes>
-            {user && loggedIn ? (
-              <Route path="/" element={<HomePage />} />
-            ) : (
+            {user ? (
               <>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/input" element={<InputPage />} />
-                <Route path="/" element={<LoginComponent />} />
-                <Route path="/signup" element={<SignUpComponent />} />
-                {/* <Route path="/choose" element={<ChooseMeals />} /> */}
                 <Route path="/mealplan" element={<MealPlan />} />
                 <Route path="/choose" element={<ChooseMealsV2 />} />
                 <Route path="/analytics" element={<AnalyticsPage />} />
+                <Route path="/analytic" element={<AnalyticsHomePage />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<LoginComponent />} />
+                <Route path="/signup" element={<SignUpComponent />} />
+                {/* <Route path="/choose" element={<ChooseMeals />} /> */}
               </>
             )}
           </Routes>

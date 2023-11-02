@@ -40,8 +40,9 @@ export function CreateMealPlanContentv2({
               >
                 Prev
               </Button>
-              <span></span>
-  
+              
+
+              <span style={{padding:"30px"}}></span>
               <Button
                 className="chooseBtn" 
                 onClick={() => setActivePage(pageNum + 1)}
@@ -78,8 +79,13 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
   const [mealPlan, setMealPlan] = useState({});
   const [mealPlanCopy, setMealPlanCopy] = useState({});
   const [shoppingCart, setShoppingCart] = useState({});
-
   const [flag, setFlag] = useState(0);
+  const handleNavigation = (path) => {
+    navigate(path);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000); // waits for 1 second before reloading
+  };
 
   useEffect(() => {
     if (
@@ -119,7 +125,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
         Cookies.remove("allergies");
       }
 
-      navigate("/home");
+      handleNavigation("/home");
       // setTimeout(()=> {
       //     navigate("/home");
       //    }, 1500);

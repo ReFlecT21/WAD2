@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Orelega+One');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
 
 //variables
 $primaryCol: #1F5E4B;
@@ -7,12 +9,12 @@ $secondaryCol: #3EBC96;
 $whiteTextCol: #F6FEFC;
 $backgroundCol: #F6FEFC;
 $primaryFont: "Nunito Sans";
-$headerFont: "Orelega One";
+$headerFont: "Inter";
 
 //mixins
 @mixin headerText(){ //for all the h1,2,3...
     color: $primaryCol;
-    font-family: "Orelega One"
+    font-family: "Inter"
 }
 
 @mixin bodyText(){
@@ -155,9 +157,9 @@ body, html {
 // NAVBAR
 .custom-navbar{
     background-color: $primaryCol;
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
-    box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+    // border-bottom-right-radius: 40px;
+    // border-bottom-left-radius: 40px;
+        // box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -189,6 +191,7 @@ body, html {
 .createBtn{
     @include button($secondaryCol, 16px);
     font-weight: bold;
+    
 }
 
 .btn-primary{
@@ -200,8 +203,10 @@ body, html {
 .navItem{
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-left: 20px;
 }
+
 
 .plusIcon{
     color: $whiteTextCol;
@@ -250,10 +255,55 @@ body, html {
 }
 //////////////////////////////Anan stuff below
 
+//HOMEPAGE
+ 
+//carousel
 
+.carouselImg{
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+    filter: brightness(60%);
+}
+
+.carouselItem{
+    position: 'relative';
+    text-align: 'center';
+}
+
+.carouselCaption{
+    position: 'absolute';
+    padding-top: 200px;
+    padding-bottom: 200px;
+
+    top: '50%'; // Vertically center the caption
+    left: '50%'; // Horizontally center the caption
+    transform: 'translate(-50%, -50%)'; // Center it perfectly
+
+   
+    
+    h1{
+        color: $whiteTextCol;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-size: 70px;
+        
+    }
+    
+}
+
+@media (max-width: 1400px) {
+    .carouselCaption h1:nth-child(2) {
+      display: none; /* Hide the second <h1> element on smaller screens */
+    }
+}
+
+.carousel-indicators{
+    display: none;
+}
 //for input page
 h1{
-    @include headerText()
+    @include bodyText();
+    font-weight: bold;
 }
 
 h2,h3,h4,h5,h6{
@@ -270,6 +320,13 @@ h2,h3,h4,h5,h6{
 
   .sideimg{
     @include sideImage()
+  }
+
+  .inputImg{
+    max-width: 100%;
+    height: auto;
+    height: 100%; /* This ensures the image's aspect ratio is maintained */
+    
   }
 
     .inputButton{
@@ -425,7 +482,7 @@ h2,h3,h4,h5,h6{
     max-height: 120%;
     object-fit: cover;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    filter: brightness(70%);
+    filter: brightness(80%);
 }
 
 
