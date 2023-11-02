@@ -9,6 +9,8 @@ import { Modal } from "@mui/material";
 import { ManualSearchComponent } from "../components/ManualSearchInput";
 import AnalyticsPage from "./AnalyticsPage";
 import Spline from "@splinetool/react-spline";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   collection,
   doc,
@@ -31,6 +33,16 @@ import currDayCalculator from "../middleware/currDayCalculator";
 // import { useHistory } from 'react-router-dom';
 import BarChart from "../components/BarChart";
 import AnalyticsHomePage from "../components/analyticsHomepage";
+
+import Carousel from 'react-bootstrap/Carousel';
+// import ExampleCarouselImage from 'components/ExampleCarouselImage'; 
+import carouselOne from "/carousel1.jpg";
+import carouselTwo from "/carousel2.jpg";
+import carouselThird from "/carousel3.jpg";
+import carouselFourth from "/carousel4.jpg";
+import carouselFifth from "/carousel5.jpg";
+import { useNavigate } from "react-router-dom/dist";
+
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [currMealPlan, setCurrMealPlan] = useState(null);
@@ -49,6 +61,8 @@ const HomePage = () => {
     setNotiMessage(message);
     setNotiRender(true);
   }
+
+  const navigate = useNavigate()
 
   const fetchData = async () => {
     await dbFoodMethods.init();
@@ -117,12 +131,70 @@ const HomePage = () => {
   if (exist) {
     checkDaily();
   }
-  return exist ? (
+  return exist ? ( //not new users
     <>
-      <NavBar />
+     <NavBar />
       <PageNotification message={notiMessage} render={notiRender} />
       {overlayData}
-      <Row xs={1} md={3}>
+
+      <Carousel fade>
+        <Carousel.Item className="carouselItem">
+        
+          <img src={carouselOne} alt="first slide" className="carouselImg"/>
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button className="chooseBtn" href="#homepage" style={{marginTop:"10px"}}>See my meal plan</Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselTwo} alt="second slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button className="chooseBtn" href="#homepage" style={{marginTop:"10px"}}>See my meal plan</Button>
+          </Carousel.Caption>
+          
+        </Carousel.Item>
+
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselThird} alt="third slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button className="chooseBtn" href="#homepage" style={{marginTop:"10px"}}>See my meal plan</Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+    
+        <Carousel.Item className="carouselItem">
+          <img src={carouselFourth} alt="fourth slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button className="chooseBtn" href="#homepage" style={{marginTop:"10px"}}>See my meal plan</Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+        
+        <Carousel.Item className="carouselItem">
+          <img src={carouselFifth} alt="third slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button className="chooseBtn" href="#homepage" style={{marginTop:"10px"}}>See my meal plan</Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+    </Carousel>
+
+
+
+
+
+      
+      <Row xs={1} md={3}  id="homepage">
         {/* <Col>
           <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
         </Col> */}
@@ -138,7 +210,7 @@ const HomePage = () => {
               </div>
             </div>
 
-            <Row xs={1} md={3} lg={3}>
+            <Row xs={1} md={3} lg={3} >
               {/* {todayMealDisplay} */}
               {/* {console.log(currMealPlan)} */}
               {/* {console.log(currMealPlan["DisplayMealPlan"]["1"]["breakfast"])} */}
@@ -251,36 +323,87 @@ const HomePage = () => {
         <AnalyticsHomePage DayCal={DailyCal} />
       </Row> */}
     </>
-  ) : (
+  ) : ( //if user is new
     <>
       <NavBar />
-      <div>Hello</div>
+      <Carousel fade controls={false}>
+        <Carousel.Item className="carouselItem">
+        
+          <img src={carouselOne} alt="first slide" className="carouselImg"/>
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+                <FontAwesomeIcon className="plusIcon"
+                  icon={faPlus}
+                />
+                Create Meal Plan!
+              </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselTwo} alt="second slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+                <FontAwesomeIcon className="plusIcon"
+                  icon={faPlus}
+                />
+                Create Meal Plan!
+              </Button>
+          </Carousel.Caption>
+          
+        </Carousel.Item>
+
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselThird} alt="third slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+                <FontAwesomeIcon className="plusIcon"
+                  icon={faPlus}
+                />
+                Create Meal Plan!
+              </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+    
+        <Carousel.Item className="carouselItem">
+          <img src={carouselFourth} alt="fourth slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+                <FontAwesomeIcon className="plusIcon"
+                  icon={faPlus}
+                />
+                Create Meal Plan!
+              </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+        
+        <Carousel.Item className="carouselItem">
+          <img src={carouselFifth} alt="third slide" className="carouselImg"/>
+        <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button" style={{marginTop:"10px"}} href="/input">
+                <FontAwesomeIcon className="plusIcon"
+                  icon={faPlus}
+                />
+                Create Meal Plan!
+              </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+    </Carousel>
     </>
   );
 };
-{
-  /* <BarChart Weights={weights} Dates={formattedDates} /> */
-}
-{
-  /* <Card>
-<Card.Body>
-  <Card.Title style={{ color: "black" }}>
-    {avgCal}
-  </Card.Title>
 
-  <Card.Text>Avg. Cals Per Day</Card.Text>
-</Card.Body>
-</Card> */
-}
-{
-  /* <Card>
-  <Card.Body>
-    <Card.Title style={{ color: "black" }}>{diffWeight} kg</Card.Title>
-
-    <Card.Text>
-      {diffWeight < 0 ? "Total Weight Gain" : "Total Weight Loss"}
-    </Card.Text>
-  </Card.Body>
-</Card> */
-}
 export default HomePage;
