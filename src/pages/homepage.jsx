@@ -33,7 +33,9 @@ import currDayCalculator from "../middleware/currDayCalculator";
 
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  // const [currMealPlan, setCurrMealPlan] = useState(null);
   const [currMealPlan, setCurrMealPlan] = useState(null);
+  const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
 
   const [notiMessage, setNotiMessage] = useState("");
   const [notiRender, setNotiRender] = useState(false);
@@ -50,7 +52,8 @@ const HomePage = () => {
 
       await dbFoodMethods.init();
 
-      setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
+      setCurrMealPlan(await dbFoodMethods.getMealPlan());
+      setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
     };
 
     fetchData();
@@ -59,8 +62,8 @@ const HomePage = () => {
 
   var currDay = 0;
 
-  if (currMealPlan?.DisplayMealPlan) {
-    currDay = currDayCalculator(currMealPlan.CreatedAt)
+  if (currDisplayMealPlan?.DisplayMealPlan) {
+    currDay = currDayCalculator(currMealPlan.CreatedAt)+4
       // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
@@ -90,47 +93,66 @@ const HomePage = () => {
               {/* {console.log(currMealPlan)} */}
               {/* {console.log(currMealPlan["DisplayMealPlan"]["1"]["breakfast"])} */}
 
-              {currMealPlan ? (
+              {currDisplayMealPlan ? (
                 <>
-                  {currMealPlan.DisplayMealPlan[currDay] ? (
+                  {currDisplayMealPlan.DisplayMealPlan[currDay] ? (
                     <>
                       {["breakfast", "lunch", "dinner"].map((mealType) => (
                         <Col key={`${mealType}home`}>
-
-                          <h4>{mealType}</h4>
-                          {Object.keys(currMealPlan.DisplayMealPlan[currDay]).includes(mealType) ? (
-                            <MealPlanCardHome
-                              recipe={
-                                Object.keys(
-                                  currMealPlan.DisplayMealPlan[currDay][mealType]
-                                )[0]
-                              }
+                          {/* <h4>{mealType}</h4> */}
+                          {Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay]).includes(mealType) ? (
+                            <MealPlanCard 
+                                key={`${mealType}${currDay}card`}
+                                recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay][mealType])[0]}
+                                render={currDisplayMealPlan.DisplayMealPlan[currDay][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay][mealType])[0]] == 0 ? true : false}
+                                day={currDay}
+                                mealType={mealType}
+                                dayIndex={currDay}
+                                currMealPlan={currMealPlan}
+                                currDisplayMealPlan={currDisplayMealPlan}
                             />
+                            // <MealPlanCardHome
+                            //   recipe={
+                            //     Object.keys(
+                            //       currMealPlan.DisplayMealPlan[currDay][mealType]
+                            //     )[0]
+                            //   }
+                            // />
                           ):(<p>No Meal</p>)}
                         </Col>
                       ))}
                     </>
                   ) : (
                     <>
-                      {console.log(currMealPlan.DisplayMealPlan)}
+                      {console.log(currDisplayMealPlan.DisplayMealPlan)}
                       {console.log(currDay)}
-                      {Object.keys(currMealPlan.DisplayMealPlan[currDay+1]).length >0 ? (
+                      {Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1]).length >0 ? (
                         <>
                           {["breakfast", "lunch", "dinner"].map((mealType) => (
                             <Col key={`${mealType}home`}>
 
-                              {currMealPlan.DisplayMealPlan[currDay+1][mealType] ? (
+                              {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType] ? (
                                 <>
-                                {currMealPlan.DisplayMealPlan[currDay+1][mealType][
-                                  Object.keys(currMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
+                                {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                  Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
                                 ] ? (
                                   <h4>{mealType} completed!</h4>
                                 ) : (
                                   <h4>{mealType}</h4>
                                 )}
-                                <MealPlanCardHome
-                                  recipe={Object.keys(currMealPlan.DisplayMealPlan[currDay + 1][mealType])[0]}
+                                <MealPlanCard 
+                                    key={`${mealType}${currDay}card`}
+                                    recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]}
+                                    render={currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay][mealType])[0]] == 0 ? true : false}
+                                    day={currDay}
+                                    mealType={mealType}
+                                    dayIndex={currDay}
+                                    currMealPlan={currMealPlan}
+                                    currDisplayMealPlan={currDisplayMealPlan}
                                 />
+                                {/* <MealPlanCardHome
+                                  recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay + 1][mealType])[0]}
+                                /> */}
                                 </>
                               ) : (
                                 <>

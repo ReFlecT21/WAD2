@@ -2,58 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Tesseract from 'tesseract.js';
 import { OCRextract } from '../middleware/OCRextract';
 
-export function Scan() {
+export function Scan({setScanData,scanData}) {
 
     // const [scanData, setScanData] = useState({});
-    var scanData = {};
-
-    const extractNutritionalInfo = (line) => {
-        // let updatedScanData = { ...scanData };
-        let updatedScanData = scanData;
-
-        if (scanData?.calories === undefined) {
-            let res = OCRextract.extractCalories(line);
-            if (res !== null) {
-                console.log(res);
-                updatedScanData.calories = res;
-                // setScanData({ ...scanData, calories: res });
-                // setScanData((prev)=>({...prev, calories: res}));
-                return updatedScanData;
-            }
-        } else if (scanData?.carbs === undefined) {
-            let res = OCRextract.extractCarbs(line);
-            if (res !== null) {
-                console.log(res);
-                updatedScanData.carbs = res;
-                // setScanData({ ...scanData, carbs: res });
-                // setScanData((prev)=>({...prev, carbs: res}));
-                return updatedScanData;
-            }
-        } else if (scanData?.fat === undefined) {
-            let res = OCRextract.extractFat(line);
-            if (res !== null) {
-                console.log(res);
-                updatedScanData.fat = res;
-                // setScanData({ ...scanData, fat: res });
-                // setScanData((prev)=>({...prev, fat: res}));
-                return updatedScanData;
-            }
-        } else if (scanData?.protein === undefined) {
-            let res = OCRextract.extractProtein(line);
-            if (res !== null) {
-                console.log(res);
-                updatedScanData.protein = res;
-                // setScanData({ ...scanData, protein: res });
-                // setScanData((prev)=>({...prev, protein: res}));
-                return updatedScanData;
-            }
-        }
-        // console.log(updatedScanData);
-
-        // setScanData(updatedScanData);
-        // console.log(scanData);
-        return updatedScanData
-    };
+    // var scanData = {calories:0, carbs:0, fat:0, protein:0};
 
 
     useEffect(() => {
@@ -76,15 +28,38 @@ export function Scan() {
 
             // Iterate through each line
             console.log("==========new scan==========");
-            for (const line of lines) {
-                console.log(line);
-                let scanData = extractNutritionalInfo(line);
-                // console.log(res);
-                console.log(scanData);
-                // setScanData(res);
 
+            for (const line of lines) {
+                // console.log(line, typeof line, line === protein);
+                // console.log(line);
+
+                if (OCRextract.extractCalories(line) !== null) {
+                    // if (scanData.calories.flag == false){
+                        // setScanData((prev) => ({...prev, calories: OCRextract.extractCalories(line)}));
+                        setScanData((prev) => ({...prev, calories: {value: OCRextract.extractCalories(line), flag: true}}))
+                    // }
+
+                } else if (OCRextract.extractCarbs(line) !== null) {
+                    // if (scanData.carbs.flag == false){
+                        // setScanData((prev) => ({...prev, carbs: OCRextract.extractCarbs(line)}));
+                        setScanData((prev) => ({...prev, carbs: {value: OCRextract.extractCarbs(line), flag: true}}))
+                    // }
+                } else if (OCRextract.extractFat(line) !== null) {
+                    if (scanData.fat.flag == false){
+                        // setScanData((prev) => ({...prev, fat: OCRextract.extractFat(line)}));
+                        setScanData((prev) => ({...prev, fat: {value: OCRextract.extractFat(line), flag: true}}))
+                    }
+                } else if (OCRextract.extractProtein(line) !== null) {
+                    // if (scanData.protein.flag == false){
+                        // setScanData((prev) => ({...prev, protein: OCRextract.extractProtein(line)}));
+                        setScanData((prev) => ({...prev, protein: {value: OCRextract.extractProtein(line), flag: true}}))
+                        
+                    // }
+                }
+                
             }
             // console.log(scanData)
+            // console.log(OCRextract.extractProtein(protein));
         };
 
         inputElement.addEventListener("change", handleChange);
