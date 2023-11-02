@@ -117,7 +117,7 @@ const HomePage = () => {
   if (exist) {
     checkDaily();
   }
-  return (
+  return exist ? (
     <>
       <NavBar />
       <PageNotification message={notiMessage} render={notiRender} />
@@ -250,6 +250,11 @@ const HomePage = () => {
       {/* <Row>
         <AnalyticsHomePage DayCal={DailyCal} />
       </Row> */}
+    </>
+  ) : (
+    <>
+      <NavBar />
+      <div>Hello</div>
     </>
   );
 };
