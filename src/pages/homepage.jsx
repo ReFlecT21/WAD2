@@ -9,6 +9,8 @@ import { Modal } from "@mui/material";
 import { ManualSearchComponent } from "../components/ManualSearchInput";
 import AnalyticsPage from "./AnalyticsPage";
 import Spline from "@splinetool/react-spline";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   collection,
   doc,
@@ -31,10 +33,24 @@ import currDayCalculator from "../middleware/currDayCalculator";
 // import { useHistory } from 'react-router-dom';
 import BarChart from "../components/BarChart";
 import AnalyticsHomePage from "../components/analyticsHomepage";
+
+import Carousel from "react-bootstrap/Carousel";
+// import ExampleCarouselImage from 'components/ExampleCarouselImage';
+import carouselOne from "/carousel1.jpg";
+import carouselTwo from "/carousel2.jpg";
+import carouselThird from "/carousel3.jpg";
+import carouselFourth from "/carousel4.jpg";
+import carouselFifth from "/carousel5.jpg";
+import { useNavigate } from "react-router-dom/dist";
+
 import PlatesHomepage from "../components/platesHomepage";
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  // const [currMealPlan, setCurrMealPlan] = useState(null);
+
   const [currMealPlan, setCurrMealPlan] = useState(null);
+  const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
+
   const [completedPlan, setCompletedPlan] = useState(null);
   const [MealPlan, setMealPlan] = useState(null);
   const [DailyCal, setDailyCal] = useState(0);
@@ -53,6 +69,8 @@ const HomePage = () => {
     setNotiMessage(message);
     setNotiRender(true);
   }
+
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     await dbFoodMethods.init();
@@ -75,7 +93,8 @@ const HomePage = () => {
     });
 
     setFormattedDates(newFormattedDates); // Update the state with the new array
-    setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
+    setCurrMealPlan(await dbFoodMethods.getMealPlan());
+    setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
     setCompletedPlan(await dbFoodMethods.getCompleted());
     // setMealPlan(await dbFoodMethods.getMealPlan());
   };
@@ -101,8 +120,8 @@ const HomePage = () => {
 
   var currDay = 0;
 
-  if (currMealPlan?.DisplayMealPlan) {
-    currDay = currDayCalculator(currMealPlan.CreatedAt);
+  if (currDisplayMealPlan?.DisplayMealPlan) {
+    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt) + 4;
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
@@ -157,7 +176,89 @@ const HomePage = () => {
       <NavBar />
       <PageNotification message={notiMessage} render={notiRender} />
       {overlayData}
-      <Row xs={1} md={3}>
+
+      <Carousel fade>
+        <Carousel.Item className="carouselItem">
+          <img src={carouselOne} alt="first slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button
+              className="chooseBtn"
+              href="#homepage"
+              style={{ marginTop: "10px" }}
+            >
+              See my meal plan
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselTwo} alt="second slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button
+              className="chooseBtn"
+              href="#homepage"
+              style={{ marginTop: "10px" }}
+            >
+              See my meal plan
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselThird} alt="third slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button
+              className="chooseBtn"
+              href="#homepage"
+              style={{ marginTop: "10px" }}
+            >
+              See my meal plan
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img
+            src={carouselFourth}
+            alt="fourth slide"
+            className="carouselImg"
+          />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button
+              className="chooseBtn"
+              href="#homepage"
+              style={{ marginTop: "10px" }}
+            >
+              See my meal plan
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselFifth} alt="third slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome back!</h1>
+            <h1>What's cooking today?</h1>
+            <Button
+              className="chooseBtn"
+              href="#homepage"
+              style={{ marginTop: "10px" }}
+            >
+              See my meal plan
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
+      <Row xs={1} md={3} id="homepage">
         {/* <Col>
           <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
         </Col> */}
@@ -178,26 +279,52 @@ const HomePage = () => {
               {/* {console.log(currMealPlan)} */}
               {/* {console.log(currMealPlan["DisplayMealPlan"]["1"]["breakfast"])} */}
 
-              {currMealPlan ? (
+              {currDisplayMealPlan ? (
                 <>
-                  {currMealPlan.DisplayMealPlan[currDay] ? (
+                  {currDisplayMealPlan.DisplayMealPlan[currDay] ? (
                     <>
                       {["breakfast", "lunch", "dinner"].map((mealType) => (
                         <Col key={`${mealType}home`}>
-                          <h4>{mealType}</h4>
+                          {/* <h4>{mealType}</h4> */}
                           {Object.keys(
-                            currMealPlan.DisplayMealPlan[currDay]
+                            currDisplayMealPlan.DisplayMealPlan[currDay]
                           ).includes(mealType) ? (
-                            <MealPlanCardHome
+                            <MealPlanCard
+                              key={`${mealType}${currDay}card`}
                               recipe={
                                 Object.keys(
-                                  currMealPlan.DisplayMealPlan[currDay][
+                                  currDisplayMealPlan.DisplayMealPlan[currDay][
                                     mealType
                                   ]
                                 )[0]
                               }
+                              render={
+                                currDisplayMealPlan.DisplayMealPlan[currDay][
+                                  mealType
+                                ][
+                                  Object.keys(
+                                    currDisplayMealPlan.DisplayMealPlan[
+                                      currDay
+                                    ][mealType]
+                                  )[0]
+                                ] == 0
+                                  ? true
+                                  : false
+                              }
+                              day={currDay}
+                              mealType={mealType}
+                              dayIndex={currDay}
+                              currMealPlan={currMealPlan}
+                              currDisplayMealPlan={currDisplayMealPlan}
                             />
                           ) : (
+                            // <MealPlanCardHome
+                            //   recipe={
+                            //     Object.keys(
+                            //       currMealPlan.DisplayMealPlan[currDay][mealType]
+                            //     )[0]
+                            //   }
+                            // />
                             <p>No Meal</p>
                           )}
                         </Col>
@@ -205,39 +332,62 @@ const HomePage = () => {
                     </>
                   ) : (
                     <>
-                      {console.log(currMealPlan.DisplayMealPlan)}
+                      {console.log(currDisplayMealPlan.DisplayMealPlan)}
                       {console.log(currDay)}
-                      {Object.keys(currMealPlan.DisplayMealPlan[currDay + 1])
-                        .length > 0 ? (
+                      {Object.keys(
+                        currDisplayMealPlan.DisplayMealPlan[currDay + 1]
+                      ).length > 0 ? (
                         <>
                           {["breakfast", "lunch", "dinner"].map((mealType) => (
                             <Col key={`${mealType}home`}>
-                              {currMealPlan.DisplayMealPlan[currDay + 1][
+                              {currDisplayMealPlan.DisplayMealPlan[currDay + 1][
                                 mealType
                               ] ? (
                                 <>
-                                  {currMealPlan.DisplayMealPlan[currDay + 1][
-                                    mealType
-                                  ][
+                                  {currDisplayMealPlan.DisplayMealPlan[
+                                    currDay + 1
+                                  ][mealType][
                                     Object.keys(
-                                      currMealPlan.DisplayMealPlan[currDay + 1][
-                                        mealType
-                                      ]
+                                      currDisplayMealPlan.DisplayMealPlan[
+                                        currDay + 1
+                                      ][mealType]
                                     )[0]
                                   ] ? (
                                     <h4>{mealType} completed!</h4>
                                   ) : (
                                     <h4>{mealType}</h4>
                                   )}
-                                  <MealPlanCardHome
+                                  <MealPlanCard
+                                    key={`${mealType}${currDay}card`}
                                     recipe={
                                       Object.keys(
-                                        currMealPlan.DisplayMealPlan[
+                                        currDisplayMealPlan.DisplayMealPlan[
                                           currDay + 1
                                         ][mealType]
                                       )[0]
                                     }
+                                    render={
+                                      currDisplayMealPlan.DisplayMealPlan[
+                                        currDay + 1
+                                      ][mealType][
+                                        Object.keys(
+                                          currDisplayMealPlan.DisplayMealPlan[
+                                            currDay
+                                          ][mealType]
+                                        )[0]
+                                      ] == 0
+                                        ? true
+                                        : false
+                                    }
+                                    day={currDay}
+                                    mealType={mealType}
+                                    dayIndex={currDay}
+                                    currMealPlan={currMealPlan}
+                                    currDisplayMealPlan={currDisplayMealPlan}
                                   />
+                                  {/* <MealPlanCardHome
+                                  recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay + 1][mealType])[0]}
+                                /> */}
                                 </>
                               ) : (
                                 <>
@@ -290,35 +440,80 @@ const HomePage = () => {
       </Row>
     </>
   ) : (
+    //if user is new
     <>
       <NavBar />
-      <div>Hello</div>
+      <Carousel fade controls={false}>
+        <Carousel.Item className="carouselItem">
+          <img src={carouselOne} alt="first slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselTwo} alt="second slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselThird} alt="third slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img
+            src={carouselFourth}
+            alt="fourth slide"
+            className="carouselImg"
+          />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button">
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item className="carouselItem">
+          <img src={carouselFifth} alt="third slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button
+              className="createBtn custom-clicked-button"
+              style={{ marginTop: "10px" }}
+              href="/input"
+            >
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
     </>
   );
 };
-{
-  /* <BarChart Weights={weights} Dates={formattedDates} /> */
-}
-{
-  /* <Card>
-<Card.Body>
-  <Card.Title style={{ color: "black" }}>
-    {avgCal}
-  </Card.Title>
 
-  <Card.Text>Avg. Cals Per Day</Card.Text>
-</Card.Body>
-</Card> */
-}
-{
-  /* <Card>
-  <Card.Body>
-    <Card.Title style={{ color: "black" }}>{diffWeight} kg</Card.Title>
-
-    <Card.Text>
-      {diffWeight < 0 ? "Total Weight Gain" : "Total Weight Loss"}
-    </Card.Text>
-  </Card.Body>
-</Card> */
-}
 export default HomePage;
