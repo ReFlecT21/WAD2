@@ -304,7 +304,7 @@ const HomePage = () => {
             </Row>
           </div>
         </Col>
-        <Col>
+        <Col  >
           <div className="neuphormicBox" style={{ textAlign: "center" }}>
             <Stack gap={2}>
               {/* <Button className="homePageBtn">Scan</Button> */}

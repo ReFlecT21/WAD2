@@ -45,7 +45,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"grey", });
+            setSelectStyle({backgroundColor:"#bcddd5", });
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
             if (setNumOutstanding) {
@@ -59,16 +59,17 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     }
 
     return (
-        <TableRow key={ingreType+ingre} style={selectStyle}>
-            {isMobile ? (<></>) : (<TableCell >{ingreType}</TableCell>)}
-            <TableCell >{ingre.name}</TableCell>
-            <TableCell align="right">{ingre.amount}</TableCell>
-            <TableCell align="right">{ingre.unit}</TableCell>
-            <TableCell align="right">
+        <TableRow key={ingreType+ingre} style={selectStyle }>
+            {isMobile ? (<></>) : (<TableCell style={{fontFamily:"Nunito Sans"}} >{ingreType}</TableCell>)}
+            <TableCell style={{fontFamily:"Nunito Sans"}}>{ingre.name}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">{ingre.amount}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">{ingre.unit}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">
                 <Button 
                     className='buttonPrimary'
+                    
                     onClick={completeItem} 
-                    style={{width:"80px"}}
+                    style={{width:"80px",padding:"10px"}}
                 >{buttonText}</Button>
             </TableCell>
         </TableRow>
