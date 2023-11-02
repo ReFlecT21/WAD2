@@ -53,6 +53,7 @@ export const dbUserMethods = {
       return { formInput, allergies };
     } else {
       console.error("Document does not exist");
+      return undefined;
     }
   },
 
@@ -218,6 +219,28 @@ export const dbFoodMethods = {
         const remainingCal = parseInt(Math.floor((calories / countMeals) * 3));
 
         return remainingCal;
+      } else {
+        console.log("Document does not exist");
+        return null;
+      }
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+  },
+  getDayCal: async function () {
+    // console.log(this.username)
+
+    // await this.init();
+
+    try {
+      // Get the current state of the document
+      if (this.docSnap) {
+        const data = this.docSnap.data();
+        // console.log(data);
+        const calories = data.DayCal;
+        // console.log(mealPlan);
+
+        return calories;
       } else {
         console.log("Document does not exist");
         return null;
@@ -411,6 +434,7 @@ export const dbFoodMethods = {
               DisplayPlan: DisplayPlan,
               Calories: cal,
               DayCal: DailyCal,
+              CurrCal: CurrCal,
             }).then(() => {
               console.log("Document written");
               // return true;
