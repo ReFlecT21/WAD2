@@ -38,7 +38,8 @@
   background-color: #1F5E4B;
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
-  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+  -webkit-box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+          box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
 }
 
 .homeNav h3 {
@@ -82,6 +83,7 @@ span {
 
 span:hover {
   color: #3EBC96;
+  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
@@ -105,9 +107,11 @@ h2, h3, h4, h5 {
 }
 
 .sideimg {
-  max-width: 100%; /* Ensure the image fits within its container */
+  max-width: 100%;
+  /* Ensure the image fits within its container */
   height: 100%;
-  display: block; /* Remove any default inline spacing */
+  display: block;
+  /* Remove any default inline spacing */
   margin: 0 auto;
 }
 
@@ -227,7 +231,8 @@ tr:last-of-type td:last-of-type {
 }
 
 .custom-tab-title {
-  color: rgb(42, 28, 28); /* Change 'red' to the color you want */
+  color: #2a1c1c;
+  /* Change 'red' to the color you want */
 }
 
 .tabTitleStyle {
@@ -242,6 +247,7 @@ tr:last-of-type td:last-of-type {
   padding: 20px;
   border-radius: 50px;
 }
+
 .nav-link:hover {
   color: #3EBC96;
 }
@@ -258,4 +264,5 @@ tr:last-of-type td:last-of-type {
   font-size: 30px;
   font-weight: bold;
   margin: 15px;
-}/*# sourceMappingURL=indexa.css.map */
+}
+/*# sourceMappingURL=indexa.css.map */

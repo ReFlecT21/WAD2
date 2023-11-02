@@ -100,12 +100,12 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Nunito sans", color:"#205E4B"}}>
+                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Nunito sans", fontWeight:"bold", color:"#205E4B", backgroundColor:"white"}}>
                     {title}
                 </TableCell>
-                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>{numItems}</TableCell>
-                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>{numOutstanding}</TableCell>
-                <TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans",fontWeight:"bold", color:"#205E4B", backgroundColor:"white"}}>{numItems}</TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans",fontWeight:"bold", color:"#205E4B", backgroundColor:"white"}}>{numOutstanding}</TableCell>
+                <TableCell style={{ backgroundColor:"white"}}>
                     <IconButton
                     aria-label="expand row"
                     size="small"
