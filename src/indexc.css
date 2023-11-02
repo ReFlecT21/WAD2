@@ -10,8 +10,10 @@ p {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
-          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  -webkit-box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
+          box-shadow: 20px 20px 38px #dbe2e0,
+ -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
   position: relative;
@@ -142,9 +144,6 @@ body, html {
 
 .custom-navbar {
   background-color: #1F5E4B;
-  border-bottom-right-radius: 40px;
-  border-bottom-left-radius: 40px;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -265,6 +264,42 @@ body, html {
 .navbar-toggler-icon {
   width: 40px;
   height: 40px;
+}
+
+.carouselImg {
+  width: 100%;
+  height: 90vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  filter: brightness(60%);
+}
+
+.carouselItem {
+  position: "relative";
+  text-align: "center";
+}
+
+.carouselCaption {
+  position: "absolute";
+  padding-top: 200px;
+  padding-bottom: 200px;
+  top: "50%";
+  left: "50%";
+  transform: "translate(-50%, -50%)";
+}
+.carouselCaption h1 {
+  color: #F6FEFC;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 70px;
+}
+
+@media (max-width: 1400px) {
+  .carouselCaption h1:nth-child(2) {
+    display: none; /* Hide the second <h1> element on smaller screens */
+  }
+}
+.carousel-indicators {
+  display: none;
 }
 
 h1 {

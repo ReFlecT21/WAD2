@@ -10,18 +10,29 @@ import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 import { app, db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
-
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
+// import firebase from "firebase/app";
+// import "firebase/auth";
+import { useNavigate } from "react-router-dom";
 function NavBar() {
+  const navigate = useNavigate();
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+      console.log("User logged out");
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
   return (
     <Navbar expand="lg" className="custom-navbar justify-content-between">
       <Container>
-        <Navbar.Brand
-          href="/home"
-          className="homeNav"
-        >
+        <Navbar.Brand href="/home" className="homeNav">
           <img
             alt=""
-            src="/Untitled_Artwork 1.svg"
+            src="/MenuMateWhite.svg"
             className="d-inline-block align-top mr-10"
             />
           <h3>
@@ -55,7 +66,7 @@ function NavBar() {
             className="navItem"
             href="/">
               <FontAwesomeIcon className="exitIcon"
-                    icon={faSignOut}
+                    icon={faSignOut} onClick={logout}
                   />
             </Nav.Link>
           </Nav>

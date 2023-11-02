@@ -569,6 +569,15 @@ export function ManualSearchComponent({currDay, showNotification}) {
         });
     }
 
+    const [scanData, setScanData] = useState({
+        calories:{value:0,flag:false}, 
+        carbs:{value:0,flag:false}, 
+        fat:{value:0,flag:false}, 
+        protein:{value:0,flag:false}, 
+    });
+
+    console.log(scanData);
+
 
     return (
         <div>
@@ -683,46 +692,74 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Calories</h5>
                                 <Form.Control
+                                type='number'
                                 id="manual_calories"
                                 aria-label="name"
                                 aria-describedby="inputGroup-sizing-default"
                                 placeholder="Kcal"
+                                value={scanData.calories.value}
+                                onChange={(e) => {
+                                    // Update the state variable when the input changes
+                                    setScanData((prev) => ({...prev, calories: {value: e.target.value}}))
+                                  }}                                
                                 />
                             </div>
 
                             <div>
                                 <h5>Protein</h5>
                                 <Form.Control
+                                type='number'
                                 id="manual_protein"
                                 aria-label="name"
                                 aria-describedby="inputGroup-sizing-default"
                                 placeholder="grams"
+                                value={scanData.protein.value}
+                                onChange={(e) => {
+                                    // Update the state variable when the input changes
+                                    // setScanData({ ...scanData, protein: {scanData.} });
+                                    setScanData((prev) => ({...prev, protein: {value: e.target.value}}))
+                                  }}
+                                
                                 />
                             </div>
 
                             <div>
                                 <h5>Fat</h5>
                                 <Form.Control
+                                type='number'
                                 id="manual_fat"
                                 aria-label="name"
                                 aria-describedby="inputGroup-sizing-default"
                                 placeholder="grams"
+                                value={scanData.fat.value}
+                                onChange={(e) => {
+                                    // Update the state variable when the input changes
+                                    setScanData((prev) => ({...prev, fat: {value: e.target.value}}))
+                                  }}
+                                
                                 />
                             </div>
 
                             <div>
                                 <h5>Carbs</h5>
                                 <Form.Control
+                                type='number'
                                 id="manual_carbs"
                                 aria-label="name"
                                 aria-describedby="inputGroup-sizing-default"
                                 placeholder="grams"
+                                value={scanData.carbs.value}
+                                onChange={(e) => {
+                                    // Update the state variable when the input changes
+                                    setScanData((prev) => ({...prev, carbs: {value: e.target.value}}))
+                                  }}
+                                
                                 />
                             </div>
                         </Row>
                         
                     </InputGroup>
-                    <Scan/>
+                    <Scan setScanData={setScanData} scanData={scanData}/>
                     <Button
                         // type="submit"
                         className="buttonPrimary"

@@ -157,8 +157,8 @@ body, html {
 // NAVBAR
 .custom-navbar{
     background-color: $primaryCol;
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
+    // border-bottom-right-radius: 40px;
+    // border-bottom-left-radius: 40px;
         // box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
     position: sticky;
     top: 0;
@@ -255,7 +255,51 @@ body, html {
 }
 //////////////////////////////Anan stuff below
 
+//HOMEPAGE
+ 
+//carousel
 
+.carouselImg{
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+    filter: brightness(60%);
+}
+
+.carouselItem{
+    position: 'relative';
+    text-align: 'center';
+}
+
+.carouselCaption{
+    position: 'absolute';
+    padding-top: 200px;
+    padding-bottom: 200px;
+
+    top: '50%'; // Vertically center the caption
+    left: '50%'; // Horizontally center the caption
+    transform: 'translate(-50%, -50%)'; // Center it perfectly
+
+   
+    
+    h1{
+        color: $whiteTextCol;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-size: 70px;
+        
+    }
+    
+}
+
+@media (max-width: 1400px) {
+    .carouselCaption h1:nth-child(2) {
+      display: none; /* Hide the second <h1> element on smaller screens */
+    }
+}
+
+.carousel-indicators{
+    display: none;
+}
 //for input page
 h1{
     @include bodyText();

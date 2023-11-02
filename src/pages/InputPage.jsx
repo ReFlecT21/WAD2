@@ -52,7 +52,7 @@ const InputPage = () => {
 
   useEffect(() => {
     dbUserMethods.getUserData().then((res) => {
-      if (res.formInput  && res.allergies ) {
+      if (res.formInput && res.allergies) {
         setFormData(res.formInput);
         setAllergies(res.allergies);
       }
@@ -96,19 +96,25 @@ const InputPage = () => {
 
     // Calculate maintenance based on BMR and activityLevel
     const maintenanceCals = Math.ceil(computeMaintenance(BMR, activityLevel));
+    let finalCalories;
     if (goal == "maintain") {
-      return maintenanceCals;
+      finalCalories = maintenanceCals;
     } else if (goal == "lose") {
-      return maintenanceCals - 500;
+      finalCalories = maintenanceCals - 500;
     } else {
-      return maintenanceCals + 500;
+      finalCalories = maintenanceCals + 500;
     }
+
+    // Store the final calories in localStorage
+    localStorage.setItem("calories", finalCalories);
+
+    return finalCalories;
   };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value !== undefined ? e.target.value : "" // Provide a default value (empty string)
+      [e.target.name]: e.target.value !== undefined ? e.target.value : "", // Provide a default value (empty string)
     });
   };
 
@@ -159,26 +165,6 @@ const InputPage = () => {
     // navChoose();
     navChoose2();
   };
-
-  // function LottieAnimation() {
-  //   useEffect(() => {
-  //     const container = document.getElementById('lottie-container'); // Replace with your desired element or use React ref
-  //     const anim = lottie.loadAnimation({
-  //       container,
-  //       renderer: 'svg', // or 'canvas' or 'html'
-  //       loop: true, // Set to true if you want the animation to loop
-  //       animationData, // The imported animation JSON data
-  //     });
-  
-  //     return () => {
-  //       // Cleanup when the component unmounts
-  //       anim.destroy();
-  //     };
-  //   }, []);
-  
-  //   return <div id="lottie-container" />;
-  // }
-
 
     return (
         <>
