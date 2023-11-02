@@ -228,14 +228,6 @@ body, html {
   width: 300px;
 }
 
-.accordionFont {
-  font-family: "Inter";
-}
-
-.fff {
-  font-family: "Orlegano One";
-}
-
 .ShoppingCardBtn {
   color: #F6FEFC;
   font-weight: normal;
@@ -282,29 +274,6 @@ tr:last-of-type td:last-of-type {
   border-bottom-right-radius: 25px;
 }
 
-.RecalBtn {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 17px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 120px;
-  height: 50px;
-  padding: 0px;
-  margin: 20px;
-}
-.RecalBtn:hover {
-  background: #12382c;
-  transition: all 0.3s ease;
-}
-
 .card {
   margin-bottom: 15px;
 }
@@ -318,8 +287,27 @@ tr:last-of-type td:last-of-type {
 }
 
 .nav-link {
-  color: #3EBC96;
+  color: #1F5E4B;
   font-family: "Nunito Sans";
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
+  padding: 20px;
+  border-radius: 50px;
+}
+.nav-link:hover {
+  color: #3EBC96;
+}
+
+.nav-tabs {
+  background-color: #F6FEFC;
+  --bs-nav-tabs-link-active-color: #F6FEFC;
+  --bs-nav-tabs-link-active-bg: #3EBC96;
+  border: 0;
+}
+
+.accordionText {
+  font-family: "Nunito Sans";
+  font-size: 30px;
+  font-weight: bold;
+  margin: 15px;
 }/*# sourceMappingURL=indexa.css.map */

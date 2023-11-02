@@ -332,16 +332,6 @@ body, html {
 //     filter: brightness(70%);
 //   }
 
-.accordionFont{
-    font-family: $headerFont;
-
-}
-
-.fff{
-    font-family: "Orlegano One";
-
-}
-
 /// shopping cart
 .ShoppingCardBtn{
 
@@ -390,20 +380,19 @@ th:first-of-type {
 
 
   ///finalise meal plan
-.RecalBtn{
+// .RecalBtn{
+//     @include whiteText();
+//     @include button($primaryCol, 17px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 50px;
+//     padding: 0px;
+//     margin: 20px;
+//     // text-align: center;
+//     // display: flex;
+//     // justify-content: center;
 
-    @include whiteText();
-    @include button($primaryCol, 17px);
-    border-radius: 20px;
-    width: 120px;
-    height: 50px;
-    padding: 0px;
-    margin: 20px;
-    // text-align: center;
-    // display: flex;
-    // justify-content: center;
-
-}
+// }
   
 
 ///completed meals 
@@ -427,10 +416,31 @@ th:first-of-type {
 };
 
 .nav-link{
-    color: #3EBC96;
-    font-family: "Nunito Sans";
+    color: $primaryCol;
+    font-family: $primaryFont;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 50px;
+    
+    &:hover{
+        color: $secondaryCol;
+    }   
   }
 
+.nav-tabs{
+    background-color: $backgroundCol;
+    --bs-nav-tabs-link-active-color: #F6FEFC;
+    --bs-nav-tabs-link-active-bg: #3EBC96;
+    border: 0;
+
     /////////////////////////////Anan stuff end
+}
+
+.accordionText{
+    font-family: $primaryFont;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 15px;
+
+}

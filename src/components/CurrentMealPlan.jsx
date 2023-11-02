@@ -64,7 +64,7 @@ export function CurrentMealPlanV2({
   return (
     <>
       {content ? (
-        <div>
+        <div >
           {Object.keys(content.DisplayMealPlan).map((day) => (
             <Accordion
               key={day}
@@ -72,7 +72,7 @@ export function CurrentMealPlanV2({
               onChange={changeAccordionDisplay(day)}
             >
               <AccordionSummary expandIcon={<ExpandMore />}>
-                <h1 style={{ color: "#205E4B", fontFamily: "Nunito sans" }}>
+                <h2 className="accordionText">
                   {new Date(
                     d.getTime() + parseInt(day) * 24 * 60 * 60 * 1000
                   ).toLocaleDateString("en-GB", options)}
@@ -84,13 +84,13 @@ export function CurrentMealPlanV2({
                       ).getDay()
                     ]
                   }
-                </h1>
+                </h2>
               </AccordionSummary>
               <AccordionDetails>
                 {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                   <p> No meals planned for this day </p>
                 ) : (
-                  <Row xs={1} md={2} lg={3}>
+                  <Row xs={1} md={2} lg={3}  style={{margin:"10px"}}>
                     {["breakfast", "lunch", "dinner"].map((mealType) => (
                       <div key={`${day}-${mealType}`}>
                         {content.DisplayMealPlan[day]?.[mealType] ? (

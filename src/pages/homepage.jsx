@@ -144,7 +144,7 @@ const HomePage = () => {
       <PageNotification message={notiMessage} render={notiRender} />
       {overlayData}
 
-      <Carousel fade>
+      <Carousel fade controls={false}>
         <Carousel.Item className="carouselItem">
         
           <img src={carouselOne} alt="first slide" className="carouselImg"/>
