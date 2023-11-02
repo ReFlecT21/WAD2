@@ -252,7 +252,10 @@ const HomePage = () => {
       </Row> */}
     </>
   ) : (
-    <div>Hello</div>
+    <>
+      <NavBar />
+      <div>Hello</div>
+    </>
   );
 };
 {
