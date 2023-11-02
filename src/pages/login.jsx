@@ -11,12 +11,12 @@ import { useNavigate } from "react-router-dom";
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [loggedIn, setLoggedIn] = useAtom(LoggedIn);
   const navigate = useNavigate();
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-
+      setLoggedIn(true);
       console.log(user);
 
       dbFoodMethods.init();
@@ -38,7 +38,7 @@ const LoginComponent = () => {
     >
       <Row className="loginPage">
         <Col className="backgroundLeft d-none d-lg-block col-lg-7">
-          <Image src="/foodimg.jpg" alt="" className="loginImg"/>
+          <Image src="/foodimg.jpg" alt="" className="loginImg" />
         </Col>
         <Col className="backgroundRight d-flex justify-content-center">
           <Row className="loginDetails">

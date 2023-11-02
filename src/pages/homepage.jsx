@@ -31,10 +31,12 @@ import currDayCalculator from "../middleware/currDayCalculator";
 // import { useHistory } from 'react-router-dom';
 import BarChart from "../components/BarChart";
 import AnalyticsHomePage from "../components/analyticsHomepage";
+import PlatesHomepage from "../components/platesHomepage";
 const HomePage = () => {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [currMealPlan, setCurrMealPlan] = useState(null);
   const [completedPlan, setCompletedPlan] = useState(null);
+  const [MealPlan, setMealPlan] = useState(null);
   const [DailyCal, setDailyCal] = useState(0);
   const dayIndex = 7;
   const [weights, setWeight] = useState([]);
@@ -44,6 +46,7 @@ const HomePage = () => {
   const [notiMessage, setNotiMessage] = useState("");
   const [notiRender, setNotiRender] = useState(false);
   const [exist, setExist] = useState(false);
+  const [colorArray, setColorArray] = useState(null);
   function showNotification(message) {
     console.log("showing notification");
     setNotiMessage(message);
@@ -73,11 +76,12 @@ const HomePage = () => {
     setFormattedDates(newFormattedDates); // Update the state with the new array
     setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
     setCompletedPlan(await dbFoodMethods.getCompleted());
+    setMealPlan(await dbFoodMethods.getMealPlan());
   };
   useEffect(() => {
     const checkUser = async () => {
       const result = await dbUserMethods.getUserData();
-      console.log(result.formInput);
+
       if (result.formInput != undefined) {
         fetchData();
         setExist(true);
@@ -85,6 +89,11 @@ const HomePage = () => {
     };
     checkUser();
   }, []);
+  useEffect(() => {
+    if (exist) {
+      checkDaily();
+    }
+  }, [exist]);
 
   var currDay = 0;
 
@@ -113,10 +122,27 @@ const HomePage = () => {
       }
     }
     setDailyCal(await dbFoodMethods.getDayCal());
+    if (MealPlan?.mealPlan) {
+      const data = MealPlan.mealPlan;
+      console.log(data);
+      const colors = Object.values(data).map((obj) => {
+        // Count the number of non-empty meals in the object
+        const nonEmptyMeals = Object.values(obj).filter(
+          (meal) => Object.keys(meal).length > 0
+        ).length;
+
+        if (nonEmptyMeals === 0) {
+          return "green";
+        } else if (nonEmptyMeals < 3) {
+          return "yellow";
+        } else {
+          return "red";
+        }
+      });
+      setColorArray(colors);
+    }
   };
-  if (exist) {
-    checkDaily();
-  }
+
   return exist ? (
     <>
       <NavBar />
@@ -250,6 +276,7 @@ const HomePage = () => {
       {/* <Row>
         <AnalyticsHomePage DayCal={DailyCal} />
       </Row> */}
+      <Row>{/* <PlatesHomepage colors={colorArray} /> */}</Row>
     </>
   ) : (
     <>

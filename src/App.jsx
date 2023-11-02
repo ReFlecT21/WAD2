@@ -21,7 +21,7 @@ import AnalyticsHomePage from "./components/analyticsHomepage";
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [loggedIn, setLoggedIn] = useAtom(LoggedIn);
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -42,7 +42,7 @@ function App() {
       <Router>
         <ErrorBoundary FallbackComponent={Fallback}>
           <Routes>
-            {user ? (
+            {user && loggedIn ? (
               <>
                 <Route path="/home" element={<HomePage />} />
                 <Route path="/input" element={<InputPage />} />
