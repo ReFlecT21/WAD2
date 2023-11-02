@@ -201,9 +201,9 @@ export function ShoppingCart({shoppingCart}) {
             <Table aria-label="collapsible table">
                 <TableHead>
                 <TableRow>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B"}}>Day</TableCell>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of items</TableCell>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of outstanding items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B", fontWeight:"bold"}}>Day</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>Number of items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>Number of outstanding items</TableCell>
                     <TableCell />
                 </TableRow>
                 </TableHead>
