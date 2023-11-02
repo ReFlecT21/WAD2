@@ -24,27 +24,27 @@ export function CreateMealPlanContentv2({
     <>
       {/* {pageNum} */}
       <Container>
-        <Row className="stickyRow" style={{marginBottom: "20px"}}>
-          <Col xs={12} md={6} lg={6} >
-            <div className="text-center text-md-left" >
-
+        <Row className="stickyRow" style={{ marginBottom: "20px" }}>
+          <Col xs={12} md={6} lg={6}>
+            <div className="text-center text-md-left">
               <h1>Pick Your {mealType} Items!</h1>
             </div>
           </Col>
-          <Col  xs={12} md={6} lg={6}> 
-            <div style={{textAlign: "center", textAlign: "right", marginBottom: "20px"}} className="text-center text-md-right" >
-
-              <Button 
-                className="chooseBtn" 
+          <Col xs={12} md={6} lg={6}>
+            <div
+              style={{ textAlign: "center", marginBottom: "20px" }}
+              className="text-center text-md-right"
+            >
+              <Button
+                className="chooseBtn"
                 onClick={() => setActivePage(pageNum - 1)}
               >
                 Prev
               </Button>
-              
 
-              <span style={{padding:"30px"}}></span>
+              <span style={{ padding: "30px" }}></span>
               <Button
-                className="chooseBtn" 
+                className="chooseBtn"
                 onClick={() => setActivePage(pageNum + 1)}
               >
                 Next
@@ -56,7 +56,7 @@ export function CreateMealPlanContentv2({
         <Row className="mealCards" xs={1} md={2} lg={3}>
           {recipes ? (
             recipes.map((recipe) => (
-              <RecpieCardV2 
+              <RecpieCardV2
                 key={recipe.id}
                 recipe={recipe}
                 setter={selectedSetter}
@@ -362,9 +362,15 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
         </div>
       ) : (
         <>
-          <div style={{ display: "flex", justifyContent: "space-between", marginTop:"50px"}}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "50px",
+            }}
+          >
             <h1>Finalise Meal Plan</h1>
-            <div style={{ textAlign: "right", marginTop:"20px "}}>
+            <div style={{ textAlign: "right", marginTop: "20px " }}>
               <Button
                 className="chooseBtn"
                 onClick={async () => {
