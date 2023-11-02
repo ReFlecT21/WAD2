@@ -2,22 +2,27 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 const PlatesHomepage = ({ colors }) => {
+  console.log(colors);
   return (
     <div>
-      {/* {color === "blue"
-        ? // Render blue plates
-          Array(7)
-            .fill()
-            .map((_, i) => (
-              <img key={i} src={`/greenPlate.png`} alt="Blue Plate" />
-            ))
-        : // Render red plates
-          Array(7)
-            .fill()
-            .map((_, i) => (
-              <img key={i} src={`/greyPlate.png`} alt="Red Plate" />
-            ))} */}
-      hello
+      {colors &&
+        colors.map((color, i) => {
+          let imgSrc = "";
+          switch (color) {
+            case "grey":
+              imgSrc = "/greyPlate.png";
+              break;
+            case "green":
+              imgSrc = "/greenPlate.png";
+              break;
+            case "yellow":
+              imgSrc = "/yellowPlate.png";
+              break;
+            default:
+              imgSrc = "/greyPlate.png"; // Replace with your default image
+          }
+          return <img key={i} src={imgSrc} alt={`${color} Plate`} />;
+        })}
     </div>
   );
 };

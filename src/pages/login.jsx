@@ -11,12 +11,12 @@ import { useNavigate } from "react-router-dom";
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useAtom(LoggedIn);
+
   const navigate = useNavigate();
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      setLoggedIn(true);
+
       console.log(user);
 
       dbFoodMethods.init();

@@ -20,7 +20,7 @@ function NavBar() {
   const logout = async () => {
     try {
       await signOut(auth);
-      navigate("/");
+      navigate("/login");
       console.log("User logged out");
     } catch (e) {
       console.error(e.message);
@@ -34,43 +34,30 @@ function NavBar() {
             alt=""
             src="/Untitled_Artwork 1.svg"
             className="d-inline-block align-top mr-10"
-            />
-          <h3>
-            MenuMate
-          </h3>
+          />
+          <h3>MenuMate</h3>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav" >
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav style={{ marginRight: "20px" }}>
-            <Nav.Link
-            className="navItem"
-              href="/input"
-
-            >
+            <Nav.Link className="navItem" href="/input">
               <Button className="createBtn custom-clicked-button">
-                <FontAwesomeIcon className="plusIcon"
-                  icon={faPlus}
-                />
+                <FontAwesomeIcon className="plusIcon" icon={faPlus} />
                 Create Meal Plan!
               </Button>
-              
             </Nav.Link>
-            <Nav.Link
-              className="navItem"
-              href="/mealplan"
-            >
+            <Nav.Link className="navItem" href="/mealplan">
               <span className="navText">My Plan</span>
             </Nav.Link>
 
-            <Nav.Link
-            className="navItem"
-            href="/">
-              <FontAwesomeIcon className="exitIcon"
-                    icon={faSignOut} onClick={logout}
-                  />
+            <Nav.Link className="navItem" href="/">
+              <FontAwesomeIcon
+                className="exitIcon"
+                icon={faSignOut}
+                onClick={logout}
+              />
             </Nav.Link>
           </Nav>
-        
         </Navbar.Collapse>
       </Container>
     </Navbar>

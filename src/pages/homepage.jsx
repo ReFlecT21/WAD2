@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { fetcherPOST } from "../middleware/Fetcher";
 import { NavBar } from "../components";
 import { Row, Col, Button, Stack } from "react-bootstrap";
@@ -47,6 +47,7 @@ const HomePage = () => {
   const [notiRender, setNotiRender] = useState(false);
   const [exist, setExist] = useState(false);
   const [colorArray, setColorArray] = useState(null);
+  const isFirstRender = useRef(true);
   function showNotification(message) {
     console.log("showing notification");
     setNotiMessage(message);
@@ -76,12 +77,12 @@ const HomePage = () => {
     setFormattedDates(newFormattedDates); // Update the state with the new array
     setCurrMealPlan(await dbFoodMethods.getDisplayMealPlan());
     setCompletedPlan(await dbFoodMethods.getCompleted());
-    setMealPlan(await dbFoodMethods.getMealPlan());
+    // setMealPlan(await dbFoodMethods.getMealPlan());
   };
   useEffect(() => {
     const checkUser = async () => {
       const result = await dbUserMethods.getUserData();
-
+      console.log(result.formInput);
       if (result.formInput != undefined) {
         fetchData();
         setExist(true);
@@ -90,7 +91,10 @@ const HomePage = () => {
     checkUser();
   }, []);
   useEffect(() => {
+    // Your effect here
+    console.log(exist);
     if (exist) {
+      console.log("yes");
       checkDaily();
     }
   }, [exist]);
@@ -103,8 +107,11 @@ const HomePage = () => {
   }
 
   const checkDaily = async () => {
+    console.log(currMealPlan);
     if (completedPlan?.Completed) {
+      console.log("check 1");
       let completed = completedPlan.Completed;
+      console.log(completed);
       if (Object.keys(completed).length > 0) {
         if (
           completed[currDay - 1] &&
@@ -122,8 +129,10 @@ const HomePage = () => {
       }
     }
     setDailyCal(await dbFoodMethods.getDayCal());
-    if (MealPlan?.mealPlan) {
+    if (currMealPlan?.mealPlan) {
+      console.log("check 2");
       const data = MealPlan.mealPlan;
+
       console.log(data);
       const colors = Object.values(data).map((obj) => {
         // Count the number of non-empty meals in the object
@@ -136,7 +145,7 @@ const HomePage = () => {
         } else if (nonEmptyMeals < 3) {
           return "yellow";
         } else {
-          return "red";
+          return "grey";
         }
       });
       setColorArray(colors);
@@ -276,7 +285,9 @@ const HomePage = () => {
       {/* <Row>
         <AnalyticsHomePage DayCal={DailyCal} />
       </Row> */}
-      <Row>{/* <PlatesHomepage colors={colorArray} /> */}</Row>
+      <Row>
+        <PlatesHomepage colors={colorArray} />
+      </Row>
     </>
   ) : (
     <>
