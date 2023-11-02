@@ -24,22 +24,27 @@ const SignUpComponent = () => {
           registerEmail,
           registerPassword1
         );
-        navigate("/");
+        navigate("/login");
       } catch (e) {
         console.log(e.message);
       }
     }
   };
   return (
-    <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }} xs={1} sm= {1} md={1} lg={1}>
+    <Container
+      fluid
+      style={{ padding: "0", width: "100%", height: "100vh" }}
+      xs={1}
+      sm={1}
+      md={1}
+      lg={1}
+    >
       <Row className="loginPage">
         <Col className="backgroundLeft d-none d-lg-block col-lg-7">
           <Image src="/foodimg.jpg" alt="" className="loginImg" />
         </Col>
         <Col className="backgroundRight d-flex justify-content-center">
-          <Row
-            className="loginDetails"
-          >
+          <Row className="loginDetails">
             <Row className="loginDetails">
               <Image src="/MenuMate.png" alt="" className="logo" />
             </Row>
@@ -74,10 +79,13 @@ const SignUpComponent = () => {
               <Button type="submit" className="loginButton" onClick={register}>
                 Start your journey!
               </Button>
-            </Row>  
+            </Row>
             <Row className="loginDetails">
               <p className="signupSmallText">
-                Already have an account? <Link className="link" to="/">Log in</Link>
+                Already have an account?{" "}
+                <Link className="link" to="/">
+                  Log in
+                </Link>
               </p>
             </Row>
           </Row>
