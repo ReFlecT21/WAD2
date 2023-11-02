@@ -398,7 +398,12 @@ const HomePage = () => {
       </Row> */}
       <Row>
         {/* <PlatesHomepage colors={colorArray} /> */}
-        {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
+        {/* {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>} */}
+        {weights && formattedDates ? (
+          <BarChart Weights={weights} Dates={formattedDates} />
+        ) : (
+          <></>
+        )}
       </Row>
     </>
   ) : (

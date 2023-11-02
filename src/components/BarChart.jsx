@@ -7,18 +7,26 @@ import {
   VictoryTheme,
   VictoryVoronoiContainer,
   VictoryTooltip,
+  VictoryAxis,
 } from "victory";
 
 const BarChart = ({ Weights, Dates }) => {
   // Create data array
+  console.log(Weights);
+  console.log(Dates);
   const data = Dates.map((date, index) => {
     return { x: date, y: Number(Weights[index]) };
   });
-
+  console.log(data);
   return (
     <VictoryChart
       containerComponent={<VictoryVoronoiContainer voronoiDimension="x" />}
     >
+      <VictoryAxis
+        dependentAxis
+        tickFormat={(t) => (Number.isInteger(t) ? t : null)}
+      />
+      <VictoryAxis />
       <VictoryLine
         style={{
           data: { stroke: "#c43a31" },
