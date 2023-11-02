@@ -10,10 +10,8 @@ p {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  -webkit-box-shadow: 20px 20px 38px #dbe2e0,
- -20px -20px 38px #ffffff;
-          box-shadow: 20px 20px 38px #dbe2e0,
- -20px -20px 38px #ffffff;
+  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
   position: relative;
@@ -146,6 +144,7 @@ body, html {
   background-color: #1F5E4B;
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -210,8 +209,12 @@ body, html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-left: 20px;
 }
 
@@ -241,12 +244,16 @@ body, html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #F6FEFC;
   cursor: pointer;
 }
+
 .exitIcon:hover {
   color: #3EBC96;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -286,7 +293,8 @@ h2, h3, h4, h5, h6 {
 .inputImg {
   max-width: 100%;
   height: auto;
-  height: 100%; /* This ensures the image's aspect ratio is maintained */
+  height: 100%;
+  /* This ensures the image's aspect ratio is maintained */
 }
 
 .inputButton {
@@ -336,7 +344,7 @@ h2, h3, h4, h5, h6 {
   height: 40px;
   background-color: white;
   border-radius: 20px;
-  border: 1px solid rgb(210, 220, 211);
+  border: 1px solid #d2dcd3;
   font-family: "Nunito Sans";
   display: -webkit-box;
   display: -ms-flexbox;
@@ -363,7 +371,9 @@ h2, h3, h4, h5, h6 {
   line-height: 1;
   border-radius: 10px;
   position: relative;
-  background-color: rgb(210, 220, 211);
+  background-color: #d2dcd3;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
@@ -395,7 +405,7 @@ h2, h3, h4, h5, h6 {
 }
 
 .RSPBprogressBar .RSPBprogressBarText {
-  color: rgb(210, 220, 211);
+  color: #d2dcd3;
   font-size: 10px;
   position: absolute;
   top: 50%;
@@ -406,6 +416,7 @@ h2, h3, h4, h5, h6 {
 
 .RSPBprogressBar .RSPBprogression {
   position: absolute;
+  -webkit-transition: width 0.7s ease;
   transition: width 0.7s ease;
   left: 0;
   top: 0;
@@ -481,8 +492,10 @@ h2, h3, h4, h5, h6 {
   max-height: 120%;
   -o-object-fit: cover;
      object-fit: cover;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  filter: brightness(80%);
+  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-filter: brightness(80%);
+          filter: brightness(80%);
 }
 
 .btnDiv {
@@ -520,11 +533,16 @@ h2, h3, h4, h5, h6 {
 }
 
 .cancelBtn {
-  background-color: transparent; /* Make the button background transparent */
-  border: 0; /* Remove the button border */
-  font-size: 18px; /* Adjust the font size for the "X" */
-  cursor: pointer; /* Change the cursor to indicate it's clickable */
-  color: #1F5E4B; /* Change the color to red or any other color you prefer */
+  background-color: transparent;
+  /* Make the button background transparent */
+  border: 0;
+  /* Remove the button border */
+  font-size: 18px;
+  /* Adjust the font size for the "X" */
+  cursor: pointer;
+  /* Change the cursor to indicate it's clickable */
+  color: #1F5E4B;
+  /* Change the color to red or any other color you prefer */
   font-family: "Nunito Sans";
   font-weight: bold;
   font-size: 26px;
@@ -534,8 +552,12 @@ h2, h3, h4, h5, h6 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  justify-content: start;
-  align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 20px;
 }
 
@@ -546,7 +568,8 @@ h2, h3, h4, h5, h6 {
   width: 100%;
   height: 80%;
   -o-object-fit: cover;
-     object-fit: cover; /* Preserve aspect ratio and cover the container */
+     object-fit: cover;
+  /* Preserve aspect ratio and cover the container */
   margin-bottom: 20px;
   margin-right: 10px;
 }
@@ -557,6 +580,7 @@ h2, h3, h4, h5, h6 {
   border-radius: 20px;
   margin-bottom: 40px;
 }
+
 .recipeInfo h6 {
   margin-left: 20px;
   margin-top: 20px;
@@ -569,13 +593,16 @@ h2, h3, h4, h5, h6 {
   margin-right: 20px;
   margin-bottom: 20px;
 }
+
 .recipeDetails h3 {
   margin-bottom: 20px;
 }
+
 .recipeDetails ol, .recipeDetails ul {
   font-family: "Nunito Sans";
   color: #1F5E4B;
 }
+
 .recipeDetails li {
   margin-bottom: 10px;
 }

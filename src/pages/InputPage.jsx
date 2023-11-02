@@ -193,13 +193,13 @@ const InputPage = () => {
             }}
         >
             <Row>
-              <Col md={5} className="p-0">
+              <Col md={5} className="p-0 d-none d-md-block">
                 <img className="inputImg" src="./public/inputImg.jpg"></img>
               </Col>
 
             <Col
                 style={{
-                padding: "20px", marginTop:"220px"
+                padding: "20px", marginTop:"170px"
                 }}
             >
                 <Row style={{ marginTop: "0", paddingLeft: "40px"}}>
