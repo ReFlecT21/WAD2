@@ -126,7 +126,6 @@ body, html {
   background-color: #1F5E4B;
   border-bottom-right-radius: 40px;
   border-bottom-left-radius: 40px;
-  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -180,6 +179,7 @@ body, html {
 .navItem {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-left: 20px;
 }
 
@@ -227,7 +227,9 @@ body, html {
 
 h1 {
   color: #1F5E4B;
-  font-family: "Orelega One";
+  font-weight: normal;
+  font-family: "Nunito Sans";
+  font-weight: bold;
 }
 
 h2, h3, h4, h5, h6 {
@@ -242,6 +244,12 @@ h2, h3, h4, h5, h6 {
   height: 100%;
   display: block; /* Remove any default inline spacing */
   margin: 0 auto;
+}
+
+.inputImg {
+  max-width: 100%;
+  height: auto;
+  height: 100%; /* This ensures the image's aspect ratio is maintained */
 }
 
 .inputButton {
@@ -404,7 +412,7 @@ h2, h3, h4, h5, h6 {
   -o-object-fit: cover;
      object-fit: cover;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  filter: brightness(70%);
+  filter: brightness(80%);
 }
 
 .btnDiv {

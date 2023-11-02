@@ -40,8 +40,9 @@ export function CreateMealPlanContentv2({
               >
                 Prev
               </Button>
-              <span></span>
-  
+              
+
+              <span style={{padding:"30px"}}></span>
               <Button
                 className="chooseBtn" 
                 onClick={() => setActivePage(pageNum + 1)}

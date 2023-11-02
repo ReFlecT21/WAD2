@@ -22,6 +22,11 @@ import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
 import Cookies from "js-cookie";
 
+// import React from 'react';
+// import Lottie from 'lottie-react';
+// import lottie from 'lottie-web';
+// import animationData from './animation.json'; // Replace with your animation file
+
 const InputPage = () => {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
@@ -155,6 +160,25 @@ const InputPage = () => {
     navChoose2();
   };
 
+  // function LottieAnimation() {
+  //   useEffect(() => {
+  //     const container = document.getElementById('lottie-container'); // Replace with your desired element or use React ref
+  //     const anim = lottie.loadAnimation({
+  //       container,
+  //       renderer: 'svg', // or 'canvas' or 'html'
+  //       loop: true, // Set to true if you want the animation to loop
+  //       animationData, // The imported animation JSON data
+  //     });
+  
+  //     return () => {
+  //       // Cleanup when the component unmounts
+  //       anim.destroy();
+  //     };
+  //   }, []);
+  
+  //   return <div id="lottie-container" />;
+  // }
+
 
     return (
         <>
@@ -169,22 +193,23 @@ const InputPage = () => {
             }}
         >
             <Row>
-            <Col md={5}>
-                {/* <dotlottie-player src="https://lottie.host/cddb178f-9d3a-4d71-bc53-777a1785ec6c/2ziPhq78p9.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
-            </Col>
+              <Col md={5} className="p-0">
+                <img className="inputImg" src="./public/inputImg.jpg"></img>
+              </Col>
+
             <Col
                 style={{
-                padding: "20px", paddingTop:"100px"
+                padding: "20px", marginTop:"220px"
                 }}
             >
-                <Row style={{ marginTop: "0" }}>
-                <h2>Getting to know you!</h2>
+                <Row style={{ marginTop: "0", paddingLeft: "40px"}}>
+                <h1>Hello, let's get to know you!</h1>
                 </Row>
 
                 <Row>
                 <Col
                     style={{
-                    paddingLeft: "20px",
+                    paddingLeft: "40px",
                     marginTop: "35px"
                     }}
                 >
@@ -207,7 +232,7 @@ const InputPage = () => {
                   </Col>
                   <Col md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
@@ -226,7 +251,7 @@ const InputPage = () => {
                     <Row style={{ marginTop: "" }}>
                   <Col md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px" 
                     }}
                   >
@@ -243,7 +268,7 @@ const InputPage = () => {
                   </Col>
                   <Col  md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px" 
                     }}
                   >
@@ -261,7 +286,7 @@ const InputPage = () => {
                     <Row style={{ marginTop: "" }}>
                   <Col md={6} 
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
@@ -296,7 +321,7 @@ const InputPage = () => {
                   <Col
                         md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
@@ -319,7 +344,7 @@ const InputPage = () => {
                     <Row style={{ marginTop: "" }}>
                   <Col
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
@@ -348,7 +373,7 @@ const InputPage = () => {
                         value={item}
                         onChange={handleAllergies}
                         inline
-                        style={{ color: "#1F5E4B" }}
+                        style={{ color: "#1F5E4B", marginTop:"10px" }}
                         checked={allergies&&allergies.includes(item)}
                     />
                     ))}
@@ -380,7 +405,7 @@ const InputPage = () => {
                     type="submit"
                     className="CreateMealBtn"
                     >
-                    Create Meal
+                    Choose my meals!
                     </Button>
                 </Col>
                 </Row>
