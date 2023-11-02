@@ -25,6 +25,8 @@
     "firebase": "^10.3.1",
     "jotai": "^2.4.2",
     "js-cookie": "^3.0.5",
+    "lottie-react": "^2.4.0",
+    "lottie-web": "^5.12.2",
     "mdb-react-ui-kit": "^6.3.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",

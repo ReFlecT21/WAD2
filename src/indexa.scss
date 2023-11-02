@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Orelega+One');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
 
 //variables
 $primaryCol: #1F5E4B;
@@ -7,12 +9,12 @@ $secondaryCol: #3EBC96;
 $whiteTextCol: #F6FEFC;
 $backgroundCol: #F6FEFC;
 $primaryFont: "Nunito Sans";
-$headerFont: "Orelega One";
+$headerFont: "Inter";
 
 //mixins
 @mixin headerText(){ //for all the h1,2,3...
     color: $primaryCol;
-    font-family: "Orelega One"
+    font-family: "Inter"
 }
 
 @mixin bodyText(){
@@ -113,32 +115,32 @@ $headerFont: "Orelega One";
 
 // // LOGIN + SIGNUP PAGE
 
-// .logo{
-//     height: 180px;
-//     width: 200px;
-//     margin: 20px;
-//     margin-top: 30px;
-// }
+.logo{
+    height: 180px;
+    width: 200px;
+    margin: 20px;
+    margin-top: 30px;
+}
 
-// .foodimg{
-//     height: 500px;
-//     width: 400;
-//     margin: 0;
-// }
+.foodimg{
+    height: 500px;
+    width: 400;
+    margin: 0;
+}
 
-// .backgroundRight{
-//     background-color: $primaryCol;
-// }
-// .backgroundLeft{
-//     background-color: $primaryCol;
-// }
+.backgroundRight{
+    background-color: $primaryCol;
+}
+.backgroundLeft{
+    background-color: $primaryCol;
+}
 
-// .tagline{
-//     font-family: $headerFont;
-//     font-size: 24px;
-//     text-align: center;
-//     color: $whiteTextCol;
-// }
+.tagline{
+    font-family: $headerFont;
+    font-size: 24px;
+    text-align: center;
+    color: $whiteTextCol;
+}
 
 // .inputBox{
 //     font-family: $primaryFont;
@@ -167,63 +169,63 @@ $headerFont: "Orelega One";
 //     color: $whiteTextCol;
 // }
 
-// .link{
-//     color: $secondaryCol;
-//     font-style: italic;
-// }
+.link{
+    color: $secondaryCol;
+    font-style: italic;
+}
 
-// // NAVBAR
-// .custom-navbar{
-//     background-color: $primaryCol;
-//     border-bottom-right-radius: 40px;
-//     border-bottom-left-radius: 40px;
-//     box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
+// NAVBAR
+.custom-navbar{
+    background-color: $primaryCol;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
   
-// }
+}
 
-// .homeNav h3{
-//     font-family: $primaryFont;
-//     font-weight: bold;
-//     color: $whiteTextCol;
-//     margin: 0;
-// }
+.homeNav h3{
+    font-family: $primaryFont;
+    font-weight: bold;
+    color: $whiteTextCol;
+    margin: 0;
+}
 
-// .homeNav img{
-//     width: 50px;
-//     height: 50px;
-//     margin-right: 10px;
-// }
+.homeNav img{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
 
-// .createBtn{
-//     @include button($secondaryCol, 16px);
-//     font-weight: bold;
-// }
+.createBtn{
+    @include button($secondaryCol, 16px);
+    font-weight: bold;
+}
 
-// .plusIcon{
-//     color: $whiteTextCol;
-//     margin-right: 10px;
-// }
+.plusIcon{
+    color: $whiteTextCol;
+    margin-right: 10px;
+}
 
-// span{
-//     color: $whiteTextCol;
-//     font-family: $primaryFont;
-//     font-size: 16px;
-//     font-weight: bold;
-//     margin-left: 20px;
-//     margin-right: 20px;
-// }
+span{
+    color: $whiteTextCol;
+    font-family: $primaryFont;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 20px;
+}
 
-// span:hover{
-//     color: $secondaryCol;
-//     transition: 0.5s;
-// }
+span:hover{
+    color: $secondaryCol;
+    transition: 0.5s;
+}
 
-// .profileIcon{
-//     margin-left: 10px;
-//     margin-right: 10px;
-//     height: 30px;
-//     width: 30px;
-// }
+.profileIcon{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
 
 //MAKE STICKY!!!!!!!!!!//
 
@@ -232,43 +234,43 @@ $headerFont: "Orelega One";
 
 
 //for input page
-// h1{
-//     @include headerText()
-// }
+h1{
+    @include headerText()
+}
 
-// h2,h3,h4,h5{
-//     @include bodyText();
-//     font-weight:bold
-// }
+h2,h3,h4,h5{
+    @include bodyText();
+    font-weight:bold
+}
 
-//   @mixin sideImage {
-//     max-width: 100%; /* Ensure the image fits within its container */
-//     height: 100%;
-//     display: block; /* Remove any default inline spacing */
-//     margin: 0 auto;
-//   }
+  @mixin sideImage {
+    max-width: 100%; /* Ensure the image fits within its container */
+    height: 100%;
+    display: block; /* Remove any default inline spacing */
+    margin: 0 auto;
+  }
 
-//   .sideimg{
-//     @include sideImage()
-//   }
+  .sideimg{
+    @include sideImage()
+  }
 
-//     .inputButton{
+    .inputButton{
 
-//         @include button($secondaryCol,16px );
-//         width: 30%;
-//         margin-top:20px;
-//         margin-right: 15px;
+        @include button($secondaryCol,16px );
+        width: 30%;
+        margin-top:20px;
+        margin-right: 15px;
 
-//     }
+    }
 
-//     .formInputBox{
-//         font-family: $primaryFont;
-//         border-radius: 80px;
-//         height: 50px;
-//         margin: 5px;
-//         padding-left: 50px;
-//         font-size: large;
-//     }
+    .formInputBox{
+        font-family: $primaryFont;
+        border-radius: 80px;
+        height: 50px;
+        margin: 5px;
+        padding-left: 50px;
+        font-size: large;
+    }
 
 //////for manual search
 /// 

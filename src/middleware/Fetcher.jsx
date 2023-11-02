@@ -31,7 +31,7 @@ export async function fetcherPOST(endpoint, body) {
       method: "POST",
       body: JSON.stringify(body),
     });
-    console.log(response);
+    // console.log(response);
     const data = await response.json();
     console.log(data);
     return data;

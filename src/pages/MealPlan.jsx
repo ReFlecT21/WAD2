@@ -10,7 +10,8 @@ import {
 import { NavBar } from "../components";
 import { CurrentMealPlanV2 } from "../components/CurrentMealPlan";
 
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Fallback from "./Fallback";
 import { ErrorBoundary } from "react-error-boundary";
 import { useEffect, useState } from "react";
@@ -56,9 +57,7 @@ export default function MealPlan() {
   const [trigger, setTrigger] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);
-  // window.onresize = () => {
-  //   width = window.innerWidth;
-  // }
+  
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -163,8 +162,13 @@ export default function MealPlan() {
           </Container>
         ) : (
           <>
-            <h1>Create A Meal Plan With Us First!</h1>
-            <Button onClick={navChoose}>Create Meal Plan!</Button>
+          <div style={{textAlign:"center",  marginTop:"250px"}}> 
+            <h2>Create A Meal Plan With Us First!</h2>
+            <Button className="createBtn" style={{marginTop:"20px"}} onClick={navChoose}>
+              <FontAwesomeIcon className="plusIcon"
+                  icon={faPlus}
+                />Create Meal Plan!</Button>
+          </div>
           </>
         )}
       </ErrorBoundary>

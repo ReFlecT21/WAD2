@@ -31,7 +31,7 @@ const LoginComponent = () => {
     <Container fluid style={{ padding: "0", width: "100%", height: "100vh" }} xs={1} sm= {1} md={1} lg={1}>
       <Row className="loginPage">
         <Col className="backgroundLeft d-none d-lg-block col-lg-7">
-          <Image src="/foodimg.jpg" alt="" className="foodimg"/>
+          <Image src="/foodimg.jpg" alt="" className="loginImg"/>
         </Col>
         <Col className="backgroundRight d-flex justify-content-center">
           <Row

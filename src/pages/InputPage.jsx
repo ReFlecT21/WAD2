@@ -22,6 +22,11 @@ import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
 import Cookies from "js-cookie";
 
+// import React from 'react';
+// import Lottie from 'lottie-react';
+// import lottie from 'lottie-web';
+// import animationData from './animation.json'; // Replace with your animation file
+
 const InputPage = () => {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
@@ -155,6 +160,25 @@ const InputPage = () => {
     navChoose2();
   };
 
+  // function LottieAnimation() {
+  //   useEffect(() => {
+  //     const container = document.getElementById('lottie-container'); // Replace with your desired element or use React ref
+  //     const anim = lottie.loadAnimation({
+  //       container,
+  //       renderer: 'svg', // or 'canvas' or 'html'
+  //       loop: true, // Set to true if you want the animation to loop
+  //       animationData, // The imported animation JSON data
+  //     });
+  
+  //     return () => {
+  //       // Cleanup when the component unmounts
+  //       anim.destroy();
+  //     };
+  //   }, []);
+  
+  //   return <div id="lottie-container" />;
+  // }
+
 
     return (
         <>
@@ -169,25 +193,23 @@ const InputPage = () => {
             }}
         >
             <Row>
-            <Col md={5}>
-                {/* <Spline scene="https://prod.spline.design/R13nzpLjESB0JRSG/scene.splinecode" /> */}
-
-            {/* <dotlottie-player src="https://lottie.host/968cf6ca-7065-45cf-8a86-6e3d756f6536/QvIyMTi2sW.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player> */}
-          </Col>
+              <Col md={5} className="p-0">
+                <img className="inputImg" src="./public/inputImg.jpg"></img>
+              </Col>
 
             <Col
                 style={{
-                padding: "20px", paddingTop:"100px"
+                padding: "20px", marginTop:"220px"
                 }}
             >
-                <Row style={{ marginTop: "0" }}>
-                <h2>Getting to know you!</h2>
+                <Row style={{ marginTop: "0", paddingLeft: "40px"}}>
+                <h1>Hello, let's get to know you!</h1>
                 </Row>
 
-                <Row style={{ marginTop: "" }}>
+                <Row>
                 <Col
                     style={{
-                    paddingLeft: "20px",
+                    paddingLeft: "40px",
                     marginTop: "35px"
                     }}
                 >
@@ -201,7 +223,8 @@ const InputPage = () => {
                             style={{ color: "white" }}
                             className="p"
                             name="gender"
-                            checked={formData.gender === "male" }                            onChange={handleChangeGender}
+                            checked={formData.gender === "male" }
+                            onChange={handleChangeGender}
                             id="flexSwitchCheckChecked"
                             label="Male"
                       />
@@ -209,26 +232,26 @@ const InputPage = () => {
                   </Col>
                   <Col md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
                         <h5>Age</h5>{" "}
                         <Form.Control
-                      type="number"
-                      name="age"
-                      placeholder="Enter your age"
-                      className=" round"
-                      id="age"
-                      onChange={handleChange}
-                      value={formData&&formData.age ? formData.age : ""}
+                          type="number"
+                          name="age"
+                          placeholder="Enter your age"
+                          className=" round"
+                          id="age"
+                          onChange={handleChange}
+                          value={formData&&formData.age ? formData.age : ""}
                         />
                   </Col>
                     </Row>
                     <Row style={{ marginTop: "" }}>
                   <Col md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px" 
                     }}
                   >
@@ -245,7 +268,7 @@ const InputPage = () => {
                   </Col>
                   <Col  md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px" 
                     }}
                   >
@@ -263,7 +286,7 @@ const InputPage = () => {
                     <Row style={{ marginTop: "" }}>
                   <Col md={6} 
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
@@ -298,7 +321,7 @@ const InputPage = () => {
                   <Col
                         md={6}
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
@@ -321,7 +344,7 @@ const InputPage = () => {
                     <Row style={{ marginTop: "" }}>
                   <Col
                         style={{
-                      paddingLeft: "20px",
+                      paddingLeft: "40px",
                         marginTop: "35px"
                     }}
                   >
@@ -350,7 +373,7 @@ const InputPage = () => {
                         value={item}
                         onChange={handleAllergies}
                         inline
-                        style={{ color: "#1F5E4B" }}
+                        style={{ color: "#1F5E4B", marginTop:"10px" }}
                         checked={allergies&&allergies.includes(item)}
                     />
                     ))}
@@ -382,7 +405,7 @@ const InputPage = () => {
                     type="submit"
                     className="CreateMealBtn"
                     >
-                    Create Meal
+                    Choose my meals!
                     </Button>
                 </Col>
                 </Row>

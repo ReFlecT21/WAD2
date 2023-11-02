@@ -6,6 +6,8 @@ import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
+
 import { app, db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -21,45 +23,43 @@ function NavBar() {
             alt=""
             src="/Untitled_Artwork 1.svg"
             className="d-inline-block align-top mr-10"
-            />{" "}
+            />
           <h3>
             MenuMate
           </h3>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" >
-          <Nav style={{ marginRight: "10px" }}>
+          <Nav style={{ marginRight: "20px" }}>
             <Nav.Link
+            className="navItem"
               href="/input"
-              style={{ marginLeft: "10px", marginRight: "10px" }}
+
             >
-              <Button className="createBtn custom-clicked-button"
-              >
-                {" "}
+              <Button className="createBtn custom-clicked-button">
                 <FontAwesomeIcon className="plusIcon"
                   icon={faPlus}
                 />
                 Create Meal Plan!
-              </Button>{" "}
+              </Button>
+              
             </Nav.Link>
             <Nav.Link
-              style={{ marginLeft: "10px", marginRight: "10px" }}
               className="navItem"
               href="/mealplan"
             >
               <span className="navText">My Plan</span>
             </Nav.Link>
+
             <Nav.Link
-              className="navItem"
-              href="/analytics"
-            >
-              <span className="navText">Insights</span>
+            className="navItem"
+            href="/">
+              <FontAwesomeIcon className="exitIcon"
+                    icon={faSignOut}
+                  />
             </Nav.Link>
           </Nav>
-          <Image className="exitIcon"
-            src="exit.png"
-            href="#"
-          />
+        
         </Navbar.Collapse>
       </Container>
     </Navbar>
