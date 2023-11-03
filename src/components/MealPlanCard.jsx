@@ -28,7 +28,7 @@ export function MealPlanCard({ recipe, setter = null, render=true, day, mealType
                 {render ? (
                   <h4>{mealType}</h4>
                 ): (
-                  <h4>You ate {mealType} today!</h4>
+                  <h4>{mealType} completed</h4>
                 )}
                 <RecpieCardMealPlan
                     key={recipe.id}

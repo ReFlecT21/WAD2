@@ -155,8 +155,8 @@ const HomePage = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h1>{currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
               <div>
-                <Button className="buttonPrimary" href="/mealplan">
-                  See meal plan
+                <Button className="chooseBtn" style={{display:"flex", justifyContent:"center", alignItems:"center"}} href="/mealplan">
+                  See All
                 </Button>
               </div>
             </div>
@@ -254,7 +254,7 @@ const HomePage = () => {
               {/* <Button className="homePageBtn">Scan</Button> */}
               <h3>Manual Add</h3>
               <Button
-                className="homePageBtn"
+                className="chooseBtn"
                 onClick={() => {
                   setOverlayData(
                     <ManualSearchComponent
