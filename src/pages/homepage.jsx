@@ -216,7 +216,7 @@ const HomePage = () => {
                                 <MealPlanCard 
                                     key={`${mealType}${currDay}card`}
                                     recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]}
-                                    render={currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay][mealType])[0]] == 0 ? true : false}
+                                    render={currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]] == 0 ? true : false}
                                     day={currDay}
                                     mealType={mealType}
                                     dayIndex={currDay}
