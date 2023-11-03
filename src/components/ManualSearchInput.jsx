@@ -196,7 +196,7 @@ return (
                 await handleRecal()
                 // await recalRedirect()
                 }}>
-            Recal
+            Replan
             </Button>
         </div>
         
@@ -512,6 +512,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
 
     async function checkValidMeal (mealType){
         let res = await dbFoodMethods.getMealPlan();
+        console.log(currDay);
 
         // console.log(res.mealPlan[props.currDay][mealType]);
         if (res.mealPlan[currDay][mealType] != undefined){

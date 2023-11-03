@@ -128,7 +128,7 @@ export default function MealPlan() {
                 <div style={{marginTop: "30px", marginBottom: "30px", display:"flex", justifyContent:"space-between"}}>
                   <h2 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>Your Current Meal Plan</h2>
                   <Button className="chooseBtn" onClick={handleRecal}>
-                    Recalculate
+                    Replan
                   </Button>
 
                 </div>

@@ -163,45 +163,36 @@ const InputPage = () => {
     navChoose2();
   };
 
-  return (
-    <>
-      <NavBar />
-      <Container
-        fluid
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-      >
-        <Row>
-          <Col
-            md={5}
-            className="p-0 d-none d-md-flex"
+    return (
+        <>
+        <NavBar />
+        <Container
+            fluid
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "80vh",
             }}
-          >
-            {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
-            <Lottie
-              animationData={animationData} // Your animation data
-              loop={true} // Set to true for looped animations
-              autoplay={true} // Set to true to play the animation automatically
-            />
-          </Col>
+        >
+            <Row>
+              <Col md={5} className="p-0 d-none d-md-block d-none d-md-flex" style={{display:"flex", justifyContent:"center", alignItems:"center"}} >
+                {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
+                <Lottie
+                  animationData={animationData} // Your animation data
+                  loop={true} // Set to true for looped animations
+                  autoplay={true} // Set to true to play the animation automatically
+                />
+              </Col>
 
-          <Col
-            style={{
-              padding: "20px",
-              marginTop: "150px",
-            }}
-          >
-            <Row >
-              <h1>Hello, let's get to know you!</h1>
-            </Row>
+            <Col
+                style={{
+                padding: "20px", marginTop:"170px"
+                }}
+            >
+                <Row>
+                  <h1>Hello, let's get to know you!</h1>
+                </Row>
 
             <Row>
               <Col
@@ -413,6 +404,7 @@ const InputPage = () => {
                     onClick={handleSubmit}
                     type="submit"
                     className="chooseBtn"
+                    style={{marginTop:"50px", fontSize:"20px"}} 
                     >
                     Choose my meals!
                     </Button>

@@ -14,7 +14,7 @@ $headerFont: "Inter";
 //mixins
 @mixin headerText(){ //for all the h1,2,3...
     color: $primaryCol;
-    font-family: "Inter"
+    font-family: "Nunito Sans"
 }
 
 @mixin bodyText(){
@@ -175,13 +175,7 @@ $headerFont: "Inter";
 }
 
 // NAVBAR
-.custom-navbar{
-    background-color: $primaryCol;
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
-    box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
-  
-}
+
 
 .homeNav h3{
     font-family: $primaryFont;
@@ -256,7 +250,7 @@ h2,h3,h4,h5{
 
     .inputButton{
 
-        @include button($secondaryCol,16px );
+        @include button($secondaryCol, 16px );
         width: 30%;
         margin-top:20px;
         margin-right: 15px;
@@ -385,19 +379,17 @@ h2,h3,h4,h5{
     border-radius: 20px;
 }
 
-.CreateMealBtn{
-
-    @include whiteText();
-    @include button($primaryCol, 18px);
-    border-radius: 20px;
-    width: 45%;
-    height: 50px;
-    margin-right: auto;
-    margin-left: auto;
-   text-align: center;
-    padding: 0px;
-    margin-top: 35px
-}
+// .CreateMealBtn{
+//     @include button($primaryCol, 20px);
+//     border-radius: 30px;
+//     width: 45%;
+//     height: 50px;
+//     margin-right: auto;
+//     margin-left: auto;
+//     text-align: center;
+//     padding: 0px;
+//     margin-top: 35px
+// }
 
 // .ttt{
 //     height: 100px;
