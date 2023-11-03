@@ -3,11 +3,11 @@ import { Card, Button, Col, Row } from "react-bootstrap";
 import { fetcher, fetcherGET } from "../middleware/Fetcher";
 import { RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
-import { FinaliseRecipeCard, HomeRecipeCard, RecpieCard, RecpieCardMealPlan, RecpieCardV2 } from "./RecipeCard";
+import { FinaliseRecipeCard, RecpieCardMealPlan } from "./RecipeCard";
 import { isMobile } from "react-device-detect";
 import Loader from "./Loader";
 
-export function MealPlanCard({ recipe, setter = null, render=true, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan }) {
+export function MealPlanCard({ recipe, setter = null, render=true, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan, mealTypeRender =true, foodItem = null}) {
     // console.log(setTrigger)
     const [response, setResponse] = useState(null);
     // console.log(recipe)
@@ -25,11 +25,14 @@ export function MealPlanCard({ recipe, setter = null, render=true, day, mealType
           {response ? (
             response.map((recipe) => (
               <div key={recipe.id}>
-                {render ? (
-                  <h4>{mealType}</h4>
-                ): (
-                  <h4>{mealType} completed</h4>
-                )}
+                {mealTypeRender ? (
+                  render ? (
+                    <h4>{mealType}</h4>
+                  ): (
+                    <h4>{mealType} completed</h4>
+                  )
+                ):(<></>)}
+                
                 <RecpieCardMealPlan
                     key={recipe.id}
                     recipe={recipe}
@@ -40,6 +43,7 @@ export function MealPlanCard({ recipe, setter = null, render=true, day, mealType
                     dayIndex={dayIndex}
                     currMealPlan={currMealPlan}
                     currDisplayMealPlan={currDisplayMealPlan}
+                    foodItem={foodItem}
                     
                 />
               </div>

@@ -125,3 +125,53 @@ export function RecipeDetails(id) {
     </div>
   );
 }
+
+export function ManualDetails({foods}) {
+  const [open, setOpen] = useState(true);
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  // const handleOpen = () => setOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    setOverlayData([]);
+  };
+
+  console.log(foods);
+
+  return (
+    <div>
+      <Modal
+        open={true}
+        onClose={handleClose}
+        style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+      >
+        <Box className="popup">
+          <Row style={{ padding: "0", marginTop: "5px", marginBottom: "20px", marginLeft:"0px", marginRight:"0px"}}>
+            <Col > 
+              <div style={{display:"flex", justifyContent:"end"}}>
+                <button style={{display:"flex", alignItems: "center"}} className="cancelBtn" onClick={handleClose}>X</button>
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            {foods.map((food, index) => (
+              <Col md={12} lg={5}>
+                <div key={index}>
+                  <h3 className="recipeTitle">{food.food_name}</h3>
+
+                  <div className="recipeInfo">
+                    <h6>Quantity: {food.quantity}</h6>
+                    <h6>Calories: {food.calories}</h6>
+                    <h6>Protein: {food.protein}</h6>
+                    <h6>Fats: {food.fat}</h6>
+                    <h6>Carbohydrates: {food.carbs}</h6>
+                  </div>
+                </div>
+                </Col>
+            )) }
+          </Row>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
