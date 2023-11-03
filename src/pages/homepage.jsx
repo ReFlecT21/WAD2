@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { fetcherPOST } from "../middleware/Fetcher";
 import { NavBar } from "../components";
-import { Row, Col, Button, Stack } from "react-bootstrap";
+import { Row, Col, Button, Stack, Card } from "react-bootstrap";
 import { Box } from "@mui/material";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
@@ -316,6 +316,26 @@ const HomePage = () => {
         ) : (
           <></>
         )}
+      </Row>
+      <Row>
+        <Card>
+          <Card.Body>
+            <Card.Title style={{ color: "black" }}>{avgCal}</Card.Title>
+
+            <Card.Text>Avg. Cals Per Day</Card.Text>
+          </Card.Body>
+        </Card>
+      </Row>
+      <Row>
+        <Card>
+          <Card.Body>
+            <Card.Title style={{ color: "black" }}>{diffWeight} kg</Card.Title>
+
+            <Card.Text>
+              {diffWeight < 0 ? "Total Weight Gain" : "Total Weight Loss"}
+            </Card.Text>
+          </Card.Body>
+        </Card>
       </Row>
     </>
   ) : (
