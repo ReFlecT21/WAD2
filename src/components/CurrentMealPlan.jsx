@@ -39,7 +39,7 @@ export function CurrentMealPlanV2({
 
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-  const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt) + 7;
+  const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt) + 1;
   const options = { day: "2-digit", month: "2-digit", year: "numeric" };
   const d = new Date(currDisplayMealPlan.CreatedAt);
 
@@ -90,43 +90,42 @@ export function CurrentMealPlanV2({
                 {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                   <p> No meals planned for this day </p>
                 ) : (
-                    <Container>
-
-                  <Row xs={1} md={2} lg={3}>
-                    {["breakfast", "lunch", "dinner"].map((mealType) => (
-                      <div key={`${day}-${mealType}`}>
-                        {content.DisplayMealPlan[day]?.[mealType] ? (
-                          Object.keys(
-                            content.DisplayMealPlan[day][mealType]
-                          ).map((recipe) => (
-                            <Col>
+                  <Container>
+                    <Row xs={1} md={2} lg={3}>
+                      {["breakfast", "lunch", "dinner"].map((mealType) => (
+                        <div key={`${day}-${mealType}`}>
+                          {content.DisplayMealPlan[day]?.[mealType] ? (
+                            Object.keys(
+                              content.DisplayMealPlan[day][mealType]
+                            ).map((recipe) => (
+                              <Col>
                                 <MealPlanCard
-                                key={`${recipe.id}card`}
-                                recipe={recipe}
-                                render={
+                                  key={`${recipe.id}card`}
+                                  recipe={recipe}
+                                  render={
                                     content.DisplayMealPlan[day][mealType][
-                                    recipe
+                                      recipe
                                     ] == 0
-                                    ? true
-                                    : false
-                                }
-                                day={day}
-                                mealType={mealType}
-                                dayIndex={dayIndex}
-                                currMealPlan={currMealPlan}
-                                currDisplayMealPlan={currDisplayMealPlan}
+                                      ? true
+                                      : false
+                                  }
+                                  day={day}
+                                  mealType={mealType}
+                                  dayIndex={dayIndex}
+                                  currMealPlan={currMealPlan}
+                                  currDisplayMealPlan={currDisplayMealPlan}
                                 />
-                            </Col>
-                          ))
-                        ) : (
-                          <>
-                            <h4>{mealType}</h4>
-                            <p>No meals planned</p>
-                          </>
-                        )}
-                      </div>
-                    ))}
-                  </Row>
+                              </Col>
+                            ))
+                          ) : (
+                            <>
+                              <h4>{mealType}</h4>
+                              <p>No meals planned</p>
+                            </>
+                          )}
+                        </div>
+                      ))}
+                    </Row>
                   </Container>
                 )}
                 {/* <Typography>

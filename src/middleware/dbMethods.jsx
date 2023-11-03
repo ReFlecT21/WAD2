@@ -230,7 +230,7 @@ export const dbFoodMethods = {
   getDayCal: async function () {
     // console.log(this.username)
 
-    // await this.init();
+    await this.init();
 
     try {
       // Get the current state of the document

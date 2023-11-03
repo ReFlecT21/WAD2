@@ -51,7 +51,7 @@ const HomePage = () => {
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [completedPlan, setCompletedPlan] = useState(null);
   const [MealPlan, setMealPlan] = useState(null);
-  const [DailyCal, setDailyCal] = useState(0);
+
   const dayIndex = 7;
   const [weights, setWeight] = useState([]);
   const [avgCal, setAvgCal] = useState("");
@@ -99,6 +99,7 @@ const HomePage = () => {
       const result = await dbUserMethods.getUserData();
       console.log(result.formInput);
       if (result.formInput != undefined) {
+        console.log("yes");
         fetchData();
         setExist(true);
       }
@@ -111,26 +112,6 @@ const HomePage = () => {
   if (currDisplayMealPlan?.DisplayMealPlan) {
     currDay = currDayCalculator(currDisplayMealPlan.CreatedAt) + 4;
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
-  }
-
-  const checkDaily = async () => {
-    if (completedPlan?.Completed) {
-      console.log("check 1");
-      let completed = completedPlan.Completed;
-      console.log(completed);
-      if (Object.keys(completed).length > 0) {
-        if (
-          completed[currDay - 1] &&
-          Object.keys(completed[currDay - 1]).length == 3
-        ) {
-          await dbFoodMethods.updateDailyCal();
-        }
-      }
-    }
-    setDailyCal(await dbFoodMethods.getDayCal());
-  };
-  if (exist) {
-    checkDaily();
   }
 
   return exist ? (
@@ -394,9 +375,13 @@ const HomePage = () => {
           </div>
         </Col>
       </Row>
-      {/* <Row>
-        <AnalyticsHomePage DayCal={DailyCal} />
-      </Row> */}
+      <Row>
+        {exist && completedPlan ? (
+          <AnalyticsHomePage completedPlan={completedPlan} />
+        ) : (
+          <></>
+        )}
+      </Row>
       <Row>
         {/* <PlatesHomepage colors={colorArray} /> */}
         {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
