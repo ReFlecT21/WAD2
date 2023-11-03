@@ -24,7 +24,7 @@ import Spline from "@splinetool/react-spline";
 import Cookies from "js-cookie";
 
 import Lottie from "lottie-react";
-import animationData from "../../public/animation.json"; // Replace with your animation file
+import animationData from "../assets/animation.json"; // Replace with your animation file
 
 // import React from 'react';
 // import Lottie from 'lottie-react';
