@@ -230,7 +230,7 @@ export const dbFoodMethods = {
   getDayCal: async function () {
     // console.log(this.username)
 
-    // await this.init();
+    await this.init();
 
     try {
       // Get the current state of the document
@@ -318,15 +318,19 @@ export const dbFoodMethods = {
 
     await this.init();
     const count = await this.countMealPlansInHistory();
+    console.log(count);
 
     try {
       // Get the current state of the document
+      console.log("yes");
       if (this.docSnap) {
+        console.log("yes");
         const data = this.docSnap.data();
-        const CurrCals = data.CurrCals;
+        const CurrCals = data.CurrCal;
         const Details = data.Details;
         const weight = Details["weight"];
         const Date = data.CreatedAt;
+        console.log(data, CurrCals, Details, weight, Date);
         const docRef = doc(
           db,
           "Food",
@@ -423,7 +427,12 @@ export const dbFoodMethods = {
             Completed[dayIndex][mealType] = food;
 
             delete Plan[dayIndex][mealType];
-
+            console.log(dayIndex);
+            console.log(Plan[dayIndex]);
+            if (dayIndex == 7 && Object.keys(Plan[dayIndex]).length == 0) {
+              console.log("yes");
+              this.addMealPlanToHistory();
+            }
             // console.log(Plan);
             // console.log(DisplayPlan);
 

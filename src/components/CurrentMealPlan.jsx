@@ -39,7 +39,7 @@ export function CurrentMealPlanV2({
 
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-  const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt);
+  const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt) + 1;
   const options = { day: "2-digit", month: "2-digit", year: "numeric" };
   const d = new Date(currDisplayMealPlan.CreatedAt);
 
@@ -64,7 +64,7 @@ export function CurrentMealPlanV2({
   return (
     <>
       {content ? (
-        <div >
+        <div>
           {Object.keys(content.DisplayMealPlan).map((day) => (
             <Accordion
               key={day}
@@ -90,16 +90,21 @@ export function CurrentMealPlanV2({
                 {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                   <p> No meals planned for this day </p>
                 ) : (
-                  <Row xs={1} md={2} lg={3}  style={{margin:"10px", objectFit:"contain"}} className="mealPlanContainer">
+                  <Row
+                    xs={1}
+                    md={2}
+                    lg={3}
+                    style={{ margin: "10px", objectFit: "contain" }}
+                    className="mealPlanContainer"
+                  >
                     {["breakfast", "lunch", "dinner"].map((mealType) => (
                       <div key={`${day}-${mealType}`}>
                         {content.DisplayMealPlan[day]?.[mealType] ? (
                           Object.keys(
                             content.DisplayMealPlan[day][mealType]
                           ).map((recipe) => (
-                        
-                            
-                            <MealPlanCard className="myMealCard"
+                            <MealPlanCard
+                              className="myMealCard"
                               key={`${recipe.id}card`}
                               recipe={recipe}
                               render={
@@ -115,7 +120,6 @@ export function CurrentMealPlanV2({
                               currMealPlan={currMealPlan}
                               currDisplayMealPlan={currDisplayMealPlan}
                             />
-                          
                           ))
                         ) : (
                           <>
@@ -127,7 +131,6 @@ export function CurrentMealPlanV2({
                     ))}
                   </Row>
                 )}
-
               </AccordionDetails>
             </Accordion>
           ))}
