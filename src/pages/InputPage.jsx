@@ -24,7 +24,7 @@ import Spline from "@splinetool/react-spline";
 import Cookies from "js-cookie";
 
 import Lottie from "lottie-react";
-import animationData from "../../public/animation.json"; // Replace with your animation file
+import animationData from "../assets/animation.json"; // Replace with your animation file
 
 // import React from 'react';
 // import Lottie from 'lottie-react';
@@ -163,36 +163,45 @@ const InputPage = () => {
     navChoose2();
   };
 
-    return (
-        <>
-        <NavBar />
-        <Container
-            fluid
+  return (
+    <>
+      <NavBar />
+      <Container
+        fluid
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "80vh",
+        }}
+      >
+        <Row>
+          <Col
+            md={5}
+            className="p-0 d-none d-md-flex"
             style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "80vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-        >
-            <Row>
-              <Col md={5} className="p-0 d-none d-md-flex" style={{display:"flex", justifyContent:"center", alignItems:"center"}} >
-                {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
-                <Lottie
-                  animationData={animationData} // Your animation data
-                  loop={true} // Set to true for looped animations
-                  autoplay={true} // Set to true to play the animation automatically
-                />
-              </Col>
+          >
+            {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
+            <Lottie
+              animationData={animationData} // Your animation data
+              loop={true} // Set to true for looped animations
+              autoplay={true} // Set to true to play the animation automatically
+            />
+          </Col>
 
-            <Col
-                style={{
-                  padding: "20px", marginTop:"150px"
-                }}
-            >
-                <Row>
-                  <h1>Hello, let's get to know you!</h1>
-                </Row>
+          <Col
+            style={{
+              padding: "20px",
+              marginTop: "150px",
+            }}
+          >
+            <Row>
+              <h1>Hello, let's get to know you!</h1>
+            </Row>
 
             <Row>
               <Col
@@ -324,28 +333,30 @@ const InputPage = () => {
               >
                 <h5>Goal</h5>
 
-                        <Form.Select
-                      id="goal"
-                      className="round"
-                      onChange={(e) => {setFormData((prev) => ({...prev, goal: e.target.value}))}}
-                      aria-label="Default select example"
-                      name="goal"
-                      value={formData&&formData.goal ? formData.goal : ""}
-                        >
-                      <option value="maintain">Maintain</option>
-                      <option value="lose">Lose</option>
-                      <option value="gain">Gain</option>
-                        </Form.Select>
-                  </Col>
-                    </Row>
-                    <Row style={{ marginTop: "" }}>
-                  <Col
-                        style={{
-                      paddingLeft: "40px",
-                        marginTop: "35px"
-                    }}
-                  >
-                        <h5>Allergies</h5>
+                <Form.Select
+                  id="goal"
+                  className="round"
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, goal: e.target.value }));
+                  }}
+                  aria-label="Default select example"
+                  name="goal"
+                  value={formData && formData.goal ? formData.goal : ""}
+                >
+                  <option value="maintain">Maintain</option>
+                  <option value="lose">Lose</option>
+                  <option value="gain">Gain</option>
+                </Form.Select>
+              </Col>
+            </Row>
+            <Row style={{ marginTop: "" }}>
+              <Col
+                style={{
+                  paddingLeft: "40px",
+                  marginTop: "35px",
+                }}
+              >
+                <h5>Allergies</h5>
 
                 {[
                   "Dairy",

@@ -129,8 +129,9 @@ const HomePage = () => {
     }
     setDailyCal(await dbFoodMethods.getDayCal());
   };
-
-  // checkDaily();
+  if (exist) {
+    checkDaily();
+  }
 
   return exist ? (
     <>
@@ -218,9 +219,7 @@ const HomePage = () => {
           </Carousel.Caption>
         </Carousel.Item>
 
-    </Carousel>
-      
-      <Row xs={1} md={3}  id="homepage">
+      <Row xs={1} md={3} id="homepage">
         {/* <Col>
           <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
         </Col> */}
@@ -400,6 +399,11 @@ const HomePage = () => {
       <Row>
         {/* <PlatesHomepage colors={colorArray} /> */}
         {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
+        {weights && formattedDates ? (
+          <BarChart Weights={weights} Dates={formattedDates} />
+        ) : (
+          <></>
+        )}
       </Row>
     </>
   ) : (
