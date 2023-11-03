@@ -81,12 +81,13 @@ function NavBar() {
               className="navItem"
               href="/"
               style={{ alignContent: "center" }}
+              onClick={logout}
             >
               <FontAwesomeIcon
                 className="exitIcon"
                 style={{ marginLeft: "40px" }}
                 icon={faSignOut}
-                onClick={logout}
+                
               />
             </Nav.Link>
           </Nav>
