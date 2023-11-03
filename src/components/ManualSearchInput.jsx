@@ -65,7 +65,7 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
 
         if (day_Index == 0) {
             dbFoodMethods.oddManualInput(foodDetails)
-
+            
         } else {
             dbFoodMethods.completeMeal(
                 day_Index,
@@ -172,7 +172,7 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
 // display plan must change to 1 for that meal type
 
 return (
-    console.log(foodDetails),
+    // console.log(foodDetails),
     <React.Fragment>
     <Button
         className="buttonPrimary"
@@ -389,7 +389,7 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
                                     <TableCell>Calories</TableCell>
                                 </>
                             ):(<></>)}
-                            {width > 824 ? (
+                            {width > 964 ? (
                                 <>
                                     <TableCell>Total Protein</TableCell>
                                     <TableCell>Total Fats</TableCell>
@@ -431,7 +431,7 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
                                                 </>
                                             ):(<></>)}
                                             
-                                            {width > 824 ? (
+                                            {width > 964 ? (
                                                 <>
                                                     <TableCell>{searchData[key]["nf_protein"]}</TableCell>
                                                     <TableCell>{searchData[key]["nf_total_fat"]}</TableCell>

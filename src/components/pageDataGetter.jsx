@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
 import { fetcher, fetcherGET } from "../middleware/Fetcher";
-import { useAtom } from "jotai";
-import { Allergies } from "../atoms/allergiesAtom";
 import Cookies from "js-cookie";
 import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 
@@ -32,7 +29,7 @@ export async function pageDataGetter(type, mealCals, setter) {
   } else {
     dbUserMethods.getAllergies().then((res) => { 
       if (res) {
-
+        console.log(res);
         if (res.length > 0){
           allergyString = res.join(', ');
         }
