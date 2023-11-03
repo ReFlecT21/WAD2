@@ -467,6 +467,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
     const [open, setOpen] = useState(true);
     const handleClose = () => {
         setOpen(false);
+        setMealModalOpen(false);
         setOverlayData([]);
         setSelectedMeal("");
     };
@@ -581,41 +582,59 @@ export function ManualSearchComponent({currDay, showNotification}) {
 
     return (
         <div>
-        <Modal open={mealModalOpen} onClose={() => setMealModalOpen(false)}>
-            <Box className="popup">
-            <h1>Select a meal</h1>
-            <Button
-                className='buttonPrimary'
-                onClick={() => {
-                    checkValidMeal("breakfast")
-                }}
-            >
-                Breakfast
-            </Button>
-            <Button
-                className='buttonPrimary'
-                onClick={() => {
-                    checkValidMeal("lunch")
-                }}
-            >
-                Lunch
-            </Button>
-            <Button
-                className='buttonPrimary'
-                onClick={() => {
-                    checkValidMeal("dinner")
-                }}
-            >
-                Dinner
-            </Button>
-            {/* <Button
-                onClick={() => {
-                setSelectedMeal("snack");
-                setMealModalOpen(false);
-                }}
-            >
-                Snack
-            </Button> */}
+        <Modal open={mealModalOpen} onClose={handleClose}>
+            <Box className="popup" style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+                <div style={{textAlign:"center"}}>
+                    <h1>Select a meal</h1>
+                    <br />
+                    <Row>
+                        <Col>
+                            <Button
+                                className='buttonPrimary'
+                                style={{marginTop:"10px", marginBottom:"10px"}}
+                                onClick={() => {
+                                    checkValidMeal("breakfast")
+                                }}
+                            >
+                                Breakfast
+                            </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                className='buttonPrimary'
+                                style={{marginTop:"10px", marginBottom:"10px"}}
+                                onClick={() => {
+                                    checkValidMeal("lunch")
+                                }}
+                            >
+                                Lunch
+                            </Button>
+                        </Col>
+                        <Col>
+                            <Button
+                                className='buttonPrimary'
+                                style={{marginTop:"10px", marginBottom:"10px"}}
+                                onClick={() => {
+                                    checkValidMeal("dinner")
+                                }}
+                            >
+                                Dinner
+                            </Button>
+                        </Col>
+                    </Row>
+                        
+                        
+                        
+                        {/* <Button
+                            onClick={() => {
+                            setSelectedMeal("snack");
+                            setMealModalOpen(false);
+                            }}
+                        >
+                            Snack
+                        </Button> */}
+
+                </div>
             </Box>
         </Modal>
         <Modal
@@ -759,10 +778,12 @@ export function ManualSearchComponent({currDay, showNotification}) {
                         </Row>
                         
                     </InputGroup>
+                    <div style={{display:"flex", justifyContent:"space-evenly"}}>
                     <Scan setScanData={setScanData} scanData={scanData}/>
                     <Button
                         // type="submit"
                         className="buttonPrimary"
+                        style={{width:"200px", height:"50px", margin:"0px"}}
                         onClick={(event) => {
                             event.preventDefault(); // Prevent default form submission
                             if (document.getElementById("manual_foodName").value.trim() === '' ||
@@ -792,6 +813,8 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             
                         }}
                     >Add</Button>
+
+                    </div>
 
                     {inputError && <div style={{ color: "red" }}>{inputError}</div>}
                     </Form>

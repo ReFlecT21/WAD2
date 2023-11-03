@@ -217,9 +217,10 @@ const HomePage = () => {
             </Button>
           </Carousel.Caption>
         </Carousel.Item>
-      </Carousel>
 
-      <Row xs={1} md={3} id="homepage">
+    </Carousel>
+      
+      <Row xs={1} md={3}  id="homepage">
         {/* <Col>
           <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
         </Col> */}

@@ -97,22 +97,24 @@ export function CurrentMealPlanV2({
                           Object.keys(
                             content.DisplayMealPlan[day][mealType]
                           ).map((recipe) => (
-                            <MealPlanCard
-                              key={`${recipe.id}card`}
-                              recipe={recipe}
-                              render={
-                                content.DisplayMealPlan[day][mealType][
-                                  recipe
-                                ] == 0
-                                  ? true
-                                  : false
-                              }
-                              day={day}
-                              mealType={mealType}
-                              dayIndex={dayIndex}
-                              currMealPlan={currMealPlan}
-                              currDisplayMealPlan={currDisplayMealPlan}
-                            />
+                            <Col>
+                                <MealPlanCard
+                                key={`${recipe.id}card`}
+                                recipe={recipe}
+                                render={
+                                    content.DisplayMealPlan[day][mealType][
+                                    recipe
+                                    ] == 0
+                                    ? true
+                                    : false
+                                }
+                                day={day}
+                                mealType={mealType}
+                                dayIndex={dayIndex}
+                                currMealPlan={currMealPlan}
+                                currDisplayMealPlan={currDisplayMealPlan}
+                                />
+                            </Col>
                           ))
                         ) : (
                           <>
@@ -123,6 +125,7 @@ export function CurrentMealPlanV2({
                       </div>
                     ))}
                   </Row>
+                  </Container>
                 )}
                 {/* <Typography>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse

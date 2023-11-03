@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Tesseract from 'tesseract.js';
 import { OCRextract } from '../middleware/OCRextract';
+import { Button } from 'react-bootstrap';
 
 export function Scan({setScanData,scanData}) {
 
@@ -80,9 +81,15 @@ export function Scan({setScanData,scanData}) {
     return (
         <>
             <input id="input-file" className="d-none" type="file" />
-            <button onClick={handleImageUpload} className="homePageBtn">
+            <div>
+            <Button onClick={handleImageUpload} className="buttonPrimary" style={{width:"200px", height:"50px", margin:"0px"}}>
                 Upload
-            </button>
+            </Button>
+            <br></br>
+            <br></br>
+            <p>Upload any image with a nutritional table <br></br>and we will fill up the form for you</p>
+
+            </div>
         </>
     );
 }
