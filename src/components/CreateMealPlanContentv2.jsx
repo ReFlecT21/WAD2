@@ -119,17 +119,17 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
           Cookies.get("calories")
         );
       }
-      // console.log(mealPlan);
-      // console.log(mealPlanCopy);
+      console.log(mealPlan);
+      console.log(mealPlanCopy);
 
-      // Cookies.remove("calories");
-      // Cookies.remove("recal");
+      Cookies.remove("calories");
+      Cookies.remove("recal");
 
-      // if (Cookies.get("allergies")) {
-      //   Cookies.remove("allergies");
-      // }
+      if (Cookies.get("allergies")) {
+        Cookies.remove("allergies");
+      }
 
-      // handleNavigation("/home");
+      handleNavigation("/home");
 
 
       // setTimeout(()=> {
