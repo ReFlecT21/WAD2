@@ -110,7 +110,7 @@ const HomePage = () => {
   var currDay = 0;
 
   if (currDisplayMealPlan?.DisplayMealPlan) {
-    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt)+4;
+    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 

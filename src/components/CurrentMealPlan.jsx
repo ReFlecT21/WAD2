@@ -126,12 +126,8 @@ export function CurrentMealPlanV2({
                       </div>
                     ))}
                   </Row>
-                  </Container>
                 )}
-                {/* <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget.
-                            </Typography> */}
+
               </AccordionDetails>
             </Accordion>
           ))}
