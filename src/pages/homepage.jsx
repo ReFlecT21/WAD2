@@ -51,8 +51,6 @@ const HomePage = () => {
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [completedPlan, setCompletedPlan] = useState(null);
   const [MealPlan, setMealPlan] = useState(null);
-
-  const dayIndex = 7;
   const [weights, setWeight] = useState([]);
   const [avgCal, setAvgCal] = useState("");
   const [diffWeight, setDiffWeight] = useState("");
@@ -213,17 +211,35 @@ const HomePage = () => {
                                 mealType
                               ] ? (
                                 <>
-                                {/* {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                  {/* {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][
                                   Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
                                 ] ? (
                                   <h4>{mealType} completed!</h4>
                                 ) : (
                                   <h4>{mealType}</h4>
                                 )} */}
-                                <MealPlanCard 
+                                  <MealPlanCard
                                     key={`${mealType}${currDay}card`}
-                                    recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]}
-                                    render={currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]] == 0 ? true : false}
+                                    recipe={
+                                      Object.keys(
+                                        currDisplayMealPlan.DisplayMealPlan[
+                                          currDay + 1
+                                        ][mealType]
+                                      )[0]
+                                    }
+                                    render={
+                                      currDisplayMealPlan.DisplayMealPlan[
+                                        currDay + 1
+                                      ][mealType][
+                                        Object.keys(
+                                          currDisplayMealPlan.DisplayMealPlan[
+                                            currDay + 1
+                                          ][mealType]
+                                        )[0]
+                                      ] == 0
+                                        ? true
+                                        : false
+                                    }
                                     day={currDay}
                                     mealType={mealType}
                                     dayIndex={currDay}
@@ -285,7 +301,6 @@ const HomePage = () => {
         )}
       </Row>
       <Row>
-        {/* <PlatesHomepage colors={colorArray} /> */}
         {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
         {weights && formattedDates ? (
           <BarChart Weights={weights} Dates={formattedDates} />

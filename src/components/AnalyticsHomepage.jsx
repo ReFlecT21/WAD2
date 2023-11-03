@@ -33,8 +33,10 @@ const AnalyticsHomePage = ({ completedPlan }) => {
 
   const calories = localStorage.getItem("calories");
 
-  const now = Math.floor((Number(DailyCal) / calories) * 100);
-
+  let now = Math.floor((Number(DailyCal) / calories) * 100);
+  if (now > 95) {
+    now = 100;
+  }
   console.log(now);
   return <ProgressBar now={now} label={`${now}%`} />;
 };
