@@ -168,21 +168,14 @@ const InputPage = () => {
       <NavBar />
       <Container fluid>
         <Row>
-          <Col
-            md={5}
-            className="p-0  d-sm-block d-md-flex"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "30px",
-            }}
-          >
-            <Lottie
-              animationData={animationData} // Your animation data
-              loop={true} // Set to true for looped animations
-              autoplay={true} // Set to true to play the animation automatically
-            />
+          <Col md={5} className="p-0 d-sm-block d-md-flex ">
+            <div className="lottieInput">
+              <Lottie
+                animationData={animationData} // Your animation data
+                loop={true} // Set to true for looped animations
+                autoplay={true} // Set to true to play the animation automatically
+              />
+            </div>
           </Col>
 
           <Col

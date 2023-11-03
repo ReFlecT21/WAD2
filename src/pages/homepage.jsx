@@ -92,6 +92,7 @@ const HomePage = () => {
     setCompletedPlan(await dbFoodMethods.getCompleted());
     // setMealPlan(await dbFoodMethods.getMealPlan());
   };
+
   useEffect(() => {
     const checkUser = async () => {
       const result = await dbUserMethods.getUserData();
