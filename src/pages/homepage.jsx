@@ -61,7 +61,6 @@ const HomePage = () => {
   const [notiRender, setNotiRender] = useState(false);
   const [exist, setExist] = useState(false);
 
-  const isFirstRender = useRef(true);
   function showNotification(message) {
     console.log("showing notification");
     setNotiMessage(message);
@@ -242,7 +241,7 @@ const HomePage = () => {
                                       ][mealType][
                                         Object.keys(
                                           currDisplayMealPlan.DisplayMealPlan[
-                                            currDay
+                                            currDay + 1
                                           ][mealType]
                                         )[0]
                                       ] == 0
