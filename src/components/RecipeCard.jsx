@@ -256,8 +256,8 @@ export function ManualInputCard({foods}){
   console.log(foods)
 
   return (
-    // <div>
-      <Card className="">
+    <div>
+      <Card className="accordionCard">
         <Card.Img
             variant="top"
             src={foodIcon}
@@ -291,7 +291,7 @@ export function ManualInputCard({foods}){
           </Card.Body>
         </Card.ImgOverlay>
       </Card>
-    // </div>
+    </div>
     // <p>V2</p>
   )
 

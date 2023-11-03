@@ -155,8 +155,8 @@ export function ManualDetails({foods}) {
 
           <Row>
             {foods.map((food, index) => (
-              <Col md={12} lg={5}>
-                <div key={index}>
+              <Col xs={12} lg={5} key={index+food.food_name}>
+                <div>
                   <h3 className="recipeTitle">{food.food_name}</h3>
 
                   <div className="recipeInfo">
