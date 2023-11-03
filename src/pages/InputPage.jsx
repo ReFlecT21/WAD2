@@ -23,6 +23,9 @@ import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
 import Cookies from "js-cookie";
 
+import Lottie from "lottie-react";
+import animationData from "../../public/animation.json"; // Replace with your animation file
+
 // import React from 'react';
 // import Lottie from 'lottie-react';
 // import lottie from 'lottie-web';
@@ -173,17 +176,30 @@ const InputPage = () => {
         }}
       >
         <Row>
-          <Col md={5} className="p-0">
-            <img className="inputImg" src="/inputImg.jpg"></img>
+          <Col
+            md={5}
+            className="p-0 d-none d-md-flex"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
+            <Lottie
+              animationData={animationData} // Your animation data
+              loop={true} // Set to true for looped animations
+              autoplay={true} // Set to true to play the animation automatically
+            />
           </Col>
 
           <Col
             style={{
               padding: "20px",
-              marginTop: "220px",
+              marginTop: "150px",
             }}
           >
-            <Row style={{ marginTop: "0", paddingLeft: "40px" }}>
+            <Row>
               <h1>Hello, let's get to know you!</h1>
             </Row>
 
@@ -320,7 +336,9 @@ const InputPage = () => {
                 <Form.Select
                   id="goal"
                   className="round"
-                  onChange={handleAllergies}
+                  onChange={(e) => {
+                    setFormData((prev) => ({ ...prev, goal: e.target.value }));
+                  }}
                   aria-label="Default select example"
                   name="goal"
                   value={formData && formData.goal ? formData.goal : ""}

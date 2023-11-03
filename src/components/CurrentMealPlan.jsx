@@ -90,6 +90,8 @@ export function CurrentMealPlanV2({
                 {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                   <p> No meals planned for this day </p>
                 ) : (
+                    <Container>
+
                   <Row xs={1} md={2} lg={3}>
                     {["breakfast", "lunch", "dinner"].map((mealType) => (
                       <div key={`${day}-${mealType}`}>
@@ -97,22 +99,24 @@ export function CurrentMealPlanV2({
                           Object.keys(
                             content.DisplayMealPlan[day][mealType]
                           ).map((recipe) => (
-                            <MealPlanCard
-                              key={`${recipe.id}card`}
-                              recipe={recipe}
-                              render={
-                                content.DisplayMealPlan[day][mealType][
-                                  recipe
-                                ] == 0
-                                  ? true
-                                  : false
-                              }
-                              day={day}
-                              mealType={mealType}
-                              dayIndex={dayIndex}
-                              currMealPlan={currMealPlan}
-                              currDisplayMealPlan={currDisplayMealPlan}
-                            />
+                            <Col>
+                                <MealPlanCard
+                                key={`${recipe.id}card`}
+                                recipe={recipe}
+                                render={
+                                    content.DisplayMealPlan[day][mealType][
+                                    recipe
+                                    ] == 0
+                                    ? true
+                                    : false
+                                }
+                                day={day}
+                                mealType={mealType}
+                                dayIndex={dayIndex}
+                                currMealPlan={currMealPlan}
+                                currDisplayMealPlan={currDisplayMealPlan}
+                                />
+                            </Col>
                           ))
                         ) : (
                           <>
@@ -123,6 +127,7 @@ export function CurrentMealPlanV2({
                       </div>
                     ))}
                   </Row>
+                  </Container>
                 )}
                 {/* <Typography>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse

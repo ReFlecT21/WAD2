@@ -187,6 +187,7 @@ body, html {
 
 #basic-navbar-nav{
     justify-content: end;
+
 }
 .createBtn{
     @include button($secondaryCol, 16px);
@@ -203,8 +204,8 @@ body, html {
 .navItem{
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: 20px;
+    // justify-content: center;
+    // margin-left: 20px;
 }
 
 
@@ -472,7 +473,7 @@ h2,h3,h4,h5,h6{
     margin: 10px;
     background-color: transparent;
     height: 100%;
-    width: 50vh;
+    width: 30vh;
     
 }
 
