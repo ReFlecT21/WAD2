@@ -38,7 +38,7 @@ const LoginComponent = () => {
     >
       <Row className="loginPage">
         <Col className="backgroundLeft d-none d-lg-block col-lg-7">
-          <Image src="/foodimg.jpg" alt="" className="loginImg"/>
+          <Image src="/foodimg.jpg" alt="" className="loginImg" />
         </Col>
         <Col className="backgroundRight d-flex justify-content-center">
           <Row className="loginDetails">
