@@ -82,7 +82,7 @@ export function Scan({setScanData,scanData}) {
         <>
             <input id="input-file" className="d-none" type="file" />
             <div>
-            <Button onClick={handleImageUpload} className="buttonPrimary" style={{width:"200px", height:"50px", margin:"0px"}}>
+            <Button onClick={handleImageUpload} className="chooseBtn" style={{width:"200px", height:"50px", margin:"0px"}}>
                 Upload
             </Button>
             <br></br>

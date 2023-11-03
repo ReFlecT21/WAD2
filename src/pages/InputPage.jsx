@@ -163,38 +163,39 @@ const InputPage = () => {
     navChoose2();
   };
 
-    return (
-        <>
-        <NavBar />
-        <Container
-            fluid
+  return (
+    <>
+      <NavBar />
+      <Container fluid>
+        <Row>
+          <Col
+            md={5}
+            className="p-0  d-sm-block d-md-flex"
             style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "80vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "30px",
             }}
-        >
-            <Row>
-              <Col md={5} className="p-0 d-none d-md-block d-none d-md-flex" style={{display:"flex", justifyContent:"center", alignItems:"center"}} >
-                {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
-                <Lottie
-                  animationData={animationData} // Your animation data
-                  loop={true} // Set to true for looped animations
-                  autoplay={true} // Set to true to play the animation automatically
-                />
-              </Col>
+          >
+            <Lottie
+              animationData={animationData} // Your animation data
+              loop={true} // Set to true for looped animations
+              autoplay={true} // Set to true to play the animation automatically
+            />
+          </Col>
 
-            <Col
-                style={{
-                padding: "20px", marginTop:"170px"
-                }}
-            >
-                <Row>
-                  <h1>Hello, let's get to know you!</h1>
-                </Row>
+          <Col
+            md={7}
+            style={{
+              marginTop: "50px",
+            }}
+          >
+            <Row className="text-center text-md-left">
+              <h1>Hello, let's get to know you!</h1>
+            </Row>
 
-            <Row>
+            <Row style={{ paddingRight: "40px" }}>
               <Col
                 style={{
                   paddingLeft: "40px",
@@ -203,18 +204,38 @@ const InputPage = () => {
               >
                 <h5>Gender</h5>
 
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <span style={{ marginRight: "10px", color: "black" }}>
+                <div className="d-flex align-items-center">
+                  <span
+                    style={{
+                      color: "#1F5E4B",
+                      fontSize: "18px",
+                      fontWeight: "normal",
+                      marginRight: "35px",
+                    }}
+                  >
                     Female
                   </span>
                   <MDBSwitch
-                    style={{ color: "white" }}
-                    className="p"
+                    style={{ color: "white", fontSize: "20px" }}
                     name="gender"
                     checked={formData.gender === "male"}
                     onChange={handleChangeGender}
                     id="flexSwitchCheckChecked"
-                    label="Male"
+                    label={
+                      <span
+                        style={{
+                          fontSize: "18px",
+                          color: "#1F5E4B",
+                          fontWeight: "normal",
+                          marginTop: "1px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        Male
+                      </span>
+                    }
                   />
                 </div>
               </Col>
@@ -237,7 +258,7 @@ const InputPage = () => {
                 />
               </Col>
             </Row>
-            <Row style={{ marginTop: "" }}>
+            <Row style={{ paddingRight: "40px" }}>
               <Col
                 md={6}
                 style={{
@@ -275,7 +296,7 @@ const InputPage = () => {
                 />
               </Col>
             </Row>
-            <Row style={{ marginTop: "" }}>
+            <Row style={{ paddingRight: "40px" }}>
               <Col
                 md={6}
                 style={{
@@ -391,30 +412,35 @@ const InputPage = () => {
                     <option value="eggs">Eggs</option>
                     <option value="none">None</option>
                     </Form.Select> */}
-                </Col >
-                </Row>
-                <Row style={{}}>
-                <Col style={{
-                  marginTop:"30px",
-                  display: 'flex',
-                  justifyContent: 'center',
-                      }}>
-                    <Button
-                    id="submit"
-                    onClick={handleSubmit}
-                    type="submit"
-                    className="chooseBtn"
-                    style={{marginTop:"50px", fontSize:"20px"}} 
-                    >
-                    Choose my meals!
-                    </Button>
-                </Col>
-                </Row>
-            </Col>
+              </Col>
             </Row>
-        </Container>
-        </>
-    );
+            <Row style={{}}>
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  id="submit"
+                  onClick={handleSubmit}
+                  type="submit"
+                  className="chooseBtn"
+                  style={{
+                    marginTop: "50px",
+                    marginBottom: "50px",
+                    fontSize: "20px",
+                  }}
+                >
+                  Choose my meals!
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
 };
 
 export default InputPage;

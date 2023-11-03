@@ -68,5 +68,8 @@ export async function fetcherGET(endpoint, params, setter, dayIdx = null) {
         }
       }
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+      window.location.reload()
+    });
 }

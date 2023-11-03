@@ -198,9 +198,9 @@ export function ShoppingCart({shoppingCart}) {
     return (
         <>
             {shoppingCart ? (<TableContainer component={Paper}>
-            <Table aria-label="collapsible table">
-                <TableHead>
-                <TableRow>
+            <Table aria-label="collapsible table" style={{backgroundColor:"white"}}>
+                <TableHead >
+                <TableRow >
                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B", fontWeight:"bold"}}>Day</TableCell>
                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>Number of items</TableCell>
                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>Number of outstanding items</TableCell>
@@ -210,7 +210,7 @@ export function ShoppingCart({shoppingCart}) {
                 <TableBody>
                 {Object.keys(shoppingCart.shoppingCart).map((day)=>(
                     
-                    <InnerTable 
+                    <InnerTable  
                         key={day}
                         dayCart = {shoppingCart.shoppingCart[day]}
                         title={`${new Date(d.getTime() + (parseInt(day) * 24 * 60 * 60 * 1000))
@@ -301,7 +301,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                                             ))
                                         ))}
                                     </>
-                                ) : (<TableRow><TableCell>No items for today</TableCell></TableRow>)}
+                                ) : (<TableRow><TableCell colSpan={4}>No items for today</TableCell></TableRow>)}
 
 
 

@@ -199,15 +199,17 @@ export const dbFoodMethods = {
     console.log("getCalories");
     // console.log(this.username)
 
-    // await this.init();
+    await this.init();
+
 
     try {
       // Get the current state of the document
       if (this.docSnap) {
         const data = this.docSnap.data();
-        // console.log(data);
         const calories = data.Calories;
         // console.log(mealPlan);
+        // console.log(data);
+        // console.log(incomingPlan);
 
         let countMeals = 0;
         for (const day in incomingPlan) {
@@ -215,7 +217,7 @@ export const dbFoodMethods = {
             countMeals += 1;
           }
         }
-        // console.log(countMeals);
+
         const remainingCal = parseInt(Math.floor((calories / countMeals) * 3));
 
         return remainingCal;
@@ -230,7 +232,7 @@ export const dbFoodMethods = {
   getDayCal: async function () {
     // console.log(this.username)
 
-    // await this.init();
+    await this.init();
 
     try {
       // Get the current state of the document

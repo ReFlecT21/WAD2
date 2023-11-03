@@ -115,8 +115,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
           Cookies.get("calories")
         );
       }
-      // console.log(mealPlan);
-      // console.log(mealPlanCopy);
+      console.log(mealPlan);
+      console.log(mealPlanCopy);
 
       Cookies.remove("calories");
       Cookies.remove("recal");
@@ -126,6 +126,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       }
 
       handleNavigation("/home");
+
+
       // setTimeout(()=> {
       //     navigate("/home");
       //    }, 1500);
@@ -134,11 +136,16 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
     // }, [shoppingCart]);
   }, [flag]);
 
-  // useEffect(() => {
-  //     if (flag >0){
-  //         navigate("/home");
-  //     }
-  // }, [flag]);
+
+  const [countCart, setCountCart] = useState(0);
+
+  useEffect(() => {
+    if (countCart == 7) {
+      setFlag((prev) => prev + 1);
+      // navigate("/home");
+    }
+  }, [countCart]);
+
 
   const handleShoppingCart = async (res, dayIdx) => {
     // console.log(res, dayIdx);
@@ -174,11 +181,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
         return updated;
       });
     });
-
-    if (dayIdx == 7) {
-      setFlag((prev) => prev + 1);
-      // navigate("/home");
-    }
+    
+    setCountCart((prev) => prev + 1);
   };
 
   const handleFinalise = async () => {
@@ -234,23 +238,23 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
             },
             handleShoppingCart,
             i,
-            7
           );
           IDs = [];
         }
       } else {
         console.log("recal process");
         let exisitingMealPlan = JSON.parse(recal);
-        console.log(exisitingMealPlan);
         console.log(typeof exisitingMealPlan);
-
+        
         if (exisitingMealPlan) {
+          // console.log(exisitingMealPlan);
+
           for (const i in exisitingMealPlan) {
             // console.log(i);
             // check length of day in currMealPlan
             if (Object.keys(exisitingMealPlan[i]).length > 0) {
               for (const meal in exisitingMealPlan[i]) {
-                // console.log(meal);
+                // console.log(i, meal);
                 let randomDish = Object.keys(
                   info[`${meal.charAt(0).toUpperCase() + meal.slice(1)}`].data
                 )[
@@ -328,6 +332,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
                 };
                 return updated;
               });
+              setCountCart((prev) => prev + 1);
             }
           }
         }

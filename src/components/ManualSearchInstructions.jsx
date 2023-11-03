@@ -19,7 +19,7 @@ export default function BasicPopover() {
 
   return (
     <div>
-        <Button className="buttonPrimary" onClick={handleClick}>Instructions</Button>
+        <Button className="buttonPrimary" onClick={handleClick} style={{width:"100px"}}>Instructions</Button>
         <Popover
             id={id}
             open={open}

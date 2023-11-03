@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { fetcherPOST } from "../middleware/Fetcher";
 import { NavBar } from "../components";
-import { Row, Col, Button, Stack } from "react-bootstrap";
+import { Row, Col, Button, Stack, Card } from "react-bootstrap";
 import { Box } from "@mui/material";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
@@ -51,8 +51,6 @@ const HomePage = () => {
   const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
   const [completedPlan, setCompletedPlan] = useState(null);
   const [MealPlan, setMealPlan] = useState(null);
-  const [DailyCal, setDailyCal] = useState(0);
-  const dayIndex = 7;
   const [weights, setWeight] = useState([]);
   const [avgCal, setAvgCal] = useState("");
   const [diffWeight, setDiffWeight] = useState("");
@@ -61,7 +59,6 @@ const HomePage = () => {
   const [notiRender, setNotiRender] = useState(false);
   const [exist, setExist] = useState(false);
 
-  const isFirstRender = useRef(true);
   function showNotification(message) {
     console.log("showing notification");
     setNotiMessage(message);
@@ -99,6 +96,7 @@ const HomePage = () => {
       const result = await dbUserMethods.getUserData();
       console.log(result.formInput);
       if (result.formInput != undefined) {
+        console.log("yes");
         fetchData();
         setExist(true);
       }
@@ -113,33 +111,13 @@ const HomePage = () => {
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
-  const checkDaily = async () => {
-    if (completedPlan?.Completed) {
-      console.log("check 1");
-      let completed = completedPlan.Completed;
-      console.log(completed);
-      if (Object.keys(completed).length > 0) {
-        if (
-          completed[currDay - 1] &&
-          Object.keys(completed[currDay - 1]).length == 3
-        ) {
-          await dbFoodMethods.updateDailyCal();
-        }
-      }
-    }
-    setDailyCal(await dbFoodMethods.getDayCal());
-  };
-  // if (exist) {
-  //   checkDaily();
-  // }
-  return exist ? ( //not new users
+  return exist ? (
     <>
       <NavBar />
       <PageNotification message={notiMessage} render={notiRender} />
       {overlayData}
 
-
-      <Row xs={1} md={3}  id="homepage">
+      <Row xs={1} md={3} id="homepage">
         {/* <Col>
           <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
         </Col> */}
@@ -149,8 +127,16 @@ const HomePage = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h1>{currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
               <div>
-                <Button className="buttonPrimary" href="/mealplan">
-                  See meal plan
+                <Button
+                  className="chooseBtn"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  href="/mealplan"
+                >
+                  See All
                 </Button>
               </div>
             </div>
@@ -225,19 +211,13 @@ const HomePage = () => {
                                 mealType
                               ] ? (
                                 <>
-                                  {currDisplayMealPlan.DisplayMealPlan[
-                                    currDay + 1
-                                  ][mealType][
-                                    Object.keys(
-                                      currDisplayMealPlan.DisplayMealPlan[
-                                        currDay + 1
-                                      ][mealType]
-                                    )[0]
-                                  ] ? (
-                                    <h4>{mealType} completed!</h4>
-                                  ) : (
-                                    <h4>{mealType}</h4>
-                                  )}
+                                  {/* {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                  Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
+                                ] ? (
+                                  <h4>{mealType} completed!</h4>
+                                ) : (
+                                  <h4>{mealType}</h4>
+                                )} */}
                                   <MealPlanCard
                                     key={`${mealType}${currDay}card`}
                                     recipe={
@@ -253,7 +233,7 @@ const HomePage = () => {
                                       ][mealType][
                                         Object.keys(
                                           currDisplayMealPlan.DisplayMealPlan[
-                                            currDay
+                                            currDay + 1
                                           ][mealType]
                                         )[0]
                                       ] == 0
@@ -291,17 +271,17 @@ const HomePage = () => {
             </Row>
           </div>
         </Col>
-        <Col  >
+        <Col>
           <div className="neuphormicBox" style={{ textAlign: "center" }}>
             <Stack gap={2}>
               {/* <Button className="homePageBtn">Scan</Button> */}
               <h3>Manual Add</h3>
               <Button
-                className="homePageBtn"
+                className="chooseBtn"
                 onClick={() => {
                   setOverlayData(
                     <ManualSearchComponent
-                      currDay={currDay + 1}
+                      currDay={currDay + 2}
                       showNotification={showNotification}
                     />
                   );
@@ -313,17 +293,41 @@ const HomePage = () => {
           </div>
         </Col>
       </Row>
-      {/* <Row>
-        <AnalyticsHomePage DayCal={DailyCal} />
-      </Row> */}
       <Row>
-        {/* <PlatesHomepage colors={colorArray} /> */}
-        {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
-        {weights && formattedDates ? (
-          <BarChart Weights={weights} Dates={formattedDates} />
+        {exist && completedPlan ? (
+          <AnalyticsHomePage completedPlan={completedPlan} />
         ) : (
           <></>
         )}
+      </Row>
+      <Row>
+        {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
+        {weights && formattedDates ? (
+          <BarChart Weights={weights} Dates={formattedDates} />
+          // <></>
+        ) : (
+          <></>
+        )}
+      </Row>
+      <Row>
+        <Card>
+          <Card.Body>
+            <Card.Title style={{ color: "black" }}>{avgCal}</Card.Title>
+
+            <Card.Text>Avg. Cals Per Day</Card.Text>
+          </Card.Body>
+        </Card>
+      </Row>
+      <Row>
+        <Card>
+          <Card.Body>
+            <Card.Title style={{ color: "black" }}>{diffWeight} kg</Card.Title>
+
+            <Card.Text>
+              {diffWeight < 0 ? "Total Weight Gain" : "Total Weight Loss"}
+            </Card.Text>
+          </Card.Body>
+        </Card>
       </Row>
     </>
   ) : (
