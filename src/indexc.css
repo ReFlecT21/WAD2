@@ -26,6 +26,7 @@ body, html {
   padding: 0;
   height: 100%;
   background-color: #F6FEFC;
+  overflow-x: hidden;
 }
 
 .loginPage {
@@ -736,4 +737,9 @@ h2, h3, h4, h5, h6 {
   .responsiveTable td {
     padding: 8px 12px;
   }
+}
+.progress {
+  --bs-progress-bar-bg: #3EBC96;
+  --bs-progress-font-size: 16px;
+  --bs-progress-font-family: $primaryFont ;
 }/*# sourceMappingURL=indexc.css.map */
