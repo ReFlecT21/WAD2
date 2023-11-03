@@ -135,7 +135,7 @@ export function ManualDetails({foods}) {
     setOverlayData([]);
   };
 
-  console.log(foods);
+  // console.log(foods);
 
   return (
     <div>

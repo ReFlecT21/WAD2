@@ -37,7 +37,7 @@ export function CompletedMeals({completed, currMealPlan, currDisplayMealPlan}) {
                 // for manual input content
                 // console.log(completed.Completed[day][mealType])
                 // Object.keys(completed.Completed[day][mealType]).forEach((recipe) => {
-                    console.log(completed.Completed[day][mealType])
+                    // console.log(completed.Completed[day][mealType])
                     display.push(<ManualInputCard  className="myMealCard" key={`completedPage${day}${mealType}`} foods={completed.Completed[day][mealType]}/>)
                 // })
             }
@@ -83,7 +83,7 @@ export function CompletedMealsManual({completed}) {
             if (Array.isArray(completed.Completed[day][mealType])){
                 // console.log(completed.Completed[day][mealType])
                 Object.keys(completed.Completed[day][mealType]).forEach((recipe) => {
-                    console.log(completed.Completed[day][mealType][recipe])
+                    // console.log(completed.Completed[day][mealType][recipe])
                     // display.push(<MealPlanCardHome key={`${recipe}completedPage${day}`} recipe={recipe} />)
                 })
             } 
@@ -121,10 +121,10 @@ export function CompletedMealsManual({completed}) {
 }
 
 export function CompletedMealsV2({completed}) {
-    console.log(completed.Completed)
+    // console.log(completed.Completed)
 
     const InnerText = ({foods}) => {
-        console.log(foods)
+        // console.log(foods)
         return(
             <p>hi</p>
         )

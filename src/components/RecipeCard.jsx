@@ -251,9 +251,9 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
 
 
 export function ManualInputCard({foods}){
-  console.log("manual input card")
+  // console.log("manual input card")
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-  console.log(foods)
+  // console.log(foods)
 
   return (
     <div>

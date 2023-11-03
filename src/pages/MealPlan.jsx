@@ -81,9 +81,9 @@ export default function MealPlan() {
     
     fetchData();
   }, []);
-  console.log(completed)
-  console.log(currMealPlan)
-  console.log(currDisplayMealPlan)
+  // console.log(completed)
+  // console.log(currMealPlan)
+  // console.log(currDisplayMealPlan)
 
   const handleRecal = async () => {
     const expirationTimeInHours = 1;
