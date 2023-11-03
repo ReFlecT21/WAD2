@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
 import { fetcher } from "../middleware/Fetcher";
-import { RecipeDetails } from "./RecipeDetails";
+import { ManualDetails, RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { dbFoodMethods } from "../middleware/dbMethods";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpoon } from "@fortawesome/free-solid-svg-icons";
+import foodIcon from "../assets/foodIcon.png";
+// import foodIcon from "../assets/manualFood.png";
+// import foodIcon1 from "../assets/foodIconOld.png";
 
 export function RecpieCardV2({ recipe, setter = null , render}) {
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
@@ -145,7 +151,7 @@ export function SelectedRecpieCardV2({recipe, setter}) {
   )
 }
 
-export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan}) {
+export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan, foodItem = null}) {
 
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
@@ -168,12 +174,14 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
 
 
       if (currDisplayMealPlan.DisplayMealPlan[day][mealType][Object.keys(currDisplayMealPlan.DisplayMealPlan[day][mealType])[0]]){
+      // if (currMealPlan.mealPlan[day][mealType] == undefined){
         alert(`You cant have ${mealType} again`)
       } else {
         let res = await dbFoodMethods.completeMeal(
           dayIndex,
           mealType,
-          currMealPlan.mealPlan[day][mealType]
+          foodItem ? foodItem : currMealPlan.mealPlan[day][mealType]
+          
         );
         return res
 
@@ -241,6 +249,91 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
 
 }
 
+
+export function ManualInputCard({foods}){
+  // console.log("manual input card")
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  // console.log(foods)
+
+  return (
+    <div>
+      <Card className="accordionCard">
+        <Card.Img
+            variant="top"
+            src={foodIcon}
+            className="cardImg"
+            style={{ borderRadius: "20px" }}
+        />
+        <Card.ImgOverlay   >
+          <Card.Body  >
+            <Row >
+              <div className="cntr">
+              <Col>
+                <div className="btnDiv"
+                >
+                  <Button
+                    className="buttonPrimary"
+                    onClick={() => 
+                      setOverlayData(<ManualDetails foods={foods} />)
+                    }
+                  >
+                    Recipe
+                  </Button>
+                </div>
+              </Col>
+              </div>
+            </Row>
+            <Card.Title className="cardTitle">
+              Manually Added Meal
+            </Card.Title>
+            <Card.Text>
+            </Card.Text>
+          </Card.Body>
+        </Card.ImgOverlay>
+      </Card>
+    </div>
+    // <p>V2</p>
+  )
+
+  return (
+    <>
+      <Card >
+          <Card.Img
+            variant="top"
+            src={foodIcon}
+            className="cardImg"
+            style={{ borderRadius: "20px" }}
+          />
+          <Card.ImgOverlay>
+            <Card.Body>
+              <Row>
+                <Col>
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Button
+                      className="buttonPrimary"
+                      onClick={() =>{}
+                        // setOverlayData(<RecipeDetails id={recipe["id"]} />)
+                      }
+                    >
+                      Details
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
+              <Card.Title style={{ marginTop: "10px" }}>
+                Manually Added Meal
+              </Card.Title>
+              <Card.Text>
+              </Card.Text>
+            </Card.Body>
+          </Card.ImgOverlay>
+        </Card>
+      </> 
+    
+  )
+}
 
 
 

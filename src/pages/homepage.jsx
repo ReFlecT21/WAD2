@@ -46,23 +46,24 @@
   import Lottie from "lottie-react";
   import animationData from "../assets/food.json"; 
 
-  import PlatesHomepage from "../components/platesHomepage";
-  const HomePage = () => {
-    const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
-    // const [currMealPlan, setCurrMealPlan] = useState(null);
-    const [currMealPlan, setCurrMealPlan] = useState(null);
-    const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
-    const [completedPlan, setCompletedPlan] = useState(null);
-    const [MealPlan, setMealPlan] = useState(null);
+import PlatesHomepage from "../components/platesHomepage";
+const HomePage = () => {
+  const navigate = useNavigate();
+  const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
+  // const [currMealPlan, setCurrMealPlan] = useState(null);
+  const [currMealPlan, setCurrMealPlan] = useState(null);
+  const [currDisplayMealPlan, setCurrDisplayMealPlan] = useState(null);
+  const [completedPlan, setCompletedPlan] = useState(null);
+  const [MealPlan, setMealPlan] = useState(null);
 
-    const dayIndex = 7;
-    const [weights, setWeight] = useState([]);
-    const [avgCal, setAvgCal] = useState("");
-    const [diffWeight, setDiffWeight] = useState("");
-    const [formattedDates, setFormattedDates] = useState([]);
-    const [notiMessage, setNotiMessage] = useState("");
-    const [notiRender, setNotiRender] = useState(false);
-    const [exist, setExist] = useState(false);
+  const dayIndex = 7;
+  const [weights, setWeight] = useState([]);
+  const [avgCal, setAvgCal] = useState("");
+  const [diffWeight, setDiffWeight] = useState("");
+  const [formattedDates, setFormattedDates] = useState([]);
+  const [notiMessage, setNotiMessage] = useState("");
+  const [notiRender, setNotiRender] = useState(false);
+  const [exist, setExist] = useState(false);
 
     function showNotification(message) {
       console.log("showing notification");
@@ -385,71 +386,71 @@
             <Carousel.Caption className="carouselCaption">
               <h1>Welcome to MenuMate</h1>
               <h1>Start by creating a meal plan!</h1>
-              <Button className="createBtn custom-clicked-button">
+              <Button className="createBtn custom-clicked-button" onClick={() => navigate("/input")}>
                 <FontAwesomeIcon className="plusIcon" icon={faPlus} />
                 Create Meal Plan!
               </Button>
             </Carousel.Caption>
           </Carousel.Item>
 
-          <Carousel.Item className="carouselItem">
-            <img src={carouselTwo} alt="second slide" className="carouselImg" />
-            <Carousel.Caption className="carouselCaption">
-              <h1>Welcome to MenuMate</h1>
-              <h1>Start by creating a meal plan!</h1>
-              <Button className="createBtn custom-clicked-button">
-                <FontAwesomeIcon className="plusIcon" icon={faPlus} />
-                Create Meal Plan!
-              </Button>
-            </Carousel.Caption>
-          </Carousel.Item>
+        <Carousel.Item className="carouselItem">
+          <img src={carouselTwo} alt="second slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button" onClick={() => navigate("/input")}>
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
 
-          <Carousel.Item className="carouselItem">
-            <img src={carouselThird} alt="third slide" className="carouselImg" />
-            <Carousel.Caption className="carouselCaption">
-              <h1>Welcome to MenuMate</h1>
-              <h1>Start by creating a meal plan!</h1>
-              <Button className="createBtn custom-clicked-button">
-                <FontAwesomeIcon className="plusIcon" icon={faPlus} />
-                Create Meal Plan!
-              </Button>
-            </Carousel.Caption>
-          </Carousel.Item>
+        <Carousel.Item className="carouselItem">
+          <img src={carouselThird} alt="third slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button" onClick={() => navigate("/input")}>
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
 
-          <Carousel.Item className="carouselItem">
-            <img
-              src={carouselFourth}
-              alt="fourth slide"
-              className="carouselImg"
-            />
-            <Carousel.Caption className="carouselCaption">
-              <h1>Welcome to MenuMate</h1>
-              <h1>Start by creating a meal plan!</h1>
-              <Button className="createBtn custom-clicked-button">
-                <FontAwesomeIcon className="plusIcon" icon={faPlus} />
-                Create Meal Plan!
-              </Button>
-            </Carousel.Caption>
-          </Carousel.Item>
+        <Carousel.Item className="carouselItem">
+          <img
+            src={carouselFourth}
+            alt="fourth slide"
+            className="carouselImg"
+          />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button className="createBtn custom-clicked-button" onClick={() => navigate("/input")}>
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
 
-          <Carousel.Item className="carouselItem">
-            <img src={carouselFifth} alt="third slide" className="carouselImg" />
-            <Carousel.Caption className="carouselCaption">
-              <h1>Welcome to MenuMate</h1>
-              <h1>Start by creating a meal plan!</h1>
-              <Button
-                className="createBtn custom-clicked-button"
-                style={{ marginTop: "10px" }}
-                href="/input"
-              >
-                <FontAwesomeIcon className="plusIcon" icon={faPlus} />
-                Create Meal Plan!
-              </Button>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
-      </>
-    );
-  };
+        <Carousel.Item className="carouselItem">
+          <img src={carouselFifth} alt="third slide" className="carouselImg" />
+          <Carousel.Caption className="carouselCaption">
+            <h1>Welcome to MenuMate</h1>
+            <h1>Start by creating a meal plan!</h1>
+            <Button
+              className="createBtn custom-clicked-button"
+              style={{ marginTop: "10px" }}
+              onClick={() => navigate("/input")}
+            >
+              <FontAwesomeIcon className="plusIcon" icon={faPlus} />
+              Create Meal Plan!
+            </Button>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+    </>
+  );
+};
 
   export default HomePage;

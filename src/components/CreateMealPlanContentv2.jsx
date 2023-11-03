@@ -9,6 +9,10 @@ import { DotLoader } from "react-spinner-overlay";
 import { FormDetails } from "../atoms/formAtom";
 import { useAtom } from "jotai";
 import Cookies from "js-cookie";
+// import Lottie from "lottie-web";
+import Lottie from "lottie-react";
+import LoadingAnimationData from "../assets/loading.json"
+
 
 export function CreateMealPlanContentv2({
   pageNum,
@@ -118,14 +122,16 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       // console.log(mealPlan);
       // console.log(mealPlanCopy);
 
-      Cookies.remove("calories");
-      Cookies.remove("recal");
+      // Cookies.remove("calories");
+      // Cookies.remove("recal");
 
-      if (Cookies.get("allergies")) {
-        Cookies.remove("allergies");
-      }
+      // if (Cookies.get("allergies")) {
+      //   Cookies.remove("allergies");
+      // }
 
-      handleNavigation("/home");
+      // handleNavigation("/home");
+
+
       // setTimeout(()=> {
       //     navigate("/home");
       //    }, 1500);
@@ -134,11 +140,16 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
     // }, [shoppingCart]);
   }, [flag]);
 
-  // useEffect(() => {
-  //     if (flag >0){
-  //         navigate("/home");
-  //     }
-  // }, [flag]);
+
+  const [countCart, setCountCart] = useState(0);
+
+  useEffect(() => {
+    if (countCart == 7) {
+      setFlag((prev) => prev + 1);
+      // navigate("/home");
+    }
+  }, [countCart]);
+
 
   const handleShoppingCart = async (res, dayIdx) => {
     // console.log(res, dayIdx);
@@ -174,11 +185,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
         return updated;
       });
     });
-
-    if (dayIdx == 7) {
-      setFlag((prev) => prev + 1);
-      // navigate("/home");
-    }
+    
+    setCountCart((prev) => prev + 1);
   };
 
   const handleFinalise = async () => {
@@ -234,23 +242,23 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
             },
             handleShoppingCart,
             i,
-            7
           );
           IDs = [];
         }
       } else {
         console.log("recal process");
         let exisitingMealPlan = JSON.parse(recal);
-        console.log(exisitingMealPlan);
         console.log(typeof exisitingMealPlan);
-
+        
         if (exisitingMealPlan) {
+          // console.log(exisitingMealPlan);
+
           for (const i in exisitingMealPlan) {
             // console.log(i);
             // check length of day in currMealPlan
             if (Object.keys(exisitingMealPlan[i]).length > 0) {
               for (const meal in exisitingMealPlan[i]) {
-                // console.log(meal);
+                // console.log(i, meal);
                 let randomDish = Object.keys(
                   info[`${meal.charAt(0).toUpperCase() + meal.slice(1)}`].data
                 )[
@@ -328,6 +336,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
                 };
                 return updated;
               });
+              setCountCart((prev) => prev + 1);
             }
           }
         }
@@ -345,19 +354,25 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "60vh",
+            height: "25vh",
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <DotLoader
+            {/* <DotLoader
               loading={loadFlag}
               color="#1F5E4B"
               size={40}
               between={50}
+            /> */}
+            <Lottie
+              animationData={LoadingAnimationData} // Your animation data
+              loop={true} // Set to true for looped animations
+              autoplay={true} // Set to true to play the animation automatically
+              style={{ width: "700px", height: "700px" }}
             />
-            <h5 style={{ display: "block", margin: "30px" }}>
+            {/* <h5 style={{ display: "block", margin: "30px" }}>
               Creating Meal Plan...
-            </h5>
+            </h5> */}
           </div>
         </div>
       ) : (

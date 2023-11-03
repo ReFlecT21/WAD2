@@ -300,6 +300,7 @@ body, html {
     height: 40px;
 
 }
+
 //////////////////////////////Anan stuff below
 
 //HOMEPAGE
@@ -308,21 +309,24 @@ body, html {
 
 .carouselImg{
     width: 100%;
-    height: 90vh;
+    height: calc(100vh - 84px);
+
     object-fit: cover;
     filter: brightness(60%);
+    overflow: hidden;
 }
 
 .carouselItem{
     position: 'relative';
     text-align: 'center';
+    overflow: hidden;
 }
 
 .carouselCaption{
     position: 'absolute';
     padding-top: 200px;
-    padding-bottom: 200px;
-
+    padding-bottom: 180px;
+    overflow: hidden;
     top: '50%'; // Vertically center the caption
     left: '50%'; // Horizontally center the caption
     transform: 'translate(-50%, -50%)'; // Center it perfectly
@@ -344,12 +348,26 @@ body, html {
     }
 }
 
+@media (max-width: 992px) { /* Adjust this value based on when your navbar collapses */
+    .custom-navbar {
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+    }
+    .carouselImg{
+        width: 100%;
+        height: 100vh;
+    
+        object-fit: cover;
+        filter: brightness(60%);
+        overflow: hidden;
+    }
+  }
 @media (max-width: 700px){
     .carouselCaption h1{
         font-size: 60px;
     }
 }
-
 .carousel-indicators{
     display: none;
 }
@@ -400,6 +418,18 @@ h2,h3,h4,h5,h6{
         padding-left: 50px;
         font-size: large;
     }
+    .lottieInput{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0px;
+    }
+
+    @media (max-width: 992px) {
+        .lottieInput{
+            margin-top: 80px;
+        }
+      }
     /////////////////////////////Anan stuff end
     
     /// CHOOSE MEALS
@@ -428,15 +458,25 @@ h2,h3,h4,h5,h6{
         align-items: center;
         cursor: pointer;
     }
+    .createMealHeader{
+        margin-top: 50px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
    
-    
-@media (max-width: 700px) {
+    @media (max-width: 992px) {
+        .createMealHeader{
+            margin-top: 100px;
+        
+        }
+      } 
+    @media (max-width: 700px) {
     .indexedStep{
         font-size: 10px;
         width: 60px;
         height: 30px;
+        }
     }
-  }
 
   @media (min-width: 701px) {
     .indexedStep{
