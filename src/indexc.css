@@ -185,8 +185,6 @@ body, html {
 .navItem {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-left: 20px;
 }
 
 .plusIcon {
@@ -321,6 +319,7 @@ h2, h3, h4, h5, h6 {
   font-family: "Nunito Sans";
   border-radius: 80px;
   height: 50px;
+  width: 80%;
   margin: 5px;
   padding-left: 50px;
   font-size: large;
@@ -492,7 +491,7 @@ h2, h3, h4, h5, h6 {
   margin: 10px;
   background-color: transparent;
   height: 100%;
-  width: 50vh;
+  width: 30vh;
 }
 
 @media (max-width: 600px) {
