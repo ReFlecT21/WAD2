@@ -43,7 +43,7 @@ function NavBar() {
     <Navbar
       expand="lg"
       className="custom-navbar justify-content-between"
-      style={{ height: "15vh" }}
+      // style={{ height: "15vh" }}
     >
       <Container>
         <Navbar.Brand href="/home" className="homeNav">
