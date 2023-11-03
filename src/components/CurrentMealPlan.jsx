@@ -39,7 +39,7 @@ export function CurrentMealPlanV2({
 
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-  const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt);
+  const dayIndex = currDayCalculator(currDisplayMealPlan.CreatedAt)+2;
   const options = { day: "2-digit", month: "2-digit", year: "numeric" };
   const d = new Date(currDisplayMealPlan.CreatedAt);
 
