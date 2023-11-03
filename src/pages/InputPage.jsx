@@ -182,7 +182,7 @@ const InputPage = () => {
             }}
         >
             <Row>
-              <Col md={5} className="p-0 d-none d-md-flex" style={{display:"flex", justifyContent:"center", alignItems:"center"}} >
+              <Col md={5} className="p-0 d-none d-md-block d-none d-md-flex" style={{display:"flex", justifyContent:"center", alignItems:"center"}} >
                 {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
                 <Lottie
                   animationData={animationData} // Your animation data
@@ -193,7 +193,7 @@ const InputPage = () => {
 
             <Col
                 style={{
-                  padding: "20px", marginTop:"150px"
+                padding: "20px", marginTop:"170px"
                 }}
             >
                 <Row>
@@ -397,7 +397,8 @@ const InputPage = () => {
                     id="submit"
                     onClick={handleSubmit}
                     type="submit"
-                    className="CreateMealBtn"
+                    className="chooseBtn"
+                    style={{marginTop:"50px", fontSize:"20px"}} 
                     >
                     Choose my meals!
                     </Button>

@@ -123,8 +123,15 @@ body, html {
   font-style: italic;
 }
 
+.mealPlanContainer {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next row on smaller screens */
+  justify-content: space-between;
+}
+
 .custom-navbar {
   background-color: #1F5E4B;
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -256,6 +263,11 @@ body, html {
     display: none; /* Hide the second <h1> element on smaller screens */
   }
 }
+@media (max-width: 700px) {
+  .carouselCaption h1 {
+    font-size: 60px;
+  }
+}
 .carousel-indicators {
   display: none;
 }
@@ -338,6 +350,20 @@ h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
+@media (max-width: 700px) {
+  .indexedStep {
+    font-size: 10px;
+    width: 60px;
+    height: 30px;
+  }
+}
+@media (min-width: 701px) {
+  .indexedStep {
+    font-size: 16px;
+    width: 100px;
+    height: 40px;
+  }
+}
 .indexedStep.accomplished {
   background-color: #1F5E4B;
   color: #F6FEFC;
@@ -426,6 +452,35 @@ h2, h3, h4, h5, h6 {
 .buttonPrimary:focus {
   background-color: #3EBC96;
 }
+@media (max-width: 600px) {
+  .buttonPrimary {
+    font-size: 8px;
+    padding: 0;
+    width: 45px;
+    height: 25px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 601px) {
+  .buttonPrimary {
+    font-size: 11px;
+    padding: 10px;
+    width: 70px;
+    height: 40px;
+  }
+}
+@media (min-width: 1200px) {
+  .buttonPrimary {
+    /* Adjust styles for screens with a minimum width of 1200px or larger */
+    font-size: 14px;
+    padding: 10px;
+    width: 90px;
+    height: 50px;
+  }
+}
 
 .mealCards {
   display: flex;
@@ -440,10 +495,34 @@ h2, h3, h4, h5, h6 {
   width: 50vh;
 }
 
+@media (max-width: 600px) {
+  .card {
+    width: 220px;
+  }
+  .cardTitle {
+    font-size: 13px;
+  }
+}
+@media (min-width: 601px) {
+  .card {
+    width: 250px;
+  }
+  .cardTitle {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1201px) {
+  .card {
+    width: 340px;
+  }
+  .cardTitle {
+    font-size: 18px;
+  }
+}
 .cardImg {
   border-radius: 30px;
   max-width: 100%;
-  max-height: 120%;
+  max-height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -631,4 +710,27 @@ h2, h3, h4, h5, h6 {
   height: 100px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.responsiveTable {
+  overflow-x: auto;
+}
+
+@media (max-width: 430px) {
+  .responsiveTable {
+    font-size: 4px;
+  }
+  .responsiveTable th,
+  .responsiveTable td {
+    padding: 2px 6px;
+  }
+}
+@media (min-width: 431px) {
+  .responsiveTable {
+    font-size: 8px;
+  }
+  .responsiveTable th,
+  .responsiveTable td {
+    padding: 8px 12px;
+  }
 }/*# sourceMappingURL=indexc.css.map */

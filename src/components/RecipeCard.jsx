@@ -188,7 +188,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
 
   return (
     // <div>
-      <Card >
+      <Card className="accordionCard">
         <Card.Img
           variant="top"
           src={recipe["image"]}

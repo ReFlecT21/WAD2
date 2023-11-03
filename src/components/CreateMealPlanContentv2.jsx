@@ -53,7 +53,7 @@ export function CreateMealPlanContentv2({
           </Col>
         </Row>
 
-        <Row className="mealCards" xs={1} md={2} lg={3}>
+        <Row className="mealCards" xs={3} md={3} lg={4}>
           {recipes ? (
             recipes.map((recipe) => (
               <RecpieCardV2 

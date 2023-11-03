@@ -14,7 +14,7 @@ $headerFont: "Inter";
 //mixins
 @mixin headerText(){ //for all the h1,2,3...
     color: $primaryCol;
-    font-family: "Inter"
+    font-family: "Nunito Sans"
 }
 
 @mixin bodyText(){
@@ -36,17 +36,17 @@ $headerFont: "Inter";
     font-size: $size;
     padding: 10px 28px;
     text-align: center;
-    font-family: $primaryFont;
+    font-family: $primaryFont;}
 
-    &:hover {
-        background:darken($bg,10%);
-        transition: all 0.3s ease;
-    }
-}
+//     &:hover {
+//         background:darken($bg,10%);
+//         transition: all 0.3s ease;
+//     }
+// }
 
-p{
-    font-family: $primaryFont;
-}
+// p{
+//     font-family: $primaryFont;
+// }
 
 //VERTICAL CARD
 // .card{
@@ -93,150 +93,261 @@ p{
 
 
 //stuff
-.neuphormicBox{
-    /* get the input from https://neumorphism.io/#e0e0e0  */
-    border-radius: 40px;
-    background: $backgroundCol;
-    box-shadow:  20px 20px 38px #dbe2e0,
-                -20px -20px 38px #ffffff;
-    padding: 5%;
-    margin: 5%;
+// .neuphormicBox{
+//     /* get the input from https://neumorphism.io/#e0e0e0  */
+//     border-radius: 40px;
+//     background: $backgroundCol;
+//     box-shadow:  20px 20px 38px #dbe2e0,
+//                 -20px -20px 38px #ffffff;
+//     padding: 5%;
+//     margin: 5%;
+// }
+
+// //vertical card
+
+// body, html {
+//     font-family: "Nunito Sans";
+//     margin: 0;
+//     padding: 0;
+//     height: 100%;
+//     background-color: #F6FEFC; 
+// }
+
+// // LOGIN + SIGNUP PAGE
+
+.logo{
+    height: 180px;
+    width: 200px;
+    margin: 20px;
+    margin-top: 30px;
 }
 
-//vertical card
-
-body, html {
-    font-family: "Nunito Sans";
+.foodimg{
+    height: 500px;
+    width: 400;
     margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #F6FEFC; 
 }
 
-// LOGIN + SIGNUP PAGE
-
+.backgroundRight{
+    background-color: $primaryCol;
+}
+.backgroundLeft{
+    background-color: $primaryCol;
+}
 
 .tagline{
-    font-family: $primaryFont;
+    font-family: $headerFont;
     font-size: 24px;
     text-align: center;
     color: $whiteTextCol;
 }
 
-.inputBox{
-    font-family: $primaryFont;
-    border-radius: 80px;
-    width: 55vh;
-    height: 60px;
-    margin: 5px;
-    padding-left: 50px;
-    font-size: large;
-}
+// .inputBox{
+//     font-family: $primaryFont;
+//     border-radius: 80px;
+//     width: 55vh;
+//     height: 60px;
+//     margin: 5px;
+//     padding-left: 50px;
+//     font-size: large;
+// }
 
-.inputBox::placeholder{
-    color: $primaryCol;
-}
+// .inputBox::placeholder{
+//     color: $primaryCol;
+// }
 
-.loginButton{
-    @include button($secondaryCol,18px);
-    width: 40vh;
-    height: 60px;
-    margin-top: 40px;
-}
+// .loginButton{
+//     @include button($secondaryCol,18px);
+//     width: 40vh;
+//     height: 60px;
+//     margin-top: 40px;
+// }
 
-.signupSmallText{
-    text-align: center;
-    margin-top: 20px;
-    color: $whiteTextCol;
-}
+// .signupSmallText{
+//     text-align: center;
+//     margin-top: 20px;
+//     color: $whiteTextCol;
+// }
 
 .link{
     color: $secondaryCol;
     font-style: italic;
 }
 
+// NAVBAR
+
+
+.homeNav h3{
+    font-family: $primaryFont;
+    font-weight: bold;
+    color: $whiteTextCol;
+    margin: 0;
+}
+
+.homeNav img{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.createBtn{
+    @include button($secondaryCol, 16px);
+    font-weight: bold;
+}
+
+.plusIcon{
+    color: $whiteTextCol;
+    margin-right: 10px;
+}
+
+span{
+    color: $whiteTextCol;
+    font-family: $primaryFont;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+span:hover{
+    color: $secondaryCol;
+    transition: 0.5s;
+}
+
+.profileIcon{
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+//MAKE STICKY!!!!!!!!!!//
+
+
+//////////////////////////////Anan stuff below
+
+
+//for input page
+h1{
+    @include headerText()
+}
+
+h2,h3,h4,h5{
+    @include bodyText();
+    font-weight:bold
+}
+
+  @mixin sideImage {
+    max-width: 100%; /* Ensure the image fits within its container */
+    height: 100%;
+    display: block; /* Remove any default inline spacing */
+    margin: 0 auto;
+  }
+
+  .sideimg{
+    @include sideImage()
+  }
+
+    .inputButton{
+
+        @include button($secondaryCol, 16px );
+        width: 30%;
+        margin-top:20px;
+        margin-right: 15px;
+
+    }
+
+    .formInputBox{
+        font-family: $primaryFont;
+        border-radius: 80px;
+        height: 50px;
+        margin: 5px;
+        padding-left: 50px;
+        font-size: large;
+    }
+
 //////for manual search
 /// 
 
-.popup {
-    background-color: $backgroundCol;
+// .popup {
+//     background-color: $backgroundCol;
    
-    position: absolute;
-    display: inline-block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    height: 600px;
-    /* border: 2px solid #000; */
-    margin:auto;
-    overflow: auto;
-    padding: 2%;
-    /* padding-left: 2%; */
-    /* padding-right: 2%; */
+//     position: absolute;
+//     display: inline-block;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 70%;
+//     height: 600px;
+//     /* border: 2px solid #000; */
+//     margin:auto;
+//     overflow: auto;
+//     padding: 2%;
+//     /* padding-left: 2%; */
+//     /* padding-right: 2%; */
 
-    border-radius: 50px; //i added this
+//     border-radius: 50px; //i added this
 
     
-  }
+//   }
   
-  .popupChild{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+//   .popupChild{
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
  
-  }
+//   }
   
-  .card-title{
-    color: $whiteTextCol
-  }
+//   .card-title{
+//     color: $whiteTextCol
+//   }
 
-  .manualSelectBtn{
-      @include whiteText();
-      @include button($primaryCol, 14px);
-      border-radius: 20px;
-  }
+//   .manualSelectBtn{
+//       @include whiteText();
+//       @include button($primaryCol, 14px);
+//       border-radius: 20px;
+//   }
   
 
-  .popUpclass {
-        h2,p{
-            padding-bottom: 10px;
-            text-align: center;
-            font-size: 36px;
-        }
+//   .popUpclass {
+//         h2,p{
+//             padding-bottom: 10px;
+//             text-align: center;
+//             font-size: 36px;
+//         }
 
-        h2{
-            padding-top: 5%;
-        }
+//         h2{
+//             padding-top: 5%;
+//         }
 
-        button{
-            @include whiteText();
-            @include button($primaryCol, 14px);
-            border-radius: 20px;
-        }
+//         button{
+//             @include whiteText();
+//             @include button($primaryCol, 14px);
+//             border-radius: 20px;
+//         }
 
         
 
-    }
+//     }
 
-    .manualSearchBar{
-        width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+//     .manualSearchBar{
+//         width: 50%;
+//         margin-left: auto;
+//         margin-right: auto;
+//     }
 
     
-    .img-overlay{
-      filter: brightness(70%);
-    }
-    .img-overlay-small{
-      filter: brightness(75%);
-      float: left;
-      width:  100px;
-      height: 100px;
-      object-fit: cover;
-    }
+//     .img-overlay{
+//       filter: brightness(70%);
+//     }
+//     .img-overlay-small{
+//       filter: brightness(75%);
+//       float: left;
+//       width:  100px;
+//       height: 100px;
+//       object-fit: cover;
+//     }
     
 
 
@@ -264,19 +375,17 @@ body, html {
     border-radius: 20px;
 }
 
-.CreateMealBtn{
-
-    @include whiteText();
-    @include button($primaryCol, 18px);
-    border-radius: 20px;
-    width: 45%;
-    height: 50px;
-    margin-right: auto;
-    margin-left: auto;
-   text-align: center;
-    padding: 0px;
-    margin-top: 35px
-}
+// .CreateMealBtn{
+//     @include button($primaryCol, 20px);
+//     border-radius: 30px;
+//     width: 45%;
+//     height: 50px;
+//     margin-right: auto;
+//     margin-left: auto;
+//     text-align: center;
+//     padding: 0px;
+//     margin-top: 35px
+// }
 
 .ttt{
     height: 100px;
@@ -332,16 +441,6 @@ body, html {
 //     filter: brightness(70%);
 //   }
 
-.accordionFont{
-    font-family: $headerFont;
-
-}
-
-.fff{
-    font-family: "Orlegano One";
-
-}
-
 /// shopping cart
 .ShoppingCardBtn{
 
@@ -365,7 +464,7 @@ body, html {
 
 
 // .extracolour{
-//     color:#bcddd5;
+    // color:#bcddd5;
 // $C:#e4f3ef
 // }
 
@@ -390,26 +489,25 @@ th:first-of-type {
 
 
   ///finalise meal plan
-.RecalBtn{
+// .RecalBtn{
+//     @include whiteText();
+//     @include button($primaryCol, 17px);
+//     border-radius: 20px;
+//     width: 120px;
+//     height: 50px;
+//     padding: 0px;
+//     margin: 20px;
+//     // text-align: center;
+//     // display: flex;
+//     // justify-content: center;
 
-    @include whiteText();
-    @include button($primaryCol, 17px);
-    border-radius: 20px;
-    width: 120px;
-    height: 50px;
-    padding: 0px;
-    margin: 20px;
-    // text-align: center;
-    // display: flex;
-    // justify-content: center;
-
-}
+// }
   
 
 ///completed meals 
-.card{
-    margin-bottom: 15px; //I added this onto the .card class above
-}   
+// .card{
+//     margin-bottom: 15px; //I added this onto the .card class above
+// }   
 
 
 ///current meal plan
@@ -427,10 +525,31 @@ th:first-of-type {
 };
 
 .nav-link{
-    color: #3EBC96;
-    font-family: "Nunito Sans";
+    color: $primaryCol;
+    font-family: $primaryFont;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
+    padding: 20px;
+    border-radius: 50px;
+    
+    &:hover{
+        color: $secondaryCol;
+    }   
   }
 
+.nav-tabs{
+    background-color: $backgroundCol;
+    --bs-nav-tabs-link-active-color: #F6FEFC;
+    --bs-nav-tabs-link-active-bg: #3EBC96;
+    border: 0;
+
     /////////////////////////////Anan stuff end
+}
+
+.accordionText{
+    font-family: $primaryFont;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 15px;
+
+}

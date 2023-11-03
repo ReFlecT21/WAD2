@@ -64,7 +64,7 @@ export function CurrentMealPlanV2({
   return (
     <>
       {content ? (
-        <div>
+        <div >
           {Object.keys(content.DisplayMealPlan).map((day) => (
             <Accordion
               key={day}
@@ -72,7 +72,7 @@ export function CurrentMealPlanV2({
               onChange={changeAccordionDisplay(day)}
             >
               <AccordionSummary expandIcon={<ExpandMore />}>
-                <h1 style={{ color: "#205E4B", fontFamily: "Nunito sans" }}>
+                <h2 className="accordionText">
                   {new Date(
                     d.getTime() + parseInt(day) * 24 * 60 * 60 * 1000
                   ).toLocaleDateString("en-GB", options)}
@@ -84,39 +84,38 @@ export function CurrentMealPlanV2({
                       ).getDay()
                     ]
                   }
-                </h1>
+                </h2>
               </AccordionSummary>
               <AccordionDetails>
                 {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                   <p> No meals planned for this day </p>
                 ) : (
-                    <Container>
-
-                  <Row xs={1} md={2} lg={3}>
+                  <Row xs={1} md={2} lg={3}  style={{margin:"10px", objectFit:"contain"}} className="mealPlanContainer">
                     {["breakfast", "lunch", "dinner"].map((mealType) => (
                       <div key={`${day}-${mealType}`}>
                         {content.DisplayMealPlan[day]?.[mealType] ? (
                           Object.keys(
                             content.DisplayMealPlan[day][mealType]
                           ).map((recipe) => (
-                            <Col>
-                                <MealPlanCard
-                                key={`${recipe.id}card`}
-                                recipe={recipe}
-                                render={
-                                    content.DisplayMealPlan[day][mealType][
-                                    recipe
-                                    ] == 0
-                                    ? true
-                                    : false
-                                }
-                                day={day}
-                                mealType={mealType}
-                                dayIndex={dayIndex}
-                                currMealPlan={currMealPlan}
-                                currDisplayMealPlan={currDisplayMealPlan}
-                                />
-                            </Col>
+                        
+                            
+                            <MealPlanCard className="myMealCard"
+                              key={`${recipe.id}card`}
+                              recipe={recipe}
+                              render={
+                                content.DisplayMealPlan[day][mealType][
+                                  recipe
+                                ] == 0
+                                  ? true
+                                  : false
+                              }
+                              day={day}
+                              mealType={mealType}
+                              dayIndex={dayIndex}
+                              currMealPlan={currMealPlan}
+                              currDisplayMealPlan={currDisplayMealPlan}
+                            />
+                          
                           ))
                         ) : (
                           <>

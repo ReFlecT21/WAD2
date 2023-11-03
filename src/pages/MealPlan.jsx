@@ -125,10 +125,10 @@ export default function MealPlan() {
             >
               <Tab eventKey="mealPlan" title={"Current Meal Plan"}>
                 {/* <CurrentMealPlan /> */}
-                <div style={{display:"flex", justifyContent:"space-between"} }>
-                  <h2>Your current meal plan</h2>
-                  <Button className="RecalBtn" onClick={handleRecal}>
-                    Recalculate
+                <div style={{marginTop: "30px", marginBottom: "30px", display:"flex", justifyContent:"space-between"}}>
+                  <h2 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>Your Current Meal Plan</h2>
+                  <Button className="chooseBtn" onClick={handleRecal}>
+                    Replan
                   </Button>
 
                 </div>
@@ -152,7 +152,7 @@ export default function MealPlan() {
                 )}
               </Tab>
               <Tab eventKey="Completed" title={"Completed Meals"}>
-                <h1>Completed Meals</h1>
+                <h2  style={{marginTop: "30px", marginBottom: "30px"}}>Your Completed Meals</h2>
                 <Row xs={1} md={2} lg={3}>
                   <CompletedMeals completed={completed} />
                   {/* <CompletedMealsV2 completed={completed} /> */}
