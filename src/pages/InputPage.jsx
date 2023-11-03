@@ -270,7 +270,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="height"
-                  placeholder="Enter your height"
+                  placeholder="Enter your height (cm)"
                   className=" round"
                   id="height"
                   onChange={handleChange}
@@ -288,7 +288,7 @@ const InputPage = () => {
                 <Form.Control
                   type="number"
                   name="weight"
-                  placeholder="Enter your weight"
+                  placeholder="Enter your weight (kg)"
                   className=" round"
                   id="weight"
                   onChange={handleChange}
