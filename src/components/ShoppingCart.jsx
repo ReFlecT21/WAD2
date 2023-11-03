@@ -29,6 +29,8 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     //     setNumOutstanding((prev) => prev + 1);
     // } 
 
+    
+
     const completeItem = async() => {
         
         if (checked) {
@@ -100,12 +102,12 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>
+                <TableCell component="th" scope="row" style={{fontSize:"30px", fontFamily:"Nunito sans", fontWeight:"bold", color:"#205E4B", backgroundColor:"white"}}>
                     {title}
                 </TableCell>
-                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>{numItems}</TableCell>
-                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>{numOutstanding}</TableCell>
-                <TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans",fontWeight:"bold", color:"#205E4B", backgroundColor:"white"}}>{numItems}</TableCell>
+                <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans",fontWeight:"bold", color:"#205E4B", backgroundColor:"white"}}>{numOutstanding}</TableCell>
+                <TableCell style={{ backgroundColor:"white"}}>
                     <IconButton
                     aria-label="expand row"
                     size="small"
@@ -126,7 +128,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                             Check off what you have bought!
                             You can click the button again if you have made a mistake.
                         </Typography>
-                        <Table size="small" aria-label="purchases">
+                        <Table className="tableclass" size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px", padding:"50px"}}>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Aisle</TableCell>
@@ -198,7 +200,7 @@ export function ShoppingCart({shoppingCart}) {
     return (
         <>
             {shoppingCart ? (<TableContainer component={Paper}>
-            <Table aria-label="collapsible table" style={{backgroundColor:"white"}}>
+            <Table  aria-label="collapsible table" style={{backgroundColor:"white"}}>
                 <TableHead >
                 <TableRow >
                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B", fontWeight:"bold"}}>Day</TableCell>
@@ -271,7 +273,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                     </AccordionSummary>
 
                     <AccordionDetails>
-                        <Table class="responsiveTable">
+                        <Table >
                             <TableHead>
                                 <TableRow style={{ backgroundColor:"#1F5E4B", height:"50px"}}>
                                     <TableCell style={{fontFamily:"Nunito Sans", color:"white", fontWeight:"bold"}}align="center">Item</TableCell>

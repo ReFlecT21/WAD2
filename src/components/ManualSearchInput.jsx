@@ -187,30 +187,44 @@ return (
     <Modal open={ConfirmModalopen} onClose={handleClose}>
         <Box className="popup">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
+           
             <Button className="chooseBtn" onClick={handleClose}>
             Back
             </Button>
-            <Button className="chooseBtn" onClick={handleAdd}>
-            Add
-            </Button>
-            <Button className="chooseBtn" onClick={async ()=>{
-                await handleRecal()
-                // await recalRedirect()
-                }}>
-            Replan
-            </Button>
+          
+            
+
+                  
+           
         </div>
+
         
         <div
             style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            marginTop:"85px"
             }}
         >
-            <h2>Confrim modal</h2>
+            <h2>Are you sure?</h2>
             {}
         </div>
+
+            <div style={{display:"flex", justifyContent:"space-evenly", marginTop:"30px"}} >
+        <Button className="chooseBtn" onClick={handleAdd}>
+            Add
+            </Button>
+            
+            <Button className="chooseBtn" onClick={async ()=>{
+                await handleRecal()
+                // await recalRedirect()
+            }}>
+            Replan
+            </Button>
+            </div>
+
+
         </Box>
     </Modal>
     </React.Fragment>

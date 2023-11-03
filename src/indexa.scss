@@ -364,6 +364,10 @@ h2,h3,h4,h5{
     height: 50px;
     margin-right: auto;
     margin-left: auto;
+
+    &:hover{
+        background-color: $secondaryCol;
+    }   
 }
 
 
@@ -387,12 +391,12 @@ h2,h3,h4,h5{
 //     margin-top: 35px
 // }
 
-.ttt{
-    height: 100px;
-    width: 300px;
+// .ttt{
+//     height: 100px;
+//     width: 300px;
     
 
-}
+// }
 
 ////Recipe card (for meal plan page)
 
@@ -468,24 +472,53 @@ h2,h3,h4,h5{
 // $C:#e4f3ef
 // }
 
-///table general stuff for shopping cart
-table{
-    background-color: $whiteTextCol;
-}
+// table general stuff for shopping cart
+// table{
+//     background-color: $whiteTextCol;
+// }
 
-th:first-of-type {
-    border-top-left-radius: 25px;
+// th:first-of-type {
+//     border-top-left-radius: 25px;
 
+//   }
+//   th:last-of-type {
+//     border-top-right-radius: 25px;
+//   }
+//   tr:last-of-type td:first-of-type {
+//     border-bottom-left-radius: 25px;
+//   }
+//   tr:last-of-type td:last-of-type {
+//     border-bottom-right-radius: 25px;
+//   }
+
+  
+
+  .tableclass{
+    table{
+        background-color: $whiteTextCol;
+    }
+    
+    th:first-of-type {
+        border-top-left-radius: 25px;
+    
+      }
+      th:last-of-type {
+        border-top-right-radius: 25px;
+      }
+      tr:last-of-type td:first-of-type {
+        border-bottom-left-radius: 25px;
+      }
+      tr:last-of-type td:last-of-type {
+        border-bottom-right-radius: 25px;
+      }
+    
   }
-  th:last-of-type {
-    border-top-right-radius: 25px;
-  }
-  tr:last-of-type td:first-of-type {
-    border-bottom-left-radius: 25px;
-  }
-  tr:last-of-type td:last-of-type {
-    border-bottom-right-radius: 25px;
-  }
+
+
+  
+
+
+
 
 
   ///finalise meal plan
@@ -551,5 +584,30 @@ th:first-of-type {
     font-size: 30px;
     font-weight: bold;
     margin: 15px;
+    
 
 }
+////input margin
+
+.custMargTop{
+    margin-top:120px ;
+}
+
+
+///checkboxes 
+
+input[type="checkbox"]:checked {
+    background-color: $secondaryCol; /* Change the color when checked */
+    border-color: $secondaryCol;
+  }
+
+
+//   .custom-navbar li{position:relative;}
+// ul.sub-menu ul { position:absolute;left:0;top:100%}
+
+// .cen{
+//     display: flex;
+//     justify-content: space-evenly;
+//     // text-align: center 
+//     margin-top: 15%;
+// }
