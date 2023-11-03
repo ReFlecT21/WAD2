@@ -95,29 +95,6 @@ export function CompletedMealsManual({completed}) {
                 {display}
             </>
         )
-        // return (
-        //     <Row xs={1} md={2} lg={3}>
-        //         {Object.keys(completed.Completed).map((day, dayIndex) => (
-        //             <Col key={`recipe-${dayIndex}`}>
-        //                 {Object.keys(completed.Completed[day]).map((mealType) => (
-        //                     <Col key={`recipe-${dayIndex}-${mealType}`}>
-        //                         {!Array.isArray(completed.Completed[day][mealType]) ? (
-        //                         <>
-        //                             {Object.keys(completed.Completed[day][mealType]).map((recipe) => (
-        //                                 <MealPlanCardHome key={`recipe-${dayIndex}-${mealType}-${recipe}-card`} recipe={recipe} />
-        //                             ))}
-        //                         </>
-        //                         ) : (
-        //                         <div>
-
-        //                         </div>
-        //                         )}
-        //                     </Col>
-        //                 ))}
-        //             </Col>
-        //         ))}
-        //     </Row>
-        // )
 }
 
 export function CompletedMealsV2({completed}) {
