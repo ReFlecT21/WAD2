@@ -254,23 +254,23 @@ h2,h3,h4,h5{
     @include sideImage()
   }
 
-    .inputButton{
+    // .inputButton{
 
-        @include button($secondaryCol,16px );
-        width: 30%;
-        margin-top:20px;
-        margin-right: 15px;
+    //     @include button($secondaryCol,16px );
+    //     width: 30%;
+    //     margin-top:20px;
+    //     margin-right: 15px;
 
-    }
+    // }
 
-    .formInputBox{
-        font-family: $primaryFont;
-        border-radius: 80px;
-        height: 50px;
-        margin: 5px;
-        padding-left: 50px;
-        font-size: large;
-    }
+    // .formInputBox{
+    //     font-family: $primaryFont;
+    //     border-radius: 80px;
+    //     height: 50px;
+    //     margin: 5px;
+    //     padding-left: 50px;
+    //     font-size: large;
+    // }
 
 //////for manual search
 /// 
