@@ -40,7 +40,11 @@ function NavBar() {
     }
   };
   return (
-    <Navbar expand="lg" className="custom-navbar justify-content-between">
+    <Navbar
+      expand="lg"
+      className="custom-navbar justify-content-between"
+      style={{ height: "15vh" }}
+    >
       <Container>
         <Navbar.Brand href="/home" className="homeNav">
           <img
@@ -53,7 +57,6 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" style={{}}>
           <Nav style={{ marginRight: "20px" }}>
-
             {width > 991 ? (
               <Nav.Link
                 className="navItem"
@@ -70,7 +73,7 @@ function NavBar() {
                 <span className="navText">Create Meal Plan!</span>
               </Nav.Link>
             )}
-            
+
             <Nav.Link
               className="navItem"
               href="/mealplan"
@@ -89,7 +92,6 @@ function NavBar() {
                 className="exitIcon"
                 style={{ marginLeft: "40px" }}
                 icon={faSignOut}
-                
               />
             </Nav.Link>
           </Nav>
