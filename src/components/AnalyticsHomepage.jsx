@@ -38,7 +38,8 @@ const AnalyticsHomePage = ({ completedPlan }) => {
     now = 100;
   }
   console.log(now);
-  return <ProgressBar now={now} label={`${now}%`} />;
+  return <ProgressBar now={now} label={`${now}%`} 
+  style={{padding:"0px", width:"500px", height: "50px", borderRadius: "50px"}}/>;
 };
 
 export default AnalyticsHomePage;

@@ -50,11 +50,11 @@ const PlatesHomepage = ({ currMealPlan }) => {
           return (
             <div
               className="responsive-img"
-              // style={{ width: "100%", height: "auto" }}
+              
 
               key={i}
             >
-              <img src={imgSrc} alt={`${color} Plate`} />
+              <img style={{ width: "80px", height: "80px", margin:"10px" }} src={imgSrc} alt={`${color} Plate`} />
             </div>
           );
         })}

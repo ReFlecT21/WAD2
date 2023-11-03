@@ -9,6 +9,10 @@ import { DotLoader } from "react-spinner-overlay";
 import { FormDetails } from "../atoms/formAtom";
 import { useAtom } from "jotai";
 import Cookies from "js-cookie";
+// import Lottie from "lottie-web";
+import Lottie from "lottie-react";
+import LoadingAnimationData from "../assets/loading.json"
+
 
 export function CreateMealPlanContentv2({
   pageNum,
@@ -350,19 +354,25 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "60vh",
+            height: "25vh",
           }}
         >
           <div style={{ textAlign: "center" }}>
-            <DotLoader
+            {/* <DotLoader
               loading={loadFlag}
               color="#1F5E4B"
               size={40}
               between={50}
+            /> */}
+            <Lottie
+              animationData={LoadingAnimationData} // Your animation data
+              loop={true} // Set to true for looped animations
+              autoplay={true} // Set to true to play the animation automatically
+              style={{ width: "700px", height: "700px" }}
             />
-            <h5 style={{ display: "block", margin: "30px" }}>
+            {/* <h5 style={{ display: "block", margin: "30px" }}>
               Creating Meal Plan...
-            </h5>
+            </h5> */}
           </div>
         </div>
       ) : (

@@ -81,9 +81,9 @@ export default function MealPlan() {
     
     fetchData();
   }, []);
-  console.log(completed)
-  console.log(currMealPlan)
-  console.log(currDisplayMealPlan)
+  // console.log(completed)
+  // console.log(currMealPlan)
+  // console.log(currDisplayMealPlan)
 
   const handleRecal = async () => {
     const expirationTimeInHours = 1;
@@ -152,9 +152,20 @@ export default function MealPlan() {
                 )}
               </Tab>
               <Tab eventKey="Completed" title={"Completed Meals"}>
-                <h2  style={{marginTop: "30px", marginBottom: "30px"}}>Your Completed Meals</h2>
-                <Row xs={1} md={2} lg={3}>
-                  <CompletedMeals completed={completed} />
+                <h2 style={{marginTop: "30px", marginBottom: "30px"}}>Your Completed Meals</h2>
+
+                <Row
+                    xs={1}
+                    md={2}
+                    lg={3}
+                    style={{ margin: "10px", objectFit: "contain" }}
+                    className="mealPlanContainer"
+                  >
+                  <CompletedMeals 
+                    completed={completed} 
+                    currMealPlan={currMealPlan}
+                    currDisplayMealPlan={currDisplayMealPlan}
+                  />
                   {/* <CompletedMealsV2 completed={completed} /> */}
                 </Row>
               </Tab>
