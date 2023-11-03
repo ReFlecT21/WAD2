@@ -57,6 +57,7 @@ function App() {
                 <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/analytic" element={<AnalyticsHomePage />} />
                 <Route path="/login" element={<LoginComponent />} />
+                <Route path="/" element={<Navigate to="/home" replace />} />
               </>
             ) : (
               <>
