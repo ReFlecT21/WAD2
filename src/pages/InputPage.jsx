@@ -199,7 +199,7 @@ const InputPage = () => {
               marginTop: "150px",
             }}
           >
-            <Row>
+            <Row >
               <h1>Hello, let's get to know you!</h1>
             </Row>
 

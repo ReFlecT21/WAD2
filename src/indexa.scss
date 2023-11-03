@@ -370,6 +370,10 @@ h2,h3,h4,h5{
     height: 50px;
     margin-right: auto;
     margin-left: auto;
+
+    &:hover{
+        background-color: $secondaryCol;
+    }   
 }
 
 
@@ -561,4 +565,9 @@ th:first-of-type {
     margin: 15px;
     
 
+}
+////input margin
+
+.custMargTop{
+    margin-top:120px ;
 }

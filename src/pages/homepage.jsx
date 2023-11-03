@@ -129,9 +129,8 @@ const HomePage = () => {
     }
     setDailyCal(await dbFoodMethods.getDayCal());
   };
-  if (exist) {
-    checkDaily();
-  }
+
+  // checkDaily();
 
   return exist ? (
     <>
@@ -219,7 +218,9 @@ const HomePage = () => {
           </Carousel.Caption>
         </Carousel.Item>
 
-      <Row xs={1} md={3} id="homepage">
+    </Carousel>
+      
+      <Row xs={1} md={3}  id="homepage">
         {/* <Col>
           <spline-viewer url="https://prod.spline.design/TGgKuiS6HyavoK5J/scene.splinecode" events-target="global" logo="No"></spline-viewer>
         </Col> */}
