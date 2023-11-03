@@ -79,7 +79,7 @@ body, html {
 .inputBox {
   font-family: "Nunito Sans";
   border-radius: 80px;
-  width: 55vh;
+  width: 50vh;
   height: 60px;
   margin: 5px;
   padding-left: 50px;
@@ -709,6 +709,10 @@ h2, h3, h4, h5, h6 {
   height: 100px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.table {
+  background-color: white;
 }
 
 .responsiveTable {
