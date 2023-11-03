@@ -34,13 +34,6 @@
   font-style: italic;
 }
 
-.custom-navbar {
-  background-color: #1F5E4B;
-  border-bottom-right-radius: 40px;
-  border-bottom-left-radius: 40px;
-  box-shadow: 0 2px 4px 0 rgba(57, 67, 58, 0.2);
-}
-
 .homeNav h3 {
   font-family: "Nunito Sans";
   font-weight: bold;
@@ -94,7 +87,7 @@ span:hover {
 
 h1 {
   color: #1F5E4B;
-  font-family: "Inter";
+  font-family: "Nunito Sans";
 }
 
 h2, h3, h4, h5 {
@@ -155,28 +148,6 @@ h2, h3, h4, h5 {
 
 .round {
   border-radius: 20px;
-}
-
-.CreateMealBtn {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 18px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 45%;
-  height: 50px;
-  margin-right: auto;
-  margin-left: auto;
-  text-align: center;
-  padding: 0px;
-  margin-top: 35px;
 }
 
 .ttt {

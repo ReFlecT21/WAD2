@@ -389,7 +389,8 @@ const InputPage = () => {
                     id="submit"
                     onClick={handleSubmit}
                     type="submit"
-                    className="CreateMealBtn"
+                    className="chooseBtn"
+                    style={{marginTop:"50px", fontSize:"20px"}} 
                     >
                     Choose my meals!
                     </Button>

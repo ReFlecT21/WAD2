@@ -90,14 +90,16 @@ export function CurrentMealPlanV2({
                 {Object.keys(content.DisplayMealPlan[day]).length == 0 ? (
                   <p> No meals planned for this day </p>
                 ) : (
-                  <Row xs={1} md={2} lg={3}  style={{margin:"10px"}}>
+                  <Row xs={1} md={2} lg={3}  style={{margin:"10px", objectFit:"contain"}} className="mealPlanContainer">
                     {["breakfast", "lunch", "dinner"].map((mealType) => (
                       <div key={`${day}-${mealType}`}>
                         {content.DisplayMealPlan[day]?.[mealType] ? (
                           Object.keys(
                             content.DisplayMealPlan[day][mealType]
                           ).map((recipe) => (
-                            <MealPlanCard
+                        
+                            
+                            <MealPlanCard className="myMealCard"
                               key={`${recipe.id}card`}
                               recipe={recipe}
                               render={
@@ -113,6 +115,7 @@ export function CurrentMealPlanV2({
                               currMealPlan={currMealPlan}
                               currDisplayMealPlan={currDisplayMealPlan}
                             />
+                          
                           ))
                         ) : (
                           <>
