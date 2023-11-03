@@ -110,7 +110,7 @@ const HomePage = () => {
   var currDay = 0;
 
   if (currDisplayMealPlan?.DisplayMealPlan) {
-    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt);
+    // currDay = currDayCalculator(currDisplayMealPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
@@ -206,13 +206,13 @@ const HomePage = () => {
 
                               {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType] ? (
                                 <>
-                                {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][
+                                {/* {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][
                                   Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
                                 ] ? (
                                   <h4>{mealType} completed!</h4>
                                 ) : (
                                   <h4>{mealType}</h4>
-                                )}
+                                )} */}
                                 <MealPlanCard 
                                     key={`${mealType}${currDay}card`}
                                     recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]}
