@@ -265,7 +265,7 @@ const HomePage = () => {
                 onClick={() => {
                   setOverlayData(
                     <ManualSearchComponent
-                      currDay={currDay + 1}
+                      currDay={currDay + 2}
                       showNotification={showNotification}
                     />
                   );
@@ -289,6 +289,7 @@ const HomePage = () => {
         {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>}
         {weights && formattedDates ? (
           <BarChart Weights={weights} Dates={formattedDates} />
+          // <></>
         ) : (
           <></>
         )}

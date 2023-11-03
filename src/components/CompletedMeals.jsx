@@ -8,17 +8,20 @@ export function CompletedMeals({completed}) {
     // console.log(completed.Completed)
     const display = []
 
+    var idx = 0
+
     Object.keys(completed.Completed).forEach((day) => {
         Object.keys(completed.Completed[day]).forEach((mealType) => {
             if (!Array.isArray(completed.Completed[day][mealType])){
                 // console.log(completed.Completed[day][mealType])
                 Object.keys(completed.Completed[day][mealType]).forEach((recipe) => {
-                    display.push(<MealPlanCardHome key={`${recipe}completedPage`} recipe={recipe} />)
+                    display.push(<MealPlanCardHome key={`${recipe}completedPage${idx}`} recipe={recipe} />)
                 })
             } else {
                 // for manual input content
-                // console.log(completed.Completed[day][mealType])
+                console.log(completed.Completed[day][mealType])
             }
+            idx += 1
         })
     })
 

@@ -53,22 +53,24 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" style={{}}>
           <Nav style={{ marginRight: "20px" }}>
-            <Nav.Link
-              className="navItem"
-              href="/input"
-              style={{ alignContent: "center" }}
-            >
-              {width > 991 ? (
+
+            {width > 991 ? (
+              <Nav.Link
+                className="navItem"
+                href="/input"
+                style={{ alignContent: "center" }}
+              >
                 <Button className="createBtn custom-clicked-button">
                   <FontAwesomeIcon className="plusIcon" icon={faPlus} />
                   Create Meal Plan!
                 </Button>
-              ) : (
-                <Nav.Link className="navItem" href="/mealplan">
-                  <span className="navText">Create Meal Plan!</span>
-                </Nav.Link>
-              )}
-            </Nav.Link>
+              </Nav.Link>
+            ) : (
+              <Nav.Link className="navItem" href="/input">
+                <span className="navText">Create Meal Plan!</span>
+              </Nav.Link>
+            )}
+            
             <Nav.Link
               className="navItem"
               href="/mealplan"

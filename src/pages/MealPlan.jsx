@@ -91,11 +91,11 @@ export default function MealPlan() {
     new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
     );
     
-    let remainingCal = await dbFoodMethods.getRemainingCalories();
+    let remainingCal = await dbFoodMethods.getRemainingCalories(currMealPlan.mealPlan);
     console.log(remainingCal);
     
     if (remainingCal > 999){
-        Cookies.set("recal", 1, { expires: expirationDate });
+        Cookies.set("recal", JSON.stringify(currMealPlan.mealPlan), { expires: expirationDate });
         Cookies.set("calories", remainingCal, { expires: expirationDate });
         navigate("/choose");
     } else {
