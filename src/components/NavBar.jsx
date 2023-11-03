@@ -45,7 +45,7 @@ function NavBar() {
         <Navbar.Brand href="/home" className="homeNav">
           <img
             alt=""
-            src="/Untitled_Artwork 1.svg"
+            src="/MenuMateWhite.svg"
             className="d-inline-block align-top mr-10"
           />
           <h3>MenuMate</h3>

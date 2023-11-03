@@ -175,7 +175,8 @@ return (
     console.log(foodDetails),
     <React.Fragment>
     <Button
-        className="chooseBtn"
+        className="buttonPrimary"
+        style={{width:"100px"}}
         onClick={() => {
         setConfirmModalOpen(true);
         }}
@@ -196,7 +197,7 @@ return (
                 await handleRecal()
                 // await recalRedirect()
                 }}>
-            Recal
+            Replan
             </Button>
         </div>
         
@@ -297,6 +298,7 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
         <React.Fragment>
         <Button
             className="buttonPrimary"
+            style={{width:"100px", }}
             onClick={() => {
 
                 // if(food_Array.length == 0){
@@ -355,7 +357,7 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
         <Modal open={ChildModalopen} onClose={handleClose}>
             <Box className="popup">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button className="buttonPrimary" onClick={handleClose}>
+                <Button className="buttonPrimary" style={{width:"100px"}} onClick={handleClose}>
                 Back
                 </Button>
                 {/* <Button className="buttonPrimary" onClick={null}>Confirm</Button> */}
@@ -512,6 +514,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
 
     async function checkValidMeal (mealType){
         let res = await dbFoodMethods.getMealPlan();
+        console.log(currDay);
 
         // console.log(res.mealPlan[props.currDay][mealType]);
         if (res.mealPlan[currDay][mealType] != undefined){
@@ -645,7 +648,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
             <Box className="popup">
                 
             <div className="text-center">
-                <div style={{display:"flex", justifyContent:"space-between"}}>
+                <div style={{display:"flex", justifyContent:"space-between", marginBottom:"15px"}}>
                     <BasicPopover />
 
                     <h5>Number of items added: {count}</h5>
@@ -700,6 +703,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <Col md={12}>
                             <h5>Food Name</h5>
                             <Form.Control
+                            style={{marginBottom:"15px"}}
                             id="manual_foodName"
                             aria-label="name"
                             aria-describedby="inputGroup-sizing-default"
@@ -711,6 +715,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Calories</h5>
                                 <Form.Control
+                                style={{marginBottom:"15px"}}
                                 type='number'
                                 id="manual_calories"
                                 aria-label="name"
@@ -727,6 +732,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Protein</h5>
                                 <Form.Control
+                                style={{marginBottom:"15px"}}
                                 type='number'
                                 id="manual_protein"
                                 aria-label="name"
@@ -745,6 +751,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Fat</h5>
                                 <Form.Control
+                                style={{marginBottom:"15px"}}
                                 type='number'
                                 id="manual_fat"
                                 aria-label="name"
@@ -782,7 +789,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                     <Scan setScanData={setScanData} scanData={scanData}/>
                     <Button
                         // type="submit"
-                        className="buttonPrimary"
+                        className="chooseBtn"
                         style={{width:"200px", height:"50px", margin:"0px"}}
                         onClick={(event) => {
                             event.preventDefault(); // Prevent default form submission

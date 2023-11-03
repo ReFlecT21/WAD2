@@ -110,7 +110,7 @@ const HomePage = () => {
   var currDay = 0;
 
   if (currDisplayMealPlan?.DisplayMealPlan) {
-    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt) + 4;
+    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
@@ -119,87 +119,6 @@ const HomePage = () => {
       <NavBar />
       <PageNotification message={notiMessage} render={notiRender} />
       {overlayData}
-
-      <Carousel fade>
-        <Carousel.Item className="carouselItem">
-          <img src={carouselOne} alt="first slide" className="carouselImg" />
-          <Carousel.Caption className="carouselCaption">
-            <h1>Welcome back!</h1>
-            <h1>What's cooking today?</h1>
-            <Button
-              className="chooseBtn"
-              href="#homepage"
-              style={{ marginTop: "10px" }}
-            >
-              See my meal plan
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item className="carouselItem">
-          <img src={carouselTwo} alt="second slide" className="carouselImg" />
-          <Carousel.Caption className="carouselCaption">
-            <h1>Welcome back!</h1>
-            <h1>What's cooking today?</h1>
-            <Button
-              className="chooseBtn"
-              href="#homepage"
-              style={{ marginTop: "10px" }}
-            >
-              See my meal plan
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item className="carouselItem">
-          <img src={carouselThird} alt="third slide" className="carouselImg" />
-          <Carousel.Caption className="carouselCaption">
-            <h1>Welcome back!</h1>
-            <h1>What's cooking today?</h1>
-            <Button
-              className="chooseBtn"
-              href="#homepage"
-              style={{ marginTop: "10px" }}
-            >
-              See my meal plan
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item className="carouselItem">
-          <img
-            src={carouselFourth}
-            alt="fourth slide"
-            className="carouselImg"
-          />
-          <Carousel.Caption className="carouselCaption">
-            <h1>Welcome back!</h1>
-            <h1>What's cooking today?</h1>
-            <Button
-              className="chooseBtn"
-              href="#homepage"
-              style={{ marginTop: "10px" }}
-            >
-              See my meal plan
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item className="carouselItem">
-          <img src={carouselFifth} alt="third slide" className="carouselImg" />
-          <Carousel.Caption className="carouselCaption">
-            <h1>Welcome back!</h1>
-            <h1>What's cooking today?</h1>
-            <Button
-              className="chooseBtn"
-              href="#homepage"
-              style={{ marginTop: "10px" }}
-            >
-              See my meal plan
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
 
       <Row xs={1} md={3} id="homepage">
         {/* <Col>
@@ -211,8 +130,16 @@ const HomePage = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <h1>{currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
               <div>
-                <Button className="buttonPrimary" href="/mealplan">
-                  See meal plan
+                <Button
+                  className="chooseBtn"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  href="/mealplan"
+                >
+                  See All
                 </Button>
               </div>
             </div>
@@ -359,7 +286,7 @@ const HomePage = () => {
               {/* <Button className="homePageBtn">Scan</Button> */}
               <h3>Manual Add</h3>
               <Button
-                className="homePageBtn"
+                className="chooseBtn"
                 onClick={() => {
                   setOverlayData(
                     <ManualSearchComponent
@@ -396,7 +323,7 @@ const HomePage = () => {
     //if user is new
     <>
       <NavBar />
-      <Carousel fade controls={false}>
+      <Carousel fade controls={false} interval={3000} wrap={true}>
         <Carousel.Item className="carouselItem">
           <img src={carouselOne} alt="first slide" className="carouselImg" />
           <Carousel.Caption className="carouselCaption">

@@ -166,26 +166,18 @@ const InputPage = () => {
   return (
     <>
       <NavBar />
-      <Container
-        fluid
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-      >
+      <Container fluid>
         <Row>
           <Col
             md={5}
-            className="p-0 d-none d-md-flex"
+            className="p-0  d-sm-block d-md-flex"
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginTop: "30px",
             }}
           >
-            {/* <img className="inputImg" src="./public/inputImg.jpg"></img> */}
             <Lottie
               animationData={animationData} // Your animation data
               loop={true} // Set to true for looped animations
@@ -194,16 +186,16 @@ const InputPage = () => {
           </Col>
 
           <Col
+            md={7}
             style={{
-              padding: "20px",
-              marginTop: "150px",
+              marginTop: "50px",
             }}
           >
-            <Row>
+            <Row className="text-center text-md-left">
               <h1>Hello, let's get to know you!</h1>
             </Row>
 
-            <Row>
+            <Row style={{ paddingRight: "40px" }}>
               <Col
                 style={{
                   paddingLeft: "40px",
@@ -212,18 +204,38 @@ const InputPage = () => {
               >
                 <h5>Gender</h5>
 
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <span style={{ marginRight: "10px", color: "black" }}>
+                <div className="d-flex align-items-center">
+                  <span
+                    style={{
+                      color: "#1F5E4B",
+                      fontSize: "18px",
+                      fontWeight: "normal",
+                      marginRight: "35px",
+                    }}
+                  >
                     Female
                   </span>
                   <MDBSwitch
-                    style={{ color: "white" }}
-                    className="p"
+                    style={{ color: "white", fontSize: "20px" }}
                     name="gender"
                     checked={formData.gender === "male"}
                     onChange={handleChangeGender}
                     id="flexSwitchCheckChecked"
-                    label="Male"
+                    label={
+                      <span
+                        style={{
+                          fontSize: "18px",
+                          color: "#1F5E4B",
+                          fontWeight: "normal",
+                          marginTop: "1px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        Male
+                      </span>
+                    }
                   />
                 </div>
               </Col>
@@ -246,7 +258,7 @@ const InputPage = () => {
                 />
               </Col>
             </Row>
-            <Row style={{ marginTop: "" }}>
+            <Row style={{ paddingRight: "40px" }}>
               <Col
                 md={6}
                 style={{
@@ -284,7 +296,7 @@ const InputPage = () => {
                 />
               </Col>
             </Row>
-            <Row style={{ marginTop: "" }}>
+            <Row style={{ paddingRight: "40px" }}>
               <Col
                 md={6}
                 style={{
@@ -413,7 +425,12 @@ const InputPage = () => {
                   id="submit"
                   onClick={handleSubmit}
                   type="submit"
-                  className="CreateMealBtn"
+                  className="chooseBtn"
+                  style={{
+                    marginTop: "50px",
+                    marginBottom: "50px",
+                    fontSize: "20px",
+                  }}
                 >
                   Choose my meals!
                 </Button>

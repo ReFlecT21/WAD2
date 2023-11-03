@@ -1,73 +1,31 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Orelega+One");
 @import url("https://fonts.googleapis.com/css?family=Inter");
-p {
-  font-family: "Nunito Sans";
+.logo {
+  height: 180px;
+  width: 200px;
+  margin: 20px;
+  margin-top: 30px;
 }
 
-.neuphormicBox {
-  /* get the input from https://neumorphism.io/#e0e0e0  */
-  border-radius: 40px;
-  background: #F6FEFC;
-  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
-  padding: 5%;
-  margin: 5%;
-}
-
-body, html {
-  font-family: "Nunito Sans";
+.foodimg {
+  height: 500px;
+  width: 400;
   margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: #F6FEFC;
+}
+
+.backgroundRight {
+  background-color: #1F5E4B;
+}
+
+.backgroundLeft {
+  background-color: #1F5E4B;
 }
 
 .tagline {
-  font-family: "Nunito Sans";
+  font-family: "Inter";
   font-size: 24px;
   text-align: center;
-  color: #F6FEFC;
-}
-
-.inputBox {
-  font-family: "Nunito Sans";
-  border-radius: 80px;
-  width: 55vh;
-  height: 60px;
-  margin: 5px;
-  padding-left: 50px;
-  font-size: large;
-}
-
-.inputBox::-moz-placeholder {
-  color: #1F5E4B;
-}
-
-.inputBox::placeholder {
-  color: #1F5E4B;
-}
-
-.loginButton {
-  background-color: #3EBC96;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 18px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  width: 40vh;
-  height: 60px;
-  margin-top: 40px;
-}
-.loginButton:hover {
-  background: #319677;
-  transition: all 0.3s ease;
-}
-
-.signupSmallText {
-  text-align: center;
-  margin-top: 20px;
   color: #F6FEFC;
 }
 
@@ -76,98 +34,97 @@ body, html {
   font-style: italic;
 }
 
-.popup {
-  background-color: #F6FEFC;
-  position: absolute;
-  display: inline-block;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  height: 600px;
-  /* border: 2px solid #000; */
-  margin: auto;
-  overflow: auto;
-  padding: 2%;
-  /* padding-left: 2%; */
-  /* padding-right: 2%; */
-  border-radius: 50px;
-}
-
-.popupChild {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.card-title {
-  color: #F6FEFC;
-}
-
-.manualSelectBtn {
-  color: #F6FEFC;
-  font-weight: normal;
+.homeNav h3 {
   font-family: "Nunito Sans";
-  background-color: #1F5E4B;
+  font-weight: bold;
+  color: #F6FEFC;
+  margin: 0;
+}
+
+.homeNav img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.createBtn {
+  background-color: #3EBC96;
   color: #F6FEFC;
   border: 0px;
   border-radius: 50px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 10px 28px;
   text-align: center;
   font-family: "Nunito Sans";
-  border-radius: 20px;
-}
-.manualSelectBtn:hover {
-  background: #12382c;
-  transition: all 0.3s ease;
+  font-weight: bold;
 }
 
-.popUpclass h2, .popUpclass p {
-  padding-bottom: 10px;
-  text-align: center;
-  font-size: 36px;
-}
-.popUpclass h2 {
-  padding-top: 5%;
-}
-.popUpclass button {
+.plusIcon {
   color: #F6FEFC;
+  margin-right: 10px;
+}
+
+span {
+  color: #F6FEFC;
+  font-family: "Nunito Sans";
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+span:hover {
+  color: #3EBC96;
+  transition: 0.5s;
+}
+
+.profileIcon {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 30px;
+  width: 30px;
+}
+
+h1 {
+  color: #1F5E4B;
+  font-family: "Nunito Sans";
+}
+
+h2, h3, h4, h5 {
+  color: #1F5E4B;
   font-weight: normal;
   font-family: "Nunito Sans";
-  background-color: #1F5E4B;
+  font-weight: bold;
+}
+
+.sideimg {
+  max-width: 100%; /* Ensure the image fits within its container */
+  height: 100%;
+  display: block; /* Remove any default inline spacing */
+  margin: 0 auto;
+}
+
+.inputButton {
+  background-color: #3EBC96;
   color: #F6FEFC;
   border: 0px;
   border-radius: 50px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 10px 28px;
   text-align: center;
   font-family: "Nunito Sans";
-  border-radius: 20px;
-}
-.popUpclass button:hover {
-  background: #12382c;
-  transition: all 0.3s ease;
+  width: 30%;
+  margin-top: 20px;
+  margin-right: 15px;
 }
 
-.manualSearchBar {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.img-overlay {
-  filter: brightness(70%);
-}
-
-.img-overlay-small {
-  filter: brightness(75%);
-  float: left;
-  width: 100px;
-  height: 100px;
-  -o-object-fit: cover;
-     object-fit: cover;
+.formInputBox {
+  font-family: "Nunito Sans";
+  border-radius: 80px;
+  height: 50px;
+  margin: 5px;
+  padding-left: 50px;
+  font-size: large;
 }
 
 .homePageBtn {
@@ -188,52 +145,14 @@ body, html {
   margin-right: auto;
   margin-left: auto;
 }
-.homePageBtn:hover {
-  background: #12382c;
-  transition: all 0.3s ease;
-}
 
 .round {
   border-radius: 20px;
 }
 
-.CreateMealBtn {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 18px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 45%;
-  height: 50px;
-  margin-right: auto;
-  margin-left: auto;
-  text-align: center;
-  padding: 0px;
-  margin-top: 35px;
-}
-.CreateMealBtn:hover {
-  background: #12382c;
-  transition: all 0.3s ease;
-}
-
 .ttt {
   height: 100px;
   width: 300px;
-}
-
-.accordionFont {
-  font-family: "Inter";
-}
-
-.fff {
-  font-family: "Orlegano One";
 }
 
 .ShoppingCardBtn {
@@ -252,10 +171,6 @@ body, html {
   width: 20px;
   height: 40px;
   padding: 0px;
-}
-.ShoppingCardBtn:hover {
-  background: #12382c;
-  transition: all 0.3s ease;
 }
 
 .shade {
@@ -282,33 +197,6 @@ tr:last-of-type td:last-of-type {
   border-bottom-right-radius: 25px;
 }
 
-.RecalBtn {
-  color: #F6FEFC;
-  font-weight: normal;
-  font-family: "Nunito Sans";
-  background-color: #1F5E4B;
-  color: #F6FEFC;
-  border: 0px;
-  border-radius: 50px;
-  font-size: 17px;
-  padding: 10px 28px;
-  text-align: center;
-  font-family: "Nunito Sans";
-  border-radius: 20px;
-  width: 120px;
-  height: 50px;
-  padding: 0px;
-  margin: 20px;
-}
-.RecalBtn:hover {
-  background: #12382c;
-  transition: all 0.3s ease;
-}
-
-.card {
-  margin-bottom: 15px;
-}
-
 .custom-tab-title {
   color: rgb(42, 28, 28); /* Change 'red' to the color you want */
 }
@@ -318,8 +206,27 @@ tr:last-of-type td:last-of-type {
 }
 
 .nav-link {
-  color: #3EBC96;
+  color: #1F5E4B;
   font-family: "Nunito Sans";
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
+  padding: 20px;
+  border-radius: 50px;
+}
+.nav-link:hover {
+  color: #3EBC96;
+}
+
+.nav-tabs {
+  background-color: #F6FEFC;
+  --bs-nav-tabs-link-active-color: #F6FEFC;
+  --bs-nav-tabs-link-active-bg: #3EBC96;
+  border: 0;
+}
+
+.accordionText {
+  font-family: "Nunito Sans";
+  font-size: 30px;
+  font-weight: bold;
+  margin: 15px;
 }/*# sourceMappingURL=indexa.css.map */

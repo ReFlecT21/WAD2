@@ -45,7 +45,7 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
         } else {
             setChecked(true);
             setButtonText("Bought");
-            setSelectStyle({backgroundColor:"grey", });
+            setSelectStyle({backgroundColor:"#bcddd5", });
             // console.log(shoppingCart.shoppingCart[dayIndex][ingreType][ingreID].completed)
             shoppingCart.shoppingCart[day][ingreType][ingreID].completed = true;
             if (setNumOutstanding) {
@@ -59,16 +59,17 @@ function CustomRow({flag, buttonTxt, rowStyle, ingreType, ingre, ingreID, shoppi
     }
 
     return (
-        <TableRow key={ingreType+ingre} style={selectStyle}>
-            {isMobile ? (<></>) : (<TableCell >{ingreType}</TableCell>)}
-            <TableCell >{ingre.name}</TableCell>
-            <TableCell align="right">{ingre.amount}</TableCell>
-            <TableCell align="right">{ingre.unit}</TableCell>
-            <TableCell align="right">
+        <TableRow key={ingreType+ingre} style={selectStyle }>
+            {isMobile ? (<></>) : (<TableCell style={{fontFamily:"Nunito Sans"}} >{ingreType}</TableCell>)}
+            <TableCell style={{fontFamily:"Nunito Sans"}}>{ingre.name}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">{ingre.amount}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">{ingre.unit}</TableCell>
+            <TableCell style={{fontFamily:"Nunito Sans"}} align="right">
                 <Button 
                     className='buttonPrimary'
+                    
                     onClick={completeItem} 
-                    style={{width:"80px"}}
+                    style={{paddingBottom:"10px", paddingTop:"10px",paddingRight:"2px",paddingLeft:"2px"}}
                 >{buttonText}</Button>
             </TableCell>
         </TableRow>
@@ -121,13 +122,13 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                         {/* <Typography variant="h5" gutterBottom component="div">
                             Cart for today
                         </Typography> */}
-                        <Typography variant="h8" gutterBottom component="div" style={{fontSize:"20px", fontFamily:"Nunito Sans" ,textAlign:"center"}}>
+                        <Typography variant="h8" gutterBottom component="div" style={{color:"#1F5E4B", fontStyle:"italic", fontSize:"20px", fontFamily:"Nunito Sans" ,textAlign:"center", marginTop:"20px", marginBottom:"20px"}}>
                             Check off what you have bought!
                             You can click the button again if you have made a mistake.
                         </Typography>
                         <Table size="small" aria-label="purchases">
                             <TableHead>
-                                <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px" }}>
+                                <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px", padding:"50px"}}>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Aisle</TableCell>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Item name</TableCell>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}} align="right">Quantity</TableCell>
@@ -146,7 +147,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                                                         key={dayIndex+ingreType+ingre}
                                                         flag={dayCart[ingreType][ingre].completed}
                                                         buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                                        rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"#bcddd5"} : {}}
                                                         ingreType={ingreType}
                                                         ingre = {dayCart[ingreType][ingre]}
                                                         ingreID = {ingre}
@@ -200,9 +201,9 @@ export function ShoppingCart({shoppingCart}) {
             <Table aria-label="collapsible table">
                 <TableHead>
                 <TableRow>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B"}}>Day</TableCell>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of items</TableCell>
-                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B"}}>Number of outstanding items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans" , color:"#205E4B", fontWeight:"bold"}}>Day</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>Number of items</TableCell>
+                    <TableCell style={{fontSize:"20px", fontFamily:"Nunito sans", color:"#205E4B", fontWeight:"bold"}}>Number of outstanding items</TableCell>
                     <TableCell />
                 </TableRow>
                 </TableHead>
@@ -270,13 +271,13 @@ export function ShoppingCartMobile({shoppingCart}) {
                     </AccordionSummary>
 
                     <AccordionDetails>
-                        <Table>
+                        <Table class="responsiveTable">
                             <TableHead>
-                                <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px" }}>
-                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}}>Item name</TableCell>
-                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}} align="right">Quantity</TableCell>
-                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}} align="right">Unit</TableCell>
-                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white"}}>Bought?</TableCell>
+                                <TableRow style={{ backgroundColor:"#1F5E4B", height:"50px"}}>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white", fontWeight:"bold"}}align="center">Item</TableCell>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white", fontWeight:"bold"}} align="center">Quantity</TableCell>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white", fontWeight:"bold"}} align="center">Unit</TableCell>
+                                    <TableCell style={{fontFamily:"Nunito Sans", color:"white", fontWeight:"bold"}} align="center">Bought?</TableCell>
                                 </TableRow>
                             </TableHead>
 
@@ -289,7 +290,7 @@ export function ShoppingCartMobile({shoppingCart}) {
                                                     key={dayIndex+ingreType+ingre}
                                                     flag={shoppingCart.shoppingCart[day][ingreType][ingre].completed}
                                                     buttonTxt = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? "Bought" : "Buy"}
-                                                    rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
+                                                    rowStyle = {shoppingCart.shoppingCart[day][ingreType][ingre].completed ? {backgroundColor:"#bcddd5"} : {}}
                                                     ingreType={ingreType}
                                                     ingre = {shoppingCart.shoppingCart[day][ingreType][ingre]}
                                                     ingreID = {ingre}
