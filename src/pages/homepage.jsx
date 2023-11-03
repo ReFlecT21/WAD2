@@ -130,7 +130,7 @@ const HomePage = () => {
     setDailyCal(await dbFoodMethods.getDayCal());
   };
 
-  checkDaily();
+  // checkDaily();
 
   return exist ? (
     <>
