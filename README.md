@@ -1,8 +1,22 @@
-# React + Vite
+# MENUMATE
+Hosted Link: https://wad2-395904.web.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Local Host Instructions
 
-Currently, two official plugins are available:
+step 1:
+cd to root folder
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+step 2:
+npm i 
+
+step 3:
+cd to functions folder
+
+step 4:
+npm i 
+
+step 5:
+cd to root folder
+
+step 6:
+npm run dev
