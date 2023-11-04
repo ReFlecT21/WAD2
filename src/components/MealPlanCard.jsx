@@ -19,10 +19,11 @@ export function MealPlanCard({ recipe, setter = null, render=true, day, mealType
       },
       setResponse
     );
+    // console.log(response)
 
     return (
         <>
-          {response ? (
+          {response && Array.isArray(response) ? (
             response.map((recipe) => (
               <div key={recipe.id}>
                 {mealTypeRender ? (
