@@ -23,14 +23,14 @@ export function RecipeDetails(id) {
 
   const [response, setResponse] = useState(null);
 
-  fetcher(
-    "/foodAPI/getBulk/?",
-    {
-      ids: id["id"],
-    },
-    setResponse
-  );
-
+  // fetcher(
+  //   "/foodAPI/getBulk/?",
+  //   {
+  //     ids: id["id"],
+  //   },
+  //   setResponse
+  // );
+  backendMethods.fetcher("getBulk/?", {ids: recipe}, setResponse)
   // console.log(response);
 
   if (response?.length > 0) {

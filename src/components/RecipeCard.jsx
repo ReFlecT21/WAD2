@@ -396,14 +396,15 @@ export function SelectedMealCard ({recipe, selected=null, setter=null, mealType}
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   const [response, setResponse] = useState(null);
 
-  fetcher(
-    "/foodAPI/getBulk/?",
-    {
-      ids: recipe,
-    },
-    setResponse
-  );
-
+  // fetcher(
+  //   "/foodAPI/getBulk/?",
+  //   {
+  //     ids: recipe,
+  //   },
+  //   setResponse
+  // );
+  backendMethods.fetcher("getBulk/?", {ids: recipe}, setResponse)
+  
   const res= [];
 
   if (response?.length > 0 ){

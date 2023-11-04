@@ -8,10 +8,6 @@
     ],
     "rewrites": [
       {
-        "source": "/foodAPI/**",
-        "function": "app"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }

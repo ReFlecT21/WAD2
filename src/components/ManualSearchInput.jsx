@@ -26,6 +26,7 @@ import styled from 'styled-components';
 import { Scan } from "./scan";
 import BasicPopover from "./ManualSearchInstructions";
 import PageNotification from "./PageNotification";
+import { backendMethods } from '../middleware/backendMethods';
 
 
 
@@ -340,7 +341,8 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
                                 ingredient_statement: true,
                             };
                 
-                            return fetcherPOST("/foodAPI/manualSearch", body);
+                            // return fetcherPOST("/foodAPI/manualSearch", body);
+                            return backendMethods.fetcherPOST("manualSearch", body);
                         }
                     });
                     Promise.all(fetchPromises)
@@ -502,13 +504,14 @@ export function ManualSearchComponent({currDay, showNotification}) {
         const value = event.target.value;
         setInputValue(value);
 
-        fetcherGET(
-        "/foodAPI/instantSearch/?",
-        {
-            query: value,
-        },
-        setInstantData
-        );
+        // fetcherGET(
+        // "/foodAPI/instantSearch/?",
+        // {
+        //     query: value,
+        // },
+        // setInstantData
+        // );
+        backendMethods.fetcherGET("instantSearch/?", {query: value}, setInstantData)
     }
 
     // console.log(inputValue)

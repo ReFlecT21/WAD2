@@ -6,24 +6,28 @@ import { useAtom } from "jotai";
 import { FinaliseRecipeCard, RecpieCardMealPlan } from "./RecipeCard";
 import { isMobile } from "react-device-detect";
 import Loader from "./Loader";
+import { backendMethods } from "../middleware/backendMethods";
 
 export function MealPlanCard({ recipe, setter = null, render=true, day, mealType, dayIndex, currMealPlan, currDisplayMealPlan, mealTypeRender =true, foodItem = null}) {
     // console.log(setTrigger)
     const [response, setResponse] = useState(null);
     // console.log(recipe)
     
-    fetcher(
-      "/foodAPI/getBulk/?",
-      {
-        ids: recipe,
-      },
-      setResponse
-    );
-    console.log(response)
+    // fetcher(
+    //   "/foodAPI/getBulk/?",
+    //   {
+    //     ids: recipe,
+    //   },
+    //   setResponse
+    // );
+
+    // backendMethods.get_use("getBulk", {ids: recipe}, setResponse)
+    backendMethods.fetcher("getBulk/?", {ids: recipe}, setResponse)
+    // console.log(response)
 
     return (
         <>
-          {response && Array.isArray(response) ? (
+          {response ? (
             response.map((recipe) => (
               <div key={recipe.id}>
                 {mealTypeRender ? (
@@ -61,14 +65,14 @@ export function MealPlanCardHome({ recipe, setter = null }) {
     // console.log("mealplancard")
     const [response, setResponse] = useState(null);
 
-    fetcher(
-      "/foodAPI/getBulk/?",
-      {
-        ids: recipe,
-      },
-      setResponse
-    );
-
+    // fetcher(
+    //   "/foodAPI/getBulk/?",
+    //   {
+    //     ids: recipe,
+    //   },
+    //   setResponse
+    // );
+    backendMethods.fetcher("getBulk/?", {ids: recipe}, setResponse)
     return (
         <>
             {response? (
