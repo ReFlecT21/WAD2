@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/foodAPI/**",
+        "function": "app"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
@@ -26,16 +30,6 @@
         "firebase-debug.log",
         "firebase-debug.*.log"
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/foodAPI/**",
-      "destination": "https://us-central1-wad2-395904.cloudfunctions.net/app"
-    },
-    {
-      "source": "**",
-      "destination": "/index.html"
     }
   ],
   "firestore": {
