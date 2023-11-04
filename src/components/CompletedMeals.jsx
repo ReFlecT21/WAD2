@@ -9,7 +9,7 @@ export function CompletedMeals({completed, currMealPlan, currDisplayMealPlan}) {
     // console.log(completed.Completed)
     const display = []
     
-    const dayIndex = currDayCalculator(completed.CreatedAt)+5
+    const dayIndex = currDayCalculator(completed.CreatedAt);
 
 
     Object.keys(completed.Completed).forEach((day) => {

@@ -342,6 +342,26 @@ body, html {
     
 }
 
+@media (max-width: 400px){
+    .carouselCaption h1{
+        font-size: 45px;
+    }
+}
+
+@media (min-width: 401px){
+    .carouselCaption h1{
+
+        font-size: 58px;
+    }
+}
+
+@media (min-width: 600px){
+    .carouselCaption h1{
+
+        font-size: 70px;
+    }
+}
+
 @media (max-width: 1400px) {
     .carouselCaption h1:nth-child(2) {
       display: none; /* Hide the second <h1> element on smaller screens */
@@ -363,11 +383,11 @@ body, html {
         overflow: hidden;
     }
   }
-@media (max-width: 700px){
-    .carouselCaption h1{
-        font-size: 60px;
-    }
-}
+// @media (max-width: 700px){
+//     .carouselCaption h1{
+//         font-size: 60px;
+//     }
+// }
 .carousel-indicators{
     display: none;
 }

@@ -232,21 +232,24 @@ body, html {
 
 .carouselImg {
   width: 100%;
-  height: 90vh;
+  height: calc(100vh - 84px);
   -o-object-fit: cover;
      object-fit: cover;
   filter: brightness(60%);
+  overflow: hidden;
 }
 
 .carouselItem {
   position: "relative";
   text-align: "center";
+  overflow: hidden;
 }
 
 .carouselCaption {
   position: "absolute";
   padding-top: 200px;
-  padding-bottom: 200px;
+  padding-bottom: 180px;
+  overflow: hidden;
   top: "50%";
   left: "50%";
   transform: "translate(-50%, -50%)";
@@ -257,14 +260,39 @@ body, html {
   font-size: 70px;
 }
 
+@media (max-width: 400px) {
+  .carouselCaption h1 {
+    font-size: 45px;
+  }
+}
+@media (min-width: 401px) {
+  .carouselCaption h1 {
+    font-size: 58px;
+  }
+}
+@media (min-width: 600px) {
+  .carouselCaption h1 {
+    font-size: 70px;
+  }
+}
 @media (max-width: 1400px) {
   .carouselCaption h1:nth-child(2) {
     display: none; /* Hide the second <h1> element on smaller screens */
   }
 }
-@media (max-width: 700px) {
-  .carouselCaption h1 {
-    font-size: 60px;
+@media (max-width: 992px) { /* Adjust this value based on when your navbar collapses */
+  .custom-navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+  }
+  .carouselImg {
+    width: 100%;
+    height: 100vh;
+    -o-object-fit: cover;
+       object-fit: cover;
+    filter: brightness(60%);
+    overflow: hidden;
   }
 }
 .carousel-indicators {
@@ -326,6 +354,18 @@ h2, h3, h4, h5, h6 {
   font-size: large;
 }
 
+.lottieInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+}
+
+@media (max-width: 992px) {
+  .lottieInput {
+    margin-top: 80px;
+  }
+}
 .stickyRow {
   position: sticky;
   top: 0;
@@ -350,6 +390,17 @@ h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
+.createMealHeader {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+@media (max-width: 992px) {
+  .createMealHeader {
+    margin-top: 100px;
+  }
+}
 @media (max-width: 700px) {
   .indexedStep {
     font-size: 10px;

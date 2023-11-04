@@ -183,7 +183,7 @@ const HomePage = () => {
         onClick={() => {
           setOverlayData(
             <ManualSearchComponent
-              currDay={currDay + 1}
+              currDay={currDay + 2}
               showNotification={showNotification}
             />
           );
@@ -313,7 +313,7 @@ const HomePage = () => {
   <Row id="insights"><h1 style={{marginLeft: "100px", width: "40%", textAlign:"start", marginTop:"100px",marginBottom:"5px"}}>Your Insights</h1></Row>    
   <Row > 
               {/* THIS IS BAR CHART */}
-            {/* <Col  className="col-6">
+            <Col  className="col-6">
               <div >
                     {weights && formattedDates ? (
                       <BarChart Weights={weights} Dates={formattedDates} style={{margin: "0"}}/>
@@ -321,10 +321,10 @@ const HomePage = () => {
                       <></>
                     )}
               </div>
-              </Col> */}
+              </Col>
 
               {/* THIS IS FOR IF ELSE BAR CHART*/}
-              <Col  className="col-6" style={{display:"flex", justifyContent: "center",  alignItems: "center"}}>
+              {/* <Col  className="col-6" style={{display:"flex", justifyContent: "center",  alignItems: "center"}}>
               <div style={{ display: "flex", flexDirection: "column",backgroundColor:"#3EBC96", justifyContent: "center",  alignItems: "center", width:"50%", borderRadius:"50px", textAlign:"center", padding:"20px"}}>
               <div><FontAwesomeIcon
                   icon={faUnlockKeyhole} style={{color:"#F6FEFC", width:"30px", height:"30px"}}
@@ -332,12 +332,12 @@ const HomePage = () => {
                 <div>
                     <h4 style={{color:"#F6FEFC", marginTop:"5px"}}>Finish your first week before analytics can be displayed</h4></div>
               </div>
-              </Col>
+              </Col> */}
               
 
               <Col className="col-6">
                   {/* THIS IS CARDS */}
-              {/* <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
+              <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
                 <Col style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
                   <Card style={{ margin:"0px", backgroundColor:"#3EBC96", borderRadius:"20px", width:"250px ", height:"auto" }}>
                     <Card.Body style={{textAlign:"center"}}>
@@ -357,10 +357,10 @@ const HomePage = () => {
                     </Card.Body>
                   </Card>
                   </Col>
-                  </Row> */}
+                  </Row>
 
                   {/* THIS IS FOR IF ELSE CARDS */}
-                  <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
+                  {/* <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
                 <Col style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
                   <Card style={{ margin:"0px", backgroundColor:"#3EBC96", borderRadius:"20px", width:"250px ", height:"auto" }}>
                     <Card.Body style={{textAlign:"center"}}>
@@ -384,7 +384,7 @@ const HomePage = () => {
                     </Card.Body>
                   </Card>
                   </Col>
-                  </Row>
+                  </Row> */}
 
                   {/* THIS IS COMPLETION */}
 
