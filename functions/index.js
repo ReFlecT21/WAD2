@@ -12,9 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const firestore = admin.firestore();
 
 // express code
-app.get("/test", (req, res) => {
-  res.send("lets go suck my ass ");
-});
 app.get("/getOne", async (req, res) => {
   console.log("connected to getOne");
   console.log(req.query);
