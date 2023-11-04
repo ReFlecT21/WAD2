@@ -20,6 +20,8 @@
     console.log(data);
     return (
       <VictoryChart
+        width={600}
+        height={500}
         containerComponent={<VictoryVoronoiContainer voronoiDimension="x" />}
         
       >
@@ -43,7 +45,7 @@
         }} /> 
         <VictoryLine
           style={{ 
-            data: { stroke: "#c43a31", },
+            data: { stroke: "#3EBC96", },
             parent: { border: "1px solid #ccc" },
           }}
           data={data}
@@ -52,9 +54,16 @@
           style={{ data: { fill: "#1F5E4B" } }}
           size={5}
           data={data}
-          labels={({ datum }) => `Weight:${datum.y}kg`} 
+          labels={({ datum }) => `Weight: ${datum.y}kg`} 
           className="barText"
-          labelComponent={<VictoryTooltip />}
+          labelComponent={<VictoryTooltip cornerRadius={5} // Adjust the corner radius of the tooltip box
+          flyoutStyle={{
+            stroke: "#1F5E4B", // Border color of the tooltip box
+            fill: "#FFFFFF",   // Background color of the tooltip box
+          }}
+          flyoutPadding={10}  // Adjust padding within the tooltip box
+          flyoutWidth={100}   // Set the width of the tooltip box
+          flyoutHeight={50}/>}
         />
       </VictoryChart>
     );

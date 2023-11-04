@@ -393,7 +393,7 @@ const HomePage = () => {
                     </Row>
 
                     {/* THIS IS PLATES */}
-                    <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
+                    <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"80px"}}>
                     <h3 style={{marginBottom:"30px"}}>Weekly Meals Completed</h3>
 
                     <div className="plates">
