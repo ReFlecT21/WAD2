@@ -19,7 +19,7 @@ export function MealPlanCard({ recipe, setter = null, render=true, day, mealType
       },
       setResponse
     );
-    // console.log(response)
+    console.log(response)
 
     return (
         <>

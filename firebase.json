@@ -28,6 +28,16 @@
       ]
     }
   ],
+  "rewrites": [
+    {
+      "source": "/foodAPI/**",
+      "destination": "https://us-central1-wad2-395904.cloudfunctions.net/app"
+    },
+    {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ],
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
