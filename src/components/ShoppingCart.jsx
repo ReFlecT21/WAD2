@@ -165,7 +165,16 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                                     </>
 
                                 ) : (
-                                    <TableRow><TableCell>No items for today</TableCell></TableRow>
+                                    // <TableRow><TableCell>No items for today</TableCell></TableRow>
+                                    <TableRow>
+                                        <TableCell style={{width:"20%"}}></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell style={{fontStyle:""}}><h5> No items for today</h5></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                    </TableRow>
+
+                                    
                                 )}
                             </TableBody>
                         </Table>
