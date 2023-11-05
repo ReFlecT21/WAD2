@@ -515,7 +515,7 @@ const HomePage = () => {
         <animated.div style={props} ref={ref}>
           <Row>
             <Col
-              className="col-6"
+              className="col-md-6 col-12"
               style={{
                 display: "flex",
                 justifyContent: "center",
