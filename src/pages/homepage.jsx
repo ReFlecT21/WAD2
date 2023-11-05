@@ -48,19 +48,6 @@ import LoadingAnimationData from "../assets/loading.json";
 import { faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import PlatesHomepage from "../components/platesHomepage";
 const HomePage = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true, // Change this to false if you want the animation to trigger again whenever it comes in view
-  });
-  const AnimatedContainer = animated(Container);
-  const props = useSpring({
-    opacity: inView ? 1 : 0,
-    transform: inView ? "translateX(0)" : "translateX(100%)",
-  });
-  const animation = useSpring({
-    from: { opacity: 0, transform: "translateY(10%)" },
-    to: { opacity: 1, transform: "translateY(0)" },
-    config: { tension: 220, friction: 120 },
-  });
   const navigate = useNavigate();
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   // const [currMealPlan, setCurrMealPlan] = useState(null);
@@ -79,6 +66,29 @@ const HomePage = () => {
   const [buffer, setBuffer] = useState(true);
   const [analytics, setAnalytics] = useState(false);
 
+  const [ref1, inView1] = useInView({
+    triggerOnce: true,
+  });
+  const AnimatedContainer = animated(Container);
+  const props1 = useSpring({
+    opacity: inView1 ? 1 : 0,
+    transform: inView1 ? "translateX(0)" : "translateX(100%)",
+  });
+
+  // For animated.div
+  const [ref2, inView2] = useInView({
+    triggerOnce: true,
+  });
+  const props2 = useSpring({
+    opacity: inView2 ? 1 : 0,
+    transform: inView2 ? "translateX(0)" : "translateX(100%)",
+  });
+
+  const animation = useSpring({
+    from: { opacity: 0, transform: "translateY(10%)" },
+    to: { opacity: 1, transform: "translateY(0)" },
+    config: { tension: 220, friction: 120 },
+  });
   function showNotification(message) {
     // console.log("showing notification");
     setNotiMessage(message);
@@ -194,7 +204,7 @@ const HomePage = () => {
         </Row>
       </animated.div>
       {/* START OF CURRENT MEAL PLAN */}
-      <AnimatedContainer fluid style={props} ref={ref}>
+      <AnimatedContainer fluid style={props1} ref={ref1}>
         <Row id="today"></Row>
         <Row style={{ marginTop: "100px" }}>
           <Col className="todayCol">
@@ -358,13 +368,13 @@ const HomePage = () => {
           </Col>
         </Row>
       </AnimatedContainer>
-      <animated.div style={props} ref={ref}>
+      <animated.div style={props2} ref={ref2}>
         <Row id="insights">
           <h1>Your Insights</h1>
         </Row>
       </animated.div>
       {analytics ? (
-        <animated.div style={props} ref={ref}>
+        <animated.div style={props2} ref={ref2}>
           <Row>
             {/* THIS IS BAR CHART */}
             <Col
@@ -512,7 +522,7 @@ const HomePage = () => {
           </Row>
         </animated.div>
       ) : (
-        <animated.div style={props} ref={ref}>
+        <animated.div style={props2} ref={ref2}>
           <Row>
             <Col
               className="col-md-6 col-12"
