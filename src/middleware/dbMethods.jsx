@@ -357,8 +357,8 @@ export const dbFoodMethods = {
   },
 
   updateShoppingCart: async function (shoppingCart) {
-    console.log("updateShoppingCart");
-    console.log(shoppingCart);
+    // console.log("updateShoppingCart");
+    // console.log(shoppingCart);
     await this.init();
     try {
       await updateDoc(this.docRef, {
