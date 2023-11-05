@@ -10,7 +10,8 @@ p {
   /* get the input from https://neumorphism.io/#e0e0e0  */
   border-radius: 40px;
   background: #F6FEFC;
-  box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+  -webkit-box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
+          box-shadow: 20px 20px 38px #dbe2e0, -20px -20px 38px #ffffff;
   padding: 5%;
   margin: 5%;
   position: relative;
@@ -35,8 +36,12 @@ body, html {
 }
 
 .loginDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -65,6 +70,8 @@ body, html {
 
 .backgroundLeft {
   background-color: #1F5E4B;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 0;
 }
@@ -87,7 +94,15 @@ body, html {
   font-size: large;
 }
 
-.inputBox::-moz-placeholder {
+.inputBox::-webkit-input-placeholder {
+  color: #1F5E4B;
+}
+
+.inputBox:-ms-input-placeholder {
+  color: #1F5E4B;
+}
+
+.inputBox::-ms-input-placeholder {
   color: #1F5E4B;
 }
 
@@ -108,8 +123,10 @@ body, html {
   height: 60px;
   margin-top: 40px;
 }
+
 .loginButton:hover {
   background: #319677;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -125,14 +142,21 @@ body, html {
 }
 
 .mealPlanContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap; /* Allow cards to wrap to the next row on smaller screens */
-  justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  /* Allow cards to wrap to the next row on smaller screens */
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .custom-navbar {
   background-color: #1F5E4B;
   padding: 0;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -146,9 +170,15 @@ body, html {
 }
 
 .homeNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .homeNav img {
@@ -158,7 +188,9 @@ body, html {
 }
 
 #basic-navbar-nav {
-  justify-content: end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
 }
 
 .createBtn {
@@ -172,8 +204,10 @@ body, html {
   font-family: "Nunito Sans";
   font-weight: bold;
 }
+
 .createBtn:hover {
   background: #319677;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -184,8 +218,12 @@ body, html {
 }
 
 .navItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .plusIcon {
@@ -204,19 +242,26 @@ body, html {
 
 .navText:hover {
   color: #3EBC96;
+  -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
 .exitIcon {
   height: 25px;
   width: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #F6FEFC;
   cursor: pointer;
 }
+
 .exitIcon:hover {
   color: #3EBC96;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -235,6 +280,7 @@ body, html {
     display: none;
   }
 }
+
 @media (max-width: 400px) {
   .welcome h1 {
     font-size: 40px;
@@ -271,9 +317,15 @@ body, html {
   #insights h1 {
     width: 100%;
     text-align: start;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-top: 100px;
     margin-bottom: 5px;
   }
@@ -285,9 +337,15 @@ body, html {
   }
   .insightInfo {
     width: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .mealBar h3 {
     text-align: center;
@@ -295,9 +353,15 @@ body, html {
   }
   .progBar {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-left: 20px;
   }
   .plates {
@@ -309,6 +373,7 @@ body, html {
     margin: 5px;
   }
 }
+
 @media (min-width: 401px) {
   .welcome h1 {
     font-size: 48px;
@@ -350,9 +415,15 @@ body, html {
   #insights h1 {
     width: 100%;
     text-align: start;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-top: 100px;
     margin-bottom: 5px;
   }
@@ -364,9 +435,15 @@ body, html {
   }
   .insightInfo {
     width: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .mealBar h3 {
     text-align: center;
@@ -374,9 +451,15 @@ body, html {
   }
   .progBar {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-left: 20px;
   }
   .plates {
@@ -388,6 +471,7 @@ body, html {
     margin: 5px;
   }
 }
+
 @media (min-width: 500px) {
   .homeBtn .chooseBtn {
     padding: 12px;
@@ -402,6 +486,7 @@ body, html {
     margin: 5px;
   }
 }
+
 @media (min-width: 800px) {
   .welcome h1 {
     font-size: 60px;
@@ -450,9 +535,15 @@ body, html {
   }
   .insightInfo {
     width: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .mealBar h3 {
     text-align: center;
@@ -460,9 +551,15 @@ body, html {
   }
   .progBar {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-left: 20px;
   }
   .plates {
@@ -474,6 +571,7 @@ body, html {
     margin: 5px;
   }
 }
+
 @media (min-width: 1100px) {
   .welcome h1 {
     font-size: 80px;
@@ -525,9 +623,15 @@ body, html {
   }
   .insightInfo {
     width: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   .mealBar h3 {
     text-align: center;
@@ -535,9 +639,15 @@ body, html {
   }
   .progBar {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-left: 20px;
   }
   .plates {
@@ -549,30 +659,34 @@ body, html {
     margin: 5px;
   }
 }
+
 .carouselImg {
   width: 100%;
   height: calc(100vh - 84px);
   -o-object-fit: cover;
      object-fit: cover;
-  filter: brightness(60%);
+  -webkit-filter: brightness(60%);
+          filter: brightness(60%);
   overflow: hidden;
 }
 
 .carouselItem {
-  position: "relative";
-  text-align: "center";
+  position: 'relative';
+  text-align: 'center';
   overflow: hidden;
 }
 
 .carouselCaption {
-  position: "absolute";
+  position: 'absolute';
   padding-top: 200px;
   padding-bottom: 180px;
   overflow: hidden;
-  top: "50%";
-  left: "50%";
-  transform: "translate(-50%, -50%)";
+  top: '50%';
+  left: '50%';
+  -webkit-transform: 'translate(-50%, -50%)';
+          transform: 'translate(-50%, -50%)';
 }
+
 .carouselCaption h1 {
   color: #F6FEFC;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -584,22 +698,28 @@ body, html {
     font-size: 45px;
   }
 }
+
 @media (min-width: 401px) {
   .carouselCaption h1 {
     font-size: 58px;
   }
 }
+
 @media (min-width: 600px) {
   .carouselCaption h1 {
     font-size: 70px;
   }
 }
+
 @media (max-width: 1400px) {
   .carouselCaption h1:nth-child(2) {
-    display: none; /* Hide the second <h1> element on smaller screens */
+    display: none;
+    /* Hide the second <h1> element on smaller screens */
   }
 }
-@media (max-width: 992px) { /* Adjust this value based on when your navbar collapses */
+
+@media (max-width: 992px) {
+  /* Adjust this value based on when your navbar collapses */
   .custom-navbar {
     position: fixed;
     width: 100%;
@@ -610,10 +730,12 @@ body, html {
     height: 100vh;
     -o-object-fit: cover;
        object-fit: cover;
-    filter: brightness(60%);
+    -webkit-filter: brightness(60%);
+            filter: brightness(60%);
     overflow: hidden;
   }
 }
+
 .carousel-indicators {
   display: none;
 }
@@ -633,16 +755,19 @@ h2, h3, h4, h5, h6 {
 }
 
 .sideimg {
-  max-width: 100%; /* Ensure the image fits within its container */
+  max-width: 100%;
+  /* Ensure the image fits within its container */
   height: 100%;
-  display: block; /* Remove any default inline spacing */
+  display: block;
+  /* Remove any default inline spacing */
   margin: 0 auto;
 }
 
 .inputImg {
   max-width: 100%;
   height: auto;
-  height: 100%; /* This ensures the image's aspect ratio is maintained */
+  height: 100%;
+  /* This ensures the image's aspect ratio is maintained */
 }
 
 .inputButton {
@@ -658,8 +783,10 @@ h2, h3, h4, h5, h6 {
   margin-top: 20px;
   margin-right: 15px;
 }
+
 .inputButton:hover {
   background: #319677;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -674,9 +801,15 @@ h2, h3, h4, h5, h6 {
 }
 
 .lottieInput {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-top: 0px;
 }
 
@@ -685,10 +818,13 @@ h2, h3, h4, h5, h6 {
     margin-top: 80px;
   }
 }
+
 .stickyRow {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
-  background-color: #F6FEFC; /* Add a background color or other styles as needed */
+  background-color: #F6FEFC;
+  /* Add a background color or other styles as needed */
   z-index: 1;
   padding-top: 90px;
 }
@@ -701,11 +837,17 @@ h2, h3, h4, h5, h6 {
   height: 40px;
   background-color: white;
   border-radius: 20px;
-  border: 1px solid rgb(210, 220, 211);
+  border: 1px solid #d2dcd3;
   font-family: "Nunito Sans";
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
 }
 
@@ -720,6 +862,7 @@ h2, h3, h4, h5, h6 {
     margin-top: 100px;
   }
 }
+
 @media (max-width: 700px) {
   .indexedStep {
     font-size: 10px;
@@ -727,6 +870,7 @@ h2, h3, h4, h5, h6 {
     height: 30px;
   }
 }
+
 @media (min-width: 701px) {
   .indexedStep {
     font-size: 16px;
@@ -734,6 +878,7 @@ h2, h3, h4, h5, h6 {
     height: 40px;
   }
 }
+
 .indexedStep.accomplished {
   background-color: #1F5E4B;
   color: #F6FEFC;
@@ -747,36 +892,52 @@ h2, h3, h4, h5, h6 {
   line-height: 1;
   border-radius: 10px;
   position: relative;
-  background-color: rgb(210, 220, 211);
+  background-color: #d2dcd3;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   z-index: 0;
   margin: 30px auto;
   color: #1F5E4B;
 }
 
 .RSPBprogressBar .RSPBstep {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   z-index: 0;
   position: absolute;
-  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-transition-property: all;
   transition-property: all;
 }
 
 .RSPBprogressBar .RSPBprogressBarText {
-  color: rgb(210, 220, 211);
+  color: #d2dcd3;
   font-size: 10px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .RSPBprogressBar .RSPBprogression {
   position: absolute;
+  -webkit-transition: width 0.7s ease;
   transition: width 0.7s ease;
   left: 0;
   top: 0;
@@ -796,8 +957,10 @@ h2, h3, h4, h5, h6 {
   text-align: center;
   font-family: "Nunito Sans";
 }
+
 .chooseBtn:hover {
   background: #319677;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -812,28 +975,40 @@ h2, h3, h4, h5, h6 {
   font-family: "Nunito Sans";
   font-weight: bold;
 }
+
 .buttonPrimary:hover {
   background: #12382c;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+
 .buttonPrimary:disabled {
   background-color: #3EBC96;
 }
+
 .buttonPrimary:focus {
   background-color: #3EBC96;
 }
+
 @media (max-width: 600px) {
   .buttonPrimary {
     font-size: 8px;
     padding: 0;
     width: 45px;
     height: 25px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     text-align: center;
-    justify-content: center;
-    align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }
+
 @media (min-width: 601px) {
   .buttonPrimary {
     font-size: 11px;
@@ -842,6 +1017,7 @@ h2, h3, h4, h5, h6 {
     height: 40px;
   }
 }
+
 @media (min-width: 1200px) {
   .buttonPrimary {
     /* Adjust styles for screens with a minimum width of 1200px or larger */
@@ -853,8 +1029,12 @@ h2, h3, h4, h5, h6 {
 }
 
 .mealCards {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .card {
@@ -873,6 +1053,7 @@ h2, h3, h4, h5, h6 {
     font-size: 13px;
   }
 }
+
 @media (min-width: 601px) {
   .card {
     width: 250px;
@@ -881,6 +1062,7 @@ h2, h3, h4, h5, h6 {
     font-size: 16px;
   }
 }
+
 @media (min-width: 1201px) {
   .card {
     width: 340px;
@@ -889,25 +1071,41 @@ h2, h3, h4, h5, h6 {
     font-size: 18px;
   }
 }
+
+@media (min-width: 1600px) {
+  .card {
+    width: 400px;
+  }
+  .cardTitle {
+    font-size: 18px;
+  }
+}
+
 .cardImg {
   border-radius: 30px;
   max-width: 100%;
   max-height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  filter: brightness(80%);
+  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-filter: brightness(80%);
+          filter: brightness(80%);
 }
 
 .btnDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .cardTitle {
   margin-top: 10px;
   font-family: "Nunito Sans";
-  text-shadow: 2px 2px 4px rgb(0, 0, 0);
+  text-shadow: 2px 2px 4px black;
   text-transform: capitalize;
 }
 
@@ -924,25 +1122,37 @@ h2, h3, h4, h5, h6 {
 }
 
 .stickyBtn {
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
 
 .cancelBtn {
-  background-color: transparent; /* Make the button background transparent */
-  border: 0; /* Remove the button border */
-  font-size: 18px; /* Adjust the font size for the "X" */
-  cursor: pointer; /* Change the cursor to indicate it's clickable */
-  color: #1F5E4B; /* Change the color to red or any other color you prefer */
+  background-color: transparent;
+  /* Make the button background transparent */
+  border: 0;
+  /* Remove the button border */
+  font-size: 18px;
+  /* Adjust the font size for the "X" */
+  cursor: pointer;
+  /* Change the cursor to indicate it's clickable */
+  color: #1F5E4B;
+  /* Change the color to red or any other color you prefer */
   font-family: "Nunito Sans";
   font-weight: bold;
   font-size: 26px;
 }
 
 .recipeTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: start;
-  align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 20px;
 }
 
@@ -953,7 +1163,8 @@ h2, h3, h4, h5, h6 {
   width: 100%;
   height: 80%;
   -o-object-fit: cover;
-     object-fit: cover; /* Preserve aspect ratio and cover the container */
+     object-fit: cover;
+  /* Preserve aspect ratio and cover the container */
   margin-bottom: 20px;
   margin-right: 10px;
 }
@@ -964,6 +1175,7 @@ h2, h3, h4, h5, h6 {
   border-radius: 20px;
   margin-bottom: 40px;
 }
+
 .recipeInfo h6 {
   margin-left: 20px;
   margin-top: 20px;
@@ -976,13 +1188,16 @@ h2, h3, h4, h5, h6 {
   margin-right: 20px;
   margin-bottom: 20px;
 }
+
 .recipeDetails h3 {
   margin-bottom: 20px;
 }
+
 .recipeDetails ol, .recipeDetails ul {
   font-family: "Nunito Sans";
   color: #1F5E4B;
 }
+
 .recipeDetails li {
   margin-bottom: 10px;
 }
@@ -993,7 +1208,8 @@ h2, h3, h4, h5, h6 {
   display: inline-block;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 70%;
   height: 600px;
   margin: auto;
@@ -1010,7 +1226,8 @@ h2, h3, h4, h5, h6 {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .card-title {
@@ -1031,8 +1248,10 @@ h2, h3, h4, h5, h6 {
   font-family: "Nunito Sans";
   border-radius: 20px;
 }
+
 .manualSelectBtn:hover {
   background: #12382c;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -1041,9 +1260,11 @@ h2, h3, h4, h5, h6 {
   text-align: center;
   font-size: 36px;
 }
+
 .popUpclass h2 {
   padding-top: 5%;
 }
+
 .popUpclass button {
   color: #F6FEFC;
   font-weight: normal;
@@ -1058,8 +1279,10 @@ h2, h3, h4, h5, h6 {
   font-family: "Nunito Sans";
   border-radius: 20px;
 }
+
 .popUpclass button:hover {
   background: #12382c;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -1070,11 +1293,13 @@ h2, h3, h4, h5, h6 {
 }
 
 .img-overlay {
-  filter: brightness(70%);
+  -webkit-filter: brightness(70%);
+          filter: brightness(70%);
 }
 
 .img-overlay-small {
-  filter: brightness(75%);
+  -webkit-filter: brightness(75%);
+          filter: brightness(75%);
   float: left;
   width: 100px;
   height: 100px;
@@ -1099,6 +1324,7 @@ h2, h3, h4, h5, h6 {
     padding: 2px 6px;
   }
 }
+
 @media (min-width: 431px) {
   .responsiveTable {
     font-size: 8px;
@@ -1108,8 +1334,11 @@ h2, h3, h4, h5, h6 {
     padding: 8px 12px;
   }
 }
+
 .progress {
   --bs-progress-bar-bg: #3EBC96;
   --bs-progress-font-size: 16px;
-  --bs-progress-font-family: $primaryFont ;
-}/*# sourceMappingURL=indexc.css.map */
+  --bs-progress-font-family: $primaryFont 
+;
+}
+/*# sourceMappingURL=indexc.css.map */

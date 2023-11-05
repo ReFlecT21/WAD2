@@ -149,13 +149,12 @@ h2, h3, h4, h5 {
   margin-left: auto;
 }
 
-.round {
-  border-radius: 20px;
+.homePageBtn:hover {
+  background-color: #3EBC96;
 }
 
-.ttt {
-  height: 100px;
-  width: 300px;
+.round {
+  border-radius: 20px;
 }
 
 .ShoppingCardBtn {
@@ -180,6 +179,26 @@ h2, h3, h4, h5 {
   background-color: #3EBC96;
 }
 
+.tableclass table {
+  background-color: #F6FEFC;
+}
+
+.tableclass th:first-of-type {
+  border-top-left-radius: 25px;
+}
+
+.tableclass th:last-of-type {
+  border-top-right-radius: 25px;
+}
+
+.tableclass tr:last-of-type td:first-of-type {
+  border-bottom-left-radius: 25px;
+}
+
+.tableclass tr:last-of-type td:last-of-type {
+  border-bottom-right-radius: 25px;
+}
+
 table {
   background-color: #F6FEFC;
 }
@@ -193,11 +212,11 @@ th:last-of-type {
 }
 
 tr:last-of-type td:first-of-type {
-  border-bottom-left-radius: 25px;
+  border-bottom-left-radius: 5px;
 }
 
 tr:last-of-type td:last-of-type {
-  border-bottom-right-radius: 25px;
+  border-bottom-right-radius: 5px;
 }
 
 .custom-tab-title {
@@ -234,5 +253,15 @@ tr:last-of-type td:last-of-type {
   font-size: 30px;
   font-weight: bold;
   margin: 15px;
+}
+
+.custMargTop {
+  margin-top: 120px;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #3EBC96;
+  /* Change the color when checked */
+  border-color: #3EBC96;
 }
 /*# sourceMappingURL=indexa.css.map */
