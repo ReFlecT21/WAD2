@@ -40,13 +40,27 @@ import carouselThird from "/carousel3.jpg";
 import carouselFourth from "/carousel4.jpg";
 import carouselFifth from "/carousel5.jpg";
 import { useNavigate } from "react-router-dom/dist";
-
+import { useScroll, animated, useSpring } from "@react-spring/web";
+import { useInView } from "react-intersection-observer";
 import Lottie from "lottie-react";
 import animationData from "../assets/food.json";
 import LoadingAnimationData from "../assets/loading.json";
 import { faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import PlatesHomepage from "../components/platesHomepage";
 const HomePage = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true, // Change this to false if you want the animation to trigger again whenever it comes in view
+  });
+  const AnimatedContainer = animated(Container);
+  const props = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateX(0)" : "translateX(100%)",
+  });
+  const animation = useSpring({
+    from: { opacity: 0, transform: "translateY(10%)" },
+    to: { opacity: 1, transform: "translateY(0)" },
+    config: { tension: 220, friction: 120 },
+  });
   const navigate = useNavigate();
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
   // const [currMealPlan, setCurrMealPlan] = useState(null);
@@ -120,9 +134,7 @@ const HomePage = () => {
     };
     checkUser();
   }, []);
-  useEffect(() => {
-    console.log(analytics);
-  }, [analytics]);
+
   var currDay = 0;
 
   if (currDisplayMealPlan?.DisplayMealPlan) {
@@ -143,39 +155,46 @@ const HomePage = () => {
       <NavBar />
       <PageNotification message={notiMessage} render={notiRender} />
       {overlayData}
-      <Row id="homepage" style={{ marginLeft: "0px", marginRight: "0px" }}>
-        <Col className="">
-          <div style={{ textAlign: "center" }} className="welcome">
-            <h1>Welcome to MenuMate</h1>
-            <h5>Plan Your Plates, Savor the Taste!</h5>
-            <Button
-              className="createBtn custom-clicked-button"
-              onClick={() => smoothScrollTo("today")}
-            >
-              What's Cooking Today?
-            </Button>
-            <span style={{ margin: "5px" }}></span>
-            <Button
-              className="createBtn custom-clicked-button"
-              onClick={() => smoothScrollTo("insights")}
-            >
-              See Your Insights!
-            </Button>
-          </div>
-        </Col>
+      <animated.div style={animation}>
+        <Row
+          id="homepage"
+          style={{
+            marginLeft: "0px",
+            marginRight: "0px",
+          }}
+        >
+          <Col className="">
+            <div style={{ textAlign: "center" }} className="welcome">
+              <h1>Welcome to MenuMate</h1>
+              <h5>Plan Your Plates, Savor the Taste!</h5>
+              <Button
+                className="createBtn custom-clicked-button"
+                onClick={() => smoothScrollTo("today")}
+              >
+                What's Cooking Today?
+              </Button>
+              <span style={{ margin: "5px" }}></span>
+              <Button
+                className="createBtn custom-clicked-button"
+                onClick={() => smoothScrollTo("insights")}
+              >
+                See Your Insights!
+              </Button>
+            </div>
+          </Col>
 
-        <Col className="col-6 lottieHome" style={{ marginTop: "50px" }}>
-          <Lottie
-            style={{ height: "95%", width: "90%", padding: "0px" }}
-            animationData={animationData} // Your animation data
-            loop={true} // Set to true for looped animations
-            autoplay={true} // Set to true to play the animation automatically
-          />
-        </Col>
-      </Row>
-
+          <Col className="col-6 lottieHome" style={{ marginTop: "50px" }}>
+            <Lottie
+              style={{ height: "95%", width: "90%", padding: "0px" }}
+              animationData={animationData} // Your animation data
+              loop={true} // Set to true for looped animations
+              autoplay={true} // Set to true to play the animation automatically
+            />
+          </Col>
+        </Row>
+      </animated.div>
       {/* START OF CURRENT MEAL PLAN */}
-      <Container fluid>
+      <AnimatedContainer fluid style={props} ref={ref}>
         <Row id="today"></Row>
         <Row style={{ marginTop: "100px" }}>
           <Col className="todayCol">
@@ -338,153 +357,163 @@ const HomePage = () => {
             </Row>
           </Col>
         </Row>
-      </Container>
-
-      <Row id="insights">
-        <h1>Your Insights</h1>
-      </Row>
+      </AnimatedContainer>
+      <animated.div style={props} ref={ref}>
+        <Row id="insights">
+          <h1>Your Insights</h1>
+        </Row>
+      </animated.div>
       {analytics ? (
-        <Row>
-          {/* THIS IS BAR CHART */}
-          <Col
-            className="col-6 barChart"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div>
-              {weights && formattedDates ? (
-                <BarChart
-                  Weights={weights}
-                  Dates={formattedDates}
-                  style={{ margin: "0" }}
-                />
-              ) : (
-                <></>
-              )}
-            </div>
-          </Col>
-
-          <Col className="col-6 infoCard">
-            {/* THIS IS CARDS */}
-            <Row
+        <animated.div style={props} ref={ref}>
+          <Row>
+            {/* THIS IS BAR CHART */}
+            <Col
+              className="col-6 barChart"
               style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                marginBottom: "50px",
-                marginTop: "30px",
-                margin: "20px",
               }}
             >
-              <Col className="insightInfo">
-                <Card
-                  style={{
-                    margin: "0px",
-                    backgroundColor: "#3EBC96",
-                    width: "200px",
-                    borderRadius: "20px",
-                    height: "100px",
-                  }}
-                >
-                  <Card.Body style={{ textAlign: "center" }}>
-                    <Card.Title
-                      style={{
-                        color: "#F6FEFC",
-                        fontWeight: "bold",
-                        fontSize: "20px",
-                      }}
-                    >
-                      {avgCal}
-                    </Card.Title>
+              <div>
+                {weights && formattedDates ? (
+                  <BarChart
+                    Weights={weights}
+                    Dates={formattedDates}
+                    style={{ margin: "0" }}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
+            </Col>
 
-                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
-                      Avg. Cals Per Day
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-
-              <Col className="insightInfo">
-                <Card
-                  style={{
-                    margin: "0px",
-                    backgroundColor: "#3EBC96",
-                    width: "200px",
-                    borderRadius: "20px",
-                    height: "100px",
-                  }}
-                >
-                  <Card.Body style={{ textAlign: "center" }}>
-                    <Card.Title
-                      style={{
-                        color: "#F6FEFC",
-                        fontWeight: "bold",
-                        fontSize: "20px",
-                      }}
-                    >
-                      {diffWeight} kg
-                    </Card.Title>
-
-                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
-                      {diffWeight < 0
-                        ? "Total Weight Gain"
-                        : "Total Weight Loss"}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-
-            {/* THIS IS COMPLETION */}
-
-            <Row className="mealBar">
-              {/* THIS IS PROGRESS BAR */}
+            <Col className="col-6 infoCard">
+              {/* THIS IS CARDS */}
               <Row
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  marginBottom: "50px",
+                  marginTop: "30px",
+                  margin: "20px",
                 }}
               >
-                <h3 style={{ marginBottom: "30px" }}>Today's Meal Progress</h3>
-                <div className="progBar">
-                  {exist && completedPlan ? (
-                    <AnalyticsHomePage completedPlan={completedPlan} />
-                  ) : (
-                    <></>
-                  )}
-                </div>
+                <Col className="insightInfo">
+                  <Card
+                    style={{
+                      margin: "0px",
+                      backgroundColor: "#3EBC96",
+                      width: "200px",
+                      borderRadius: "20px",
+                      height: "100px",
+                    }}
+                  >
+                    <Card.Body style={{ textAlign: "center" }}>
+                      <Card.Title
+                        style={{
+                          color: "#F6FEFC",
+                          fontWeight: "bold",
+                          fontSize: "20px",
+                        }}
+                      >
+                        {avgCal}
+                      </Card.Title>
+
+                      <Card.Text
+                        style={{ color: "#F6FEFC", fontWeight: "bold" }}
+                      >
+                        Avg. Cals Per Day
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+
+                <Col className="insightInfo">
+                  <Card
+                    style={{
+                      margin: "0px",
+                      backgroundColor: "#3EBC96",
+                      width: "200px",
+                      borderRadius: "20px",
+                      height: "100px",
+                    }}
+                  >
+                    <Card.Body style={{ textAlign: "center" }}>
+                      <Card.Title
+                        style={{
+                          color: "#F6FEFC",
+                          fontWeight: "bold",
+                          fontSize: "20px",
+                        }}
+                      >
+                        {diffWeight} kg
+                      </Card.Title>
+
+                      <Card.Text
+                        style={{ color: "#F6FEFC", fontWeight: "bold" }}
+                      >
+                        {diffWeight < 0
+                          ? "Total Weight Gain"
+                          : "Total Weight Loss"}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
               </Row>
 
-              {/* THIS IS PLATES */}
-              <Row
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "80px",
-                }}
-              >
-                <h3 style={{ marginBottom: "30px" }}>Weekly Meals Completed</h3>
+              {/* THIS IS COMPLETION */}
 
-                <div className="plates">
-                  {currMealPlan ? (
-                    <PlatesHomepage currMealPlan={currMealPlan} />
-                  ) : (
-                    <></>
-                  )}
-                </div>
+              <Row className="mealBar">
+                {/* THIS IS PROGRESS BAR */}
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h3 style={{ marginBottom: "30px" }}>
+                    Today's Meal Progress
+                  </h3>
+                  <div className="progBar">
+                    {exist && completedPlan ? (
+                      <AnalyticsHomePage completedPlan={completedPlan} />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </Row>
+
+                {/* THIS IS PLATES */}
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "80px",
+                  }}
+                >
+                  <h3 style={{ marginBottom: "30px" }}>
+                    Weekly Meals Completed
+                  </h3>
+
+                  <div className="plates">
+                    {currMealPlan ? (
+                      <PlatesHomepage currMealPlan={currMealPlan} />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </Row>
               </Row>
-            </Row>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </animated.div>
       ) : (
-        <Row>
-          <Col className="col-6 infoCard">
-            {/* THIS IS FOR IF ELSE BAR CHART*/}
+        <animated.div style={props} ref={ref}>
+          <Row>
             <Col
               className="col-6"
               style={{
@@ -520,131 +549,137 @@ const HomePage = () => {
               </div>
             </Col>
 
-            {/* THIS IS FOR IF ELSE CARDS */}
-            <Row
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: "50px",
-                marginTop: "30px",
-                marginRight: "20px",
-              }}
-            >
-              <Col
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Card
-                  style={{
-                    margin: "0px",
-                    backgroundColor: "#3EBC96",
-                    borderRadius: "20px",
-                    width: "250px ",
-                    height: "auto",
-                  }}
-                >
-                  <Card.Body style={{ textAlign: "center" }}>
-                    <Card.Title
-                      style={{
-                        color: "#F6FEFC",
-                        fontWeight: "bold",
-                        fontSize: "20px",
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faUnlockKeyhole} />
-                    </Card.Title>
-
-                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
-                      Avg. Cals Per Day
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-
-              <Col
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Card
-                  style={{
-                    margin: "0px",
-                    backgroundColor: "#3EBC96",
-                    borderRadius: "20px",
-                    width: "250px ",
-                    height: "auto",
-                  }}
-                >
-                  <Card.Body style={{ textAlign: "center" }}>
-                    <Card.Title
-                      style={{
-                        color: "#F6FEFC",
-                        fontWeight: "bold",
-                        fontSize: "20px",
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faUnlockKeyhole} />
-                    </Card.Title>
-
-                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
-                      {diffWeight < 0
-                        ? "Total Weight Gain"
-                        : "Total Weight Loss"}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-
-            {/* THIS IS COMPLETION */}
-
-            <Row className="mealBar">
-              {/* THIS IS PROGRESS BAR */}
+            <Col className="col-6 infoCard">
               <Row
                 style={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  marginBottom: "50px",
+                  marginTop: "30px",
+                  marginRight: "20px",
                 }}
               >
-                <h3 style={{ marginBottom: "30px" }}>Today's Meal Progress</h3>
-                <div className="progBar">
-                  {exist && completedPlan ? (
-                    <AnalyticsHomePage completedPlan={completedPlan} />
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              </Row>
+                <Col
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      margin: "0px",
+                      backgroundColor: "#3EBC96",
+                      borderRadius: "20px",
+                      width: "250px ",
+                      height: "auto",
+                    }}
+                  >
+                    <Card.Body style={{ textAlign: "center" }}>
+                      <Card.Title
+                        style={{
+                          color: "#F6FEFC",
+                          fontWeight: "bold",
+                          fontSize: "20px",
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faUnlockKeyhole} />
+                      </Card.Title>
 
-              {/* THIS IS PLATES */}
-              <Row
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginBottom: "80px",
-                }}
-              >
-                <h3 style={{ marginBottom: "30px" }}>Weekly Meals Completed</h3>
+                      <Card.Text
+                        style={{ color: "#F6FEFC", fontWeight: "bold" }}
+                      >
+                        Avg. Cals Per Day
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
 
-                <div className="plates">
-                  {currMealPlan ? (
-                    <PlatesHomepage currMealPlan={currMealPlan} />
-                  ) : (
-                    <></>
-                  )}
-                </div>
+                <Col
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Card
+                    style={{
+                      margin: "0px",
+                      backgroundColor: "#3EBC96",
+                      borderRadius: "20px",
+                      width: "250px ",
+                      height: "auto",
+                    }}
+                  >
+                    <Card.Body style={{ textAlign: "center" }}>
+                      <Card.Title
+                        style={{
+                          color: "#F6FEFC",
+                          fontWeight: "bold",
+                          fontSize: "20px",
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faUnlockKeyhole} />
+                      </Card.Title>
+
+                      <Card.Text
+                        style={{ color: "#F6FEFC", fontWeight: "bold" }}
+                      >
+                        {diffWeight < 0
+                          ? "Total Weight Gain"
+                          : "Total Weight Loss"}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
               </Row>
-            </Row>
-          </Col>
-        </Row>
+              <Row className="mealBar">
+                {/* THIS IS PROGRESS BAR */}
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h3 style={{ marginBottom: "30px" }}>
+                    Today's Meal Progress
+                  </h3>
+                  <div className="progBar">
+                    {exist && completedPlan ? (
+                      <AnalyticsHomePage completedPlan={completedPlan} />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </Row>
+
+                {/* THIS IS PLATES */}
+                <Row
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "80px",
+                  }}
+                >
+                  <h3 style={{ marginBottom: "30px" }}>
+                    Weekly Meals Completed
+                  </h3>
+
+                  <div className="plates">
+                    {currMealPlan ? (
+                      <PlatesHomepage currMealPlan={currMealPlan} />
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </Row>
+              </Row>
+            </Col>
+          </Row>
+        </animated.div>
       )}
     </>
   ) : (

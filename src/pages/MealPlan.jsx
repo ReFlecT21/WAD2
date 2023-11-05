@@ -135,8 +135,7 @@ export default function MealPlan() {
                   // style={{backgroundColor:"", color:""}}
                   defaultActiveKey="mealPlan"
                   id="uncontrolled-tab-example"
-                  className="mb-3"
-                  // style={{padding: "20px"}}
+                  className="threeTabs mb-3"
                   fill
                 >
                   <Tab eventKey="mealPlan" title={"Current Meal Plan"}>
