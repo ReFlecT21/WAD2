@@ -12,12 +12,12 @@
 
   const BarChart = ({ Weights, Dates }) => {
     // Create data array
-    console.log(Weights);
-    console.log(Dates);
+    // console.log(Weights);
+    // console.log(Dates);
     const data = Dates.map((date, index) => {
       return { x: date, y: Number(Weights[index]) };
     });
-    console.log(data);
+    // console.log(data);
     return (
       <VictoryChart
         width={600}

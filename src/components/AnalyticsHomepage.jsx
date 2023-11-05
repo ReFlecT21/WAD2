@@ -11,11 +11,11 @@ const AnalyticsHomePage = ({ completedPlan }) => {
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
   const checkDaily = async () => {
-    console.log("yes");
+    // console.log("yes");
     if (completedPlan?.Completed) {
-      console.log("check 1");
+      // console.log("check 1");
       let completed = completedPlan.Completed;
-      console.log(completed);
+      // console.log(completed);
       if (Object.keys(completed).length > 0) {
         if (
           completed[currDay - 1] &&
@@ -37,7 +37,7 @@ const AnalyticsHomePage = ({ completedPlan }) => {
   if (now > 95) {
     now = 100;
   }
-  console.log(now);
+  // console.log(now);
   return <ProgressBar now={now} label={`${now}%`} 
   style={{padding:"0px", width:"500px", height: "50px", borderRadius: "50px"}}/>;
 };

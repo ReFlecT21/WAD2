@@ -367,7 +367,7 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
 
             }}
         >
-            confirm
+            Confirm
         </Button>
         {/* {console.log(searchData)} */}
         <Modal open={ChildModalopen} onClose={handleClose}>

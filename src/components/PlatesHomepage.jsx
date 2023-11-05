@@ -5,13 +5,13 @@ const PlatesHomepage = ({ currMealPlan }) => {
   const [colorArray, setColorArray] = useState(null);
   // console.log(currMealPlan);
   useEffect(() => {
-    console.log("yes");
-    console.log(currMealPlan);
+    // console.log("yes");
+    // console.log(currMealPlan);
     if (currMealPlan?.mealPlan) {
-      console.log("check 2");
+      // console.log("check 2");
       const data = currMealPlan.mealPlan;
 
-      console.log(data);
+      // console.log(data);
       const colors = Object.values(data).map((obj) => {
         // Count the number of non-empty meals in the object
         const nonEmptyMeals = Object.values(obj).filter(

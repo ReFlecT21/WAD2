@@ -7,6 +7,7 @@ import { fetcher } from "../middleware/Fetcher";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBowlFood } from "@fortawesome/free-solid-svg-icons";
 import { faListOl } from "@fortawesome/free-solid-svg-icons";
+import { backendMethods } from "../middleware/backendMethods";
 
 
 export function RecipeDetails(id) {
@@ -30,7 +31,7 @@ export function RecipeDetails(id) {
   //   },
   //   setResponse
   // );
-  backendMethods.fetcher("getBulk/?", {ids: recipe}, setResponse)
+  backendMethods.fetcher("getBulk/?", {ids: id["id"]}, setResponse)
   // console.log(response);
 
   if (response?.length > 0) {
