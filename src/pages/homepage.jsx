@@ -672,6 +672,7 @@ const HomePage = () => {
                     justifyContent: "center",
                     alignItems: "center",
                     marginBottom: "80px",
+                    paddingLeft: "30px",
                   }}
                 >
                   <h3 style={{ marginBottom: "30px" }}>
