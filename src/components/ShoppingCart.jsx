@@ -128,7 +128,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                             Check off what you have bought!
                             You can click the button again if you have made a mistake.
                         </Typography>
-                        <Table className="tableclass" size="small" aria-label="purchases">
+                        <Table className="tableclass " size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px", padding:"50px"}}>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Aisle</TableCell>

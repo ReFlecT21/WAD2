@@ -20,7 +20,7 @@ export async function pageDataGetter(type, mealCals, setter) {
   } else {
     dbUserMethods.getAllergies().then((res) => { 
       if (res) {
-        console.log(res);
+        // console.log(res);
         if (res.length > 0){
           allergyString = res.join(', ');
         }

@@ -21,7 +21,7 @@ class BarcodeScanner {
           },
           result => {
             if (result && result.codeResult) {
-              console.log("Barcode detected and decoded: " + result.codeResult.code);
+              // console.log("Barcode detected and decoded: " + result.codeResult.code);
               resolve(result.codeResult.code); // Resolve with the barcode value
             } else {
               console.log("No barcode detected.");

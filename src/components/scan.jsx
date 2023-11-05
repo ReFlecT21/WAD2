@@ -28,7 +28,7 @@ export function Scan({setScanData,scanData}) {
             const lines = text.split('\n');
 
             // Iterate through each line
-            console.log("==========new scan==========");
+            // console.log("==========new scan==========");
 
             for (const line of lines) {
                 // console.log(line, typeof line, line === protein);

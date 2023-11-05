@@ -121,7 +121,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       Object.keys(mealPlanCopy).length !== 0 &&
       Object.keys(shoppingCart).length !== 0
     ) {
-      console.log("send to db");
+      // console.log("send to db");
       setLoadFlag(true);
       // console.log(mealPlan);
       // console.log(mealPlanCopy);
