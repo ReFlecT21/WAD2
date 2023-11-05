@@ -62,7 +62,7 @@ function App() {
               </>
             ) : (
               <>
-                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route path="/*" element={<Navigate to="/login" replace />} />
                 <Route path="/login" element={<LoginComponent />} />
                 <Route path="/signup" element={<SignUpComponent />} />
                 {/* <Route path="/choose" element={<ChooseMeals />} /> */}

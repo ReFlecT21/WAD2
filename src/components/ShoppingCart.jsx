@@ -128,7 +128,7 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                             Check off what you have bought!
                             You can click the button again if you have made a mistake.
                         </Typography>
-                        <Table className="tableclass" size="small" aria-label="purchases">
+                        <Table className="tableclass " size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow style={{ backgroundColor:"#1F5E4B", height:"60px", padding:"50px"}}>
                                     <TableCell style={{fontSize:"20px", fontFamily:"Nunito Sans", color:"white"}}>Aisle</TableCell>
@@ -165,7 +165,16 @@ function InnerTable({dayCart, title, shoppingCart, dayIndex, day}) {
                                     </>
 
                                 ) : (
-                                    <TableRow><TableCell>No items for today</TableCell></TableRow>
+                                    // <TableRow><TableCell>No items for today</TableCell></TableRow>
+                                    <TableRow>
+                                        <TableCell style={{width:"20%"}}></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell style={{fontStyle:""}}><h5> No items for today</h5></TableCell>
+                                        <TableCell></TableCell>
+                                        <TableCell></TableCell>
+                                    </TableRow>
+
+                                    
                                 )}
                             </TableBody>
                         </Table>
@@ -305,20 +314,6 @@ export function ShoppingCartMobile({shoppingCart}) {
                                     </>
                                 ) : (<TableRow><TableCell colSpan={4}>No items for today</TableCell></TableRow>)}
 
-
-
-                                {/* <CustomRow 
-                                    key={dayIndex+ingreType+ingre}
-                                    flag={dayCart[ingreType][ingre].completed}
-                                    buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                    rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
-                                    ingreType={ingreType}
-                                    ingre = {dayCart[ingreType][ingre]}
-                                    ingreID = {ingre}
-                                    shoppingCart = {shoppingCart}
-                                    setNumOutstanding = {setNumOutstanding}
-                                    day = {day}
-                                /> */}
                             </TableBody>
                         </Table>
                     </AccordionDetails>

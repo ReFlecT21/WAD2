@@ -11,7 +11,7 @@ const AnalyticsPage = () => {
   const [diffWeight, setDiffWeight] = useState("");
   const [formattedDates, setFormattedDates] = useState([]);
 
-  console.log(dayIndex);
+  // console.log(dayIndex);
   // change once u understand cookies
   // useEffect(() => {
   //   if (dayIndex == 7) {

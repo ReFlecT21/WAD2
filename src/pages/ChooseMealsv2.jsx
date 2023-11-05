@@ -24,7 +24,8 @@ export default function ChooseMealsV2() {
   const navigate = useNavigate();
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-  console.log(`Calories: ${calories}`, `Recal: ${recal}`);
+  // console.log(`Calories: ${calories}`, `Recal: ${recal}`);
+  // console.log(`Calories: ${calories}`, `Recal: ${recal}`);
 
   useEffect(() => {
     if (!Cookies.get("calories")) {
@@ -80,25 +81,24 @@ export default function ChooseMealsV2() {
     ],
   };
 
-  const test = (response) => {
-    console.log(response);
+  // const test = (response) => {
+  //   console.log(response);
 
-    setApiData((prevApiData) => ({
-      ...prevApiData,
-      [data]: {
-        hasFetched: true,
-        data: response,
-      },
-    }));
-  };
-  // console.log(apiData)
-  // console.log(paramList)
+  //   setApiData((prevApiData) => ({
+  //     ...prevApiData,
+  //     [data]: {
+  //       hasFetched: true,
+  //       data: response,
+  //     },
+  //   }));
+  // };
+
   useEffect(() => {
     for (const data in apiData) {
       if (!apiData[data].hasFetched) {
-        // console.log(paramList[data][0], paramList[data][1])
+
         pageDataGetter(paramList[data][0], paramList[data][1], (response) => {
-          // console.log(response);
+
           setApiData((prevApiData) => ({
             ...prevApiData,
             [data]: {
@@ -143,6 +143,7 @@ export default function ChooseMealsV2() {
               recipes={apiData[activePage].data}
               selected={paramList[activePage][4]}
               selectedSetter={paramList[activePage][3]}
+              bufferFlag={apiData[activePage].hasFetched}
             />
           ) : (
             <CreateMealPlanContentFinalise
