@@ -21,7 +21,7 @@ export function CreateMealPlanContentv2({
   selected,
   selectedSetter,
 }) {
-  console.log(recipes);
+  // console.log(recipes);
 
   return (
     <>
