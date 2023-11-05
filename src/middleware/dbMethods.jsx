@@ -369,7 +369,6 @@ export const dbFoodMethods = {
       const subSnap = await getDocs(subRef);
       // Check if the subcollection is empty or not
       if (subSnap.empty) {
-        console.error("MealPlanHistory does not exist");
         return false; // Return false or some other value to indicate no data found
       } else {
         // console.log("MealPlanHistory exists");

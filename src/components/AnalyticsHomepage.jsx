@@ -7,7 +7,7 @@ const AnalyticsHomePage = ({ completedPlan }) => {
   const [DailyCal, setDailyCal] = useState(0);
   var currDay = 0;
   if (completedPlan?.Completed) {
-    currDay = currDayCalculator(completedPlan.CreatedAt) + 5;
+    currDay = currDayCalculator(completedPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
   const checkDaily = async () => {
@@ -38,8 +38,18 @@ const AnalyticsHomePage = ({ completedPlan }) => {
     now = 100;
   }
   // console.log(now);
-  return <ProgressBar now={now} label={`${now}%`} 
-  style={{padding:"0px", width:"500px", height: "50px", borderRadius: "50px"}}/>;
+  return (
+    <ProgressBar
+      now={now}
+      label={`${now}%`}
+      style={{
+        padding: "0px",
+        width: "500px",
+        height: "50px",
+        borderRadius: "50px",
+      }}
+    />
+  );
 };
 
 export default AnalyticsHomePage;
