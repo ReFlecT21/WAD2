@@ -40,7 +40,7 @@ const SignUpComponent = () => {
       lg={1}
     >
       <Row className="loginPage">
-        <Col className="backgroundLeft d-none d-lg-block col-lg-7">
+        <Col className="backgroundLeft d-none d-lg-block col-xs-7">
           <Image src="/foodimg.jpg" alt="" className="loginImg" />
         </Col>
         <Col className="backgroundRight d-flex justify-content-center">
@@ -83,7 +83,7 @@ const SignUpComponent = () => {
             <Row className="loginDetails">
               <p className="signupSmallText">
                 Already have an account?{" "}
-                <Link className="link" to="/">
+                <Link className="link" to="/login">
                   Log in
                 </Link>
               </p>

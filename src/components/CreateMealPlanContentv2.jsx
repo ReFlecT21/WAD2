@@ -20,8 +20,12 @@ export function CreateMealPlanContentv2({
   recipes,
   selected,
   selectedSetter,
+  bufferFlag
 }) {
   // console.log(recipes);
+
+  // const [buffer, setBuffer] = useState(!bufferFlag);
+
 
   return (
     <>
@@ -57,22 +61,40 @@ export function CreateMealPlanContentv2({
           </Col>
         </Row>
 
-          {recipes && recipes.length>0 ? (
-            <Row className="mealCards" xs={3} md={3} lg={4}>
-            {recipes.map((recipe) => (
-              <RecpieCardV2
-                key={recipe.id}
-                recipe={recipe}
-                setter={selectedSetter}
-                render={recipe.id in selected ? false : true}
+          {!bufferFlag ? (
+            // <Row xs={12} style={{ display:"flex", alignItems:"center" }}>
+            <Row style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              {/* <div style={{textAlign:"center"}}> */}
+                <Lottie
+                  animationData={LoadingAnimationData} // Your animation data
+                  loop={true} // Set to true for looped animations
+                  autoplay={true} // Set to true to play the animation automatically
+                  style={{ width: "600px", height: "300px", objectFit:"cover", overflow:"hidden"}}
                 />
-            ))}
+              {/* </div> */}
             </Row>
           ) : (
-            <Row style={{textAlign:"center"}}>
-              <h4>No Meals Match Your Required Caloric Intake/Dietary Restrictions</h4>
-            </Row>
+            <>
+              {recipes && recipes.length>0 ? (
+                <Row className="mealCards" xs={3} md={3} lg={4}>
+                {recipes.map((recipe) => (
+                  <RecpieCardV2
+                    key={recipe.id}
+                    recipe={recipe}
+                    setter={selectedSetter}
+                    render={recipe.id in selected ? false : true}
+                    />
+                ))}
+                </Row>
+              ) : (
+                <Row style={{textAlign:"center"}}>
+                  <h4>No Meals Match Your Required Caloric Intake/Dietary Restrictions</h4>
+                </Row>
+              )}
+            </>
+
           )}
+
       </Container>
     </>
   );
@@ -200,8 +222,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       let IDs = [];
 
       if (recal == 0) {
-        console.log(info)
-        console.log("finalise meal plan");
+        // console.log(info)
+        // console.log("finalise meal plan");
         for (let i = 1; i < 8; i++) {
           ["Breakfast", "Lunch", "Dinner"].forEach(async (meal) => {
             let randomDish = Object.keys(info[meal].data)[
@@ -251,9 +273,9 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
           await backendMethods.fetcherGET("getBulk/?", {ids: IDs.join(",")}, handleShoppingCart, i)
         }
       } else {
-        console.log("recal process");
+        // console.log("recal process");
         let exisitingMealPlan = JSON.parse(recal);
-        console.log(typeof exisitingMealPlan);
+        // console.log(typeof exisitingMealPlan);
         
         if (exisitingMealPlan) {
           // console.log(exisitingMealPlan);
