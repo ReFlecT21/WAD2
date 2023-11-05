@@ -47,7 +47,7 @@ const BlackTextTabTitle = styled.div`
 export default function MealPlan() {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
-  const navChoose = () => navigate("/choose");
+  const navChoose = () => navigate("/input");
 
   const [completed, setCompleted] = useState(null);
   const [currMealPlan, setCurrMealPlan] = useState(null);
