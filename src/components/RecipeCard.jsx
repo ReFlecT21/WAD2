@@ -277,7 +277,7 @@ export function ManualInputCard({foods}){
                       setOverlayData(<ManualDetails foods={foods} />)
                     }
                   >
-                    Recipe
+                    Details
                   </Button>
                 </div>
               </Col>

@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 // import Lottie from "lottie-web";
 import Lottie from "lottie-react";
 import LoadingAnimationData from "../assets/loading.json"
+import { backendMethods } from "../middleware/backendMethods";
 
 
 export function CreateMealPlanContentv2({
@@ -119,8 +120,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
           Cookies.get("calories")
         );
       }
-      console.log(mealPlan);
-      console.log(mealPlanCopy);
+      // console.log(mealPlan);
+      // console.log(mealPlanCopy);
 
       Cookies.remove("calories");
       Cookies.remove("recal");
@@ -198,6 +199,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       let IDs = [];
 
       if (recal == 0) {
+        console.log(info)
         console.log("finalise meal plan");
         for (let i = 1; i < 8; i++) {
           ["Breakfast", "Lunch", "Dinner"].forEach(async (meal) => {
@@ -235,15 +237,17 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
             });
           });
 
-          await fetcherGET(
-            "/foodAPI/getBulk/?",
-            {
-              ids: IDs.join(","),
-            },
-            handleShoppingCart,
-            i,
-          );
-          IDs = [];
+          // await fetcherGET(
+          //   "/foodAPI/getBulk/?",
+          //   {
+          //     ids: IDs.join(","),
+          //   },
+          //   handleShoppingCart,
+          //   i,
+          // );
+          // IDs = [];
+
+          await backendMethods.fetcherGET("getBulk/?", {ids: IDs.join(",")}, handleShoppingCart, i)
         }
       } else {
         console.log("recal process");
@@ -304,14 +308,15 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
                 });
               }
 
-              await fetcherGET(
-                "/foodAPI/getBulk/?",
-                {
-                  ids: IDs.join(","),
-                },
-                handleShoppingCart,
-                i
-              );
+              // await fetcherGET(
+              //   "/foodAPI/getBulk/?",
+              //   {
+              //     ids: IDs.join(","),
+              //   },
+              //   handleShoppingCart,
+              //   i
+              // );
+              await backendMethods.fetcherGET("getBulk/?", {ids: IDs.join(",")}, handleShoppingCart, i)
 
               IDs = [];
             } else {

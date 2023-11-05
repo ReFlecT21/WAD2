@@ -597,7 +597,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
         protein:{value:0,flag:false}, 
     });
 
-    console.log(scanData);
+    // console.log(scanData);
 
 
     return (

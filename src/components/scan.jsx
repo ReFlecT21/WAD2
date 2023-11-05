@@ -87,7 +87,7 @@ export function Scan({setScanData,scanData}) {
             </Button>
             <br></br>
             <br></br>
-            <p>Upload any image with a nutritional table <br></br>and we will fill up the form for you</p>
+            <p>Upload any image with a nutritional table <br></br>and we will fill up the form for you. <br></br> Only upload .jpeg or .png files </p>
 
             </div>
         </>

@@ -68,7 +68,7 @@ const HomePage = () => {
   const [exist, setExist] = useState(false);
 
     function showNotification(message) {
-      console.log("showing notification");
+      // console.log("showing notification");
       setNotiMessage(message);
       setNotiRender(true);
     }
@@ -102,9 +102,9 @@ const HomePage = () => {
     useEffect(() => {
       const checkUser = async () => {
         const result = await dbUserMethods.getUserData();
-        console.log(result.formInput);
+        // console.log(result.formInput);
         if (result.formInput != undefined) {
-          console.log("yes");
+          // console.log("yes");
           fetchData();
           setExist(true);
         }
@@ -183,7 +183,7 @@ const HomePage = () => {
         onClick={() => {
           setOverlayData(
             <ManualSearchComponent
-              currDay={currDay + 1}
+              currDay={currDay}
               showNotification={showNotification}
             />
           );
@@ -254,8 +254,8 @@ const HomePage = () => {
                       </>
                     ) : (
                       <>
-                        {console.log(currDisplayMealPlan.DisplayMealPlan)}
-                        {console.log(currDay)}
+                        {/* {console.log(currDisplayMealPlan.DisplayMealPlan)}
+                        {console.log(currDay)} */}
                         {Object.keys(
                           currDisplayMealPlan.DisplayMealPlan[currDay + 1]
                         ).length > 0 ? (
