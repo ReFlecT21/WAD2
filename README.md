@@ -20,3 +20,12 @@ cd to root folder
 
 step 6:
 npm run dev
+
+TEST ACCOUNTS:
+New user 
+Email: testAdmin@gmail.com
+password: qazwsxedc
+
+User halfway through meal plan
+Email: cuprimuni4@gmail.com
+password: yhujik123
