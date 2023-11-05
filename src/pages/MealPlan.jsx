@@ -115,8 +115,8 @@ export default function MealPlan() {
       <ErrorBoundary FallbackComponent={Fallback}>
         {overlayData}
         {currDisplayMealPlan != null ? (
-          <Container>
-            <Tabs
+          <Container >
+            <Tabs 
               // style={{backgroundColor:"", color:""}}
               defaultActiveKey="mealPlan"
               id="uncontrolled-tab-example"
