@@ -44,7 +44,7 @@ import { useNavigate } from "react-router-dom/dist";
 import Lottie from "lottie-react";
 import animationData from "../assets/food.json";
 import LoadingAnimationData from "../assets/loading.json";
-
+import { faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import PlatesHomepage from "../components/platesHomepage";
 const HomePage = () => {
   const navigate = useNavigate();
