@@ -496,7 +496,16 @@ body, html {
         margin: 5px;
     }
 }
+// threetab
+.threeTabs{
+    margin-top:0px
+}
 
+@media (max-width:992px){
+    .threeTabs{
+        margin-top:60px;
+    }
+}
 //standalone code to account manual search button responsiveness
 @media (min-width:500px){
     .homeBtn .chooseBtn{

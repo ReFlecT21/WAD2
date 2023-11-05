@@ -201,7 +201,6 @@ export const dbFoodMethods = {
 
     await this.init();
 
-
     try {
       // Get the current state of the document
       if (this.docSnap) {
@@ -352,6 +351,32 @@ export const dbFoodMethods = {
       }
     } catch (e) {
       console.error("Error updating document: ", e);
+      return false; // Return false or some other value to indicate an error occurred
+    }
+  },
+
+  checkAnalytics: async function () {
+    if (!this.docRef) {
+      console.log("Document reference does not exist");
+      return false; // Return false or some other value to indicate an error occurred
+    }
+
+    await this.init();
+    try {
+      // Get the reference to the MealPlanHistory subcollection
+      const subRef = collection(this.docRef, "MealPlanHistory");
+      // Get the snapshot of the subcollection
+      const subSnap = await getDocs(subRef);
+      // Check if the subcollection is empty or not
+      if (subSnap.empty) {
+        console.log("MealPlanHistory does not exist");
+        return false; // Return false or some other value to indicate no data found
+      } else {
+        console.log("MealPlanHistory exists");
+        return true; // Return true or some other value to indicate data found
+      }
+    } catch (e) {
+      console.error("Error accessing subcollection: ", e);
       return false; // Return false or some other value to indicate an error occurred
     }
   },
