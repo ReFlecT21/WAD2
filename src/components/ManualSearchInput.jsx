@@ -16,7 +16,6 @@ Image,
 Tabs,
 Tab,
 } from "react-bootstrap";
-import { fetcher, fetcherGET, fetcherPOST } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { useNavigate } from "react-router-dom";
 import { RecalAtom } from "../atoms/recal";
@@ -134,44 +133,6 @@ function ConfirmModal({ foodDetails, day_Index, Meal_Type }) {
         }
     }, [reload]);
 
-    // useEffect(() => {
-    //     const callback = async () => {
-    //         const expirationTimeInHours = 1;
-    //         const expirationDate = new Date(
-    //         new Date().getTime() + expirationTimeInHours * 60 * 60 * 1000
-    //         );
-    //         let remainingCal = await dbFoodMethods.getRemainingCalories();
-                
-    //         if (remainingCal > 999){
-    //             Cookies.set("recal", 1, { expires: expirationDate });
-    //             Cookies.set("calories", remainingCal, { expires: expirationDate });
-    //             setOverlayData([]);
-    //             navigate("/choose");
-    //         } else {
-    //             alert("You can only recalculate if you have at least 1000 calories per day left")
-    //         }
-    //     }
-
-    //     if (recal) {
-    //         callback();
-    //     }
-    // }, [recal]);
-
-// user to manual select meal type
-// check whether plan still exists
-// if plan exists, you cannot eat this
-// if plan does not exists, you can eat this
-
-// Show to him how much he is over or under for that plan by comparing manually added cal to the current day meal type cal
-// Recal or ADD
-// if recal,
-// minus off manually added cals from weekly calories before sending remaining cals to recal
-
-// if add,
-// add into added array
-// delete current day meal type
-// display plan must change to 1 for that meal type
-
 return (
     // console.log(foodDetails),
     <React.Fragment>
@@ -194,8 +155,7 @@ return (
             </Button>
           
             
-
-                  
+            
            
         </div>
 
@@ -261,14 +221,6 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
                 foodDetails["carbs"] = searchData[key]["nf_total_carbohydrate"];
                 foodDetails["quantity"] = searchData[key]["quantity"];
 
-                // foodDetails.push(searchData[key]["food_name"]);
-                // foodDetails.push(parseFloat(searchData[key]["nf_calories"]));
-                // foodDetails.push(parseFloat(searchData[key]["nf_protein"]));
-                // foodDetails.push(parseFloat(searchData[key]["nf_total_fat"]));
-                // foodDetails.push(parseFloat(searchData[key]["nf_total_carbohydrate"]));
-                // foodDetails.push(searchData[key]?.photo.highres ? searchData[key].photo.highres : "");
-                // foodDetails.push(searchData[key]["nf_cholesterol"]);
-
                 // Add the array of food details to the new array
                 newFoodDetailsArrays.push(foodDetails);
                 // });
@@ -281,18 +233,13 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
     };
 
     function handleRemove(key, food) {
-        // Remove the food item from searchData
         const newSearchData = { ...searchData };
-        // console.log(key);
-        // console.log(newSearchData);
-        // const index = newSearchData[key].indexOf(food);
+
         if (key > -1) {
-            // newSearchData[key].splice(index, 1);
             delete newSearchData[key];
             setCount((prevCount) => prevCount - 1);
         }
 
-        // Update the state with the new searchData
         setSearchData(newSearchData);
     }
 
@@ -376,15 +323,13 @@ function ChildModal({ food_Array, dayIndex, MealType, setFoodArray, setCount }) 
                 <Button className="buttonPrimary" style={{width:"100px"}} onClick={handleClose}>
                 Back
                 </Button>
-                {/* <Button className="buttonPrimary" onClick={null}>Confirm</Button> */}
+
                 <ConfirmModal
-                // foodDetails={foodDetailsArrays}
                 foodDetails={createFoodDetails()}
                 day_Index={dayIndex}
                 Meal_Type={MealType}
                 />
             </div>
-            {/* <h2>Text in a child modal</h2> */}
             <div
                 style={{
                 display: "block",
@@ -504,30 +449,8 @@ export function ManualSearchComponent({currDay, showNotification}) {
         const value = event.target.value;
         setInputValue(value);
 
-        // fetcherGET(
-        // "/foodAPI/instantSearch/?",
-        // {
-        //     query: value,
-        // },
-        // setInstantData
-        // );
         backendMethods.fetcherGET("instantSearch/?", {query: value}, setInstantData)
     }
-
-    // console.log(inputValue)
-
-    // function handleSubmit(event) {
-    //     event.preventDefault();
-    //     if (inputValue.length >= 1) {
-    //     console.log(inputValue);
-    //     setInputError(null);
-
-    //     // API CALL FOR SEARCH INPUT
-    //     // getData()
-    //     } else {
-    //     setInputError("You must type something!");
-    //     }
-    // }
 
     async function checkValidMeal (mealType){
         let res = await dbFoodMethods.getMealPlan();
@@ -544,17 +467,17 @@ export function ManualSearchComponent({currDay, showNotification}) {
     
     
     useEffect(() => {
-        // console.log(foodArray);
+
     }, [foodArray]);
     // ------------------------------------------------------------------------------------
-    // this is handling instantSearch endpoint
+
     if (instantData != null) {
         // console.log(instantData);
 
         instantData["common"].forEach((food) => {
         instantSearchRes.push(
             <Col key={food.food_name}>
-            {/* <Card className="text-center" onClick={null} style={{ border: "0px", margin: "10px" }}> */}
+
             <Stack
                 direction="horizontal"
                 style={{ border: "0px", margin: "10px", textAlign: "center" }}
@@ -568,7 +491,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                 />
                 <div>
                 <h5>{food["food_name"]}</h5>
-                {/* <ChildModal food_name={food["food_name"]} /> */}
+
                 <Button
                     className="buttonPrimary"
                     onClick={() => {
@@ -642,17 +565,6 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             </Button>
                         </Col>
                     </Row>
-                        
-                        
-                        
-                        {/* <Button
-                            onClick={() => {
-                            setSelectedMeal("snack");
-                            setMealModalOpen(false);
-                            }}
-                        >
-                            Snack
-                        </Button> */}
 
                 </div>
             </Box>
@@ -702,7 +614,6 @@ export function ManualSearchComponent({currDay, showNotification}) {
 
                     {inputError && <div style={{ color: "red" }}>{inputError}</div>}
                     </Form>
-                    {/* <Stack direction="vertical" gap={2}> */}
                     {instantSearchRes && (
                     <Row xs={1} md={3} className="g-4">
                         {instantSearchRes}
@@ -710,14 +621,12 @@ export function ManualSearchComponent({currDay, showNotification}) {
                     )}
                 </Tab>
                 <Tab eventKey="scan" title={"Manually Type or Scan"}>
-                    {/* <Scan /> */}
 
-                    {/* <Form onSubmit={handleSubmit}> */}
                     <Form onSubmit={event => event.preventDefault()}>
                     <InputGroup className="mb-3">
 
                         <Row xs={1} md={2}>
-                            {/* <div style={{display:"block", width:"100%"}}> */}
+
                             <Col md={12}>
                             <h5>Food Name</h5>
                             <Form.Control
@@ -728,7 +637,6 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             placeholder="What are you eating?"
                             />
                             </Col>
-                            {/* </div> */}
 
                             <div>
                                 <h5>Calories</h5>
@@ -758,8 +666,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                                 placeholder="grams"
                                 value={scanData.protein.value}
                                 onChange={(e) => {
-                                    // Update the state variable when the input changes
-                                    // setScanData({ ...scanData, protein: {scanData.} });
+
                                     setScanData((prev) => ({...prev, protein: {value: e.target.value}}))
                                   }}
                                 
@@ -832,8 +739,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                                     ...prevFoodArray,
                                     temp
                                 ]);
-                                // console.log(showNotification)
-                                // setInputError("")
+
                                 showNotification("Food item has been added!");
                             }
                             

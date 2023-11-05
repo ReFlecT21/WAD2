@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Card, Button, Col, Row } from "react-bootstrap";
-import { fetcher } from "../middleware/Fetcher";
 import { ManualDetails, RecipeDetails } from "./RecipeDetails";
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
@@ -293,45 +292,6 @@ export function ManualInputCard({foods}){
       </Card>
     </div>
     // <p>V2</p>
-  )
-
-  return (
-    <>
-      <Card >
-          <Card.Img
-            variant="top"
-            src={foodIcon}
-            className="cardImg"
-            style={{ borderRadius: "20px" }}
-          />
-          <Card.ImgOverlay>
-            <Card.Body>
-              <Row>
-                <Col>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Button
-                      className="buttonPrimary"
-                      onClick={() =>{}
-                        // setOverlayData(<RecipeDetails id={recipe["id"]} />)
-                      }
-                    >
-                      Details
-                    </Button>
-                  </div>
-                </Col>
-              </Row>
-              <Card.Title style={{ marginTop: "10px" }}>
-                Manually Added Meal
-              </Card.Title>
-              <Card.Text>
-              </Card.Text>
-            </Card.Body>
-          </Card.ImgOverlay>
-        </Card>
-      </> 
-    
   )
 }
 

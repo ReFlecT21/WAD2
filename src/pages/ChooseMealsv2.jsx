@@ -91,14 +91,13 @@ export default function ChooseMealsV2() {
       },
     }));
   };
-  // console.log(apiData)
-  // console.log(paramList)
+
   useEffect(() => {
     for (const data in apiData) {
       if (!apiData[data].hasFetched) {
-        // console.log(paramList[data][0], paramList[data][1])
+
         pageDataGetter(paramList[data][0], paramList[data][1], (response) => {
-          // console.log(response);
+
           setApiData((prevApiData) => ({
             ...prevApiData,
             [data]: {

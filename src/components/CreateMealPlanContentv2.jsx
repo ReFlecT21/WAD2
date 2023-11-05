@@ -4,8 +4,6 @@ import { RecpieCardV2, SelectedRecpieCardV2 } from "./RecipeCard";
 import { useEffect, useState } from "react";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { useNavigate } from "react-router-dom";
-import { fetcher, fetcherGET } from "../middleware/Fetcher";
-import { DotLoader } from "react-spinner-overlay";
 import { FormDetails } from "../atoms/formAtom";
 import { useAtom } from "jotai";
 import Cookies from "js-cookie";

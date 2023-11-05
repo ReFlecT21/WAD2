@@ -1,5 +1,5 @@
   import React, { useEffect, useState, useRef } from "react";
-  import { fetcherPOST } from "../middleware/Fetcher";
+  // import { fetcherPOST } from "../middleware/Fetcher";
   import { NavBar } from "../components";
   import { Row, Col, Button, Stack, Card, Container } from "react-bootstrap";
   import { Box } from "@mui/material";
@@ -8,26 +8,24 @@
   import { Modal } from "@mui/material";
   import { ManualSearchComponent } from "../components/ManualSearchInput";
   import AnalyticsPage from "./AnalyticsPage";
-  import Spline from "@splinetool/react-spline";
+  // import Spline from "@splinetool/react-spline";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import { faPlus } from "@fortawesome/free-solid-svg-icons";
-  import {
-    collection,
-    doc,
-    getDoc,
-    setDoc,
-    addDoc,
-    query,
-    getDocs,
-    serverTimestamp,
-  } from "firebase/firestore";
-  import { db, auth } from "../../firebase";
-  import getMealPlan from "../middleware/getMealPlan";
+  // import {
+  //   collection,
+  //   doc,
+  //   getDoc,
+  //   setDoc,
+  //   addDoc,
+  //   query,
+  //   getDocs,
+  //   serverTimestamp,
+  // } from "firebase/firestore";
+  // import { db, auth } from "../../firebase";
+  // import getMealPlan from "../middleware/getMealPlan";
   import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
   import { isMobile } from "react-device-detect";
   import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
-  import Cookies from "js-cookie";
-  import { Scan } from "../components/scan";
   import PageNotification from "../components/PageNotification";
   import currDayCalculator from "../middleware/currDayCalculator";
   // import { useHistory } from 'react-router-dom';
@@ -46,7 +44,6 @@
   import Lottie from "lottie-react";
   import animationData from "../assets/food.json"; 
 
-import { faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 
 import PlatesHomepage from "../components/platesHomepage";
 const HomePage = () => {
@@ -232,22 +229,16 @@ const HomePage = () => {
                                 currDisplayMealPlan={currDisplayMealPlan}
                               />
                             ) : (
-                              // <MealPlanCardHome
-                              //   recipe={
-                              //     Object.keys(
-                              //       currMealPlan.DisplayMealPlan[currDay][mealType]
-                              //     )[0]
-                              //   }
-                              // />
-                              <p style={{color:"#1F5E4B"}}>No Meal</p>
+                              <>
+                                {/* <h4>{mealType}</h4> */}
+                                <p style={{color:"#1F5E4B"}}>No Meal</p>
+                              </>
                             )}
                           </Col>
                         ))}
                       </>
                     ) : (
                       <>
-                        {/* {console.log(currDisplayMealPlan.DisplayMealPlan)}
-                        {console.log(currDay)} */}
                         {Object.keys(
                           currDisplayMealPlan.DisplayMealPlan[currDay + 1]
                         ).length > 0 ? (
@@ -258,13 +249,6 @@ const HomePage = () => {
                                   mealType
                                 ] ? (
                                   <>
-                                  {/* {currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType][
-                                    Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]
-                                  ] ? (
-                                    <h4>{mealType} completed!</h4>
-                                  ) : (
-                                    <h4>{mealType}</h4>
-                                  )} */}
                                   <MealPlanCard 
                                       key={`${mealType}${currDay}card`}
                                       recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay+1][mealType])[0]}
@@ -275,9 +259,6 @@ const HomePage = () => {
                                       currMealPlan={currMealPlan}
                                       currDisplayMealPlan={currDisplayMealPlan}
                                     />
-                                    {/* <MealPlanCardHome
-                                    recipe={Object.keys(currDisplayMealPlan.DisplayMealPlan[currDay + 1][mealType])[0]}
-                                  /> */}
                                   </>
                                 ) : (
                                   <>

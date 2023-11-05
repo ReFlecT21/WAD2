@@ -17,7 +17,6 @@ import { auth, db } from "../../firebase";
 import { LoggedIn } from "../atoms/logInAtom";
 import { NavBar } from "../components";
 import { MDBSwitch } from "mdb-react-ui-kit";
-import getMealPlan from "../middleware/getMealPlan";
 import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 import { Allergies } from "../atoms/allergiesAtom";
 import Spline from "@splinetool/react-spline";
@@ -26,10 +25,7 @@ import Cookies from "js-cookie";
 import Lottie from "lottie-react";
 import animationData from "../assets/animation.json"; // Replace with your animation file
 
-// import React from 'react';
-// import Lottie from 'lottie-react';
-// import lottie from 'lottie-web';
-// import animationData from './animation.json'; // Replace with your animation file
+
 
 const InputPage = () => {
   const navigate = useNavigate();

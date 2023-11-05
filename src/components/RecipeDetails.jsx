@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 import { Modal, Box } from "@mui/material";
 import { useState } from "react";
-import { fetcher } from "../middleware/Fetcher";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBowlFood } from "@fortawesome/free-solid-svg-icons";
 import { faListOl } from "@fortawesome/free-solid-svg-icons";

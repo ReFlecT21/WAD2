@@ -314,20 +314,6 @@ export function ShoppingCartMobile({shoppingCart}) {
                                     </>
                                 ) : (<TableRow><TableCell colSpan={4}>No items for today</TableCell></TableRow>)}
 
-
-
-                                {/* <CustomRow 
-                                    key={dayIndex+ingreType+ingre}
-                                    flag={dayCart[ingreType][ingre].completed}
-                                    buttonTxt = {dayCart[ingreType][ingre].completed ? "Bought" : "Buy"}
-                                    rowStyle = {dayCart[ingreType][ingre].completed ? {backgroundColor:"grey"} : {}}
-                                    ingreType={ingreType}
-                                    ingre = {dayCart[ingreType][ingre]}
-                                    ingreID = {ingre}
-                                    shoppingCart = {shoppingCart}
-                                    setNumOutstanding = {setNumOutstanding}
-                                    day = {day}
-                                /> */}
                             </TableBody>
                         </Table>
                     </AccordionDetails>

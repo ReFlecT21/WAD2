@@ -25,7 +25,6 @@ import {
 import { useAtom } from "jotai";
 import { RecipeOverlay } from "../atoms/recipeOverlay";
 
-import { fetcher } from "../middleware/Fetcher";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import { ShoppingCart, ShoppingCartMobile } from "../components/ShoppingCart";
 import { CompletedMeals, CompletedMealsV2 } from "../components/CompletedMeals";
@@ -167,7 +166,6 @@ export default function MealPlan() {
                     currMealPlan={currMealPlan}
                     currDisplayMealPlan={currDisplayMealPlan}
                   />
-                  {/* <CompletedMealsV2 completed={completed} /> */}
                 </Row>
               </Tab>
             </Tabs>
