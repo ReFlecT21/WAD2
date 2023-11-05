@@ -43,6 +43,7 @@ export function CreateMealPlanContentv2({
               <Button
                 className="chooseBtn"
                 onClick={() => setActivePage(pageNum - 1)}
+                disabled={pageNum == 1 ? true : false}
               >
                 Prev
               </Button>
