@@ -26,7 +26,7 @@ export const dbUserMethods = {
   },
 
   setUserData: async function (data, allergies) {
-    console.log("setUserData");
+    // console.log("setUserData");
     // console.log(data);
     // console.log(allergies);
     await this.init();
@@ -85,7 +85,7 @@ export const dbFoodMethods = {
   },
 
   getCompleted: async function () {
-    console.log("getCompleted");
+    // console.log("getCompleted");
     await this.init();
     // console.log(this.docSnap)
     try {
@@ -105,7 +105,7 @@ export const dbFoodMethods = {
     }
   },
   getMealPlan: async function () {
-    console.log("getMealPlan");
+    // console.log("getMealPlan");
     // console.log(this.docSnap)
     await this.init();
     try {
@@ -126,7 +126,7 @@ export const dbFoodMethods = {
     }
   },
   getDetails: async function () {
-    console.log("getDetails");
+    // console.log("getDetails");
     // console.log(this.docSnap)
     this.init();
     try {
@@ -148,7 +148,7 @@ export const dbFoodMethods = {
   },
 
   getDisplayMealPlan: async function () {
-    console.log("getDisplayMealPlan");
+    // console.log("getDisplayMealPlan");
     // console.log(this.username)
 
     this.init();
@@ -172,7 +172,7 @@ export const dbFoodMethods = {
   },
 
   getShoppingCart: async function () {
-    console.log("getShoppingCart");
+    // console.log("getShoppingCart");
     // console.log(this.username)
 
     this.init();
@@ -196,7 +196,7 @@ export const dbFoodMethods = {
   },
 
   getRemainingCalories: async function (incomingPlan) {
-    console.log("getCalories");
+    // console.log("getCalories");
     // console.log(this.username)
 
     await this.init();
@@ -284,7 +284,7 @@ export const dbFoodMethods = {
   },
 
   recalMealplan: async function (plan1, plan2, shoppingCart) {
-    console.log("recalMealplan");
+    // console.log("recalMealplan");
     await this.init();
 
     try {
