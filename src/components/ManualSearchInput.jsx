@@ -581,7 +581,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                     }}
                 >
                     {" "}
-                    select{" "}
+                    Select{" "}
                 </Button>
                 </div>
             </Stack>

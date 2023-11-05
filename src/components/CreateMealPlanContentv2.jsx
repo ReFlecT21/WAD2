@@ -23,7 +23,7 @@ export function CreateMealPlanContentv2({
   selected,
   selectedSetter,
 }) {
-  // console.log(recipes);
+  console.log(recipes);
 
   return (
     <>
@@ -58,20 +58,22 @@ export function CreateMealPlanContentv2({
           </Col>
         </Row>
 
-        <Row className="mealCards" xs={3} md={3} lg={4}>
-          {recipes ? (
-            recipes.map((recipe) => (
+          {recipes && recipes.length>0 ? (
+            <Row className="mealCards" xs={3} md={3} lg={4}>
+            {recipes.map((recipe) => (
               <RecpieCardV2
                 key={recipe.id}
                 recipe={recipe}
                 setter={selectedSetter}
                 render={recipe.id in selected ? false : true}
-              />
-            ))
+                />
+            ))}
+            </Row>
           ) : (
-            <Loader />
+            <Row style={{textAlign:"center"}}>
+              <h4>No Meals Match Your Required Caloric Intake/Dietary Restrictions</h4>
+            </Row>
           )}
-        </Row>
       </Container>
     </>
   );
@@ -348,6 +350,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       }
     } else {
       alert("please select at least 1 dish for each meal type");
+      setLoadFlag(false);
     }
   };
 

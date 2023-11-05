@@ -117,10 +117,11 @@ export default function MealPlan() {
         {currDisplayMealPlan != null ? (
           <Container>
             <Tabs
-            style={{backgroundColor:"", color:""}}
+              // style={{backgroundColor:"", color:""}}
               defaultActiveKey="mealPlan"
               id="uncontrolled-tab-example"
               className="mb-3"
+              // style={{padding: "20px"}}
               fill
             >
               <Tab eventKey="mealPlan" title={"Current Meal Plan"}>
