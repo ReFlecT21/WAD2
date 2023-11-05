@@ -54,7 +54,7 @@ const PlatesHomepage = ({ currMealPlan }) => {
 
               key={i}
             >
-              <img style={{ width: "80px", height: "80px", margin:"10px" }} src={imgSrc} alt={`${color} Plate`} />
+              <img className="plateImg" src={imgSrc} alt={`${color} Plate`} />
             </div>
           );
         })}

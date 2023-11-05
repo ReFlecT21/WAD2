@@ -126,16 +126,15 @@ const HomePage = () => {
         <PageNotification message={notiMessage} render={notiRender} />
         {overlayData}
         <Row  id="homepage" style={{marginLeft:"0px", marginRight:"0px"}}>
-          <Col className="col-6" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-        <div style={{textAlign:"center"}}>
-            <h1 style={{fontSize:"80px", textAlign:"center",marginTop:"30px"}}>Welcome to MenuMate</h1>
-            <h5 style={{fontSize:"30px", textAlign:"center", marginTop:"20px", color:"#3EBC96"
-          }}>Plan Your Plates, Savor the Taste!</h5>
-          <Button className="createBtn custom-clicked-button" href="#today" style={{marginTop:"30px", padding:"20px", fontSize:"18px"}} >
+          <Col className="">
+        <div style={{textAlign:"center"}} className="welcome">
+            <h1>Welcome to MenuMate</h1>
+            <h5 >Plan Your Plates, Savor the Taste!</h5>
+          <Button className="createBtn custom-clicked-button" href="#today" >
               What's Cooking Today?
             </Button>
             <span style={{margin:"5px"}}></span>
-            <Button className="createBtn custom-clicked-button" href="#insights" style={{marginTop:"30px", padding:"20px", fontSize:"18px"}} >
+            <Button className="createBtn custom-clicked-button" href="#insights" >
               See Your Insights!
             </Button>
           
@@ -143,7 +142,7 @@ const HomePage = () => {
     
           </Col>
 
-          <Col className="col-6">
+          <Col className="col-6 lottieHome" style={{marginTop:"50px"}}>
                     <Lottie style={{height:"95%", width:"90%", padding:"0px"}}
                             animationData={animationData} // Your animation data
                             loop={true} // Set to true for looped animations
@@ -157,44 +156,43 @@ const HomePage = () => {
         <Container fluid>
         <Row id="today"></Row>
           <Row    style={{marginTop:"100px"}}>
-          <Col  style={{marginLeft:"80px"}}> 
-        
+          <Col  className="todayCol">
           <Row style={{ marginBottom: "30px", maxWidth: "100%" }}>
-            <Col   className="col-6">
-                <h1>Your {currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
+            <Col   className="col-6 upcomingTitle">
+                <h1>{currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
             </Col>
 
-        <Col className="col-6" style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
-          <Button
-            className="chooseBtn"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "180px",
-            }}
-            href="/mealplan"
-          >
-            See All
-          </Button>
-          <div style={{margin:"10px"}}></div>
-          <Button
-            className="chooseBtn"
-            style={{ width: "180px" }}
-            onClick={() => {
-              setOverlayData(
-                <ManualSearchComponent
-                  currDay={currDay}
-                  showNotification={showNotification}
-                />
-              );
-            }}
-          >
-            Manual Search
-          </Button>
-        </Col>
-        </Row>
-              <Row xs={1} md={2} lg={3} >   
+        <Col className="col-6 homeBtn" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Button
+        className="chooseBtn"
+        href="/mealplan"
+      >
+        See All
+      </Button>
+      <div style={{margin:"10px"}}></div>
+      <Button
+        className="chooseBtn"
+        onClick={() => {
+          setOverlayData(
+            <ManualSearchComponent
+              currDay={currDay + 2}
+              showNotification={showNotification}
+            />
+          );
+        }}
+      >
+        Manual Search
+      </Button>
+    </Col>
+    {/* <Col style={{ display: "flex", alignItems: "center", justifyContent: "start" }}> */}
+      
+    {/* </Col> */}
+  </Row>
+              
+              
+
+
+              <Row xs={1} sm={2} md={2} lg={3}  style={{ display: "flex", alignItems: "center", justifyContent: "start", margin:"0px" }}>   
                 {currDisplayMealPlan ? (
                   <>
                     {currDisplayMealPlan.DisplayMealPlan[currDay] ? (
@@ -284,20 +282,20 @@ const HomePage = () => {
                                 ) : (
                                   <>
                                     <h4>{mealType}</h4>
-                                    <p>No meals planned</p>
+                                    <p style={{color:"#1F5E4B"}}>No meals planned</p>
                                   </>
                                 )}
                               </Col>
                             ))}
                           </>
                         ) : (
-                          <p>No meals planned</p>
+                          <p style={{color:"#1F5E4B"}}>No meals planned</p>
                         )}
                       </>
                     )}
                   </>
                 ) : (
-                  <h4>No Meal Plan</h4>
+                  <h4 style={{color:"#1F5E4B"}}>No Meal Plan</h4>
                 )}
               </Row>
           
@@ -305,36 +303,24 @@ const HomePage = () => {
           </Row>
         </Container>
 
-  <Row id="insights"><h1 style={{marginLeft: "100px", width: "40%", textAlign:"start", marginTop:"100px",marginBottom:"5px"}}>Your Insights</h1></Row>    
+  <Row id="insights"><h1>Your Insights</h1></Row>    
   <Row > 
               {/* THIS IS BAR CHART */}
-            {/* <Col  className="col-6">
-              <div >
+            <Col  className="col-6 barChart"  style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
+              <div>
                     {weights && formattedDates ? (
                       <BarChart Weights={weights} Dates={formattedDates} style={{margin: "0"}}/>
                     ) : (
                       <></>
                     )}
               </div>
-              </Col> */}
-
-              {/* THIS IS FOR IF ELSE BAR CHART*/}
-              <Col  className="col-6" style={{display:"flex", justifyContent: "center",  alignItems: "center"}}>
-              <div style={{ display: "flex", flexDirection: "column",backgroundColor:"#3EBC96", justifyContent: "center",  alignItems: "center", width:"50%", borderRadius:"50px", textAlign:"center", padding:"20px"}}>
-              <div><FontAwesomeIcon
-                  icon={faUnlockKeyhole} style={{color:"#F6FEFC", width:"30px", height:"30px"}}
-                /></div>
-                <div>
-                    <h4 style={{color:"#F6FEFC", marginTop:"5px"}}>Finish your first week before analytics can be displayed</h4></div>
-              </div>
               </Col>
-              
 
-              <Col className="col-6">
+              <Col className="col-6 infoCard" >
                   {/* THIS IS CARDS */}
-              {/* <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
-                <Col style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
-                  <Card style={{ margin:"0px", backgroundColor:"#3EBC96", borderRadius:"20px", width:"250px ", height:"auto" }}>
+              <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px", margin:"20px"}}>
+                <Col className="insightInfo" >
+                  <Card style={{ margin:"0px", backgroundColor:"#3EBC96", width:"200px", borderRadius:"20px", height:"100px" }}>
                     <Card.Body style={{textAlign:"center"}}>
                       <Card.Title style={{ color: "#F6FEFC", fontWeight: "bold", fontSize:"20px" }}>{avgCal}</Card.Title>
 
@@ -343,8 +329,8 @@ const HomePage = () => {
                   </Card>
                   </Col>
 
-                  <Col style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
-                  <Card style={{ margin:"0px", backgroundColor:"#3EBC96", borderRadius:"20px",  width:"250px ", height:"auto" }}>
+                  <Col className="insightInfo" >
+                  <Card  style={{ margin:"0px", backgroundColor:"#3EBC96", width:"200px", borderRadius:"20px", height:"100px" }}>
                     <Card.Body style={{textAlign:"center"}}>
                       <Card.Title style={{ color: "#F6FEFC", fontWeight: "bold", fontSize:"20px" }}>{diffWeight} kg</Card.Title>
 
@@ -352,10 +338,22 @@ const HomePage = () => {
                     </Card.Body>
                   </Card>
                   </Col>
-                  </Row> */}
+                  </Row>
+
+              {/* THIS IS FOR IF ELSE BAR CHART*/}
+              {/* <Col  className="col-6" style={{display:"flex", justifyContent: "center",  alignItems: "center"}}>
+              <div style={{ display: "flex", flexDirection: "column",backgroundColor:"#3EBC96", justifyContent: "center",  alignItems: "center", width:"50%", borderRadius:"50px", textAlign:"center", padding:"20px"}}>
+              <div><FontAwesomeIcon
+                  icon={faUnlockKeyhole} style={{color:"#F6FEFC", width:"30px", height:"30px"}}
+                /></div>
+                <div>
+                    <h4 style={{color:"#F6FEFC", marginTop:"5px"}}>Finish your first week before analytics can be displayed</h4></div>
+              </div>
+              </Col> */}
+              
 
                   {/* THIS IS FOR IF ELSE CARDS */}
-                  <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
+                  {/* <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
                 <Col style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
                   <Card style={{ margin:"0px", backgroundColor:"#3EBC96", borderRadius:"20px", width:"250px ", height:"auto" }}>
                     <Card.Body style={{textAlign:"center"}}>
@@ -379,26 +377,31 @@ const HomePage = () => {
                     </Card.Body>
                   </Card>
                   </Col>
-                  </Row>
+                  </Row> */}
 
                   {/* THIS IS COMPLETION */}
 
-                <Row  style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"100px", marginRight:"20px"}}>
+                <Row  className="mealBar" >
                     {/* THIS IS PROGRESS BAR */}
-                    <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px"}}>
+                    <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
                       <h3 style={{marginBottom:"30px"}}>Today's Meal Progress</h3>
-
-                      {exist && completedPlan ? (
-                        <AnalyticsHomePage completedPlan={completedPlan} />
-                      ) : (
-                        <></>
-                      )}
+                    <div className="progBar">
+                        {exist && completedPlan ? (
+                          <AnalyticsHomePage completedPlan={completedPlan} />
+                        ) : (
+                          <></>
+                        )}
+                    </div>
                     </Row>
 
                     {/* THIS IS PLATES */}
+                    <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"80px"}}>
                     <h3 style={{marginBottom:"30px"}}>Weekly Meals Completed</h3>
-                    <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
+
+                    <div className="plates">
+
                         {currMealPlan ? <PlatesHomepage currMealPlan={currMealPlan} /> : <></>} 
+                    </div>
                     </Row>
 
             

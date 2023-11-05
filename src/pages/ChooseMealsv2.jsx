@@ -119,7 +119,7 @@ export default function ChooseMealsV2() {
       {overlayData}
       <Container>
         <Row className="createMealHeader">
-          {recal == 1 ? (
+          {recal != 0 ? (
             <>
               <h3>You are recalculating an old plan</h3>
               <p>You have 1 hour to replace your old plan</p>
