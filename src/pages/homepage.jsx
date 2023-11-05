@@ -73,6 +73,15 @@ const HomePage = () => {
       setNotiRender(true);
     }
 
+    function smoothScrollTo(targetId) {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    }
+
     const fetchData = async () => {
       await dbFoodMethods.init();
       const result = await dbFoodMethods.getAnalytics();
@@ -140,13 +149,13 @@ const HomePage = () => {
           <div style={{textAlign:"center"}} className="welcome">
               <h1>Welcome to MenuMate</h1>
               <h5 >Plan Your Plates, Savor the Taste!</h5>
-            <Button className="createBtn custom-clicked-button" href="#today" >
-                What's Cooking Today?
-              </Button>
-              <span style={{margin:"5px"}}></span>
-              <Button className="createBtn custom-clicked-button" href="#insights" >
-                See Your Insights!
-              </Button>
+            <Button className="createBtn custom-clicked-button" onClick={() => smoothScrollTo("today")}>
+              What's Cooking Today?
+            </Button>
+            <span style={{margin:"5px"}}></span>
+            <Button className="createBtn custom-clicked-button"  onClick={() => smoothScrollTo("insights")} >
+              See Your Insights!
+            </Button>
             
           </div>
       
@@ -297,8 +306,8 @@ const HomePage = () => {
             </Row>
           </Container>
   
-    <Row id="insights"><h1>Your Insights</h1></Row>    
-    <Row > 
+            <Row id="insights"><h1>Your Insights</h1></Row>    
+            <Row > 
                 {/* THIS IS BAR CHART */}
               <Col  className="col-6 barChart"  style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
                 <div>

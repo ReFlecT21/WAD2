@@ -30,6 +30,9 @@ import { ShoppingCart, ShoppingCartMobile } from "../components/ShoppingCart";
 import { CompletedMeals, CompletedMealsV2 } from "../components/CompletedMeals";
 import Cookies from "js-cookie";
 
+import Lottie from "lottie-react";
+import LoadingAnimationData from "../assets/loading.json"
+                
 
 ///anan add start
 import styled from 'styled-components';
@@ -56,6 +59,7 @@ export default function MealPlan() {
   const [trigger, setTrigger] = useState(false);
 
   const [width, setWidth] = useState(window.innerWidth);
+  const [buffer, setBuffer] = useState(true);
   
   useEffect(() => {
     const handleResize = () => {
@@ -76,6 +80,7 @@ export default function MealPlan() {
       setCurrDisplayMealPlan(await dbFoodMethods.getDisplayMealPlan());
       setShoppingCart(await dbFoodMethods.getShoppingCart());
       // console.log(shoppingCart)
+      setBuffer(false);
     };
     
     fetchData();
@@ -113,74 +118,87 @@ export default function MealPlan() {
       {/* <h1 style={{ textAlign: "center" }}>This is Current Meal Plan</h1> */}
       <ErrorBoundary FallbackComponent={Fallback}>
         {overlayData}
-        {currDisplayMealPlan != null ? (
-          <Container >
-            <Tabs  
-              // style={{backgroundColor:"", color:""}}
-              defaultActiveKey="mealPlan"
-              id="uncontrolled-tab-example"
-              className="mb-3"
-              // style={{padding: "20px"}}
-              fill
-            >
-              <Tab eventKey="mealPlan"  title={"Current Meal Plan"} >
-                {/* <CurrentMealPlan /> */}
-                <div style={{marginTop: "30px", marginBottom: "30px", display:"flex", justifyContent:"space-between"}}>
-                  <h2 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>Your Current Meal Plan</h2>
-                  <Button className="chooseBtn" onClick={handleRecal}>
-                    Replan
-                  </Button>
 
-                </div>
-                <CurrentMealPlanV2
-                  currMealPlan={currMealPlan}
-                  currDisplayMealPlan={currDisplayMealPlan}
-                  shoppingCart={shoppingCart}
-                />
-              </Tab>
-              
-              <Tab eventKey="cart"title={"Shopping Cart"}>
-                {width > 767 ? (
-                  // <h1>Shopping Cart</h1>
-                  <ShoppingCart 
-                    shoppingCart={shoppingCart}
-                  />
-                ) : (
-                  <ShoppingCartMobile
-                    shoppingCart={shoppingCart}
-                  />
-                )}
-              </Tab>
-              <Tab eventKey="Completed" title={"Completed Meals"}>
-                <h2 style={{marginTop: "30px", marginBottom: "30px"}}>Your Completed Meals</h2>
-
-                <Row
-                    xs={1}
-                    md={2}
-                    lg={3}
-                    style={{ margin: "10px", objectFit: "contain" }}
-                    className="mealPlanContainer"
-                  >
-                  <CompletedMeals 
-                    completed={completed} 
-                    currMealPlan={currMealPlan}
-                    currDisplayMealPlan={currDisplayMealPlan}
-                  />
-                </Row>
-              </Tab>
-            </Tabs>
-          </Container>
-        ) : (
+        {buffer ? 
+          // <Lottie
+          //   animationData={LoadingAnimationData} // Your animation data
+          //   loop={true} // Set to true for looped animations
+          //   autoplay={true} // Set to true to play the animation automatically
+          //   style={{ width: "600px", height: "300px", objectFit:"cover", overflow:"hidden"}}
+          // />
+          <></>
+          : 
           <>
-          <div style={{textAlign:"center",  marginTop:"250px"}}> 
-            <h2>Create A Meal Plan With Us First!</h2>
-            <Button className="createBtn" style={{marginTop:"20px"}} onClick={navChoose}>
-              <FontAwesomeIcon className="plusIcon"
-                  icon={faPlus}
-                />Create Meal Plan!</Button>
-          </div>
+            {currDisplayMealPlan != null ? (
+              <Container >
+                <Tabs  
+                  // style={{backgroundColor:"", color:""}}
+                  defaultActiveKey="mealPlan"
+                  id="uncontrolled-tab-example"
+                  className="mb-3"
+                  // style={{padding: "20px"}}
+                  fill
+                >
+                  <Tab eventKey="mealPlan"  title={"Current Meal Plan"} >
+                    {/* <CurrentMealPlan /> */}
+                    <div style={{marginTop: "30px", marginBottom: "30px", display:"flex", justifyContent:"space-between"}}>
+                      <h2 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>Your Current Meal Plan</h2>
+                      <Button className="chooseBtn" onClick={handleRecal}>
+                        Replan
+                      </Button>
+      
+                    </div>
+                    <CurrentMealPlanV2
+                      currMealPlan={currMealPlan}
+                      currDisplayMealPlan={currDisplayMealPlan}
+                      shoppingCart={shoppingCart}
+                    />
+                  </Tab>
+                  
+                  <Tab eventKey="cart"title={"Shopping Cart"}>
+                    {width > 767 ? (
+                      // <h1>Shopping Cart</h1>
+                      <ShoppingCart 
+                        shoppingCart={shoppingCart}
+                      />
+                    ) : (
+                      <ShoppingCartMobile
+                        shoppingCart={shoppingCart}
+                      />
+                    )}
+                  </Tab>
+                  <Tab eventKey="Completed" title={"Completed Meals"}>
+                    <h2 style={{marginTop: "30px", marginBottom: "30px"}}>Your Completed Meals</h2>
+      
+                    <Row
+                        xs={1}
+                        md={2}
+                        lg={3}
+                        style={{ margin: "10px", objectFit: "contain" }}
+                        className="mealPlanContainer"
+                      >
+                      <CompletedMeals 
+                        completed={completed} 
+                        currMealPlan={currMealPlan}
+                        currDisplayMealPlan={currDisplayMealPlan}
+                      />
+                    </Row>
+                  </Tab>
+                </Tabs>
+              </Container>
+            ) : (
+              <>
+              <div style={{textAlign:"center",  marginTop:"250px"}}> 
+                <h2>Create A Meal Plan With Us First!</h2>
+                <Button className="createBtn" style={{marginTop:"20px"}} onClick={navChoose}>
+                  <FontAwesomeIcon className="plusIcon"
+                      icon={faPlus}
+                    />Create Meal Plan!</Button>
+              </div>
+              </>
+            )}
           </>
-        )}
+        }
       </ErrorBoundary>
     </>
   );
