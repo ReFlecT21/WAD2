@@ -154,52 +154,46 @@ const HomePage = () => {
 
 
         {/* START OF CURRENT MEAL PLAN */}
+        <Container fluid>
         <Row id="today"></Row>
           <Row    style={{marginTop:"100px"}}>
           <Col  style={{marginLeft:"80px"}}> 
         
           <Row style={{ marginBottom: "30px", maxWidth: "100%" }}>
             <Col   className="col-6">
-                <h1  >Your {currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
+                <h1>Your {currDay === 0 ? "Upcoming" : "Today's"} Meal Plan</h1>
             </Col>
 
         <Col className="col-6" style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
-      <Button
-        className="chooseBtn"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "180px",
-        }}
-        href="/mealplan"
-      >
-        See All
-      </Button>
-      <div style={{margin:"10px"}}></div>
-      <Button
-        className="chooseBtn"
-        style={{ width: "180px" }}
-        onClick={() => {
-          setOverlayData(
-            <ManualSearchComponent
-              currDay={currDay}
-              showNotification={showNotification}
-            />
-          );
-        }}
-      >
-        Manual Search
-      </Button>
-    </Col>
-    {/* <Col style={{ display: "flex", alignItems: "center", justifyContent: "start" }}> */}
-      
-    {/* </Col> */}
-  </Row>
-              
-              
-
-
+          <Button
+            className="chooseBtn"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "180px",
+            }}
+            href="/mealplan"
+          >
+            See All
+          </Button>
+          <div style={{margin:"10px"}}></div>
+          <Button
+            className="chooseBtn"
+            style={{ width: "180px" }}
+            onClick={() => {
+              setOverlayData(
+                <ManualSearchComponent
+                  currDay={currDay}
+                  showNotification={showNotification}
+                />
+              );
+            }}
+          >
+            Manual Search
+          </Button>
+        </Col>
+        </Row>
               <Row xs={1} md={2} lg={3} >   
                 {currDisplayMealPlan ? (
                   <>
@@ -309,6 +303,7 @@ const HomePage = () => {
           
             </Col>
           </Row>
+        </Container>
 
   <Row id="insights"><h1 style={{marginLeft: "100px", width: "40%", textAlign:"start", marginTop:"100px",marginBottom:"5px"}}>Your Insights</h1></Row>    
   <Row > 
