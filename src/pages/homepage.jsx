@@ -343,179 +343,309 @@ const HomePage = () => {
       <Row id="insights">
         <h1>Your Insights</h1>
       </Row>
-      <Row>
-        {/* THIS IS BAR CHART */}
-        <Col
-          className="col-6 barChart"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div>
-            {weights && formattedDates ? (
-              <BarChart
-                Weights={weights}
-                Dates={formattedDates}
-                style={{ margin: "0" }}
-              />
-            ) : (
-              <></>
-            )}
-          </div>
-        </Col>
-
-        <Col className="col-6 infoCard">
-          {/* THIS IS CARDS */}
-          <Row
+      {analytics ? (
+        <Row>
+          {/* THIS IS BAR CHART */}
+          <Col
+            className="col-6 barChart"
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: "50px",
-              marginTop: "30px",
-              margin: "20px",
             }}
           >
-            <Col className="insightInfo">
-              <Card
+            <div>
+              {weights && formattedDates ? (
+                <BarChart
+                  Weights={weights}
+                  Dates={formattedDates}
+                  style={{ margin: "0" }}
+                />
+              ) : (
+                <></>
+              )}
+            </div>
+          </Col>
+
+          <Col className="col-6 infoCard">
+            {/* THIS IS CARDS */}
+            <Row
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "50px",
+                marginTop: "30px",
+                margin: "20px",
+              }}
+            >
+              <Col className="insightInfo">
+                <Card
+                  style={{
+                    margin: "0px",
+                    backgroundColor: "#3EBC96",
+                    width: "200px",
+                    borderRadius: "20px",
+                    height: "100px",
+                  }}
+                >
+                  <Card.Body style={{ textAlign: "center" }}>
+                    <Card.Title
+                      style={{
+                        color: "#F6FEFC",
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                      }}
+                    >
+                      {avgCal}
+                    </Card.Title>
+
+                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
+                      Avg. Cals Per Day
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+
+              <Col className="insightInfo">
+                <Card
+                  style={{
+                    margin: "0px",
+                    backgroundColor: "#3EBC96",
+                    width: "200px",
+                    borderRadius: "20px",
+                    height: "100px",
+                  }}
+                >
+                  <Card.Body style={{ textAlign: "center" }}>
+                    <Card.Title
+                      style={{
+                        color: "#F6FEFC",
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                      }}
+                    >
+                      {diffWeight} kg
+                    </Card.Title>
+
+                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
+                      {diffWeight < 0
+                        ? "Total Weight Gain"
+                        : "Total Weight Loss"}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+
+            {/* THIS IS COMPLETION */}
+
+            <Row className="mealBar">
+              {/* THIS IS PROGRESS BAR */}
+              <Row
                 style={{
-                  margin: "0px",
-                  backgroundColor: "#3EBC96",
-                  width: "200px",
-                  borderRadius: "20px",
-                  height: "100px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                <Card.Body style={{ textAlign: "center" }}>
-                  <Card.Title
-                    style={{
-                      color: "#F6FEFC",
-                      fontWeight: "bold",
-                      fontSize: "20px",
-                    }}
-                  >
-                    {avgCal}
-                  </Card.Title>
-
-                  <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
-                    Avg. Cals Per Day
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-
-            <Col className="insightInfo">
-              <Card
-                style={{
-                  margin: "0px",
-                  backgroundColor: "#3EBC96",
-                  width: "200px",
-                  borderRadius: "20px",
-                  height: "100px",
-                }}
-              >
-                <Card.Body style={{ textAlign: "center" }}>
-                  <Card.Title
-                    style={{
-                      color: "#F6FEFC",
-                      fontWeight: "bold",
-                      fontSize: "20px",
-                    }}
-                  >
-                    {diffWeight} kg
-                  </Card.Title>
-
-                  <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
-                    {diffWeight < 0 ? "Total Weight Gain" : "Total Weight Loss"}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* THIS IS FOR IF ELSE BAR CHART*/}
-          {/* <Col  className="col-6" style={{display:"flex", justifyContent: "center",  alignItems: "center"}}>
-                <div style={{ display: "flex", flexDirection: "column",backgroundColor:"#3EBC96", justifyContent: "center",  alignItems: "center", width:"50%", borderRadius:"50px", textAlign:"center", padding:"20px"}}>
-                <div><FontAwesomeIcon
-                    icon={faUnlockKeyhole} style={{color:"#F6FEFC", width:"30px", height:"30px"}}
-                  /></div>
-                  <div>
-                      <h4 style={{color:"#F6FEFC", marginTop:"5px"}}>Finish your first week before analytics can be displayed</h4></div>
+                <h3 style={{ marginBottom: "30px" }}>Today's Meal Progress</h3>
+                <div className="progBar">
+                  {exist && completedPlan ? (
+                    <AnalyticsHomePage completedPlan={completedPlan} />
+                  ) : (
+                    <></>
+                  )}
                 </div>
-                </Col> */}
+              </Row>
 
-          {/* THIS IS FOR IF ELSE CARDS */}
-          {/* <Row style={{ display: "flex", justifyContent: "center",  alignItems: "center", marginBottom:"50px", marginTop:"30px",  marginRight:"20px"}}>
-                  <Col style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
-                    <Card style={{ margin:"0px", backgroundColor:"#3EBC96", borderRadius:"20px", width:"250px ", height:"auto" }}>
-                      <Card.Body style={{textAlign:"center"}}>
-                        <Card.Title style={{ color: "#F6FEFC", fontWeight: "bold", fontSize:"20px" }}><FontAwesomeIcon
-                    icon={faUnlockKeyhole}
-                  /></Card.Title>
-  
-                        <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>Avg. Cals Per Day</Card.Text>
-                      </Card.Body>
-                    </Card>
-                    </Col>
-  
-                    <Col style={{ display: "flex", justifyContent: "center",  alignItems: "center"}}>
-                    <Card style={{ margin:"0px", backgroundColor:"#3EBC96", borderRadius:"20px",  width:"250px ", height:"auto" }}>
-                      <Card.Body style={{textAlign:"center"}}>
-                        <Card.Title style={{ color: "#F6FEFC", fontWeight: "bold", fontSize:"20px" }}><FontAwesomeIcon
-                    icon={faUnlockKeyhole}
-                  /></Card.Title>
-  
-                        <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>{diffWeight < 0 ? "Total Weight Gain" : "Total Weight Loss"}</Card.Text>
-                      </Card.Body>
-                    </Card>
-                    </Col>
-                    </Row> */}
+              {/* THIS IS PLATES */}
+              <Row
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "80px",
+                }}
+              >
+                <h3 style={{ marginBottom: "30px" }}>Weekly Meals Completed</h3>
 
-          {/* THIS IS COMPLETION */}
-
-          <Row className="mealBar">
-            {/* THIS IS PROGRESS BAR */}
-            <Row
+                <div className="plates">
+                  {currMealPlan ? (
+                    <PlatesHomepage currMealPlan={currMealPlan} />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </Row>
+            </Row>
+          </Col>
+        </Row>
+      ) : (
+        <Row>
+          <Col className="col-6 infoCard">
+            {/* THIS IS FOR IF ELSE BAR CHART*/}
+            <Col
+              className="col-6"
               style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
               }}
             >
-              <h3 style={{ marginBottom: "30px" }}>Today's Meal Progress</h3>
-              <div className="progBar">
-                {exist && completedPlan ? (
-                  <AnalyticsHomePage completedPlan={completedPlan} />
-                ) : (
-                  <></>
-                )}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "#3EBC96",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "50%",
+                  borderRadius: "50px",
+                  textAlign: "center",
+                  padding: "20px",
+                }}
+              >
+                <div>
+                  <FontAwesomeIcon
+                    icon={faUnlockKeyhole}
+                    style={{ color: "#F6FEFC", width: "30px", height: "30px" }}
+                  />
+                </div>
+                <div>
+                  <h4 style={{ color: "#F6FEFC", marginTop: "5px" }}>
+                    Finish your first week before analytics can be displayed
+                  </h4>
+                </div>
               </div>
-            </Row>
+            </Col>
 
-            {/* THIS IS PLATES */}
+            {/* THIS IS FOR IF ELSE CARDS */}
             <Row
               style={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                marginBottom: "80px",
+                marginBottom: "50px",
+                marginTop: "30px",
+                marginRight: "20px",
               }}
             >
-              <h3 style={{ marginBottom: "30px" }}>Weekly Meals Completed</h3>
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Card
+                  style={{
+                    margin: "0px",
+                    backgroundColor: "#3EBC96",
+                    borderRadius: "20px",
+                    width: "250px ",
+                    height: "auto",
+                  }}
+                >
+                  <Card.Body style={{ textAlign: "center" }}>
+                    <Card.Title
+                      style={{
+                        color: "#F6FEFC",
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faUnlockKeyhole} />
+                    </Card.Title>
 
-              <div className="plates">
-                {currMealPlan ? (
-                  <PlatesHomepage currMealPlan={currMealPlan} />
-                ) : (
-                  <></>
-                )}
-              </div>
+                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
+                      Avg. Cals Per Day
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+
+              <Col
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Card
+                  style={{
+                    margin: "0px",
+                    backgroundColor: "#3EBC96",
+                    borderRadius: "20px",
+                    width: "250px ",
+                    height: "auto",
+                  }}
+                >
+                  <Card.Body style={{ textAlign: "center" }}>
+                    <Card.Title
+                      style={{
+                        color: "#F6FEFC",
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faUnlockKeyhole} />
+                    </Card.Title>
+
+                    <Card.Text style={{ color: "#F6FEFC", fontWeight: "bold" }}>
+                      {diffWeight < 0
+                        ? "Total Weight Gain"
+                        : "Total Weight Loss"}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
             </Row>
-          </Row>
-        </Col>
-      </Row>
+
+            {/* THIS IS COMPLETION */}
+
+            <Row className="mealBar">
+              {/* THIS IS PROGRESS BAR */}
+              <Row
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <h3 style={{ marginBottom: "30px" }}>Today's Meal Progress</h3>
+                <div className="progBar">
+                  {exist && completedPlan ? (
+                    <AnalyticsHomePage completedPlan={completedPlan} />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </Row>
+
+              {/* THIS IS PLATES */}
+              <Row
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "80px",
+                }}
+              >
+                <h3 style={{ marginBottom: "30px" }}>Weekly Meals Completed</h3>
+
+                <div className="plates">
+                  {currMealPlan ? (
+                    <PlatesHomepage currMealPlan={currMealPlan} />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </Row>
+            </Row>
+          </Col>
+        </Row>
+      )}
     </>
   ) : (
     //if user is new
