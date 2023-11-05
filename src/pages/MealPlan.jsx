@@ -92,7 +92,7 @@ export default function MealPlan() {
     );
     
     let remainingCal = await dbFoodMethods.getRemainingCalories(currMealPlan.mealPlan);
-    console.log(remainingCal);
+    // console.log(remainingCal);
     
     if (remainingCal > 999){
         Cookies.set("recal", JSON.stringify(currMealPlan.mealPlan), { expires: expirationDate });

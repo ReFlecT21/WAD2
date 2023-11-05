@@ -24,7 +24,7 @@ export default function ChooseMealsV2() {
   const navigate = useNavigate();
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
 
-  console.log(`Calories: ${calories}`, `Recal: ${recal}`);
+  // console.log(`Calories: ${calories}`, `Recal: ${recal}`);
 
   useEffect(() => {
     if (!Cookies.get("calories")) {
@@ -81,7 +81,7 @@ export default function ChooseMealsV2() {
   };
 
   const test = (response) => {
-    console.log(response);
+    // console.log(response);
 
     setApiData((prevApiData) => ({
       ...prevApiData,

@@ -220,6 +220,7 @@ export function RecpieCardMealPlan({ recipe, setter = null , render, day, mealTy
 
                     <Button
                       className="buttonPrimary"
+                      style={{padding:"0px"}}
                       onClick={ async () =>{
                         let res = await handleButtonClick()
                         if (res) {

@@ -23,7 +23,7 @@ export function CreateMealPlanContentv2({
   selected,
   selectedSetter,
 }) {
-  console.log(recipes);
+  // console.log(recipes);
 
   return (
     <>
@@ -101,7 +101,7 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       Object.keys(mealPlanCopy).length !== 0 &&
       Object.keys(shoppingCart).length !== 0
     ) {
-      console.log("send to db");
+      // console.log("send to db");
       setLoadFlag(true);
       // console.log(mealPlan);
       // console.log(mealPlanCopy);
@@ -202,8 +202,8 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
       let IDs = [];
 
       if (recal == 0) {
-        console.log(info)
-        console.log("finalise meal plan");
+        // console.log(info)
+        // console.log("finalise meal plan");
         for (let i = 1; i < 8; i++) {
           ["Breakfast", "Lunch", "Dinner"].forEach(async (meal) => {
             let randomDish = Object.keys(info[meal].data)[
@@ -253,9 +253,9 @@ export function CreateMealPlanContentFinalise({ info, recal }) {
           await backendMethods.fetcherGET("getBulk/?", {ids: IDs.join(",")}, handleShoppingCart, i)
         }
       } else {
-        console.log("recal process");
+        // console.log("recal process");
         let exisitingMealPlan = JSON.parse(recal);
-        console.log(typeof exisitingMealPlan);
+        // console.log(typeof exisitingMealPlan);
         
         if (exisitingMealPlan) {
           // console.log(exisitingMealPlan);

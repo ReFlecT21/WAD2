@@ -33,7 +33,7 @@ export async function fetcherPOST(endpoint, body) {
     });
     // console.log(response);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 
   } catch (error) {

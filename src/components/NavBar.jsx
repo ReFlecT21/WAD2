@@ -34,7 +34,7 @@ function NavBar() {
     try {
       await signOut(auth);
       navigate("/login");
-      console.log("User logged out");
+      // console.log("User logged out");
     } catch (e) {
       console.error(e.message);
     }

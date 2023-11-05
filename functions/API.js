@@ -21,7 +21,7 @@ const foodAPI = {
     const url = `${this.APIRoot}recipes/${id}/information?includeNutrition=true`;
     try {
       const response = await axios.get(url, params);
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.error(error);

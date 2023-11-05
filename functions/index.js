@@ -17,7 +17,7 @@ const firestore = admin.firestore();
 // express code
 app.get("/getOne", async (req, res) => {
   console.log("connected to getOne");
-  console.log(req.query);
+  // console.log(req.query);
   const data = await foodAPI.getOne({
     params: "",
   });
@@ -152,7 +152,7 @@ app.get("/removeDinner/:userId", async (req, res) => {
 
 exports.getOne = functions.https.onRequest(async (req, res) => {
   console.log("connected to getOne");
-  console.log(req.query);
+  // console.log(req.query);
   const data = await foodAPI.getOne({
     params: "",
   });

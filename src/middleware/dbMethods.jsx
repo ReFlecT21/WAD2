@@ -36,7 +36,7 @@ export const dbUserMethods = {
         formInput: data,
         allergies: allergies,
       }).then(() => {
-        console.log("Document written");
+        // console.log("Document written");
       });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -276,7 +276,7 @@ export const dbFoodMethods = {
         CurrCal: 0,
         DayCal: 0,
       }).then(() => {
-        console.log("Document written");
+        // console.log("Document written");
       });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -293,7 +293,7 @@ export const dbFoodMethods = {
         DisplayPlan: plan2, // this is for display (1 for compeleted, 0 for not completed)
         shoppingCart: shoppingCart,
       });
-      console.log("Document written");
+      // console.log("Document written");
     } catch (e) {
       console.error("Error updating document: ", e);
     }
@@ -320,7 +320,7 @@ export const dbFoodMethods = {
 
     await this.init();
     const count = await this.countMealPlansInHistory();
-    console.log(count);
+    // console.log(count);
 
     try {
       // Get the current state of the document
@@ -332,7 +332,7 @@ export const dbFoodMethods = {
         const Details = data.Details;
         const weight = Details["weight"];
         const Date = data.CreatedAt;
-        console.log(data, CurrCals, Details, weight, Date);
+        // console.log(data, CurrCals, Details, weight, Date);
         const docRef = doc(
           db,
           "Food",
@@ -364,7 +364,7 @@ export const dbFoodMethods = {
       await updateDoc(this.docRef, {
         shoppingCart: shoppingCart,
       });
-      console.log("Document written");
+      // console.log("Document written");
     } catch (e) {
       console.error("Error updating document: ", e);
     }
@@ -447,7 +447,7 @@ export const dbFoodMethods = {
               DayCal: DailyCal,
               CurrCal: CurrCal,
             }).then(() => {
-              console.log("Document written");
+              // console.log("Document written");
               // return true;
               resolve({ Plan, cal });
             });

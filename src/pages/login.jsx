@@ -17,7 +17,7 @@ const LoginComponent = () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
 
-      console.log(user);
+      // console.log(user);
 
       dbFoodMethods.init();
       navigate("/home");
