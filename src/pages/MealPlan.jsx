@@ -116,7 +116,7 @@ export default function MealPlan() {
         {overlayData}
         {currDisplayMealPlan != null ? (
           <Container >
-            <Tabs 
+            <Tabs  
               // style={{backgroundColor:"", color:""}}
               defaultActiveKey="mealPlan"
               id="uncontrolled-tab-example"
@@ -124,7 +124,7 @@ export default function MealPlan() {
               // style={{padding: "20px"}}
               fill
             >
-              <Tab eventKey="mealPlan" title={"Current Meal Plan"}>
+              <Tab eventKey="mealPlan"  title={"Current Meal Plan"} >
                 {/* <CurrentMealPlan /> */}
                 <div style={{marginTop: "30px", marginBottom: "30px", display:"flex", justifyContent:"space-between"}}>
                   <h2 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>Your Current Meal Plan</h2>

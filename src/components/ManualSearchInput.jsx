@@ -689,8 +689,9 @@ export function ManualSearchComponent({currDay, showNotification}) {
                 <Tab eventKey="search" title={"Manual Search"} className="custom-tab-title">
 
                     <Form>
-                    <InputGroup className="mb-3">
+                    <InputGroup className="mb-3"  >
                         <Form.Control
+                        style={{borderRadius:"20px"}}
                         aria-label="Default"
                         aria-describedby="inputGroup-sizing-default"
                         value={inputValue}
@@ -720,7 +721,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <Col md={12}>
                             <h5>Food Name</h5>
                             <Form.Control
-                            style={{marginBottom:"15px"}}
+                            style={{marginBottom:"15px", borderRadius:"20px"}}
                             id="manual_foodName"
                             aria-label="name"
                             aria-describedby="inputGroup-sizing-default"
@@ -732,7 +733,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Calories</h5>
                                 <Form.Control
-                                style={{marginBottom:"15px"}}
+                                style={{marginBottom:"15px", borderRadius:"20px"}}
                                 type='number'
                                 id="manual_calories"
                                 aria-label="name"
@@ -749,7 +750,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Protein</h5>
                                 <Form.Control
-                                style={{marginBottom:"15px"}}
+                                style={{marginBottom:"15px", borderRadius:"20px"}}
                                 type='number'
                                 id="manual_protein"
                                 aria-label="name"
@@ -768,7 +769,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Fat</h5>
                                 <Form.Control
-                                style={{marginBottom:"15px"}}
+                                style={{marginBottom:"15px", borderRadius:"20px"}}
                                 type='number'
                                 id="manual_fat"
                                 aria-label="name"
@@ -786,6 +787,7 @@ export function ManualSearchComponent({currDay, showNotification}) {
                             <div>
                                 <h5>Carbs</h5>
                                 <Form.Control
+                                style={{ borderRadius:"20px"}}
                                 type='number'
                                 id="manual_carbs"
                                 aria-label="name"
