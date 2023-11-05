@@ -357,7 +357,7 @@ export const dbFoodMethods = {
 
   checkAnalytics: async function () {
     if (!this.docRef) {
-      console.log("Document reference does not exist");
+      console.error("Document reference does not exist");
       return false; // Return false or some other value to indicate an error occurred
     }
 
@@ -369,10 +369,10 @@ export const dbFoodMethods = {
       const subSnap = await getDocs(subRef);
       // Check if the subcollection is empty or not
       if (subSnap.empty) {
-        console.log("MealPlanHistory does not exist");
+        console.error("MealPlanHistory does not exist");
         return false; // Return false or some other value to indicate no data found
       } else {
-        console.log("MealPlanHistory exists");
+        // console.log("MealPlanHistory exists");
         return true; // Return true or some other value to indicate data found
       }
     } catch (e) {
