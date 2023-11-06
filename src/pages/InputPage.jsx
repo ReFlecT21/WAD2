@@ -25,8 +25,6 @@ import Cookies from "js-cookie";
 import Lottie from "lottie-react";
 import animationData from "../assets/animation.json"; // Replace with your animation file
 
-
-
 const InputPage = () => {
   const navigate = useNavigate();
   const navHome = () => navigate("/home");
@@ -150,7 +148,7 @@ const InputPage = () => {
     });
     Cookies.set("recal", 0, { expires: expirationDate });
 
-    await dbUserMethods.setUserData(formData, allergies, calculateCalories);
+    await dbUserMethods.setUserData(formData, allergies, calculateCalories());
     // localStorage.setItem("calories", calculatedCalories);
     // localStorage.setItem("allergies", JSON.stringify(allergies));
     // console.log(calories);

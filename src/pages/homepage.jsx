@@ -1,54 +1,54 @@
-  import React, { useEffect, useState, useRef } from "react";
-  // import { fetcherPOST } from "../middleware/Fetcher";
-  import { NavBar } from "../components";
-  import { Row, Col, Button, Stack, Card, Container } from "react-bootstrap";
-  import { Box } from "@mui/material";
-  import { useAtom } from "jotai";
-  import { RecipeOverlay } from "../atoms/recipeOverlay";
-  import { Modal } from "@mui/material";
-  import { ManualSearchComponent } from "../components/ManualSearchInput";
-  import AnalyticsPage from "./AnalyticsPage";
-  // import Spline from "@splinetool/react-spline";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import { faPlus } from "@fortawesome/free-solid-svg-icons";
-  // import {
-  //   collection,
-  //   doc,
-  //   getDoc,
-  //   setDoc,
-  //   addDoc,
-  //   query,
-  //   getDocs,
-  //   serverTimestamp,
-  // } from "firebase/firestore";
-  // import { db, auth } from "../../firebase";
-  // import getMealPlan from "../middleware/getMealPlan";
-  import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
-  import { isMobile } from "react-device-detect";
-  import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
-  import PageNotification from "../components/PageNotification";
-  import currDayCalculator from "../middleware/currDayCalculator";
-  // import { useHistory } from 'react-router-dom';
-  import BarChart from "../components/BarChart";
-  // import AnalyticsHomePage from "../components/analyticsHomepage";
+import React, { useEffect, useState, useRef } from "react";
+// import { fetcherPOST } from "../middleware/Fetcher";
+import { NavBar } from "../components";
+import { Row, Col, Button, Stack, Card, Container } from "react-bootstrap";
+import { Box } from "@mui/material";
+import { useAtom } from "jotai";
+import { RecipeOverlay } from "../atoms/recipeOverlay";
+import { Modal } from "@mui/material";
+import { ManualSearchComponent } from "../components/ManualSearchInput";
+import AnalyticsPage from "./AnalyticsPage";
+// import Spline from "@splinetool/react-spline";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+// import {
+//   collection,
+//   doc,
+//   getDoc,
+//   setDoc,
+//   addDoc,
+//   query,
+//   getDocs,
+//   serverTimestamp,
+// } from "firebase/firestore";
+// import { db, auth } from "../../firebase";
+// import getMealPlan from "../middleware/getMealPlan";
+import { MealPlanCard, MealPlanCardHome } from "../components/MealPlanCard";
+import { isMobile } from "react-device-detect";
+import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
+import PageNotification from "../components/PageNotification";
+import currDayCalculator from "../middleware/currDayCalculator";
+// import { useHistory } from 'react-router-dom';
+import BarChart from "../components/BarChart";
+// import AnalyticsHomePage from "../components/analyticsHomepage";
+import { animated, useSpring } from "@react-spring/web";
+import { useInView } from "react-intersection-observer";
+import Carousel from "react-bootstrap/Carousel";
+// import ExampleCarouselImage from 'components/ExampleCarouselImage';
+import { faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
+import carouselOne from "/carousel1.jpg";
+import carouselTwo from "/carousel2.jpg";
+import carouselThird from "/carousel3.jpg";
+import carouselFourth from "/carousel4.jpg";
+import carouselFifth from "/carousel5.jpg";
+import { useNavigate } from "react-router-dom/dist";
 
+import Lottie from "lottie-react";
+import animationData from "../assets/food.json";
+import LoadingAnimationData from "../assets/loading.json";
+import PlatesHomepage from "../components/platesHomepage";
+import AnalyticsHomePage from "../components/AnalyticsHomepage";
 
-  import Carousel from "react-bootstrap/Carousel";
-  // import ExampleCarouselImage from 'components/ExampleCarouselImage';
-  import carouselOne from "/carousel1.jpg";
-  import carouselTwo from "/carousel2.jpg";
-  import carouselThird from "/carousel3.jpg";
-  import carouselFourth from "/carousel4.jpg";
-  import carouselFifth from "/carousel5.jpg";
-  import { useNavigate } from "react-router-dom/dist";
-
-  import Lottie from "lottie-react";
-  import animationData from "../assets/food.json"; 
-  import LoadingAnimationData from "../assets/loading.json"
-  import PlatesHomepage from "../components/platesHomepage";
-  import AnalyticsHomePage from "../components/AnalyticsHomepage";
-
-  
 const HomePage = () => {
   const navigate = useNavigate();
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
@@ -232,7 +232,7 @@ const HomePage = () => {
                   onClick={() => {
                     setOverlayData(
                       <ManualSearchComponent
-                        currDay={currDay + 2}
+                        currDay={currDay}
                         showNotification={showNotification}
                       />
                     );
