@@ -12,9 +12,7 @@ const AnalyticsHomePage = ({ completedPlan }) => {
     currDay = currDayCalculator(completedPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
-  useEffect(() => {
-    console.log(DailyCal);
-  }, [DailyCal]);
+
   const checkDaily = async () => {
     // console.log("yes");
     if (completedPlan?.Completed) {
@@ -39,7 +37,7 @@ const AnalyticsHomePage = ({ completedPlan }) => {
   const call = async () => {
     let temp1 = await dbUserMethods.getDayCal();
     setDailyIntake(temp1);
-    console.log(temp1);
+
     let temp2 = Math.floor((Number(DailyCal) / temp1) * 100);
     if (temp2 > 95) {
       temp2 = 100;
@@ -48,10 +46,6 @@ const AnalyticsHomePage = ({ completedPlan }) => {
   };
 
   call();
-
-  useEffect(() => {
-    console.log(now);
-  }, [now]);
 
   // const calories = localStorage.getItem("calories");
 
