@@ -33,12 +33,6 @@ const AnalyticsHomePage = ({ completedPlan }) => {
 
   const calories = localStorage.getItem("calories");
 
-<<<<<<< Updated upstream
-  let now = Math.floor((Number(DailyCal) / calories) * 100);
-  if (now > 95) {
-    now = 100;
-  }
-=======
 
   useEffect(() => {
     const call = async () => {
@@ -68,7 +62,6 @@ const AnalyticsHomePage = ({ completedPlan }) => {
   // if (now > 95) {
   //   now = 100;
   // }
->>>>>>> Stashed changes
   // console.log(now);
   return <ProgressBar now={now} label={`${now}%`} 
   style={{padding:"0px", width:"500px", height: "50px", borderRadius: "50px"}}/>;

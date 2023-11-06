@@ -30,7 +30,8 @@
   import currDayCalculator from "../middleware/currDayCalculator";
   // import { useHistory } from 'react-router-dom';
   import BarChart from "../components/BarChart";
-  import AnalyticsHomePage from "../components/analyticsHomepage";
+  // import AnalyticsHomePage from "../components/analyticsHomepage";
+
 
   import Carousel from "react-bootstrap/Carousel";
   // import ExampleCarouselImage from 'components/ExampleCarouselImage';
@@ -44,9 +45,10 @@
   import Lottie from "lottie-react";
   import animationData from "../assets/food.json"; 
   import LoadingAnimationData from "../assets/loading.json"
+  import PlatesHomepage from "../components/platesHomepage";
+  import AnalyticsHomePage from "../components/AnalyticsHomepage";
 
-
-import PlatesHomepage from "../components/platesHomepage";
+  
 const HomePage = () => {
   const navigate = useNavigate();
   const [overlayData, setOverlayData] = useAtom(RecipeOverlay);
@@ -194,7 +196,7 @@ const HomePage = () => {
           onClick={() => {
             setOverlayData(
               <ManualSearchComponent
-                currDay={currDay + 2}
+                currDay={currDay}
                 showNotification={showNotification}
               />
             );
