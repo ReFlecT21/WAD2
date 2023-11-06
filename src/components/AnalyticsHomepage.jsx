@@ -32,14 +32,13 @@ const AnalyticsHomePage = ({ completedPlan }) => {
     checkDaily();
   }, []);
 
-  // const calories = localStorage.getItem("calories");
-  // const [calories, setCalories] = useState(0);
-  const [now, setNow] = useState(0);
+  const calories = localStorage.getItem("calories");
 
 
   useEffect(() => {
     const call = async () => {
       let temp1 = await dbUserMethods.getDayCal();
+      console.log(temp1);
       let temp2= Math.floor((Number(DailyCal) / temp1) * 100)
       if (temp2 > 95) {
         temp2 = 100;
