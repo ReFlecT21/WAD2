@@ -23,9 +23,9 @@ npm run dev
 
 TEST ACCOUNTS:
 New user 
-Email: testAdmin@gmail.com
-password: qazwsxedc
+Email: demoEmpty@gmail.com
+password: drago123
 
-User halfway through meal plan
+User that has completed multiple weeks 
 Email: cuprimuni4@gmail.com
 password: yhujik123
