@@ -176,6 +176,7 @@ return (
         <Button className="chooseBtn" onClick={handleAdd}>
             Add
             </Button>
+            <p style={{color:"#1F5E4B"}}>By adding this food item, you will be replacing your {day_Index} {Meal_Type}</p>
             
             <Button className="chooseBtn" onClick={async ()=>{
                 await handleRecal()
