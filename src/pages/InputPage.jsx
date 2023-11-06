@@ -150,7 +150,7 @@ const InputPage = () => {
     });
     Cookies.set("recal", 0, { expires: expirationDate });
 
-    await dbUserMethods.setUserData(formData, allergies);
+    await dbUserMethods.setUserData(formData, allergies, calculateCalories);
     // localStorage.setItem("calories", calculatedCalories);
     // localStorage.setItem("allergies", JSON.stringify(allergies));
     // console.log(calories);

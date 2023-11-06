@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { dbFoodMethods } from "../middleware/dbMethods";
+import { dbFoodMethods, dbUserMethods } from "../middleware/dbMethods";
 import currDayCalculator from "../middleware/currDayCalculator";
 const AnalyticsHomePage = ({ completedPlan }) => {
   const [DailyCal, setDailyCal] = useState(0);
@@ -31,12 +31,23 @@ const AnalyticsHomePage = ({ completedPlan }) => {
     checkDaily();
   }, []);
 
-  const calories = localStorage.getItem("calories");
+  // const calories = localStorage.getItem("calories");
+  const [calories, setCalories] = useState(0);
+  const [now, setNow] = useState(0);
+  dbUserMethods.getDayCal().then((res) => {
+    setCalories(res);
+    let temp = Math.floor((Number(DailyCal) / res) * 100)
+    if (temp > 95) {
+      temp = 100;
+    }
+    setNow(temp);
 
-  let now = Math.floor((Number(DailyCal) / calories) * 100);
-  if (now > 95) {
-    now = 100;
-  }
+  });
+
+  // let now = Math.floor((Number(DailyCal) / calories) * 100);
+  // if (now > 95) {
+  //   now = 100;
+  // }
   // console.log(now);
   return (
     <ProgressBar

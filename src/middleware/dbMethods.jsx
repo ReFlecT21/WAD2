@@ -25,7 +25,7 @@ export const dbUserMethods = {
     }
   },
 
-  setUserData: async function (data, allergies) {
+  setUserData: async function (data, allergies, calculateCalories) {
     // console.log("setUserData");
     // console.log(data);
     // console.log(allergies);
@@ -35,6 +35,7 @@ export const dbUserMethods = {
       await setDoc(this.docRef, {
         formInput: data,
         allergies: allergies,
+        dayCal: calculateCalories,
       }).then(() => {
         // console.log("Document written");
       });
@@ -65,6 +66,18 @@ export const dbUserMethods = {
       // const formInput = data?.formInput;
       const allergies = data?.allergies;
       return allergies;
+    } else {
+      console.error("Document does not exist");
+    }
+  },
+  getDayCal: async function () {
+    await this.init();
+
+    if (this.docSnap) {
+      const data = this.docSnap.data();
+      // const formInput = data?.formInput;
+      const dayCal = data?.dayCal;
+      return dayCal;
     } else {
       console.error("Document does not exist");
     }
