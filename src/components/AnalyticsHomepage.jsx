@@ -33,17 +33,32 @@ const AnalyticsHomePage = ({ completedPlan }) => {
   }, []);
 
   // const calories = localStorage.getItem("calories");
-  const [calories, setCalories] = useState(0);
+  // const [calories, setCalories] = useState(0);
   const [now, setNow] = useState(0);
-  dbUserMethods.getDayCal().then((res) => {
-    setCalories(res);
-    let temp = Math.floor((Number(DailyCal) / res) * 100)
-    if (temp > 95) {
-      temp = 100;
-    }
-    setNow(temp);
 
-  });
+
+  useEffect(() => {
+    const call = async () => {
+      let temp1 = await dbUserMethods.getDayCal();
+      let temp2= Math.floor((Number(DailyCal) / temp1) * 100)
+      if (temp2 > 95) {
+        temp2 = 100;
+      }
+      setNow(temp2);
+    }
+
+    call(); 
+    
+  }, []);
+  // dbUserMethods.getDayCal().then((res) => {
+  //   setCalories(res);
+  //   let temp = Math.floor((Number(DailyCal) / res) * 100)
+  //   if (temp > 95) {
+  //     temp = 100;
+  //   }
+  //   setNow(temp);
+
+  // });
 
   // let now = Math.floor((Number(DailyCal) / calories) * 100);
   // if (now > 95) {
