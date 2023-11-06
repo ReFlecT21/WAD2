@@ -151,9 +151,7 @@ const HomePage = () => {
     currDay = currDayCalculator(currDisplayMealPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
-  useEffect(() => {
-    console.log(currDay);
-  }, [currDay]);
+
   return buffer ? (
     // <Lottie
     //   animationData={LoadingAnimationData} // Your animation data
