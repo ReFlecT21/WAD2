@@ -10,6 +10,9 @@ const AnalyticsHomePage = ({ completedPlan }) => {
     currDay = currDayCalculator(completedPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
+  useEffect(() => {
+    console.log(currDay);
+  }, [currDay]);
   const checkDaily = async () => {
     // console.log("yes");
     if (completedPlan?.Completed) {

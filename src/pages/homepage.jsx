@@ -151,7 +151,9 @@ const HomePage = () => {
     currDay = currDayCalculator(currDisplayMealPlan.CreatedAt);
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
-
+  useEffect(() => {
+    console.log(currDay);
+  }, [currDay]);
   return buffer ? (
     // <Lottie
     //   animationData={LoadingAnimationData} // Your animation data
@@ -584,8 +586,8 @@ const HomePage = () => {
                       borderRadius: "20px",
                       width: "250px ",
                       height: "auto",
-                      marginBottom:"8px",
-                      marginLeft:"20px",
+                      marginBottom: "8px",
+                      marginLeft: "20px",
                     }}
                   >
                     <Card.Body style={{ textAlign: "center" }}>
@@ -622,9 +624,8 @@ const HomePage = () => {
                       borderRadius: "20px",
                       width: "250px ",
                       height: "auto",
-                      marginLeft:"20px",
-                      marginBottom:"8px",
-
+                      marginLeft: "20px",
+                      marginBottom: "8px",
                     }}
                   >
                     <Card.Body style={{ textAlign: "center" }}>
