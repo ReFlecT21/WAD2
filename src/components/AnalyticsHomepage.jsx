@@ -33,10 +33,42 @@ const AnalyticsHomePage = ({ completedPlan }) => {
 
   const calories = localStorage.getItem("calories");
 
+<<<<<<< Updated upstream
   let now = Math.floor((Number(DailyCal) / calories) * 100);
   if (now > 95) {
     now = 100;
   }
+=======
+
+  useEffect(() => {
+    const call = async () => {
+      let temp1 = await dbUserMethods.getDayCal();
+      console.log(temp1);
+      let temp2= Math.floor((Number(DailyCal) / temp1) * 100)
+      if (temp2 > 95) {
+        temp2 = 100;
+      }
+      setNow(temp2);
+    }
+
+    call(); 
+    
+  }, []);
+  // dbUserMethods.getDayCal().then((res) => {
+  //   setCalories(res);
+  //   let temp = Math.floor((Number(DailyCal) / res) * 100)
+  //   if (temp > 95) {
+  //     temp = 100;
+  //   }
+  //   setNow(temp);
+
+  // });
+
+  // let now = Math.floor((Number(DailyCal) / calories) * 100);
+  // if (now > 95) {
+  //   now = 100;
+  // }
+>>>>>>> Stashed changes
   // console.log(now);
   return <ProgressBar now={now} label={`${now}%`} 
   style={{padding:"0px", width:"500px", height: "50px", borderRadius: "50px"}}/>;
