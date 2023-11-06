@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-
+import currDayCalculator from "../middleware/currDayCalculator";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { dbFoodMethods } from "../middleware/dbMethods";
 import currDayCalculator from "../middleware/currDayCalculator";
