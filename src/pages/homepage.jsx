@@ -30,7 +30,7 @@ import PageNotification from "../components/PageNotification";
 import currDayCalculator from "../middleware/currDayCalculator";
 // import { useHistory } from 'react-router-dom';
 import BarChart from "../components/BarChart";
-import AnalyticsHomePage from "../components/analyticsHomepage";
+import AnalyticsHomePage from "../components/AnalyticsHomepage";
 
 import Carousel from "react-bootstrap/Carousel";
 // import ExampleCarouselImage from 'components/ExampleCarouselImage';
@@ -148,7 +148,7 @@ const HomePage = () => {
   var currDay = 0;
 
   if (currDisplayMealPlan?.DisplayMealPlan) {
-    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt);
+    currDay = currDayCalculator(currDisplayMealPlan.CreatedAt) + 1;
     // FOR TESTING PURPOSES ONLY (NEED TO +1 )
   }
 
@@ -407,7 +407,7 @@ const HomePage = () => {
                   alignItems: "center",
                   marginBottom: "50px",
                   marginTop: "30px",
-                  margin: "20px",
+                  marginLeft: "20px",
                 }}
               >
                 <Col className="insightInfo">
@@ -567,7 +567,7 @@ const HomePage = () => {
                   alignItems: "center",
                   marginBottom: "50px",
                   marginTop: "30px",
-                  marginRight: "20px",
+                  marginRight: "10px",
                 }}
               >
                 <Col
