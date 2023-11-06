@@ -584,6 +584,8 @@ const HomePage = () => {
                       borderRadius: "20px",
                       width: "250px ",
                       height: "auto",
+                      marginBottom:"8px",
+                      marginLeft:"20px",
                     }}
                   >
                     <Card.Body style={{ textAlign: "center" }}>
@@ -620,6 +622,9 @@ const HomePage = () => {
                       borderRadius: "20px",
                       width: "250px ",
                       height: "auto",
+                      marginLeft:"20px",
+                      marginBottom:"8px",
+
                     }}
                   >
                     <Card.Body style={{ textAlign: "center" }}>
