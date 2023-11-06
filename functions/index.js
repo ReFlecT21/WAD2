@@ -9,14 +9,14 @@ const app = express();
 // app.use(cors({ origin: true }));
 // app.use(cors({ origin: ["https://wad2-395904.web.app", "https://wad2-395904.firebaseapp.com"] }));
 // app.use(cors({ origin: true }));
-// const corsHandler = cors({ origin: true });
+const corsHandler = cors({ origin: true });
 app.use(cors());
-const corsHandler = cors({
-  origin: [
-    "https://wad2-395904.web.app",
-    "https://wad2-395904.firebaseapp.com",
-  ],
-});
+// const corsHandler = cors({
+//   origin: [
+//     "https://wad2-395904.web.app",
+//     "https://wad2-395904.firebaseapp.com",
+//   ],
+// });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const firestore = admin.firestore();
